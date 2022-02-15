@@ -2,6 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +17,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,6 +98,69 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String eventDescription} into an {@code EventDescription}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventDescription} is invalid.
+     */
+    public static EventDescription parseEventDescription(String eventDescription) throws ParseException {
+        requireNonNull(eventDescription);
+        String trimmedEventDescription = eventDescription.trim();
+        if (!EventDescription.isValidEventDescription(trimmedEventDescription)) {
+            throw new ParseException(EventDescription.MESSAGE_CONSTRAINTS);
+        }
+        return new EventDescription(eventDescription);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        try {
+            return LocalDate.parse(trimmedDate);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(e.getMessage());
+        }
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code LocalTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static LocalTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        try {
+            return LocalTime.parse(trimmedTime);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(e.getMessage());
+        }
+    }
+
+    /**
+     * Parses a {@code String duration} into an {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code duration} is invalid.
+     */
+    public static Duration parseDuration(String duration) throws ParseException {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        try {
+            return Duration.ofHours(Integer.parseInt(trimmedDuration));
+        } catch (DateTimeParseException | NumberFormatException e) {
+            throw new ParseException(e.getMessage());
+        }
     }
 
     /**
