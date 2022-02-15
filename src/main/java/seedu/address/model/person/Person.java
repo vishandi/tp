@@ -131,7 +131,8 @@ public class Person {
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append(getSchedule());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {

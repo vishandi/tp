@@ -22,6 +22,14 @@ public class Schedule {
         return Collections.unmodifiableList(events);
     }
 
+    public void addEvent(Event event) {
+        events.add(event);
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
+
     /**
      * Returns true if both schedules have the same list of events.
      */

@@ -1,5 +1,6 @@
 package seedu.address.model.schedule;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -9,17 +10,19 @@ import java.time.LocalTime;
  */
 public class Event {
 
-    private EventDescription eventDescription;
-    private LocalDate date;
-    private LocalTime time;
+    private final EventDescription eventDescription;
+    private final LocalDate date;
+    private final LocalTime time;
+    private final Duration duration;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(EventDescription eventDescription, LocalDate date, LocalTime time) {
+    public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration) {
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
+        this.duration = duration;
     }
 
     public LocalDate getDate() {
@@ -28,6 +31,10 @@ public class Event {
 
     public LocalTime getTime() {
         return time;
+    }
+
+    public Duration getDuration() {
+        return duration;
     }
 
     public EventDescription getEventDescription() {
@@ -50,12 +57,13 @@ public class Event {
         Event otherEvent = (Event) other;
         return otherEvent.getEventDescription().equals(getEventDescription())
                 && otherEvent.getDate().equals(getDate())
-                && otherEvent.getTime().equals(getTime());
+                && otherEvent.getTime().equals(getTime())
+                && otherEvent.getDuration().equals(getDuration());
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s %s", eventDescription, date, time);
+        return String.format("%s %s %s %s", eventDescription, date, time, duration);
     }
 
 }
