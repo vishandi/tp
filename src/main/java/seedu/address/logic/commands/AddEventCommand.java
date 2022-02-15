@@ -14,7 +14,6 @@ public class AddEventCommand extends Command {
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, AddEvent: %2$s";
 
-    
     @Override
     public CommandResult execute(Model model) throws CommandException {
         throw new CommandException(MESSAGE_NOT_IMPLEMENTED_YET);

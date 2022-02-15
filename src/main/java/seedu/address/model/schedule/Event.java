@@ -3,12 +3,19 @@ package seedu.address.model.schedule;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Represents a scheduled Event.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Event {
 
     private EventDescription eventDescription;
     private LocalDate date;
     private LocalTime time;
 
+    /**
+     * Every field must be present and not null.
+     */
     public Event(EventDescription eventDescription, LocalDate date, LocalTime time) {
         this.eventDescription = eventDescription;
         this.date = date;
