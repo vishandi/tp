@@ -17,6 +17,10 @@ public class EventDescription {
 
     public final String eventDescription;
 
+    private EventDescription() {
+        this.eventDescription = "";
+    }
+
     /**
      * Constructs a {@code Name}.
      *

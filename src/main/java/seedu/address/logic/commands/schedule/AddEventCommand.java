@@ -39,7 +39,7 @@ public class AddEventCommand extends Command {
             + PREFIX_DATE + "DATE "
             + PREFIX_TIME + "TIME "
             + PREFIX_DURATION + "DURATION "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + "3 "
             + PREFIX_EVENT_DESCRIPTION + "CS2103T Tutorial "
             + PREFIX_DATE + "2022-12-28 "

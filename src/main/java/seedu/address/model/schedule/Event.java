@@ -15,6 +15,16 @@ public class Event {
     private final LocalTime time;
     private final Duration duration;
 
+    private static final String PLACEHOLDER_EVENT_DESCRIPTION = "Event Description";
+    public static final String MESSAGE_CONSTRAINTS = "Events should be of format EVENT_DESCRIPTION YYYY-MM-DD HH:MM";
+
+    private Event() {
+        this.eventDescription = new EventDescription(PLACEHOLDER_EVENT_DESCRIPTION);
+        this.date = LocalDate.now();
+        this.time = LocalTime.now();
+        this.duration = Duration.ZERO;
+    }
+
     /**
      * Every field must be present and not null.
      */
@@ -39,6 +49,13 @@ public class Event {
 
     public EventDescription getEventDescription() {
         return eventDescription;
+    }
+
+    /**
+     * Returns true if the given event is valid.
+     */
+    public static boolean isValidEvent(Event event) {
+        return EventDescription.isValidEventDescription(event.getEventDescription().toString());
     }
 
     /**

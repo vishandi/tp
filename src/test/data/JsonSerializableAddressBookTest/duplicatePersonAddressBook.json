@@ -4,6 +4,23 @@
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
+    "schedule" : {
+      "events" : [ {
+        "eventDescription" : {
+          "eventDescription" : "CS2103T Tutorial"
+        },
+        "date" : "2022-12-28",
+        "time" : "10:00:00",
+        "duration" : "PT3H"
+      }, {
+        "eventDescription" : {
+          "eventDescription" : "CS2106 Lab"
+        },
+        "date" : "2022-12-28",
+        "time" : "10:00:00",
+        "duration" : "PT3H"
+      } ]
+    },
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
