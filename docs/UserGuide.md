@@ -3,7 +3,10 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+UniGenda is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) 
+while still having the benefits of a Graphical User Interface (GUI). If you are an NUS student, 
+and you can type fast, UniGenda can get your contact management tasks done faster than traditional GUI apps.
+
 
 * Table of Contents
 {:toc}
@@ -166,9 +169,101 @@ AddressBook data are saved as a JSON file `[JAR file location]/data/addressbook.
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.
 </div>
 
-### Archiving data files `[coming in v2.0]`
+--------------------------------------------------------------------------------------------------------------------
+## New/Modified Features (Coming in V1.2)
 
-_Details coming soon ..._
+### Adding a person: `add`
+Adds a person to UniGenda without needing complete information about the person.
+
+Format: `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [ig/INSTAGRAM_ID] [tele/TELEGRAM_HANDLE] [t/TAG]`
+* Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
+
+Examples:
+* add n/John Doe p/98765432
+* add n/Betsy Crow t/friend p/1234567 a/Newgate Prison t/Criminal
+
+### Deleting a tag: `deleteTag`
+Deletes a tag that a contact has.
+
+Format: `deleteTag INDEX t/TAGTOBEDELETED`
+* Edits the person’s tag at the specified INDEX. The INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+* TAGTOBEDELETED is case-insensitive. Eg. criminal will match Criminal
+* Only fully-named-tag will be matched. Eg. crim will not be matched with Criminal
+* TAGTOBEDELETED must be one of the tags that the person at index INDEX has.
+
+Examples:
+* `deleteTag 2 t/Criminal`
+
+### Adding a person’s schedule: `addEvent`
+Adds an event to the specified indexed contact.
+
+Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]`
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+* If TIME is not specified, it will be considered as a full-day event.
+* If DURATION is specified, TIME also needs to be specified.
+D* URATION should be in the format -H-M
+
+Example: 
+* `addSchedule 3 da/20-12-2022 ti/1000 du/2`
+
+### Deleting a person's schedule: `deleteEvent`
+Deletes an event from the specified indexed contact.
+
+Format: `deleteEvent INDEX EVENT_NUMBER`
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+* EVENT_NUMBER refers to the index of schedules. The schedule_number must be a positive integer 1, 2, …
+
+Example: 
+* `deleteSchedule 3 3`
+
+### Editing a person’s schedule: `editEvent`
+Edits the schedule assigned to a person.
+
+Format: `editSchedule INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]`
+* Edits an event assigned to a person.
+* At least one of the optional fields must be provided
+
+Example:
+* `editSchedule 3 3 da/21-12-2022`
+* `editSchedule 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
+* `editSchedule 3 1 ed/CS2103T lecture`
+
+### Viewing a person’s schedule: `viewSchedule`
+Shows the schedule of a specified person.
+
+Format: `viewSchedule INDEX`
+* Shows the schedule of a specific person at INDEX
+* The index refers to the index number shown in the displayed person list.
+* The index must be positive. Eg. 1, 2, 3…
+
+Example: 
+* `viewSchedule 5`
+
+### Get friends who are free: `freeSchedule`
+Retrieves information of friends who are free at the specified time or date.
+
+Format: `freeSchedule ti/TIME [da/ DATE]`
+* Shows the friends who are free at the time specified today
+* Shows the friends who are free at the time on the date specified
+* TIME is the time at which the user want to find out if the person is free
+* TIME should be specified in 24h format
+* DATE should not be specified if TIME is not specified
+
+Examples:
+* `freeSchedule ti/ 1200`
+* `freeSchedule ti/ 1400 da/14-02-2021`
+
+### Get team’s common free timing: `freeGroupSchedule`
+Gets the common timing of a group of friends is free (by tag)
+
+Format: `freeGroupSchedule t/TAG`
+* Show the overlapping timings that a group of friends with the same tags are free
+
+### View contacts by tags: `viewGroup`
+Shows the names of friends with the same tag
+
+Format: `viewGroup t/TAG`
+* Shows contacts sharing the same tag
 
 --------------------------------------------------------------------------------------------------------------------
 
