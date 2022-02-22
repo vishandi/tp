@@ -10,13 +10,13 @@ import java.time.LocalTime;
  */
 public class Event {
 
+    public static final String MESSAGE_CONSTRAINTS = "Events should be of format EVENT_DESCRIPTION YYYY-MM-DD HH:MM";
+    private static final String PLACEHOLDER_EVENT_DESCRIPTION = "Event Description";
+
     private final EventDescription eventDescription;
     private final LocalDate date;
     private final LocalTime time;
     private final Duration duration;
-
-    private static final String PLACEHOLDER_EVENT_DESCRIPTION = "Event Description";
-    public static final String MESSAGE_CONSTRAINTS = "Events should be of format EVENT_DESCRIPTION YYYY-MM-DD HH:MM";
 
     private Event() {
         this.eventDescription = new EventDescription(PLACEHOLDER_EVENT_DESCRIPTION);

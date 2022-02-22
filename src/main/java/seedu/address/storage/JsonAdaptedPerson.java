@@ -108,7 +108,8 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         if (schedule == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Schedule.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Schedule.class.getSimpleName()));
         }
         if (!Schedule.isValidSchedule(schedule)) {
             throw new IllegalValueException(Schedule.MESSAGE_CONSTRAINTS);
