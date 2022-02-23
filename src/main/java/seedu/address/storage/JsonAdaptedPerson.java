@@ -114,7 +114,7 @@ class JsonAdaptedPerson {
         if (!Schedule.isValidSchedule(schedule)) {
             throw new IllegalValueException(Schedule.MESSAGE_CONSTRAINTS);
         }
-        final Schedule modelSchedule = new Schedule(schedule.getEvents());
+        final Schedule modelSchedule = schedule;
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
