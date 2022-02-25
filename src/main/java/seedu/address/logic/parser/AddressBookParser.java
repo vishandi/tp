@@ -74,7 +74,7 @@ public class AddressBookParser {
             return new AddEventCommandParser().parse(arguments);
 
         case FreeScheduleCommand.COMMAND_WORD:
-            return new FreeScheduleCommand();
+            return new FreeScheduleCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
