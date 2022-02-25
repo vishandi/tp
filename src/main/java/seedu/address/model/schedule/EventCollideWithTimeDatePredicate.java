@@ -8,6 +8,9 @@ import java.util.stream.Stream;
 
 import seedu.address.model.person.Person;
 
+/**
+ * Tests that a {@code Person}'s {@code Schedule} does not collide to given time and/or date.
+ */
 public class EventCollideWithTimeDatePredicate implements Predicate<Person> {
 
     private final LocalTime time;
