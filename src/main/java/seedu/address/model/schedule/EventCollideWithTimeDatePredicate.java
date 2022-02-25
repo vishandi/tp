@@ -16,6 +16,11 @@ public class EventCollideWithTimeDatePredicate implements Predicate<Person> {
     private final LocalTime time;
     private final LocalDate date;
 
+    /**
+     * Constructor method of EventCollideWithTimeDatePredicate
+     * @param time to check if there exist Events that collide with it
+     * @param date to check if there exist Events that collide with it
+     */
     public EventCollideWithTimeDatePredicate(LocalTime time, LocalDate date) {
         this.time = time;
         this.date = date;
