@@ -36,7 +36,10 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE), pe);
         }
-        assert indices.size() == 2;
+
+        if (indices.size() != 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE));
+        }
 
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
         if (argMultimap.getValue(PREFIX_EVENT_DESCRIPTION).isPresent()) {
