@@ -79,7 +79,6 @@ public class AddEventCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        System.out.println(personToEdit.getSchedule());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, personToEdit.getName()));
     }
 
