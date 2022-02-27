@@ -18,7 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 
-public class AddEventCommandParser {
+public class AddEventCommandParser implements Parser<AddEventCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddEventCommand

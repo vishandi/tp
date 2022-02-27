@@ -31,15 +31,15 @@ public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "addEvent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an event to the indexed person's schedule in the address book. "
             + "Parameters: "
-            + "INDEX "
+            + "INDEX (must be a positive integer) "
             + PREFIX_EVENT_DESCRIPTION + "EVENT_DESCRIPTION "
             + PREFIX_DATE + "DATE "
             + PREFIX_TIME + "TIME "
             + PREFIX_DURATION + "DURATION "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + "3 "
             + PREFIX_EVENT_DESCRIPTION + "CS2103T Tutorial "
             + PREFIX_DATE + "2022-12-28 "
@@ -79,7 +79,6 @@ public class AddEventCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        System.out.println(personToEdit.getSchedule());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, personToEdit.getName()));
     }
 

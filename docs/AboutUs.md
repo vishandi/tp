@@ -22,19 +22,19 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Ong Han Qin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/hanqinilnix.png" width="200px">
 
 [[github](https://github.com/hanqinilnix)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/hanqinilnix.md)]
 
 * Role: Undecided
 * Responsibilities: Undecided
 
 ### Vishandi Rudy Keneta
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/vishandi.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/vishandi)] [[portfolio](team/vishandi.md)]
 
 * Role: Undecided
 * Responsibilities: Undecided
