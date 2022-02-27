@@ -14,6 +14,9 @@ import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand.EditEventDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new EditEventCommand object
+ */
 public class EditEventCommandParser implements Parser<EditEventCommand> {
 
     /**

@@ -33,6 +33,9 @@ import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Edits an event of an existing person in the schedule of address book.
+ */
 public class EditEventCommand extends Command {
 
     public static final String COMMAND_WORD = "editEvent";
