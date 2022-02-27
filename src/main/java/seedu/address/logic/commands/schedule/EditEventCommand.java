@@ -7,36 +7,23 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.schedule.Event;
-import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.tag.Tag;
+import seedu.address.logic.EditUtil.EditEventDescriptor;
+import seedu.address.logic.EditUtil.EditPersonDescriptor;
 
 /**
  * Edits an event of an existing person in the schedule of address book.
  */
-public class EditEventCommand extends Command {
+public class EditEventCommand extends EditTypeCommand {
 
     public static final String COMMAND_WORD = "editEvent";
 
@@ -96,66 +83,6 @@ public class EditEventCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, personToEdit.getName()));
     }
 
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
-
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSchedule, updatedTags);
-    }
-
-    /**
-     * Creates and returns an {@code Event} with the details of {@code eventToEdit}
-     * edited with {@code editEventDescriptor}.
-     */
-    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
-        assert eventToEdit != null;
-
-        EventDescription updatedEventDescription =
-                editEventDescriptor.getEventDescription().orElse(eventToEdit.getEventDescription());
-        LocalDate updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
-        LocalTime updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
-        Duration updatedDuration = editEventDescriptor.getDuration().orElse(eventToEdit.getDuration());
-
-        return new Event(updatedEventDescription, updatedDate, updatedTime, updatedDuration);
-    }
-
-    /**
-     * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit}
-     * edited with {@code editPersonDescriptor} at {@code targetEventIndex}.
-     */
-    private static Schedule createEditedSchedule(
-            Schedule scheduleToEdit, Index targetEventIndex, EditEventDescriptor editEventDescriptor) {
-        assert scheduleToEdit != null;
-
-        List<Event> scheduleEvents = scheduleToEdit.getEvents();
-        ArrayList<Event> updatedEvents = new ArrayList<>();
-
-        int counter = 0;
-        for (Event toEditEvent : scheduleEvents) {
-            Event updatedEvent;
-            if (counter == targetEventIndex.getZeroBased()) {
-                updatedEvent = createEditedEvent(toEditEvent, editEventDescriptor);
-            } else {
-                updatedEvent = toEditEvent;
-            }
-            updatedEvents.add(updatedEvent);
-            counter++;
-        }
-        scheduleToEdit.setEvents(updatedEvents);
-
-        return scheduleToEdit;
-    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -173,85 +100,5 @@ public class EditEventCommand extends Command {
         return targetIndex.equals(e.targetIndex)
                 && targetEventIndex.equals(e.targetEventIndex)
                 && editEventDescriptor.equals(e.editEventDescriptor);
-    }
-
-    public static class EditEventDescriptor {
-        private EventDescription eventDescription;
-        private LocalDate date;
-        private LocalTime time;
-        private Duration duration;
-
-        public EditEventDescriptor() {
-        }
-
-        /**
-         * Copy constructor.
-         */
-        public EditEventDescriptor(EditEventDescriptor toCopy) {
-            setEventDescription(toCopy.eventDescription);
-            setDate(toCopy.date);
-            setTime(toCopy.time);
-            setDuration(toCopy.duration);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(eventDescription, date, time, duration);
-        }
-
-        public void setEventDescription(EventDescription eventDescription) {
-            this.eventDescription = eventDescription;
-        }
-
-        public Optional<EventDescription> getEventDescription() {
-            return Optional.ofNullable(eventDescription);
-        }
-
-        public void setDate(LocalDate date) {
-            this.date = date;
-        }
-
-        public Optional<LocalDate> getDate() {
-            return Optional.ofNullable(date);
-        }
-
-        public void setTime(LocalTime time) {
-            this.time = time;
-        }
-
-        public Optional<LocalTime> getTime() {
-            return Optional.ofNullable(time);
-        }
-
-        public void setDuration(Duration duration) {
-            this.duration = duration;
-        }
-
-        public Optional<Duration> getDuration() {
-            return Optional.ofNullable(duration);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditEventDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditEventDescriptor e = (EditEventDescriptor) other;
-
-            return getEventDescription().equals(e.getEventDescription())
-                    && getDate().equals(e.getDate())
-                    && getTime().equals(e.getTime())
-                    && getDuration().equals(e.getDuration());
-        }
     }
 }

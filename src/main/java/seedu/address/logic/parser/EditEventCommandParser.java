@@ -11,8 +11,8 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.schedule.EditEventCommand;
-import seedu.address.logic.commands.schedule.EditEventCommand.EditEventDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.EditUtil.EditEventDescriptor;
 
 /**
  * Parses input arguments and creates a new EditEventCommand object
