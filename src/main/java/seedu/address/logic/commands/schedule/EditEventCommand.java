@@ -59,6 +59,11 @@ public class EditEventCommand extends Command {
     private final Index targetEventIndex;
     private final EditEventDescriptor editEventDescriptor;
 
+    /**
+     * @param targetIndex of the person in the filtered person list to edit
+     * @param targetEventIndex of the event in the schedule to edit
+     * @param editEventDescriptor details to edit the event with
+     */
     public EditEventCommand(Index targetIndex, Index targetEventIndex, EditEventDescriptor editEventDescriptor) {
         this.targetIndex = targetIndex;
         this.targetEventIndex = targetEventIndex;
