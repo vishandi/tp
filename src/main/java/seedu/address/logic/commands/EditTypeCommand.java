@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EditUtil.EditScheduleDescriptor;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
+import seedu.address.logic.EditUtil.EditScheduleDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -85,7 +85,8 @@ public abstract class EditTypeCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit} with an added {@code eventToAdd}.
+     * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit}
+     * with an added {@code eventToAdd}.
      */
     protected static Schedule createEditedSchedule(Schedule scheduleToEdit, Event eventToAdd) {
         assert scheduleToEdit != null;
