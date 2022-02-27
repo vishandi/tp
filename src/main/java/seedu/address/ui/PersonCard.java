@@ -7,7 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.Schedule;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -52,9 +55,21 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        schedule.setText(person.getSchedule().toString());
+        if (Address.isDefaultAddress(person.getAddress())) {
+            address.setText(Address.DEFAULT_ADDRESS_MESSAGE);
+        } else {
+            address.setText(person.getAddress().value);
+        }
+        if (Email.isDefaultEmail(person.getEmail())) {
+            email.setText(Email.DEFAULT_EMAIL_MESSAGE);
+        } else {
+            email.setText(person.getAddress().value);
+        }
+        if (Schedule.isEmptySchedule(person.getSchedule())) {
+            schedule.setText(Schedule.EMPTY_SCHEDULE_MESSAGE);
+        } else {
+            schedule.setText(person.getSchedule().toString());
+        }
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

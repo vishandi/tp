@@ -9,6 +9,7 @@ import java.util.Objects;
 
 public class Schedule {
 
+    public static final String EMPTY_SCHEDULE_MESSAGE = "No schedule recorded yet.";
     public static final String MESSAGE_CONSTRAINTS =
             "A Schedule's Events must have alphanumeric event descriptions, date formats YYYY-MM-DD, "
                     + "time formats HH:MM and duration format in hours";
@@ -63,6 +64,13 @@ public class Schedule {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns true if the schedule is empty.
+     */
+    public static boolean isEmptySchedule(Schedule test) {
+        return test.getEvents().isEmpty();
     }
 
     /**
