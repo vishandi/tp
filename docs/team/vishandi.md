@@ -8,6 +8,7 @@ title: Vishandi Rudy Keneta's Project Portfolio Page
 UniGenda is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI)
 while still having the benefits of a Graphical User Interface (GUI). If you are an NUS student,
 and you can type fast, UniGenda can get your contact management tasks done faster than traditional GUI apps.
+
 Given below are my contributions to the project.
 
 * **New Feature**: 
