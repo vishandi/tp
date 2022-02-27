@@ -6,8 +6,10 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -38,6 +40,23 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code oneBasedIndices} into a {@code List<Index>} and returns it. Leading and trailing whitespaces will
+     * be trimmed.
+     * @throws ParseException if any specified index is invalid (not non-zero unsigned integer).
+     */
+    public static List<Index> parseIndices (String oneBasedIndices) throws ParseException {
+        String[] indices = oneBasedIndices.split(" ");
+        ArrayList<Index> trimmedIndices = new ArrayList<>();
+        for (String index : indices) {
+            if (!StringUtil.isNonZeroUnsignedInteger(index.trim())) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            trimmedIndices.add(Index.fromOneBased(Integer.parseInt(index)));
+        }
+        return trimmedIndices;
     }
 
     /**
