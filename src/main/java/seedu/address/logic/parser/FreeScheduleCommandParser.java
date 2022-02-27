@@ -10,7 +10,7 @@ import java.time.LocalTime;
 
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.schedule.EventCollideWithTimeDatePredicate;
+import seedu.address.model.schedule.IsPersonFreePredicate;
 
 public class FreeScheduleCommandParser implements Parser<FreeScheduleCommand> {
     @Override
@@ -25,11 +25,11 @@ public class FreeScheduleCommandParser implements Parser<FreeScheduleCommand> {
             LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
             LocalTime time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
 
-            return new FreeScheduleCommand(new EventCollideWithTimeDatePredicate(time, date));
+            return new FreeScheduleCommand(new IsPersonFreePredicate(time, date));
         } else if (hasTimePrefix) {
             LocalTime time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
 
-            return new FreeScheduleCommand(new EventCollideWithTimeDatePredicate(time, LocalDate.now()));
+            return new FreeScheduleCommand(new IsPersonFreePredicate(time, LocalDate.now()));
         } else {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeScheduleCommand.MESSAGE_USAGE));

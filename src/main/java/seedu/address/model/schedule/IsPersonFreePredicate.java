@@ -9,19 +9,19 @@ import java.util.stream.Stream;
 import seedu.address.model.person.Person;
 
 /**
- * Tests that a {@code Person}'s {@code Schedule} does not collide to given time and/or date.
+ * Tests that a {@code Person}'s {@code Schedule} does not collide to given time and date.
  */
-public class EventCollideWithTimeDatePredicate implements Predicate<Person> {
+public class IsPersonFreePredicate implements Predicate<Person> {
 
     private final LocalTime time;
     private final LocalDate date;
 
     /**
-     * Constructor method of EventCollideWithTimeDatePredicate
+     * Constructor method of IsPersonFreePredicate
      * @param time to check if there exist Events that collide with it
      * @param date to check if there exist Events that collide with it
      */
-    public EventCollideWithTimeDatePredicate(LocalTime time, LocalDate date) {
+    public IsPersonFreePredicate(LocalTime time, LocalDate date) {
         this.time = time;
         this.date = date;
     }
@@ -38,7 +38,7 @@ public class EventCollideWithTimeDatePredicate implements Predicate<Person> {
                 .filter(event -> event.getDate().equals(date))
                 .allMatch(event -> {
                     LocalTime start = event.getTime();
-                    LocalTime end = start.plus(event.getDuration());
+                    LocalTime end = event.getEndTime();
 
                     return !(start.equals(time) || start.isBefore(time) && end.isAfter(time));
                 });
@@ -47,7 +47,7 @@ public class EventCollideWithTimeDatePredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EventCollideWithTimeDatePredicate // instanceof handles nulls
-                && time.equals(((EventCollideWithTimeDatePredicate) other).time)); // state check
+                || (other instanceof IsPersonFreePredicate // instanceof handles nulls
+                && time.equals(((IsPersonFreePredicate) other).time)); // state check
     }
 }

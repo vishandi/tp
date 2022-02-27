@@ -9,7 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.schedule.EventCollideWithTimeDatePredicate;
+import seedu.address.model.schedule.IsPersonFreePredicate;
 
 public class FreeScheduleCommand extends Command {
 
@@ -25,9 +25,9 @@ public class FreeScheduleCommand extends Command {
             + PREFIX_TIME + "12:00 "
             + PREFIX_DATE + "2022-02-14";
 
-    private final EventCollideWithTimeDatePredicate predicate;
+    private final IsPersonFreePredicate predicate;
 
-    public FreeScheduleCommand(EventCollideWithTimeDatePredicate predicate) {
+    public FreeScheduleCommand(IsPersonFreePredicate predicate) {
         this.predicate = predicate;
     }
 
