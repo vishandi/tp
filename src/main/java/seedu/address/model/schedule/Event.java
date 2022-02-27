@@ -43,6 +43,10 @@ public class Event {
         return time;
     }
 
+    public LocalTime getEndTime() {
+        return time.plus(duration);
+    }
+
     public Duration getDuration() {
         return duration;
     }
