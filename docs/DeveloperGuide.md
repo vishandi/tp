@@ -262,22 +262,29 @@ _{Explain here how the data archiving feature will be implemented}_
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* has friends with busy schedules
+* wants to meet up with friends often
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+
+**Value proposition**: improve ease of finding common meeting times with contacts compared to mouse/GUI driven apps
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                                         | I want to …​                           | So that I can…​                                                        |
+|----------|-------------------------------------------------|----------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                        | see usage instructions                 | refer to instructions when I forget how to use the App                 |
+| `* * *`  | user                                            | add a new person                       |                                                                        |
+| `* * *`  | user                                            | delete a person                        | remove entries that I no longer need                                   |
+| `* * *`  | user                                            | find a person by name                  | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                            | add an event to my contact             | refer to the contact's schedule on a later date                        |
+| `* * *`  | user                                            | edit an event on a person's schedule   | amend changes to my contact's schedule                                 |
+| `* * *`  | user                                            | delete an event on a person's schedule | remove events that are no longer in my contact's schedule              |
+| `* *`    | student with a few friends I contact with often | bookmark their contacts                | I can access them easily                                               |
+| `* *`    | user                                            | hide private contact details           | minimize chance of someone else seeing them by accident                |
+| `*`      | user with many persons in the address book      | sort persons by name                   | locate a person easily                                                 |
 
 *{More to be added}*
 
@@ -307,6 +314,89 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a1. AddressBook shows an error message.
 
       Use case resumes at step 2.
+
+**Use case: Add an event**
+
+**MSS**
+
+1. User requests to add an event to a specific person's schedule
+2. AddressBook adds an event to the person's schedule
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The specified date, time or duration of the event is invalid.
+
+    * 1a1. AddressBook shows an error message.
+
+    Use case ends.
+
+* 1b. The user does not specify an event description or date.
+
+    * 1b1. AddressBook shows an error message.
+
+    Use case ends.
+
+* 1c. The user specifies a duration for the event without specifying the start time.
+
+    * 1c1. AddressBook shows an error message.
+
+    Use case ends.
+
+* 1d. The given index is invalid.
+
+    * 1d1. AddressBook shows an error message. 
+
+    Use case ends.
+
+**Use case: Edit an event**
+
+**MSS**
+
+1. User requests to edit a specific event on a specific person's schedule
+2. AddressBook edits the event
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified date, time or duration of the event, if any, is invalid.
+
+    * 1a1. AddressBook shows an error message.
+    
+    Use case ends.
+
+* 1b. The user edits an event's duration without specifying a start time(if the event does not already have one).
+
+    * 1b1. AddressBook shows an error message.
+
+    Use case ends.
+
+* 1c. The specified contact index or event index is invalid.
+
+    * 1c1. AddressBook shows an error message.
+
+    Use case ends.
+
+**Use case: Delete an event**
+
+**MSS**
+
+1. User requests to delete a specific event on a specific person's schedule
+2. AddressBook deletes the event
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified contact index or event index is invalid.
+
+    * 1a1. AddressBook shows an error message.
+
+    Use case ends.
+
+
 
 *{More to be added}*
 
