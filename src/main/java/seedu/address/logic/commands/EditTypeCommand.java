@@ -40,22 +40,6 @@ public abstract class EditTypeCommand extends Command {
     }
 
     /**
-     * Creates and returns an {@code Event} with the details of {@code eventToEdit}
-     * edited with {@code editEventDescriptor}.
-     */
-    protected static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
-        assert eventToEdit != null;
-
-        EventDescription updatedEventDescription =
-                editEventDescriptor.getEventDescription().orElse(eventToEdit.getEventDescription());
-        LocalDate updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
-        LocalTime updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
-        Duration updatedDuration = editEventDescriptor.getDuration().orElse(eventToEdit.getDuration());
-
-        return new Event(updatedEventDescription, updatedDate, updatedTime, updatedDuration);
-    }
-
-    /**
      * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit}
      * edited with {@code editEventDescriptor} at {@code targetEventIndex}.
      */
@@ -81,12 +65,11 @@ public abstract class EditTypeCommand extends Command {
 
         editScheduleDescriptor.setEvents(updatedEvents);
 
-        return new Schedule(editScheduleDescriptor.getEvents().orElse(scheduleToEdit.getEvents()));
+        return new Schedule(editScheduleDescriptor.getEvents());
     }
 
     /**
-     * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit}
-     * with an added {@code eventToAdd}.
+     * Creates and returns a {@code Schedule} with an added {@code eventToAdd}.
      */
     protected static Schedule createEditedSchedule(Schedule scheduleToEdit, Event eventToAdd) {
         assert scheduleToEdit != null;
@@ -98,6 +81,22 @@ public abstract class EditTypeCommand extends Command {
         EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
         editScheduleDescriptor.setEvents(updatedEvents);
 
-        return new Schedule(editScheduleDescriptor.getEvents().orElse(scheduleToEdit.getEvents()));
+        return new Schedule(editScheduleDescriptor.getEvents());
+    }
+
+    /**
+     * Creates and returns an {@code Event} with the details of {@code eventToEdit}
+     * edited with {@code editEventDescriptor}.
+     */
+    protected static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
+        assert eventToEdit != null;
+
+        EventDescription updatedEventDescription =
+                editEventDescriptor.getEventDescription().orElse(eventToEdit.getEventDescription());
+        LocalDate updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
+        LocalTime updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
+        Duration updatedDuration = editEventDescriptor.getDuration().orElse(eventToEdit.getDuration());
+
+        return new Event(updatedEventDescription, updatedDate, updatedTime, updatedDuration);
     }
 }

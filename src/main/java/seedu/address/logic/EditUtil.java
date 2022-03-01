@@ -162,8 +162,8 @@ public class EditUtil {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code events} is null.
          */
-        public Optional<List<Event>> getEvents() {
-            return (events != null) ? Optional.of(Collections.unmodifiableList(events)) : Optional.empty();
+        public List<Event> getEvents() {
+            return Collections.unmodifiableList(events);
         }
 
         @Override
