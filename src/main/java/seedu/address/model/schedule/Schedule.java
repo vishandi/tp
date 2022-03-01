@@ -35,23 +35,6 @@ public class Schedule {
         return Collections.unmodifiableList(events);
     }
 
-    /**
-     * Adds an Event to the Schedule.
-     *
-     * @param event the Event to add to the Schedule
-     */
-    public void addEvent(Event event) {
-        events.add(event);
-    }
-
-    /**
-     * Sets the List of Event objects in the Schedule to the corresponding List.
-     *
-     * @param events the List of Event objects to be set in the Schedule
-     */
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
 
     /**
      * Returns true if the given event is valid.

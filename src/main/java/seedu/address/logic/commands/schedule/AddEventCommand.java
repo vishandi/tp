@@ -9,25 +9,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.tag.Tag;
 
-public class AddEventCommand extends Command {
+
+public class AddEventCommand extends EditTypeCommand {
 
     public static final String COMMAND_WORD = "addEvent";
 
@@ -48,7 +43,7 @@ public class AddEventCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Added %1$s to %2$s's schedule";
 
-    private final Event toAdd;
+    private final Event eventToAdd;
     private final Index targetIndex;
 
     /**
@@ -57,7 +52,7 @@ public class AddEventCommand extends Command {
     public AddEventCommand(Index targetIndex, Event event) {
         requireAllNonNull(targetIndex, event);
         this.targetIndex = targetIndex;
-        toAdd = event;
+        this.eventToAdd = event;
     }
 
     @Override
@@ -71,31 +66,14 @@ public class AddEventCommand extends Command {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Schedule scheduleToEdit = personToEdit.getSchedule();
-        scheduleToEdit.addEvent(toAdd);
+        Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, eventToAdd);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        editPersonDescriptor.setSchedule(scheduleToEdit);
+        editPersonDescriptor.setSchedule(updatedSchedule);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd, personToEdit.getName()));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
-
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSchedule, updatedTags);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAdd, personToEdit.getName()));
     }
 }
