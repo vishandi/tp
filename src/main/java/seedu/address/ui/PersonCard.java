@@ -1,12 +1,18 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
@@ -32,47 +38,90 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private VBox cardRows;
+    @FXML
     private Label name;
     @FXML
     private Label id;
     @FXML
     private Label phone;
     @FXML
-    private Label address;
+    private HBox addressBox;
     @FXML
-    private Label email;
+    private HBox emailBox;
+    @FXML
+    private HBox scheduleBox;
     @FXML
     private FlowPane tags;
-    @FXML
-    private Label schedule;
+
+
 
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
+        ImageView addressIcon = new ImageView("./images/address_icon.png");
+        ImageView emailIcon = new ImageView("./images/email_icon.png");
+        ImageView scheduleIcon = new ImageView("./images/schedule_icon.png");
+        addressIcon.setFitHeight(16);
+        addressIcon.setFitWidth(16);
+        emailIcon.setFitHeight(16);
+        emailIcon.setFitWidth(16);
+        scheduleIcon.setFitHeight(16);
+        scheduleIcon.setFitWidth(16);
+
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        if (Address.isDefaultAddress(person.getAddress())) {
-            address.setText(Address.DEFAULT_ADDRESS_MESSAGE);
-        } else {
-            address.setText(person.getAddress().value);
+        if (!Email.isDefaultEmail(person.getEmail())) {
+            emailBox.getChildren().add(emailIcon);
+            Label emailLabel = new Label(person.getEmail().value);
+            emailBox.getChildren().add(emailLabel);
         }
-        if (Email.isDefaultEmail(person.getEmail())) {
-            email.setText(Email.DEFAULT_EMAIL_MESSAGE);
-        } else {
-            email.setText(person.getAddress().value);
+        if (!Address.isDefaultAddress(person.getAddress())) {
+            addressBox.getChildren().add(addressIcon);
+            Label addressLabel = new Label(person.getAddress().value);
+            addressBox.getChildren().add(addressLabel);
         }
-        if (Schedule.isEmptySchedule(person.getSchedule())) {
-            schedule.setText(Schedule.EMPTY_SCHEDULE_MESSAGE);
-        } else {
-            schedule.setText(person.getSchedule().toString());
+        if (!Schedule.isEmptySchedule(person.getSchedule())) {
+            scheduleBox.getChildren().add(scheduleIcon);
+            Label scheduleLabel = new Label(person.getSchedule().toString());
+            scheduleBox.getChildren().add(scheduleLabel);
         }
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    @FXML
+    private void emailtoContact() {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            URI mailto = null;
+            try {
+                mailto = new URI(String.format("mailto:%s", person.getEmail()));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            try {
+                desktop.mail(mailto);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void emailChangeColorWhenHovered() {
+        emailBox.setStyle("-fx-background-color: #ff0000; ");
+    }
+
+    @FXML
+    private void emailChangeColorWhenLeft() {
+        emailBox.setStyle("-fx-background-color: transparent; ");
     }
 
     @Override

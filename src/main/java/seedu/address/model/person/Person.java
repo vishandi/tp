@@ -19,9 +19,9 @@ public class Person {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
+    private final Email email;
     private final Address address;
     private final Schedule schedule;
     private final Set<Tag> tags = new HashSet<>();
