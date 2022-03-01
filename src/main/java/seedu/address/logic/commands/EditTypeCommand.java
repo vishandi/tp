@@ -69,7 +69,8 @@ public abstract class EditTypeCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Schedule} with an added {@code eventToAdd}.
+     * Creates and returns a {@code Schedule} with the details of {@code eventToEdit}
+     * with an added {@code eventToAdd}.
      */
     protected static Schedule createEditedSchedule(Schedule scheduleToEdit, Event eventToAdd) {
         assert scheduleToEdit != null;

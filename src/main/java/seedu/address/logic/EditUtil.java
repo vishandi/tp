@@ -143,7 +143,7 @@ public class EditUtil {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code events} is used internally.
          */
         public EditScheduleDescriptor(EditScheduleDescriptor toCopy) {
             setEvents(toCopy.events);
