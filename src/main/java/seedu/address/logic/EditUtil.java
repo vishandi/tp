@@ -154,13 +154,12 @@ public class EditUtil {
          * A defensive copy of {@code events} is used internally.
          */
         public void setEvents(List<Event> events) {
-            this.events = (events != null) ? new ArrayList<>(events) : null;
+            this.events = new ArrayList<>(events);
         }
 
         /**
          * Returns an unmodifiable events list, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code events} is null.
          */
         public List<Event> getEvents() {
             return Collections.unmodifiableList(events);
