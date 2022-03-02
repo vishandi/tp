@@ -13,11 +13,14 @@ public class AddressTest {
         assertThrows(NullPointerException.class, () -> new Address(null));
     }
 
+    /*
+    //Address can be empty now.
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
         String invalidAddress = "";
         assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
     }
+     */
 
     @Test
     public void isValidAddress() {
@@ -25,7 +28,7 @@ public class AddressTest {
         assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
 
         // invalid addresses
-        assertFalse(Address.isValidAddress("")); // empty string
+        //assertFalse(Address.isValidAddress("")); // empty string Address can be empty.
         assertFalse(Address.isValidAddress(" ")); // spaces only
 
         // valid addresses

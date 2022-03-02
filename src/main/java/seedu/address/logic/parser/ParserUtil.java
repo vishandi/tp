@@ -101,6 +101,9 @@ public class ParserUtil {
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
+        if (Address.isEmptyAddress(trimmedAddress)) {
+            return Address.DEFAULT_ADDRESS;
+        }
         return new Address(trimmedAddress);
     }
 
@@ -115,6 +118,9 @@ public class ParserUtil {
         String trimmedEmail = email.trim();
         if (!Email.isValidEmail(trimmedEmail)) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        }
+        if (Email.isEmptyEmail(trimmedEmail)) {
+            return Email.DEFAULT_EMAIL;
         }
         return new Email(trimmedEmail);
     }
