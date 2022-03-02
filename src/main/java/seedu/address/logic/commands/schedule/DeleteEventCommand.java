@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.schedule;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
@@ -28,8 +29,7 @@ public class DeleteEventCommand extends EditTypeCommand {
             + "Parameters: INDICES (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " 1 2";
 
-    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "%1$s's No.%d event deleted successfully";
-    public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "%s's No.%d event deleted successfully";
 
     private final Index targetIndex;
     private final Index targetEventIndex;
@@ -68,7 +68,7 @@ public class DeleteEventCommand extends EditTypeCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS,
                 personToEdit.getName(),
-                targetIndex.getOneBased()));
+                targetEventIndex.getOneBased()));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.schedule;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
@@ -40,7 +41,6 @@ public class EditEventCommand extends EditTypeCommand {
             + PREFIX_TIME + "10:00";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "%1$s's event edited successfully";
-    public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index targetIndex;

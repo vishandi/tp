@@ -29,7 +29,8 @@ public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
         try {
             indices = ParserUtil.parseIndices(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteEventCommand.MESSAGE_USAGE), pe);
         }
 
         if (indices.size() != 2) {

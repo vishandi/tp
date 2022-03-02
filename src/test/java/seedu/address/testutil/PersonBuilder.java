@@ -1,14 +1,21 @@
 package seedu.address.testutil;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.schedule.Event;
+import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -99,6 +106,29 @@ public class PersonBuilder {
      */
     public PersonBuilder withSchedule(Schedule schedule) {
         this.schedule = schedule;
+        return this;
+    }
+
+    /**
+     * Parses the {@code event} and set it to the {@code Schedule} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withEvent(String eventDescription, String date, String time, String duration) {
+        EventDescription eventDescription1 = new EventDescription(eventDescription);
+        try {
+            LocalDate date1 = ParserUtil.parseDate(date);
+            LocalTime time1 = ParserUtil.parseTime(time);
+            Duration duration1 = ParserUtil.parseDuration(duration);
+            Event event = new Event(eventDescription1, date1, time1, duration1);
+            ArrayList<Event> newEvents = new ArrayList<>();
+            for (Event e : this.schedule.getEvents()) {
+                newEvents.add(e);
+            }
+            newEvents.add(event);
+            this.schedule = new Schedule(newEvents);
+            return this;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

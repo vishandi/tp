@@ -161,5 +161,21 @@
       } ]
     },
     "tagged" : [ ]
+  }, {
+    "name" : "Hendri Tanjaya",
+    "phone" : "85108989",
+    "email" : "hendri@example.com",
+    "address" : "PGPR",
+    "schedule" : {
+      "events" : [ {
+        "eventDescription" : {
+          "eventDescription" : "Tutorial CS2103T"
+        },
+        "date" : "2022-09-03",
+        "time" : "10:00:00",
+        "duration" : "PT1H"
+      } ]
+    },
+    "tagged" : [ ]
   } ]
 }

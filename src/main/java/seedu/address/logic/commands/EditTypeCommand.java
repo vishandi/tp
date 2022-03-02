@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
