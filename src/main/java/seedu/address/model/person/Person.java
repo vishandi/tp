@@ -114,12 +114,22 @@ public class Person {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append("; Phone: ")
-                .append(getPhone())
-                .append("; Email: ")
-                .append(getEmail())
-                .append("; Address: ")
-                .append(getAddress())
-                .append(getSchedule());
+                .append(getPhone());
+
+        if (!Email.isDefaultEmail(getEmail())) {
+            builder.append("; Email: ")
+                    .append(getEmail());
+        }
+
+        if (!Address.isDefaultAddress(getAddress())) {
+            builder.append("; Address: ")
+                    .append(getAddress());
+        }
+
+        if (!Schedule.isEmptySchedule(getSchedule())) {
+            builder.append("; Events: ")
+                    .append(getSchedule());
+        }
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
