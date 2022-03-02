@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -78,6 +79,19 @@ public abstract class EditTypeCommand extends Command {
         List<Event> scheduleEvents = scheduleToEdit.getEvents();
         ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
         updatedEvents.add(eventToAdd);
+
+        EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
+        editScheduleDescriptor.setEvents(updatedEvents);
+
+        return new Schedule(editScheduleDescriptor.getEvents());
+    }
+
+    protected static Schedule createDeletedSchedule(Schedule scheduleToEdit, Index targetIndex) {
+        assert scheduleToEdit != null;
+
+        List<Event> scheduleEvents = scheduleToEdit.getEvents();
+        ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
+        updatedEvents.remove(targetIndex.getZeroBased());
 
         EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
         editScheduleDescriptor.setEvents(updatedEvents);
