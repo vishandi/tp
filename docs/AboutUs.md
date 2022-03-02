@@ -40,10 +40,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Mark Biju George
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/markbiju.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/markbiju)]
+[[portfolio](team/markbiju.md)]
 
 * Role: Undecided
 * Responsibilities: Undecided
