@@ -348,7 +348,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1d. The given index is invalid.
 
-    * 1d1. AddressBook shows an error message. 
+    * 1d1. AddressBook shows an error message.
 
     Use case ends.
 
@@ -366,7 +366,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1a. The specified date, time or duration of the event, if any, is invalid.
 
     * 1a1. AddressBook shows an error message.
-    
+
     Use case ends.
 
 * 1b. The user edits an event's duration without specifying a start time(if the event does not already have one).

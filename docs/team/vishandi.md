@@ -11,7 +11,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 
 Given below are my contributions to the project.
 
-* **New Feature**: 
+* **New Feature**:
   * to be added soon
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=vishandi&breakdown=true)
@@ -21,13 +21,13 @@ Given below are my contributions to the project.
 
 * **Enhancements to existing features**:
   * to be added soon
-  
+
 * **Documentation**:
   * to be added soon
-  
+
 * **Community**:
   * to be added soon
-  
+
 * **Tools**:
   * to be added soon
 

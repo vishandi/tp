@@ -3,8 +3,8 @@ layout: page
 title: User Guide
 ---
 
-UniGenda is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) 
-while still having the benefits of a Graphical User Interface (GUI). If you are an NUS student, 
+UniGenda is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI)
+while still having the benefits of a Graphical User Interface (GUI). If you are an NUS student,
 and you can type fast, UniGenda can get your contact management tasks done faster than traditional GUI apps.
 
 
@@ -163,7 +163,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/
 * If DURATION is specified, TIME also needs to be specified.
 D* URATION should be in the format -H-M
 
-Example: 
+Example:
 * `addSchedule 3 da/20-12-2022 ti/1000 du/2`
 
 ### Editing a person’s schedule: `editEvent`
@@ -196,7 +196,7 @@ Format: `viewSchedule INDEX`
 * The index refers to the index number shown in the displayed person list.
 * The index must be positive. Eg. 1, 2, 3…
 
-Example: 
+Example:
 * `viewSchedule 5`
 
 ### Get friends who are free: `freeSchedule`
@@ -267,7 +267,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**AddEvent** | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` 
+**AddEvent** | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`
 **EditEvent** | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., * `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
 **DeleteEvent** | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
