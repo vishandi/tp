@@ -274,17 +274,19 @@ _{Explain here how the data archiving feature will be implemented}_
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | Priority | As a …​                                         | I want to …​                           | So that I can…​                                                        |
-|----------|-------------------------------------------------|----------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                        | see usage instructions                 | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                            | add a new person                       |                                                                        |
-| `* * *`  | user                                            | delete a person                        | remove entries that I no longer need                                   |
-| `* * *`  | user                                            | find a person by name                  | locate details of persons without having to go through the entire list |
-| `* * *`  | user                                            | add an event to my contact             | refer to the contact's schedule on a later date                        |
-| `* * *`  | user                                            | edit an event on a person's schedule   | amend changes to my contact's schedule                                 |
-| `* * *`  | user                                            | delete an event on a person's schedule | remove events that are no longer in my contact's schedule              |
-| `* *`    | student with a few friends I contact with often | bookmark their contacts                | I can access them easily                                               |
-| `* *`    | user                                            | hide private contact details           | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book      | sort persons by name                   | locate a person easily                                                 |
+|----------|-------------------------------------------------|---------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                        | see usage instructions                            | refer to instructions when I forget how to use the App                 |
+| `* * *`  | user                                            | add a new person                                  |                                                                        |
+| `* * *`  | user                                            | delete a person                                   | remove entries that I no longer need                                   |
+| `* * *`  | user                                            | find a person by name                             | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                            | add an event to my contact                        | refer to the contact's schedule on a later date                        |
+| `* * *`  | user                                            | edit an event on a person's schedule              | amend changes to my contact's schedule                                 |
+| `* * *`  | user                                            | delete an event on a person's schedule            | remove events that are no longer in my contact's schedule              |
+| `* *`    | student with a few friends I contact with often | bookmark their contacts                           | I can access them easily                                               |
+| `* *`    | user                                            | hide private contact details                      | minimize chance of someone else seeing them by accident                |
+| `*`      | user with many persons in the address book      | sort persons by name                              | locate a person easily
+| `*`      | student who wants to see when a friend is free  | view their schedule                               | easily plan a meetup
+| `*`      | student with a lot of friends                   | see which timings friends with same tag are free  | plan a meetup with friends from the same group
 
 *{More to be added}*
 
