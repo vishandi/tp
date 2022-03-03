@@ -2,6 +2,7 @@ package seedu.address.logic.commands.schedule;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
@@ -10,7 +11,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
@@ -64,7 +64,7 @@ public class EditEventCommand extends EditTypeCommand {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
