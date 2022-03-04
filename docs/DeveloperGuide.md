@@ -273,20 +273,20 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                         | I want to …​                           | So that I can…​                                                        |
-|----------|-------------------------------------------------|---------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                        | see usage instructions                            | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                            | add a new person                                  |                                                                        |
-| `* * *`  | user                                            | delete a person                                   | remove entries that I no longer need                                   |
-| `* * *`  | user                                            | find a person by name                             | locate details of persons without having to go through the entire list |
-| `* * *`  | user                                            | add an event to my contact                        | refer to the contact's schedule on a later date                        |
-| `* * *`  | user                                            | edit an event on a person's schedule              | amend changes to my contact's schedule                                 |
-| `* * *`  | user                                            | delete an event on a person's schedule            | remove events that are no longer in my contact's schedule              |
-| `* *`    | student with a few friends I contact with often | bookmark their contacts                           | I can access them easily                                               |
-| `* *`    | user                                            | hide private contact details                      | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book      | sort persons by name                              | locate a person easily
-| `*`      | student who wants to see when a friend is free  | view their schedule                               | easily plan a meetup
-| `*`      | student with a lot of friends                   | see which timings friends with same tag are free  | plan a meetup with friends from the same group
+| Priority | As a …​                                         | I want to …​                                     | So that I can…​                                                        |
+|----------|-------------------------------------------------|--------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                        | see usage instructions                           | refer to instructions when I forget how to use the App                 |
+| `* * *`  | user                                            | add a new person                                 |                                                                        |
+| `* * *`  | user                                            | delete a person                                  | remove entries that I no longer need                                   |
+| `* * *`  | user                                            | find a person by name                            | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                            | add an event to my contact                       | refer to the contact's schedule on a later date                        |
+| `* * *`  | user                                            | edit an event on a person's schedule             | amend changes to my contact's schedule                                 |
+| `* * *`  | user                                            | delete an event on a person's schedule           | remove events that are no longer in my contact's schedule              |
+| `* *`    | student with a few friends I contact with often | bookmark their contacts                          | I can access them easily                                               |
+| `* *`    | user                                            | hide private contact details                     | minimize chance of someone else seeing them by accident                |
+| `*`      | user with many persons in the address book      | sort persons by name                             | locate a person easily                                                 |
+| `*`      | student who wants to see when a friend is free  | view their schedule                              | easily plan a meetup                                                   |
+| `*`      | student with a lot of friends                   | see which timings friends with same tag are free | plan a meetup with friends from the same group                         |
 
 *{More to be added}*
 
@@ -299,9 +299,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  UniGenda shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  UniGenda deletes the person
 
     Use case ends.
 
@@ -313,7 +313,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. UniGenda shows an error message.
 
       Use case resumes at step 2.
 
@@ -322,7 +322,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to add an event to a specific person's schedule
-2. AddressBook adds an event to the person's schedule
+2. UniGenda adds an event to the person's schedule
 
     Use case ends.
 
@@ -330,25 +330,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified date, time or duration of the event is invalid.
 
-    * 1a1. AddressBook shows an error message.
+    * 1a1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1b. The user does not specify an event description or date.
 
-    * 1b1. AddressBook shows an error message.
+    * 1b1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1c. The user specifies a duration for the event without specifying the start time.
 
-    * 1c1. AddressBook shows an error message.
+    * 1c1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1d. The given index is invalid.
 
-    * 1d1. AddressBook shows an error message.
+    * 1d1. UniGenda shows an error message.
 
     Use case ends.
 
@@ -357,7 +357,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to edit a specific event on a specific person's schedule
-2. AddressBook edits the event
+2. UniGenda edits the event
 
    Use case ends.
 
@@ -365,19 +365,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified date, time or duration of the event, if any, is invalid.
 
-    * 1a1. AddressBook shows an error message.
+    * 1a1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1b. The user edits an event's duration without specifying a start time(if the event does not already have one).
 
-    * 1b1. AddressBook shows an error message.
+    * 1b1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1c. The specified contact index or event index is invalid.
 
-    * 1c1. AddressBook shows an error message.
+    * 1c1. UniGenda shows an error message.
 
     Use case ends.
 
@@ -386,7 +386,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to delete a specific event on a specific person's schedule
-2. AddressBook deletes the event
+2. UniGenda deletes the event
 
    Use case ends.
 
@@ -394,7 +394,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified contact index or event index is invalid.
 
-    * 1a1. AddressBook shows an error message.
+    * 1a1. UniGenda shows an error message.
 
     Use case ends.
 
