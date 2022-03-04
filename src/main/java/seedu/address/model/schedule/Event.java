@@ -2,7 +2,9 @@ package seedu.address.model.schedule;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a scheduled Event.
@@ -12,6 +14,7 @@ public class Event {
     public static final String DEFAULT_TIME = "00:00";
     public static final String DEFAULT_DURATION = "2H";
     public static final String FULL_DAY_EVENT_DURATION = "24H";
+    public static final String DATE_MESSAGE_CONSTRAINTS = "Event date should be in YYYY-MM-DD format";
     public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in XHYM, XHY, XH or X format,"
             + " where X is an integer representing the number of hours"
             + " and Y is an integer representing the number of minutes.";
@@ -54,6 +57,11 @@ public class Event {
         return time.plus(duration);
     }
 
+    public LocalDate getEndDate() {
+        LocalDateTime endDateTime = date.atTime(time).plus(duration);
+        return endDateTime.toLocalDate();
+    }
+
     public Duration getDuration() {
         return duration;
     }
@@ -91,7 +99,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s-%s", eventDescription, date, time, getEndTime());
+        return String.format("%s %s %s-%s", eventDescription, date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime());
     }
 
 }

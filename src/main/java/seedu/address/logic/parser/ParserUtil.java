@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.schedule.Event.DATE_MESSAGE_CONSTRAINTS;
 import static seedu.address.model.schedule.Event.DURATION_MESSAGE_CONSTRAINTS;
 import static seedu.address.model.schedule.Event.TIME_MESSAGE_CONSTRAINTS;
 
@@ -154,7 +155,7 @@ public class ParserUtil {
         try {
             return LocalDate.parse(trimmedDate);
         } catch (DateTimeParseException e) {
-            throw new ParseException(e.getMessage());
+            throw new ParseException(DATE_MESSAGE_CONSTRAINTS);
         }
     }
 
