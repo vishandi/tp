@@ -85,6 +85,19 @@ public abstract class EditTypeCommand extends Command {
         return new Schedule(editScheduleDescriptor.getEvents());
     }
 
+    protected static Schedule createDeletedSchedule(Schedule scheduleToEdit, Index targetIndex) {
+        assert scheduleToEdit != null;
+
+        List<Event> scheduleEvents = scheduleToEdit.getEvents();
+        ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
+        updatedEvents.remove(targetIndex.getZeroBased());
+
+        EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
+        editScheduleDescriptor.setEvents(updatedEvents);
+
+        return new Schedule(editScheduleDescriptor.getEvents());
+    }
+
     /**
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.

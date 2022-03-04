@@ -3,16 +3,11 @@ package seedu.address.logic.commands.schedule;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditTypeCommand;
@@ -23,39 +18,29 @@ import seedu.address.model.schedule.Schedule;
 
 
 /**
- * Edits an event of an existing person in the schedule of address book.
+ * Deletes an event of an existing person in the schedule of address book.
  */
-public class EditEventCommand extends EditTypeCommand {
+public class DeleteEventCommand extends EditTypeCommand {
 
-    public static final String COMMAND_WORD = "editEvent";
+    public static final String COMMAND_WORD = "deleteEvent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a event of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an event of the person identified "
+            + "by the index number used in the displayed person list.\n"
             + "Parameters: INDICES (must be a positive integer) "
-            + "[" + PREFIX_EVENT_DESCRIPTION + "EVENT DESCRIPTION] "
-            + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_DURATION + "DURATION] "
-            + "Example: " + COMMAND_WORD + " 1 2 "
-            + PREFIX_TIME + "10:00";
+            + "Example: " + COMMAND_WORD + " 1 2";
 
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "%1$s's event edited successfully";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "%s's No.%d event deleted successfully";
 
     private final Index targetIndex;
     private final Index targetEventIndex;
-    private final EditEventDescriptor editEventDescriptor;
 
     /**
      * @param targetIndex of the person in the filtered person list to edit
-     * @param targetEventIndex of the event in the schedule to edit
-     * @param editEventDescriptor details to edit the event with
+     * @param targetEventIndex of the event in the schedule to delete
      */
-    public EditEventCommand(Index targetIndex, Index targetEventIndex, EditEventDescriptor editEventDescriptor) {
+    public DeleteEventCommand(Index targetIndex, Index targetEventIndex) {
         this.targetIndex = targetIndex;
         this.targetEventIndex = targetEventIndex;
-        this.editEventDescriptor = editEventDescriptor;
     }
 
     @Override
@@ -74,14 +59,16 @@ public class EditEventCommand extends EditTypeCommand {
             throw new CommandException(MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, targetEventIndex, editEventDescriptor);
+        Schedule updatedSchedule = createDeletedSchedule(scheduleToEdit, targetEventIndex);
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setSchedule(updatedSchedule);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, personToEdit.getName()));
+        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS,
+                personToEdit.getName(),
+                targetEventIndex.getOneBased()));
     }
 
     @Override
@@ -92,14 +79,13 @@ public class EditEventCommand extends EditTypeCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditEventCommand)) {
+        if (!(other instanceof DeleteEventCommand)) {
             return false;
         }
 
         // state check
-        EditEventCommand e = (EditEventCommand) other;
+        DeleteEventCommand e = (DeleteEventCommand) other;
         return targetIndex.equals(e.targetIndex)
-                && targetEventIndex.equals(e.targetEventIndex)
-                && editEventDescriptor.equals(e.editEventDescriptor);
+                && targetEventIndex.equals(e.targetEventIndex);
     }
 }
