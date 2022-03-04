@@ -20,6 +20,10 @@ import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.schedule.AddEventCommandParser;
+import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
+import seedu.address.logic.parser.schedule.EditEventCommandParser;
+import seedu.address.logic.parser.schedule.FreeScheduleCommandParser;
 
 /**
  * Parses user input.
