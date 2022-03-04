@@ -91,7 +91,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s %s", eventDescription, date, time, duration);
+        return String.format("%s %s %s-%s", eventDescription, date, time, getEndTime());
     }
 
 }
