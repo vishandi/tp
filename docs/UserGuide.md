@@ -161,7 +161,13 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * If TIME is not specified, it will be considered as a full-day event.
 * If DURATION is specified, TIME also needs to be specified.
-D* URATION should be in the format -H-M
+* If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
+* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
+  * XHYM
+  * XHY
+  * XH
+  * X
+
 
 Example:
 * `addSchedule 3 da/20-12-2022 ti/1000 du/2`

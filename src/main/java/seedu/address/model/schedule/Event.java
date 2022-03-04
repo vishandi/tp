@@ -10,8 +10,14 @@ import java.time.LocalTime;
  */
 public class Event {
 
-    public static final String MESSAGE_CONSTRAINTS = "Events should be of format EVENT_DESCRIPTION YYYY-MM-DD HH:MM";
     private static final String PLACEHOLDER_EVENT_DESCRIPTION = "Event Description";
+    public static final String DEFAULT_TIME = "00:00";
+    public static final String DEFAULT_DURATION = "2H";
+    public static final String FULL_DAY_EVENT_DURATION = "24H";
+    public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in XHYM, XHY, XH or X format, where X is an integer representing"
+            + "the number of hours and Y is an integer representing the number of minutes.";
+    public static final String TIME_MESSAGE_CONSTRAINTS = "Event time should be in HH:MM format";
+    public static final String MISSING_TIME_MESSAGE = "The event start time must be specified if the duration is specified!";
 
     private final EventDescription eventDescription;
     private final LocalDate date;
