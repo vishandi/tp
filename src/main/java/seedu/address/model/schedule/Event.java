@@ -99,7 +99,8 @@ public class Event {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s-%s", eventDescription, date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime());
+        return String.format("%s %s %s-%s", eventDescription,
+                date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime());
     }
 
 }
