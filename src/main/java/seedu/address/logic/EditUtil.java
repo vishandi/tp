@@ -3,10 +3,8 @@ package seedu.address.logic;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,7 +13,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
@@ -133,54 +130,6 @@ public class EditUtil {
                     && getAddress().equals(e.getAddress())
                     && getSchedule().equals(e.getSchedule())
                     && getTags().equals(e.getTags());
-        }
-    }
-
-    public static class EditScheduleDescriptor {
-        private List<Event> events;
-
-        public EditScheduleDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code events} is used internally.
-         */
-        public EditScheduleDescriptor(EditScheduleDescriptor toCopy) {
-            setEvents(toCopy.events);
-        }
-
-        /**
-         * Sets {@code events} to this object's {@code events}.
-         * A defensive copy of {@code events} is used internally.
-         */
-        public void setEvents(List<Event> events) {
-            this.events = new ArrayList<>(events);
-        }
-
-        /**
-         * Returns an unmodifiable events list, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         */
-        public List<Event> getEvents() {
-            return Collections.unmodifiableList(events);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditScheduleDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditScheduleDescriptor e = (EditScheduleDescriptor) other;
-
-            return getEvents().equals(e.getEvents());
         }
     }
 
