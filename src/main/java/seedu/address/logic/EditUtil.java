@@ -3,10 +3,8 @@ package seedu.address.logic;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,7 +13,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
