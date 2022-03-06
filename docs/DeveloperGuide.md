@@ -323,7 +323,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. Should be able to find the free timings among up to 100 contacts without a noticeable sluggishness in performance for typical usage. 
 5. Should be able to hold up to 100 events per person without noticeable lag. 
 
 *{More to be added}*
@@ -332,6 +331,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Event**: Something that happens
+* **Schedule**: A list of Events
+* **Main Success Scenario (MSS)**: Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong
+* **Command Line Interface (CLI)**: Text-based user interface
+* **Graphical User Interface (GUI)**: Graphic-based user interface
 
 --------------------------------------------------------------------------------------------------------------------
 
