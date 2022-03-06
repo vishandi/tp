@@ -1,6 +1,9 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.schedule.Event.DATE_MESSAGE_CONSTRAINTS;
+import static seedu.address.model.schedule.Event.DURATION_MESSAGE_CONSTRAINTS;
+import static seedu.address.model.schedule.Event.TIME_MESSAGE_CONSTRAINTS;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -152,7 +155,7 @@ public class ParserUtil {
         try {
             return LocalDate.parse(trimmedDate);
         } catch (DateTimeParseException e) {
-            throw new ParseException(e.getMessage());
+            throw new ParseException(DATE_MESSAGE_CONSTRAINTS);
         }
     }
 
@@ -168,7 +171,7 @@ public class ParserUtil {
         try {
             return LocalTime.parse(trimmedTime);
         } catch (DateTimeParseException e) {
-            throw new ParseException(e.getMessage());
+            throw new ParseException(TIME_MESSAGE_CONSTRAINTS);
         }
     }
 
@@ -180,11 +183,17 @@ public class ParserUtil {
      */
     public static Duration parseDuration(String duration) throws ParseException {
         requireNonNull(duration);
-        String trimmedDuration = duration.trim();
+        String trimmedDuration = duration.trim().toUpperCase();
         try {
-            return Duration.ofHours(Integer.parseInt(trimmedDuration));
+            String[] splitDuration = trimmedDuration.split("H");
+            int hours = Integer.parseInt(splitDuration[0]);
+            int minutes = 0;
+            if (splitDuration.length > 1) {
+                minutes = Integer.parseInt(splitDuration[1].split("M")[0]);
+            }
+            return Duration.ofHours(hours).plusMinutes(minutes);
         } catch (DateTimeParseException | NumberFormatException e) {
-            throw new ParseException(e.getMessage());
+            throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
         }
     }
 

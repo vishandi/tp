@@ -32,14 +32,14 @@ public class AddEventCommand extends EditTypeCommand {
             + "INDEX (must be a positive integer) "
             + PREFIX_EVENT_DESCRIPTION + "EVENT_DESCRIPTION "
             + PREFIX_DATE + "DATE "
-            + PREFIX_TIME + "TIME "
-            + PREFIX_DURATION + "DURATION "
+            + "[" + PREFIX_TIME + "TIME] "
+            + "[" + PREFIX_DURATION + "DURATION]"
             + "\nExample: " + COMMAND_WORD + " "
             + "3 "
             + PREFIX_EVENT_DESCRIPTION + "CS2103T Tutorial "
             + PREFIX_DATE + "2022-12-28 "
             + PREFIX_TIME + "10:00 "
-            + PREFIX_DURATION + "3 ";
+            + PREFIX_DURATION + "3H30M ";
 
     public static final String MESSAGE_SUCCESS = "Added %1$s to %2$s's schedule";
 

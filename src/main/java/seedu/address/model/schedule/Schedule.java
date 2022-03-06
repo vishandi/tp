@@ -14,11 +14,9 @@ public class Schedule {
             "A Schedule's Events must have alphanumeric event descriptions, date formats YYYY-MM-DD, "
                     + "time formats HH:MM and duration format in hours";
     public static final Schedule EMPTY_SCHEDULE = new Schedule(new ArrayList<>());
-
-    private final List<Event> events;
+    private final List<Event> events = new ArrayList<>();
 
     private Schedule() {
-        this.events = new ArrayList<>();
     }
 
     /**
@@ -26,7 +24,7 @@ public class Schedule {
      */
     public Schedule(List<Event> events) {
         requireAllNonNull(events);
-        this.events = events;
+        this.events.addAll(events);
     }
 
     /**
