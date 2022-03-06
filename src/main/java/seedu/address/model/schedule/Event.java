@@ -2,9 +2,9 @@ package seedu.address.model.schedule;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import seedu.address.model.recurFrequency.RecurFrequency;
@@ -59,25 +59,16 @@ public class Event {
         return time;
     }
 
+    public LocalDate getEndDate() {
+        return date.atTime(time).plus(duration).toLocalDate();
+    }
+
     public LocalTime getEndTime() {
         return time.plus(duration);
     }
 
-    public LocalDate getEndDate() {
-        LocalDateTime endDateTime = date.atTime(time).plus(duration);
-        return endDateTime.toLocalDate();
-    }
-
     public Duration getDuration() {
         return duration;
-    }
-
-    private String getDurationDays() {
-        long days = duration.toDaysPart();
-        if (days > 0) {
-            return String.format(" (+%s)", days);
-        }
-        return "";
     }
 
     public EventDescription getEventDescription() {
@@ -125,13 +116,19 @@ public class Event {
 
     @Override
     public String toString() {
+        String plusDays = "";
+        long numDays = ChronoUnit.DAYS.between(getDate(), getEndDate());
+        if (numDays > 0) {
+            plusDays = String.format(" (+%s)", numDays);
+        }
+
         if (!isRecurring()) {
             return String.format("%s %s %s-%s%s", eventDescription,
-                    date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(), getDurationDays());
+                    date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(), plusDays);
         } else {
             return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
                     DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(),
-                    getDurationDays(), recurFrequency.toString());
+                    plusDays, recurFrequency.toString());
         }
     }
 
