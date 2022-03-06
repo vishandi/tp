@@ -36,7 +36,7 @@ public class EditEventCommand extends EditTypeCommand {
             + "[" + PREFIX_EVENT_DESCRIPTION + "EVENT DESCRIPTION] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_DURATION + "DURATION] "
+            + "[" + PREFIX_DURATION + "DURATION]\n"
             + "Example: " + COMMAND_WORD + " 1 2 "
             + PREFIX_TIME + "10:00";
 

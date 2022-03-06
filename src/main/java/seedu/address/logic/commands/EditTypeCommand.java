@@ -10,7 +10,6 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
-import seedu.address.logic.EditUtil.EditScheduleDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -48,24 +47,13 @@ public abstract class EditTypeCommand extends Command {
         assert scheduleToEdit != null;
 
         List<Event> scheduleEvents = scheduleToEdit.getEvents();
-        ArrayList<Event> updatedEvents = new ArrayList<>();
-        EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
+        ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
 
-        int counter = 0;
-        for (Event toEditEvent : scheduleEvents) {
-            Event updatedEvent;
-            if (counter == targetEventIndex.getZeroBased()) {
-                updatedEvent = createEditedEvent(toEditEvent, editEventDescriptor);
-            } else {
-                updatedEvent = toEditEvent;
-            }
-            updatedEvents.add(updatedEvent);
-            counter++;
-        }
+        Event toEditEvent = updatedEvents.remove(targetEventIndex.getZeroBased());
+        Event updatedEvent = createEditedEvent(toEditEvent, editEventDescriptor);
+        updatedEvents.add(targetEventIndex.getZeroBased(), updatedEvent);
 
-        editScheduleDescriptor.setEvents(updatedEvents);
-
-        return new Schedule(editScheduleDescriptor.getEvents());
+        return new Schedule(updatedEvents);
     }
 
     /**
@@ -79,10 +67,7 @@ public abstract class EditTypeCommand extends Command {
         ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
         updatedEvents.add(eventToAdd);
 
-        EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
-        editScheduleDescriptor.setEvents(updatedEvents);
-
-        return new Schedule(editScheduleDescriptor.getEvents());
+        return new Schedule(updatedEvents);
     }
 
     protected static Schedule createDeletedSchedule(Schedule scheduleToEdit, Index targetIndex) {
@@ -92,10 +77,7 @@ public abstract class EditTypeCommand extends Command {
         ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
         updatedEvents.remove(targetIndex.getZeroBased());
 
-        EditScheduleDescriptor editScheduleDescriptor = new EditScheduleDescriptor();
-        editScheduleDescriptor.setEvents(updatedEvents);
-
-        return new Schedule(editScheduleDescriptor.getEvents());
+        return new Schedule(updatedEvents);
     }
 
     /**
