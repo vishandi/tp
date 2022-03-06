@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -33,13 +34,15 @@ public class AddEventCommand extends EditTypeCommand {
             + PREFIX_EVENT_DESCRIPTION + "EVENT_DESCRIPTION "
             + PREFIX_DATE + "DATE "
             + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_DURATION + "DURATION]"
+            + "[" + PREFIX_DURATION + "DURATION] "
+            + "[" + PREFIX_RECUR_FREQUENCY + "RECUR_FREQUENCY] "
             + "\nExample: " + COMMAND_WORD + " "
             + "3 "
             + PREFIX_EVENT_DESCRIPTION + "CS2103T Tutorial "
             + PREFIX_DATE + "2022-12-28 "
             + PREFIX_TIME + "10:00 "
-            + PREFIX_DURATION + "3H30M ";
+            + PREFIX_DURATION + "3H30M "
+            + PREFIX_RECUR_FREQUENCY + "W ";
 
     public static final String MESSAGE_SUCCESS = "Added %1$s to %2$s's schedule";
 

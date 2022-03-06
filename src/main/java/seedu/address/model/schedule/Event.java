@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
+import seedu.address.model.recurFrequency.RecurFrequency;
 
 /**
  * Represents a scheduled Event.
@@ -27,22 +30,25 @@ public class Event {
     private final LocalDate date;
     private final LocalTime time;
     private final Duration duration;
+    private final RecurFrequency recurFrequency;
 
     private Event() {
         this.eventDescription = new EventDescription(PLACEHOLDER_EVENT_DESCRIPTION);
         this.date = LocalDate.now();
         this.time = LocalTime.now();
         this.duration = Duration.ZERO;
+        this.recurFrequency = null;
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration) {
+    public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration, RecurFrequency recurFrequency) {
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
         this.duration = duration;
+        this.recurFrequency = recurFrequency;
     }
 
     public LocalDate getDate() {
@@ -78,6 +84,17 @@ public class Event {
         return eventDescription;
     }
 
+    public Optional<RecurFrequency> getRecurFrequency() {
+        return Optional.ofNullable(recurFrequency);
+    }
+
+    public boolean isRecurring() {
+        if (recurFrequency == null) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Returns true if the given event is valid.
      */
@@ -102,13 +119,20 @@ public class Event {
         return otherEvent.getEventDescription().equals(getEventDescription())
                 && otherEvent.getDate().equals(getDate())
                 && otherEvent.getTime().equals(getTime())
-                && otherEvent.getDuration().equals(getDuration());
+                && otherEvent.getDuration().equals(getDuration())
+                && otherEvent.getRecurFrequency().equals(getRecurFrequency());
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s %s-%s%s", eventDescription,
-                date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(), getDurationDays());
+        if (!isRecurring()) {
+            return String.format("%s %s %s-%s%s", eventDescription,
+                    date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(), getDurationDays());
+        } else {
+            return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
+                    DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(),
+                    getDurationDays(), recurFrequency.toString());
+        }
     }
 
 }
