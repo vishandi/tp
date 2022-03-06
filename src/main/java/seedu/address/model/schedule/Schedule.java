@@ -13,10 +13,9 @@ public class Schedule {
     public static final String MESSAGE_CONSTRAINTS =
             "A Schedule's Events must have alphanumeric event descriptions, date formats YYYY-MM-DD, "
                     + "time formats HH:MM and duration format in hours";
-    private List<Event> events;
+    private List<Event> events = new ArrayList<>();
 
     private Schedule() {
-        this.events = new ArrayList<>();
     }
 
     /**
@@ -24,7 +23,7 @@ public class Schedule {
      */
     public Schedule(List<Event> events) {
         requireAllNonNull(events);
-        this.events = events;
+        this.events.addAll(events);
     }
 
     /**

@@ -66,6 +66,14 @@ public class Event {
         return duration;
     }
 
+    private String getDurationDays() {
+        long days = duration.toDaysPart();
+        if (days > 0) {
+            return String.format(" (+%s)", days);
+        }
+        return "";
+    }
+
     public EventDescription getEventDescription() {
         return eventDescription;
     }
@@ -99,8 +107,8 @@ public class Event {
 
     @Override
     public String toString() {
-        return String.format("%s %s %s-%s", eventDescription,
-                date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime());
+        return String.format("%s %s %s-%s%s", eventDescription,
+                date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(), getDurationDays());
     }
 
 }
