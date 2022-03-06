@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
-import seedu.address.model.recurFrequency.RecurFrequency;
+import seedu.address.model.recurfrequency.RecurFrequency;
 
 /**
  * Represents a scheduled Event.
@@ -43,7 +43,8 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration, RecurFrequency recurFrequency) {
+    public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration,
+                 RecurFrequency recurFrequency) {
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
@@ -79,6 +80,10 @@ public class Event {
         return Optional.ofNullable(recurFrequency);
     }
 
+    /**
+     * Returns true if the Event is recurring.
+     * @return
+     */
     public boolean isRecurring() {
         if (recurFrequency == null) {
             return false;

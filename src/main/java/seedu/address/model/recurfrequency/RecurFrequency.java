@@ -1,4 +1,4 @@
-package seedu.address.model.recurFrequency;
+package seedu.address.model.recurfrequency;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,13 +14,13 @@ public enum RecurFrequency {
     public static final String MONTHLY_LABEL = "(Monthly)";
     public static final String UNKNOWN_LABEL = "??";
     private static HashMap<String, RecurFrequency> frequencyMap = new HashMap<>();
-    private String frequency;
 
     static {
         Arrays.stream(RecurFrequency.values()).forEach(option -> frequencyMap.put(option.frequency, option));
     }
     public static final String INVALID_RECUR_FREQUENCY_MESSAGE = String.format("Recurrence "
             + "frequency must be one of the following: %s", frequencyMap.keySet());
+    private String frequency;
 
     RecurFrequency(String frequency) {
         this.frequency = frequency;

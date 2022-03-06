@@ -33,7 +33,8 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE, PREFIX_TIME, PREFIX_DURATION, PREFIX_RECUR_FREQUENCY);
+                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE, PREFIX_TIME,
+                        PREFIX_DURATION, PREFIX_RECUR_FREQUENCY);
 
         List<Index> indices;
 
@@ -62,7 +63,8 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             editEventDescriptor.setDuration(ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get()));
         }
         if (argMultimap.getValue(PREFIX_RECUR_FREQUENCY).isPresent()) {
-            editEventDescriptor.setRecurFrequency(ParserUtil.parseRecurFrequency(argMultimap.getValue(PREFIX_RECUR_FREQUENCY).get()));
+            editEventDescriptor.setRecurFrequency(ParserUtil.parseRecurFrequency(
+                    argMultimap.getValue(PREFIX_RECUR_FREQUENCY).get()));
         }
 
         if (!editEventDescriptor.isAnyFieldEdited()) {

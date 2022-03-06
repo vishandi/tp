@@ -14,7 +14,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.recurFrequency.RecurFrequency;
+import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
@@ -113,7 +113,8 @@ public class PersonBuilder {
     /**
      * Parses the {@code event} and set it to the {@code Schedule} of the {@code Person} that we are building.
      */
-    public PersonBuilder withEvent(String description, String date, String time, String duration, String recurFrequency) {
+    public PersonBuilder withEvent(String description, String date, String time, String duration,
+                                   String recurFrequency) {
         EventDescription eventDescription = new EventDescription(description);
         try {
             LocalDate eventDate = ParserUtil.parseDate(date);

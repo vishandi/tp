@@ -15,7 +15,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.recurFrequency.RecurFrequency;
+import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
@@ -93,7 +93,8 @@ public abstract class EditTypeCommand extends Command {
         LocalDate updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
         LocalTime updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
         Duration updatedDuration = editEventDescriptor.getDuration().orElse(eventToEdit.getDuration());
-        RecurFrequency updatedRecurFrequency = editEventDescriptor.getRecurFrequency().orElse(eventToEdit.getRecurFrequency().orElse(null));
+        RecurFrequency updatedRecurFrequency = editEventDescriptor.getRecurFrequency().orElse(
+                eventToEdit.getRecurFrequency().orElse(null));
         return new Event(updatedEventDescription, updatedDate, updatedTime, updatedDuration, updatedRecurFrequency);
     }
 }
