@@ -112,8 +112,8 @@
     "name" : "Elle Meyer",
     "phone" : "9482224",
     "telegram" : {
-      "value" : null,
-      "isDefault" : true
+      "value" : "Elle_chan",
+      "isDefault" : false
     },
     "email" : "werner@example.com",
     "address" : "michegan ave",
