@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Optional;
+
 /**
  * Represents a Person's Telegram handle in UniGenda.
  * Guarantees: immutable; is valid as declared in
@@ -30,6 +32,18 @@ public class Telegram {
         isDefault = false;
     }
 
+    /**
+     * Another constructor for Telegram
+     * @param username
+     * @param isDefault
+     */
+    public Telegram(String username, boolean isDefault) {
+        requireNonNull(username);
+        checkArgument(isValidUsername(username) || isDefault, MESSAGE_CONSTRAINTS);
+        value = username;
+        this.isDefault = isDefault;
+    }
+
     private Telegram() {
         value = null;
         isDefault = true;
@@ -43,10 +57,24 @@ public class Telegram {
     }
 
     /**
+     * Returns true if a given Telegram is a valid Telegram object.
+     */
+    public static boolean isValidTelegram(Telegram telegram) {
+        return telegram.isDefault || isValidUsername(telegram.value);
+    }
+
+    /**
      * Returns true if the Telegram object is the default Telegram.
      */
     public boolean isDefault() {
         return isDefault;
+    }
+
+    public Optional<Telegram> get() {
+        if (this.isDefault()) {
+            return Optional.empty();
+        }
+        return Optional.of(this);
     }
 
     @Override

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.model.person.Address.EMPTY_ADDRESS;
 import static seedu.address.model.person.Email.EMPTY_EMAIL;
 
@@ -25,6 +26,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Telegram;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
@@ -49,6 +51,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+
+        Telegram telegram = argMultimap.getValue(PREFIX_TELEGRAM)
+                .map(x -> new Telegram(x))
+                .orElse(Telegram.DEFAULT_TELEGRAM);
+
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()
                 && Email.isEmptyEmail(argMultimap.getValue(PREFIX_EMAIL).get().trim())) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
@@ -60,7 +67,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(EMPTY_ADDRESS));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Person person = new Person(name, phone, email, address, new Schedule(new ArrayList<>()), tagList);
+        Person person = new Person(name, phone, telegram, email, address, new Schedule(new ArrayList<>()), tagList);
 
         return new AddCommand(person);
     }

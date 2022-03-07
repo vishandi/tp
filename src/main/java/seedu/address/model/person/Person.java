@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.schedule.Schedule;
@@ -21,6 +22,7 @@ public class Person {
     private final Phone phone;
 
     // Data fields
+    private final Telegram telegram;
     private final Email email;
     private final Address address;
     private final Schedule schedule;
@@ -29,10 +31,12 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Schedule schedule, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Telegram telegram, Email email,
+                  Address address, Schedule schedule, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
+        this.telegram = telegram;
         this.email = email;
         this.address = address;
         this.schedule = schedule;
@@ -45,6 +49,10 @@ public class Person {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public Optional<Telegram> getTelegram() {
+        return telegram.get();
     }
 
     public Email getEmail() {
@@ -98,6 +106,7 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getTelegram().equals(getTelegram())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
@@ -115,6 +124,10 @@ public class Person {
         builder.append(getName())
                 .append("; Phone: ")
                 .append(getPhone());
+
+        builder.append(getTelegram()
+                .map(x -> "; Teleggram: " + x.value)
+                .orElse(""));
 
         if (!Email.isDefaultEmail(getEmail())) {
             builder.append("; Email: ")
