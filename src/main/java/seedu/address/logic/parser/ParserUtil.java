@@ -93,6 +93,12 @@ public class ParserUtil {
         return new Phone(trimmedPhone);
     }
 
+    /**
+     * Parses a {@code String username} into a {@code Telegram}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
     public static Telegram parseTelegram(String username) throws ParseException {
         requireNonNull(username);
         String trimmedUsername = username.trim();

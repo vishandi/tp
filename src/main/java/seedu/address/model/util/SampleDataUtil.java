@@ -38,12 +38,12 @@ public class SampleDataUtil {
                     new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), Schedule.EMPTY_SCHEDULE,
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), Telegram.DEFAULT_TELEGRAM
-                    ,new Email("irfan@example.com"),
+            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), Telegram.DEFAULT_TELEGRAM,
+                    new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"), Schedule.EMPTY_SCHEDULE,
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), Telegram.DEFAULT_TELEGRAM
-                    ,new Email("royb@example.com"),
+            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), Telegram.DEFAULT_TELEGRAM,
+                    new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"), Schedule.EMPTY_SCHEDULE,
                 getTagSet("colleagues"))
         };

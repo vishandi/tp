@@ -18,8 +18,6 @@ import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
-import javax.swing.text.html.Option;
-
 public class EditUtil {
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
