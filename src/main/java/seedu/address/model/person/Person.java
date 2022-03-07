@@ -126,7 +126,7 @@ public class Person {
                 .append(getPhone());
 
         builder.append(getTelegram()
-                .map(x -> "; Teleggram: " + x.value)
+                .map(x -> "; Telegram: " + x.value)
                 .orElse(""));
 
         if (!Email.isDefaultEmail(getEmail())) {

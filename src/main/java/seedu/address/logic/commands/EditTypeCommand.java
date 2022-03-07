@@ -31,7 +31,8 @@ public abstract class EditTypeCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Telegram updatedTelegram = personToEdit.getTelegram().orElse(Telegram.DEFAULT_TELEGRAM);
+        Telegram updatedTelegram = editPersonDescriptor.getTelegram()
+                .orElse(personToEdit.getTelegram().orElse(Telegram.DEFAULT_TELEGRAM));
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());

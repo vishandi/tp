@@ -13,9 +13,12 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Telegram;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
+
+import javax.swing.text.html.Option;
 
 public class EditUtil {
     /**
@@ -25,6 +28,7 @@ public class EditUtil {
     public static class EditPersonDescriptor {
         private Name name;
         private Phone phone;
+        private Telegram telegram;
         private Email email;
         private Address address;
         private Schedule schedule;
@@ -39,6 +43,7 @@ public class EditUtil {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
+            setTelegram(toCopy.telegram);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setSchedule(toCopy.schedule);
@@ -49,7 +54,7 @@ public class EditUtil {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, schedule, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, telegram, email, address, schedule, tags);
         }
 
         public void setName(Name name) {
@@ -66,6 +71,14 @@ public class EditUtil {
 
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
+        }
+
+        public void setTelegram(Telegram telegram) {
+            this.telegram = telegram;
+        }
+
+        public Optional<Telegram> getTelegram() {
+            return Optional.ofNullable(telegram);
         }
 
         public void setEmail(Email email) {
@@ -126,6 +139,7 @@ public class EditUtil {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
+                    && getTelegram().equals(e.getTelegram())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getSchedule().equals(e.getSchedule())
