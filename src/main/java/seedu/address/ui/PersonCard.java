@@ -46,6 +46,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private HBox telegramBox;
+    @FXML
     private HBox addressBox;
     @FXML
     private HBox emailBox;
@@ -64,12 +66,15 @@ public class PersonCard extends UiPart<Region> {
         ImageView addressIcon = new ImageView("./images/address_icon.png");
         ImageView emailIcon = new ImageView("./images/email_icon.png");
         ImageView scheduleIcon = new ImageView("./images/schedule_icon.png");
+        ImageView telegramIcon = new ImageView("./images/telegram_icon.png");
         addressIcon.setFitHeight(16);
         addressIcon.setFitWidth(16);
         emailIcon.setFitHeight(16);
         emailIcon.setFitWidth(16);
         scheduleIcon.setFitHeight(16);
         scheduleIcon.setFitWidth(16);
+        telegramIcon.setFitHeight(16);
+        telegramIcon.setFitWidth(16);
 
         this.person = person;
         id.setText(displayedIndex + ". ");
