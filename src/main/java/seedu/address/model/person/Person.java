@@ -129,7 +129,7 @@ public class Person {
                     .append(getTelegram());
         }
 
-        if (!Email.isDefaultEmail(getEmail())) {
+        if (!getEmail().isEmpty()) {
             builder.append("; Email: ")
                     .append(getEmail());
         }

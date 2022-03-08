@@ -53,15 +53,17 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
 
-        Telegram telegram = argMultimap.getValue(PREFIX_TELEGRAM)
-                .map(x -> new Telegram(x))
-                .orElse(Telegram.EMPTY_TELEGRAM);
-
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()
-                && Email.isEmptyEmail(argMultimap.getValue(PREFIX_EMAIL).get().trim())) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        Telegram telegram = Telegram.EMPTY_TELEGRAM;
+        if (argMultimap.getValue(PREFIX_TELEGRAM).isPresent()) {
+            telegram = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
         }
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(EMPTY_EMAIL));
+
+        Email email = EMPTY_EMAIL;
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        }
+
+
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()
                 && Address.isEmptyAddress(argMultimap.getValue(PREFIX_ADDRESS).get().trim())) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);

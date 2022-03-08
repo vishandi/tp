@@ -6,7 +6,9 @@
     "telegram" : {
       "value" : null
     },
-    "email" : "alice@example.com",
+    "email" : {
+      "value" : "alice@example.com"
+    },
     "address" : "123, Jurong West Ave 6, #08-111",
     "schedule" : {
       "events" : [ {
@@ -32,7 +34,9 @@
     "telegram" : {
       "value" : null
     },
-    "email" : "johnd@example.com",
+    "email" : {
+      "value" : "johnd@example.com"
+    },
     "address" : "311, Clementi Ave 2, #02-25",
     "schedule" : {
       "events" : [ {
@@ -58,7 +62,9 @@
     "telegram" : {
       "value" : null
     },
-    "email" : "heinz@example.com",
+    "email" : {
+      "value" : "heinz@example.com"
+    },
     "address" : "wall street",
     "schedule" : {
       "events" : [ {
@@ -84,7 +90,9 @@
     "telegram" : {
       "value" : null
     },
-    "email" : "cornelia@example.com",
+    "email" : {
+      "value" : "cornelia@example.com"
+    },
     "address" : "10th street",
     "schedule" : {
       "events" : [ {
@@ -110,7 +118,9 @@
     "telegram" : {
       "value" : "Elle_chan"
     },
-    "email" : "werner@example.com",
+    "email" : {
+      "value" : "werner@example.com"
+    },
     "address" : "michegan ave",
     "schedule" : {
       "events" : [ {
@@ -136,7 +146,9 @@
     "telegram" : {
       "value" : null
     },
-    "email" : "lydia@example.com",
+    "email" : {
+      "value" : "lydia@example.com"
+    },
     "address" : "little tokyo",
     "schedule" : {
       "events" : [ {
@@ -162,7 +174,9 @@
     "telegram" : {
       "value" : null
     },
-    "email" : "anna@example.com",
+    "email" : {
+      "value" : "anna@example.com"
+    },
     "address" : "4th street",
     "schedule" : {
       "events" : [ {
@@ -188,7 +202,9 @@
     "telegram" : {
       "value" : null
     },
-    "email" : "hendri@example.com",
+    "email" : {
+      "value" : "hendri@example.com"
+    },
     "address" : "PGPR",
     "schedule" : {
       "events" : [ {

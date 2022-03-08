@@ -61,9 +61,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setTelegram(ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            if (Email.isEmptyEmail(argMultimap.getValue(PREFIX_EMAIL).get())) {
-                throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-            }
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {

@@ -85,7 +85,7 @@ public class PersonCard extends UiPart<Region> {
             Label telegramLabel = new Label(person.getTelegram().value);
             telegramBox.getChildren().add(telegramLabel);
         }
-        if (!Email.isDefaultEmail(person.getEmail())) {
+        if (!person.getEmail().isEmpty()) {
             emailBox.getChildren().add(emailIcon);
             Label emailLabel = new Label(person.getEmail().value);
             emailBox.getChildren().add(emailLabel);

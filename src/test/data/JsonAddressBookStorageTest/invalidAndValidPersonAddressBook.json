@@ -2,7 +2,9 @@
   "persons": [ {
     "name": "Valid Person",
     "phone": "9482424",
-    "email": "hans@example.com",
+    "email" : {
+      "value" : "hans@example.com"
+    },
     "address": "4th street",
     "schedule" : {
       "events" : [ {
@@ -24,7 +26,9 @@
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
-    "email": "hans@example.com",
+    "email" : {
+      "value" : "hans@example.com"
+    },
     "address": "4th street",
     "schedule" : {
       "events" : [ {

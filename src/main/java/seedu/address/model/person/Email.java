@@ -9,8 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Email {
     //Default Email if no email is specified
-    public static final String EMPTY_EMAIL = "";
-    public static final Email DEFAULT_EMAIL = new Email("");
+    public static final Email EMPTY_EMAIL = new Email();
     public static final String DEFAULT_EMAIL_MESSAGE = "Email not yet specified.";
 
     private static final String SPECIAL_CHARACTERS = "+_.-";
@@ -44,29 +43,36 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEmailAddress(email), MESSAGE_CONSTRAINTS);
         value = email;
+    }
+
+    /**
+     * Private constructor for Empty Email.
+     */
+    private Email() {
+        value = "";
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidEmail(String test) {
-        return isEmptyEmail(test) || test.matches(VALIDATION_REGEX);
+    public static boolean isValidEmailAddress(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**
-     * Returns true if the given string is the default empty email.
+     * Returns true if the given email is the default empty email.
      */
-    public static boolean isEmptyEmail(String test) {
-        return test.equals(EMPTY_EMAIL);
+    public boolean isEmpty() {
+        return this.equals(EMPTY_EMAIL);
     }
 
     /**
      * Returns true if the given email is the default email.
      */
-    public static boolean isDefaultEmail(Email test) {
-        return test.equals(DEFAULT_EMAIL);
+    public static boolean isValidEmail(Email test) {
+        return test.isEmpty() || isValidEmailAddress(test.value);
     }
 
     @Override
