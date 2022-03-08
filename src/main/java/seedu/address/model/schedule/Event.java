@@ -1,5 +1,7 @@
 package seedu.address.model.schedule;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -41,10 +43,11 @@ public class Event {
     }
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present, and only recurFrequency can be null.
      */
     public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration,
                  RecurFrequency recurFrequency) {
+        requireAllNonNull(eventDescription, date, time, duration);
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
@@ -85,10 +88,7 @@ public class Event {
      * @return
      */
     public boolean isRecurring() {
-        if (recurFrequency == null) {
-            return false;
-        }
-        return true;
+        return getRecurFrequency().isPresent();
     }
 
     /**
@@ -127,14 +127,9 @@ public class Event {
             plusDays = String.format(" (+%s)", numDays);
         }
 
-        if (!isRecurring()) {
-            return String.format("%s %s %s-%s%s", eventDescription,
-                    date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(), plusDays);
-        } else {
-            return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
-                    DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(),
-                    plusDays, recurFrequency.toString());
-        }
+        return String.format("%s %s %s-%s%s%s", eventDescription, date.format(
+                        DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(),
+                plusDays, getRecurFrequency().map(x -> " " + x).orElse(""));
     }
 
 }

@@ -12,7 +12,7 @@ public enum RecurFrequency {
     public static final String WEEKLY_LABEL = "(Weekly)";
     public static final String BIWEEKLY_LABEL = "(Biweekly)";
     public static final String MONTHLY_LABEL = "(Monthly)";
-    public static final String UNKNOWN_LABEL = "??";
+    public static final String INVALID_LABEL = "(Invalid)";
     private static HashMap<String, RecurFrequency> frequencyMap = new HashMap<>();
 
     static {
@@ -59,7 +59,7 @@ public enum RecurFrequency {
             return MONTHLY_LABEL;
         default:
             //Should not happen
-            return UNKNOWN_LABEL;
+            return INVALID_LABEL;
         }
     }
 }

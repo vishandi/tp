@@ -47,7 +47,6 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         boolean hasEventDate = arePrefixesPresent(argMultimap, PREFIX_DATE);
         boolean hasEventDuration = arePrefixesPresent(argMultimap, PREFIX_DURATION);
         boolean hasEventTime = arePrefixesPresent(argMultimap, PREFIX_TIME);
-        boolean isRecurring = arePrefixesPresent(argMultimap, PREFIX_RECUR_FREQUENCY);
 
         if (!(hasEventDescription && hasEventDate)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
