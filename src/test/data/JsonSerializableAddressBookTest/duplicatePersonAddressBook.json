@@ -3,8 +3,7 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "telegram" : {
-      "value" : null,
-      "isDefault" : true
+      "value" : null
     },
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
@@ -30,8 +29,7 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "telegram" : {
-      "value" : null,
-      "isDefault" : true
+      "value" : null
     },
     "email": "pauline@example.com",
     "address": "4th street",

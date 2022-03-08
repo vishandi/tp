@@ -55,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Telegram telegram = argMultimap.getValue(PREFIX_TELEGRAM)
                 .map(x -> new Telegram(x))
-                .orElse(Telegram.DEFAULT_TELEGRAM);
+                .orElse(Telegram.EMPTY_TELEGRAM);
 
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()
                 && Email.isEmptyEmail(argMultimap.getValue(PREFIX_EMAIL).get().trim())) {

@@ -46,7 +46,7 @@ public class PersonBuilder {
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        telegram = Telegram.DEFAULT_TELEGRAM;
+        telegram = Telegram.EMPTY_TELEGRAM;
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         schedule = new Schedule(new ArrayList<>());
@@ -59,7 +59,7 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
-        telegram = personToCopy.getTelegram().orElse(Telegram.DEFAULT_TELEGRAM);
+        telegram = personToCopy.getTelegram().orElse(Telegram.EMPTY_TELEGRAM);
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         schedule = new Schedule(personToCopy.getSchedule().getEvents());

@@ -15,10 +15,9 @@ public class Telegram {
             + "1. The username should only contain alphanumeric characters and underscore (_).\n"
             + "2. The username must contain at least 5 characters.";
     public static final String VALIDATION_REGEX = "^[a-zA-z0-9-_]{5,}$";
-    public static final Telegram DEFAULT_TELEGRAM = new Telegram();
+    public static final Telegram EMPTY_TELEGRAM = new Telegram();
 
     public final String value;
-    public final boolean isDefault;
 
     /**
      * Constructs on {@code Telegram}.
@@ -29,24 +28,10 @@ public class Telegram {
         requireNonNull(username);
         checkArgument(isValidUsername(username), MESSAGE_CONSTRAINTS);
         value = username;
-        isDefault = false;
-    }
-
-    /**
-     * Another constructor for Telegram
-     * @param username
-     * @param isDefault
-     */
-    public Telegram(String username, boolean isDefault) {
-        requireNonNull(username);
-        checkArgument(isValidUsername(username) || isDefault, MESSAGE_CONSTRAINTS);
-        value = username;
-        this.isDefault = isDefault;
     }
 
     private Telegram() {
         value = null;
-        isDefault = true;
     }
 
     /**
@@ -60,18 +45,18 @@ public class Telegram {
      * Returns true if a given Telegram is a valid Telegram object.
      */
     public static boolean isValidTelegram(Telegram telegram) {
-        return telegram.isDefault || isValidUsername(telegram.value);
+        return telegram.isEmpty() || isValidUsername(telegram.value);
     }
 
     /**
      * Returns true if the Telegram object is the default Telegram.
      */
-    public boolean isDefault() {
-        return isDefault;
+    public boolean isEmpty() {
+        return this.equals(EMPTY_TELEGRAM);
     }
 
     public Optional<Telegram> get() {
-        if (this.isDefault()) {
+        if (isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(this);
@@ -84,8 +69,17 @@ public class Telegram {
 
     @Override
     public boolean equals(Object other) {
-        return other == this
-                || (other instanceof Telegram
-            && value.equals(((Telegram) other).value));
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof Telegram) {
+            Telegram otherTelegram = (Telegram) other;
+            if (this.value == null) {
+                return otherTelegram.value == null;
+            } else {
+                return this.value.equals(otherTelegram.value);
+            }
+        }
+        return false;
     }
 }
