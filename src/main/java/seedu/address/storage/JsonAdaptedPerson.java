@@ -60,7 +60,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        telegram = source.getTelegram().orElse(Telegram.EMPTY_TELEGRAM);
+        telegram = source.getTelegram();
         email = source.getEmail().value;
         address = source.getAddress().value;
         schedule = source.getSchedule();

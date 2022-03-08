@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.schedule.Schedule;
@@ -51,8 +50,8 @@ public class Person {
         return phone;
     }
 
-    public Optional<Telegram> getTelegram() {
-        return telegram.get();
+    public Telegram getTelegram() {
+        return telegram;
     }
 
     public Email getEmail() {
@@ -125,9 +124,10 @@ public class Person {
                 .append("; Phone: ")
                 .append(getPhone());
 
-        builder.append(getTelegram()
-                .map(x -> "; Telegram: " + x.value)
-                .orElse(""));
+        if (!getTelegram().isEmpty()) {
+            builder.append("; Telegram: ")
+                    .append(getTelegram());
+        }
 
         if (!Email.isDefaultEmail(getEmail())) {
             builder.append("; Email: ")

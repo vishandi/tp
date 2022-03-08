@@ -55,13 +55,6 @@ public class Telegram {
         return this.equals(EMPTY_TELEGRAM);
     }
 
-    public Optional<Telegram> get() {
-        if (isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(this);
-    }
-
     @Override
     public String toString() {
         return value;

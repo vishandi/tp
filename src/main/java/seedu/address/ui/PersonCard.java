@@ -80,9 +80,9 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        if (person.getTelegram().isPresent()) {
+        if (!person.getTelegram().isEmpty()) {
             telegramBox.getChildren().add(telegramIcon);
-            Label telegramLabel = new Label(person.getTelegram().map(x -> x.value).get());
+            Label telegramLabel = new Label(person.getTelegram().value);
             telegramBox.getChildren().add(telegramLabel);
         }
         if (!Email.isDefaultEmail(person.getEmail())) {
