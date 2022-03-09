@@ -1,10 +1,15 @@
 package seedu.address.model.schedule;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Optional;
+
+import seedu.address.model.recurfrequency.RecurFrequency;
 
 /**
  * Represents a scheduled Event.
@@ -27,22 +32,27 @@ public class Event {
     private final LocalDate date;
     private final LocalTime time;
     private final Duration duration;
+    private final RecurFrequency recurFrequency;
 
     private Event() {
         this.eventDescription = new EventDescription(PLACEHOLDER_EVENT_DESCRIPTION);
         this.date = LocalDate.now();
         this.time = LocalTime.now();
         this.duration = Duration.ZERO;
+        this.recurFrequency = null;
     }
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present, and only recurFrequency can be null.
      */
-    public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration) {
+    public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration,
+                 RecurFrequency recurFrequency) {
+        requireAllNonNull(eventDescription, date, time, duration);
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
         this.duration = duration;
+        this.recurFrequency = recurFrequency;
     }
 
     public LocalDate getDate() {
@@ -53,29 +63,32 @@ public class Event {
         return time;
     }
 
-    public LocalTime getEndTime() {
-        return time.plus(duration);
+    public LocalDate getEndDate() {
+        return date.atTime(time).plus(duration).toLocalDate();
     }
 
-    public LocalDate getEndDate() {
-        LocalDateTime endDateTime = date.atTime(time).plus(duration);
-        return endDateTime.toLocalDate();
+    public LocalTime getEndTime() {
+        return time.plus(duration);
     }
 
     public Duration getDuration() {
         return duration;
     }
 
-    private String getDurationDays() {
-        long days = duration.toDaysPart();
-        if (days > 0) {
-            return String.format(" (+%s)", days);
-        }
-        return "";
-    }
-
     public EventDescription getEventDescription() {
         return eventDescription;
+    }
+
+    public Optional<RecurFrequency> getRecurFrequency() {
+        return Optional.ofNullable(recurFrequency);
+    }
+
+    /**
+     * Returns true if the Event is recurring.
+     * @return
+     */
+    public boolean isRecurring() {
+        return getRecurFrequency().isPresent();
     }
 
     /**
@@ -102,13 +115,21 @@ public class Event {
         return otherEvent.getEventDescription().equals(getEventDescription())
                 && otherEvent.getDate().equals(getDate())
                 && otherEvent.getTime().equals(getTime())
-                && otherEvent.getDuration().equals(getDuration());
+                && otherEvent.getDuration().equals(getDuration())
+                && otherEvent.getRecurFrequency().equals(getRecurFrequency());
     }
 
     @Override
     public String toString() {
-        return String.format("%s %s %s-%s%s", eventDescription,
-                date.format(DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(), getDurationDays());
+        String plusDays = "";
+        long numDays = ChronoUnit.DAYS.between(getDate(), getEndDate());
+        if (numDays > 0) {
+            plusDays = String.format(" (+%s)", numDays);
+        }
+
+        return String.format("%s %s %s-%s%s%s", eventDescription, date.format(
+                        DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(),
+                plusDays, getRecurFrequency().map(x -> " " + x).orElse(""));
     }
 
 }

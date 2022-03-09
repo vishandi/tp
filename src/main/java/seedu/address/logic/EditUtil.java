@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
@@ -138,6 +139,7 @@ public class EditUtil {
         private LocalDate date;
         private LocalTime time;
         private Duration duration;
+        private RecurFrequency recurFrequency;
 
         public EditEventDescriptor() {
         }
@@ -150,13 +152,14 @@ public class EditUtil {
             setDate(toCopy.date);
             setTime(toCopy.time);
             setDuration(toCopy.duration);
+            setRecurFrequency(toCopy.recurFrequency);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(eventDescription, date, time, duration);
+            return CollectionUtil.isAnyNonNull(eventDescription, date, time, duration, recurFrequency);
         }
 
         public void setEventDescription(EventDescription eventDescription) {
@@ -191,6 +194,14 @@ public class EditUtil {
             return Optional.ofNullable(duration);
         }
 
+        public void setRecurFrequency(RecurFrequency recurFrequency) {
+            this.recurFrequency = recurFrequency;
+        }
+
+        public Optional<RecurFrequency> getRecurFrequency() {
+            return Optional.ofNullable(recurFrequency);
+        }
+
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -209,7 +220,8 @@ public class EditUtil {
             return getEventDescription().equals(e.getEventDescription())
                     && getDate().equals(e.getDate())
                     && getTime().equals(e.getTime())
-                    && getDuration().equals(e.getDuration());
+                    && getDuration().equals(e.getDuration())
+                    && getRecurFrequency().equals(e.getRecurFrequency());
         }
     }
 }
