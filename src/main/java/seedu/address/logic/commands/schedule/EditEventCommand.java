@@ -38,8 +38,8 @@ public class EditEventCommand extends EditTypeCommand {
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_DURATION + "DURATION] "
-            + "[" + PREFIX_RECUR_FREQUENCY + "RECUR_FREQUENCY] "
-            + "\nExample: " + COMMAND_WORD + " 1 2 "
+            + "[" + PREFIX_RECUR_FREQUENCY + "RECUR_FREQUENCY]\n"
+            + "Example: " + COMMAND_WORD + " 1 2 "
             + PREFIX_TIME + "10:00";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "%1$s's event edited successfully";
