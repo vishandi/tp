@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.model.person.Address.EMPTY_ADDRESS;
 import static seedu.address.model.person.Email.EMPTY_EMAIL;
+import static seedu.address.model.person.Telegram.EMPTY_TELEGRAM;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
 
-        Telegram telegram = Telegram.EMPTY_TELEGRAM;
+        Telegram telegram = EMPTY_TELEGRAM;
         if (argMultimap.getValue(PREFIX_TELEGRAM).isPresent()) {
             telegram = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
         }
@@ -63,12 +64,11 @@ public class AddCommandParser implements Parser<AddCommand> {
             email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         }
 
-
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()
-                && Address.isEmptyAddress(argMultimap.getValue(PREFIX_ADDRESS).get().trim())) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        Address address = EMPTY_ADDRESS;
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         }
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(EMPTY_ADDRESS));
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Person person = new Person(name, phone, telegram, email, address, new Schedule(new ArrayList<>()), tagList);
 

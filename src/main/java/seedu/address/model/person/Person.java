@@ -134,7 +134,7 @@ public class Person {
                     .append(getEmail());
         }
 
-        if (!Address.isDefaultAddress(getAddress())) {
+        if (!getAddress().isEmpty()) {
             builder.append("; Address: ")
                     .append(getAddress());
         }

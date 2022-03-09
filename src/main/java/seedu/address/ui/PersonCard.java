@@ -13,7 +13,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.schedule.Schedule;
 
@@ -89,7 +88,7 @@ public class PersonCard extends UiPart<Region> {
             Label emailLabel = new Label(person.getEmail().value);
             emailBox.getChildren().add(emailLabel);
         }
-        if (!Address.isDefaultAddress(person.getAddress())) {
+        if (!person.getAddress().isEmpty()) {
             addressBox.getChildren().add(addressIcon);
             Label addressLabel = new Label(person.getAddress().value);
             addressBox.getChildren().add(addressLabel);

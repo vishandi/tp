@@ -117,11 +117,8 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
+        if (!Address.isValidAddress(trimmedAddress) || trimmedAddress.equals("")) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        if (Address.isEmptyAddress(trimmedAddress)) {
-            return Address.DEFAULT_ADDRESS;
         }
         return new Address(trimmedAddress);
     }

@@ -9,9 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Address {
     //Default Address if address is not specified on add.
-    public static final String EMPTY_ADDRESS = "";
-    public static final Address DEFAULT_ADDRESS = new Address(EMPTY_ADDRESS);
-    public static final String DEFAULT_ADDRESS_MESSAGE = "Address not yet specified.";
+    public static final Address EMPTY_ADDRESS = new Address("");
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
 
@@ -38,21 +36,14 @@ public class Address {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {
-        return isEmptyAddress(test) || test.matches(VALIDATION_REGEX);
+        return test.equals("") || test.matches(VALIDATION_REGEX);
     }
 
     /**
-     * Returns true if the given string is the default empty address.
+     * Returns true if this Address is the default address.
      */
-    public static boolean isEmptyAddress(String test) {
-        return test.equals(EMPTY_ADDRESS);
-    }
-
-    /**
-     * Returns true if the given Address is the default address.
-     */
-    public static boolean isDefaultAddress(Address test) {
-        return test.equals(DEFAULT_ADDRESS);
+    public boolean isEmpty() {
+        return this.equals(EMPTY_ADDRESS);
     }
 
     @Override
