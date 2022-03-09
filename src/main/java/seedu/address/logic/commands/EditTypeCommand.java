@@ -93,8 +93,8 @@ public abstract class EditTypeCommand extends Command {
         LocalDate updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
         LocalTime updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
         Duration updatedDuration = editEventDescriptor.getDuration().orElse(eventToEdit.getDuration());
-        RecurFrequency updatedRecurFrequency = editEventDescriptor.getRecurFrequency().orElse(
-                eventToEdit.getRecurFrequency().orElse(null));
+        RecurFrequency updatedRecurFrequency = editEventDescriptor.getRecurFrequency()
+                .orElse(eventToEdit.getRecurFrequency().orElse(null));
         return new Event(updatedEventDescription, updatedDate, updatedTime, updatedDuration, updatedRecurFrequency);
     }
 }
