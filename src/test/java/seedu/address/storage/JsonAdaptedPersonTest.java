@@ -29,7 +29,7 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final Email VALID_EMAIL = BENSON.getEmail();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final Telegram VALID_TELEGRAM = BENSON.getTelegram();
+    private static final String VALID_TELEGRAM = BENSON.getTelegram().toString();
     private static final Schedule VALID_SCHEDULE = BENSON.getSchedule();
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)

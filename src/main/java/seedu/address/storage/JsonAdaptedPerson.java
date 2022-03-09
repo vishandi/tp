@@ -28,7 +28,7 @@ class JsonAdaptedPerson {
 
     private final String name;
     private final String phone;
-    private final Telegram telegram;
+    private final String telegram;
     private final Email email;
     private final String address;
     private final Schedule schedule;
@@ -39,7 +39,7 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("telegram") Telegram telegram,
+            @JsonProperty("telegram") String telegram,
                              @JsonProperty("email") Email email, @JsonProperty("address") String address,
             @JsonProperty("schedule") Schedule schedule,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
@@ -60,7 +60,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        telegram = source.getTelegram();
+        telegram = source.getTelegram().value;
         email = source.getEmail();
         address = source.getAddress().value;
         schedule = source.getSchedule();
@@ -103,7 +103,7 @@ class JsonAdaptedPerson {
         if (!Telegram.isValidTelegram(telegram)) {
             throw new IllegalValueException(Telegram.MESSAGE_CONSTRAINTS);
         }
-        final Telegram modelTelegram = telegram;
+        final Telegram modelTelegram = new Telegram(telegram);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));

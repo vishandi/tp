@@ -2,9 +2,7 @@
   "persons": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "telegram" : {
-      "value" : null
-    },
+    "telegram" : "",
     "email" : {
       "value" : "alice@example.com"
     },
@@ -30,9 +28,7 @@
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "telegram" : {
-      "value" : null
-    },
+    "telegram" : "",
     "email" : {
       "value" : "pauline@example.com"
     },

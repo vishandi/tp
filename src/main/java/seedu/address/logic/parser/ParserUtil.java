@@ -102,7 +102,7 @@ public class ParserUtil {
     public static Telegram parseTelegram(String username) throws ParseException {
         requireNonNull(username);
         String trimmedUsername = username.trim();
-        if (!Telegram.isValidUsername(trimmedUsername)) {
+        if (!Telegram.isValidTelegram(trimmedUsername) || trimmedUsername.equals("")) {
             throw new ParseException(Telegram.MESSAGE_CONSTRAINTS);
         }
         return new Telegram(username);

@@ -13,7 +13,7 @@ public class Telegram {
             + "1. The username should only contain alphanumeric characters and underscore (_).\n"
             + "2. The username must contain at least 5 characters.";
     public static final String VALIDATION_REGEX = "^[a-zA-z0-9-_]{5,}$";
-    public static final Telegram EMPTY_TELEGRAM = new Telegram();
+    public static final Telegram EMPTY_TELEGRAM = new Telegram("");
 
     public final String value;
 
@@ -24,26 +24,15 @@ public class Telegram {
      */
     public Telegram(String username) {
         requireNonNull(username);
-        checkArgument(isValidUsername(username), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTelegram(username), MESSAGE_CONSTRAINTS);
         value = username;
-    }
-
-    private Telegram() {
-        value = null;
     }
 
     /**
      * Returns true if a given string is a valid Telegram username.
      */
-    public static boolean isValidUsername(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
-    /**
-     * Returns true if a given Telegram is a valid Telegram object.
-     */
-    public static boolean isValidTelegram(Telegram telegram) {
-        return telegram.isEmpty() || isValidUsername(telegram.value);
+    public static boolean isValidTelegram(String test) {
+        return test.equals("") || test.matches(VALIDATION_REGEX);
     }
 
     /**
