@@ -29,7 +29,7 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String telegram;
-    private final Email email;
+    private final String email;
     private final String address;
     private final Schedule schedule;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -40,7 +40,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("telegram") String telegram,
-                             @JsonProperty("email") Email email, @JsonProperty("address") String address,
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("schedule") Schedule schedule,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -61,7 +61,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         telegram = source.getTelegram().value;
-        email = source.getEmail();
+        email = source.getEmail().value;
         address = source.getAddress().value;
         schedule = source.getSchedule();
         tagged.addAll(source.getTags().stream()
@@ -111,7 +111,7 @@ class JsonAdaptedPerson {
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = email;
+        final Email modelEmail = new Email(email);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));

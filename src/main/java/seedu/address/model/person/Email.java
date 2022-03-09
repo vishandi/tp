@@ -9,8 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Email {
     //Default Email if no email is specified
-    public static final Email EMPTY_EMAIL = new Email();
-    public static final String DEFAULT_EMAIL_MESSAGE = "Email not yet specified.";
+    public static final Email EMPTY_EMAIL = new Email("");
 
     private static final String SPECIAL_CHARACTERS = "+_.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -43,22 +42,15 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmailAddress(email), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
-    }
-
-    /**
-     * Private constructor for Empty Email.
-     */
-    private Email() {
-        value = "";
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidEmailAddress(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidEmail(String test) {
+        return test.equals("") || test.matches(VALIDATION_REGEX);
     }
 
     /**
@@ -66,13 +58,6 @@ public class Email {
      */
     public boolean isEmpty() {
         return this.equals(EMPTY_EMAIL);
-    }
-
-    /**
-     * Returns true if the given email is the default email.
-     */
-    public static boolean isValidEmail(Email test) {
-        return test.isEmpty() || isValidEmailAddress(test.value);
     }
 
     @Override

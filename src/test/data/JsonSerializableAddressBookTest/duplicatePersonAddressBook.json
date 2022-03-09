@@ -3,9 +3,7 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "telegram" : "",
-    "email" : {
-      "value" : "alice@example.com"
-    },
+    "email" : "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "schedule" : {
       "events" : [ {
@@ -29,9 +27,7 @@
     "name": "Alice Pauline",
     "phone": "94351253",
     "telegram" : "",
-    "email" : {
-      "value" : "pauline@example.com"
-    },
+    "email" : "pauline@example.com",
     "address": "4th street",
     "schedule" : {
       "events" : [ {
