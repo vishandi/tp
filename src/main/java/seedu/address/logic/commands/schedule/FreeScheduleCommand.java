@@ -18,7 +18,7 @@ public class FreeScheduleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Retrieves information of friends "
             + "who are free at the specified time or date\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
             + PREFIX_TIME + "TIME"
             + "[" + PREFIX_DATE + "DATE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
