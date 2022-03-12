@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.schedule.AddEventCommand.MESSAGE_USAG
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.schedule.Event.DEFAULT_DURATION;
 import static seedu.address.model.schedule.Event.DEFAULT_TIME;
@@ -25,6 +26,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 
@@ -39,12 +41,14 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE,
-                        PREFIX_TIME, PREFIX_DURATION);
+                        PREFIX_TIME, PREFIX_DURATION, PREFIX_RECUR_FREQUENCY);
 
+        boolean hasEventDescription = arePrefixesPresent(argMultimap, PREFIX_EVENT_DESCRIPTION);
+        boolean hasEventDate = arePrefixesPresent(argMultimap, PREFIX_DATE);
         boolean hasEventDuration = arePrefixesPresent(argMultimap, PREFIX_DURATION);
         boolean hasEventTime = arePrefixesPresent(argMultimap, PREFIX_TIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_DESCRIPTION, PREFIX_DATE)) {
+        if (!(hasEventDescription && hasEventDate)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         } else if (hasEventDuration && !hasEventTime) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MISSING_TIME_MESSAGE));
@@ -63,10 +67,13 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         LocalTime time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).orElse(DEFAULT_TIME));
         Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).orElse(DEFAULT_DURATION));
-        if (!argMultimap.getValue(PREFIX_TIME).isPresent()) {
+        if (!hasEventTime) {
             duration = ParserUtil.parseDuration(FULL_DAY_EVENT_DURATION);
         }
-        Event event = new Event(eventDescription, date, time, duration);
+        RecurFrequency recurFrequency = ParserUtil.parseRecurFrequency(argMultimap.getValue(
+                PREFIX_RECUR_FREQUENCY).orElse(null));
+
+        Event event = new Event(eventDescription, date, time, duration, recurFrequency);
 
         return new AddEventCommand(index, event);
     }

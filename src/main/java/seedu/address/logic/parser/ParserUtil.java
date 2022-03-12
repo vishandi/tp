@@ -23,6 +23,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
+import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.tag.Tag;
 
@@ -205,6 +206,18 @@ public class ParserUtil {
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
         }
+    }
+
+    /**
+     * Parses a {@code String recurFrequency} into an {@code RecurFrequency}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code recurFrequency} is invalid.
+     */
+    public static RecurFrequency parseRecurFrequency(String recurFrequency) throws ParseException {
+        requireNonNull(recurFrequency);
+        String trimmedRecurFrequency = recurFrequency.trim();
+        return RecurFrequency.of(trimmedRecurFrequency);
     }
 
     /**

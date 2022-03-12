@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
+import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.Schedule;
@@ -125,13 +126,15 @@ public class PersonBuilder {
     /**
      * Parses the {@code event} and set it to the {@code Schedule} of the {@code Person} that we are building.
      */
-    public PersonBuilder withEvent(String eventDescription, String date, String time, String duration) {
-        EventDescription eventDescription1 = new EventDescription(eventDescription);
+    public PersonBuilder withEvent(String description, String date, String time, String duration,
+                                   String recurFrequency) {
+        EventDescription eventDescription = new EventDescription(description);
         try {
-            LocalDate date1 = ParserUtil.parseDate(date);
-            LocalTime time1 = ParserUtil.parseTime(time);
-            Duration duration1 = ParserUtil.parseDuration(duration);
-            Event event = new Event(eventDescription1, date1, time1, duration1);
+            LocalDate eventDate = ParserUtil.parseDate(date);
+            LocalTime eventTime = ParserUtil.parseTime(time);
+            Duration eventDuration = ParserUtil.parseDuration(duration);
+            RecurFrequency eventRecurFrequency = ParserUtil.parseRecurFrequency(recurFrequency);
+            Event event = new Event(eventDescription, eventDate, eventTime, eventDuration, eventRecurFrequency);
             ArrayList<Event> newEvents = new ArrayList<>();
             for (Event e : this.schedule.getEvents()) {
                 newEvents.add(e);

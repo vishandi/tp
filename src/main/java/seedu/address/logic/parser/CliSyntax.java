@@ -16,5 +16,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIME = new Prefix("ti/");
     public static final Prefix PREFIX_DURATION = new Prefix("du/");
     public static final Prefix PREFIX_TELEGRAM = new Prefix("tg/");
-
+    public static final Prefix PREFIX_RECUR_FREQUENCY = new Prefix("r/");
 }

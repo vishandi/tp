@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAY
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -36,7 +37,8 @@ public class EditEventCommand extends EditTypeCommand {
             + "[" + PREFIX_EVENT_DESCRIPTION + "EVENT DESCRIPTION] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_DURATION + "DURATION]\n"
+            + "[" + PREFIX_DURATION + "DURATION] "
+            + "[" + PREFIX_RECUR_FREQUENCY + "RECUR_FREQUENCY]\n"
             + "Example: " + COMMAND_WORD + " 1 2 "
             + PREFIX_TIME + "10:00";
 
