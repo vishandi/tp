@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -46,6 +46,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox telegramBox;
     @FXML
+    private HBox githubBox;
+    @FXML
     private HBox addressBox;
     @FXML
     private HBox emailBox;
@@ -65,6 +67,7 @@ public class PersonCard extends UiPart<Region> {
         ImageView emailIcon = new ImageView("./images/email_icon.png");
         ImageView scheduleIcon = new ImageView("./images/schedule_icon.png");
         ImageView telegramIcon = new ImageView("./images/telegram_icon.png");
+        ImageView githubIcon = new ImageView("./images/github_icon.png");
         addressIcon.setFitHeight(16);
         addressIcon.setFitWidth(16);
         emailIcon.setFitHeight(16);
@@ -73,6 +76,8 @@ public class PersonCard extends UiPart<Region> {
         scheduleIcon.setFitWidth(16);
         telegramIcon.setFitHeight(16);
         telegramIcon.setFitWidth(16);
+        githubIcon.setFitHeight(16);
+        githubIcon.setFitWidth(16);
 
         this.person = person;
         id.setText(displayedIndex + ". ");
