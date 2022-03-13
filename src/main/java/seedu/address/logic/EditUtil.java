@@ -56,7 +56,7 @@ public class EditUtil {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, telegram, email, address, schedule, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, telegram, github, email, address, schedule, tags);
         }
 
         public void setName(Name name) {
