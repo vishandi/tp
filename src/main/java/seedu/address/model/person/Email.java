@@ -4,14 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's email in the address book.
+ * Represents a Person's email in UniGenda.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {
     //Default Email if no email is specified
-    public static final String EMPTY_EMAIL = "";
-    public static final Email DEFAULT_EMAIL = new Email("");
-    public static final String DEFAULT_EMAIL_MESSAGE = "Email not yet specified.";
+    public static final Email EMPTY_EMAIL = new Email("");
 
     private static final String SPECIAL_CHARACTERS = "+_.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -49,24 +47,17 @@ public class Email {
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns true if a given string is a valid email.
      */
     public static boolean isValidEmail(String test) {
-        return isEmptyEmail(test) || test.matches(VALIDATION_REGEX);
+        return test.equals("") || test.matches(VALIDATION_REGEX);
     }
 
     /**
-     * Returns true if the given string is the default empty email.
+     * Returns true if the given email is the default empty email.
      */
-    public static boolean isEmptyEmail(String test) {
-        return test.equals(EMPTY_EMAIL);
-    }
-
-    /**
-     * Returns true if the given email is the default email.
-     */
-    public static boolean isDefaultEmail(Email test) {
-        return test.equals(DEFAULT_EMAIL);
+    public boolean isEmpty() {
+        return this.equals(EMPTY_EMAIL);
     }
 
     @Override

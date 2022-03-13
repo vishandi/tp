@@ -22,6 +22,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Telegram;
 import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.tag.Tag;
@@ -94,6 +95,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String username} into a {@code Telegram}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code username} is invalid.
+     */
+    public static Telegram parseTelegram(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Telegram.isValidTelegram(trimmedUsername) || trimmedUsername.equals("")) {
+            throw new ParseException(Telegram.MESSAGE_CONSTRAINTS);
+        }
+        return new Telegram(username);
+    }
+
+    /**
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -102,11 +118,8 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
+        if (!Address.isValidAddress(trimmedAddress) || trimmedAddress.equals("")) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        if (Address.isEmptyAddress(trimmedAddress)) {
-            return Address.DEFAULT_ADDRESS;
         }
         return new Address(trimmedAddress);
     }
@@ -120,11 +133,8 @@ public class ParserUtil {
     public static Email parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
+        if (!Email.isValidEmail(trimmedEmail) || trimmedEmail.equals("")) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        if (Email.isEmptyEmail(trimmedEmail)) {
-            return Email.DEFAULT_EMAIL;
         }
         return new Email(trimmedEmail);
     }

@@ -13,8 +13,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.schedule.Schedule;
 
@@ -46,6 +44,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private HBox telegramBox;
+    @FXML
     private HBox addressBox;
     @FXML
     private HBox emailBox;
@@ -64,23 +64,31 @@ public class PersonCard extends UiPart<Region> {
         ImageView addressIcon = new ImageView("./images/address_icon.png");
         ImageView emailIcon = new ImageView("./images/email_icon.png");
         ImageView scheduleIcon = new ImageView("./images/schedule_icon.png");
+        ImageView telegramIcon = new ImageView("./images/telegram_icon.png");
         addressIcon.setFitHeight(16);
         addressIcon.setFitWidth(16);
         emailIcon.setFitHeight(16);
         emailIcon.setFitWidth(16);
         scheduleIcon.setFitHeight(16);
         scheduleIcon.setFitWidth(16);
+        telegramIcon.setFitHeight(16);
+        telegramIcon.setFitWidth(16);
 
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        if (!Email.isDefaultEmail(person.getEmail())) {
+        if (!person.getTelegram().isEmpty()) {
+            telegramBox.getChildren().add(telegramIcon);
+            Label telegramLabel = new Label(person.getTelegram().value);
+            telegramBox.getChildren().add(telegramLabel);
+        }
+        if (!person.getEmail().isEmpty()) {
             emailBox.getChildren().add(emailIcon);
             Label emailLabel = new Label(person.getEmail().value);
             emailBox.getChildren().add(emailLabel);
         }
-        if (!Address.isDefaultAddress(person.getAddress())) {
+        if (!person.getAddress().isEmpty()) {
             addressBox.getChildren().add(addressIcon);
             Label addressLabel = new Label(person.getAddress().value);
             addressBox.getChildren().add(addressLabel);

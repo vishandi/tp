@@ -21,6 +21,7 @@ public class Person {
     private final Phone phone;
 
     // Data fields
+    private final Telegram telegram;
     private final Email email;
     private final Address address;
     private final Schedule schedule;
@@ -29,10 +30,12 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Schedule schedule, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Telegram telegram, Email email,
+                  Address address, Schedule schedule, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
+        this.telegram = telegram;
         this.email = email;
         this.address = address;
         this.schedule = schedule;
@@ -45,6 +48,10 @@ public class Person {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public Telegram getTelegram() {
+        return telegram;
     }
 
     public Email getEmail() {
@@ -98,6 +105,7 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getTelegram().equals(getTelegram())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
@@ -116,12 +124,17 @@ public class Person {
                 .append("; Phone: ")
                 .append(getPhone());
 
-        if (!Email.isDefaultEmail(getEmail())) {
+        if (!getTelegram().isEmpty()) {
+            builder.append("; Telegram: ")
+                    .append(getTelegram());
+        }
+
+        if (!getEmail().isEmpty()) {
             builder.append("; Email: ")
                     .append(getEmail());
         }
 
-        if (!Address.isDefaultAddress(getAddress())) {
+        if (!getAddress().isEmpty()) {
             builder.append("; Address: ")
                     .append(getAddress());
         }

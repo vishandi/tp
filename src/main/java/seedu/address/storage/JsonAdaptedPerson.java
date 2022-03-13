@@ -15,6 +15,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Telegram;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
@@ -27,6 +28,7 @@ class JsonAdaptedPerson {
 
     private final String name;
     private final String phone;
+    private final String telegram;
     private final String email;
     private final String address;
     private final Schedule schedule;
@@ -37,11 +39,13 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("telegram") String telegram,
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("schedule") Schedule schedule,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
+        this.telegram = telegram;
         this.email = email;
         this.address = address;
         this.schedule = schedule;
@@ -56,6 +60,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
+        telegram = source.getTelegram().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         schedule = source.getSchedule();
@@ -91,6 +96,15 @@ class JsonAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
+        if (telegram == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Telegram.class.getSimpleName()));
+        }
+        if (!Telegram.isValidTelegram(telegram)) {
+            throw new IllegalValueException(Telegram.MESSAGE_CONSTRAINTS);
+        }
+        final Telegram modelTelegram = new Telegram(telegram);
+
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -118,7 +132,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSchedule, modelTags);
+        return new Person(modelName, modelPhone, modelTelegram, modelEmail, modelAddress, modelSchedule, modelTags);
     }
 
 }
