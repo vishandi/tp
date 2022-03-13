@@ -47,7 +47,7 @@ public class PersonBuilder {
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        telegram = new Telegram(DEFAULT_TELEGRAM);
+        telegram = Telegram.EMPTY_TELEGRAM;
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         schedule = new Schedule(new ArrayList<>());
