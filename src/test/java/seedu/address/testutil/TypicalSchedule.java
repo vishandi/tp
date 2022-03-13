@@ -14,24 +14,24 @@ import seedu.address.model.schedule.Schedule;
 public class TypicalSchedule {
 
     public static final Event SE_TUTORIAL = new EventBuilder().withEventDescription("CS2103T Tutorial")
-            .withDate("2022-03-16").withTime("0900").withDuration("1H")
+            .withDate("2022-03-16").withTime("09:00").withDuration("1H")
             .withRecurFrequency(RecurFrequency.WEEKLY).build();
     public static final Event SE_LECTURE = new EventBuilder().withEventDescription("CS2103T Lecture")
-            .withDate("2022-03-18").withTime("1400").withDuration("2H")
+            .withDate("2022-03-18").withTime("14:00").withDuration("2H")
             .withRecurFrequency(RecurFrequency.WEEKLY).build();
     public static final Event OS_TUTORIAL = new EventBuilder().withEventDescription("CS2106 Tutorial")
-            .withDate("2022-03-14").withTime("1000").withDuration("1H")
+            .withDate("2022-03-14").withTime("10:00").withDuration("1H")
             .withRecurFrequency(RecurFrequency.WEEKLY).build();
     public static final Event OS_LECTURE = new EventBuilder().withEventDescription("CS2106 Lecture")
-            .withDate("2022-03-16").withTime("1000").withDuration("2H")
+            .withDate("2022-03-16").withTime("10:00").withDuration("2H")
             .withRecurFrequency(RecurFrequency.WEEKLY).build();
     public static final Event OS_LAB = new EventBuilder().withEventDescription("CS2106 Lab")
-            .withDate("2022-03-17").withTime("1300").withDuration("1H")
+            .withDate("2022-03-17").withTime("13:00").withDuration("1H")
             .withRecurFrequency(RecurFrequency.WEEKLY).build();
     public static final Event NATIONAL_DAY_PARTY = new EventBuilder().withEventDescription("National Day Party @BFF")
-            .withDate("2022-08-09").withTime("2000").withDuration("3H").build();
+            .withDate("2022-08-09").withTime("20:00").withDuration("3H").build();
     public static final Event ALICE_BIRTHDAY = new EventBuilder().withEventDescription("Alice Birthday Surprise")
-            .withDate("2022-03-14").withTime("1700").withDuration("4H").build();
+            .withDate("2022-03-14").withTime("17:00").withDuration("4H").build();
 
     private TypicalSchedule() {} // prevents instantiation
 
