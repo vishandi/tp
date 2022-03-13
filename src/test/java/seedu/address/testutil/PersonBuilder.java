@@ -47,7 +47,7 @@ public class PersonBuilder {
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        telegram = Telegram.EMPTY_TELEGRAM;
+        telegram = new Telegram(DEFAULT_TELEGRAM);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         schedule = new Schedule(new ArrayList<>());
@@ -120,6 +120,16 @@ public class PersonBuilder {
      */
     public PersonBuilder withSchedule(Schedule schedule) {
         this.schedule = schedule;
+        return this;
+    }
+
+    /**
+     * Adds the {@code Event} into the {@code Schedule} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withEvent(Event event) {
+        ArrayList<Event> newEvents = new ArrayList<>(schedule.getEvents());
+        newEvents.add(event);
+        schedule = new Schedule(newEvents);
         return this;
     }
 
