@@ -22,6 +22,7 @@ public class Person {
 
     // Data fields
     private final Telegram telegram;
+    private final GitHub github;
     private final Email email;
     private final Address address;
     private final Schedule schedule;
@@ -30,12 +31,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Telegram telegram, Email email,
+    public Person(Name name, Phone phone, Telegram telegram, GitHub github, Email email,
                   Address address, Schedule schedule, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.telegram = telegram;
+        this.github = github;
         this.email = email;
         this.address = address;
         this.schedule = schedule;
@@ -52,6 +54,10 @@ public class Person {
 
     public Telegram getTelegram() {
         return telegram;
+    }
+
+    public GitHub getGithub() {
+        return github;
     }
 
     public Email getEmail() {
@@ -106,6 +112,7 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getTelegram().equals(getTelegram())
+                && otherPerson.getGithub().equals(getGithub())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
@@ -127,6 +134,11 @@ public class Person {
         if (!getTelegram().isEmpty()) {
             builder.append("; Telegram: ")
                     .append(getTelegram());
+        }
+
+        if (!getGithub().isEmpty()) {
+            builder.append("; GitHub: ")
+                    .append(getGithub());
         }
 
         if (!getEmail().isEmpty()) {

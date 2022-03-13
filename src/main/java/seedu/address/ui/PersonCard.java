@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -87,6 +87,11 @@ public class PersonCard extends UiPart<Region> {
             telegramBox.getChildren().add(telegramIcon);
             Label telegramLabel = new Label(person.getTelegram().value);
             telegramBox.getChildren().add(telegramLabel);
+        }
+        if (!person.getGithub().isEmpty()) {
+            githubBox.getChildren().add(githubIcon);
+            Label githubLabel = new Label(person.getGithub().value);
+            githubBox.getChildren().add(githubLabel);
         }
         if (!person.getEmail().isEmpty()) {
             emailBox.getChildren().add(emailIcon);
