@@ -15,6 +15,7 @@ import seedu.address.logic.commands.person.DeleteCommand;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
 import seedu.address.logic.commands.person.ListCommand;
+import seedu.address.logic.commands.person.ViewGroupCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
@@ -29,7 +30,7 @@ import seedu.address.logic.parser.schedule.AddEventCommandParser;
 import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
 import seedu.address.logic.parser.schedule.FreeScheduleCommandParser;
-import seedu.address.logic.commands.person.ViewGroupCommand;
+
 
 /**
  * Parses user input.

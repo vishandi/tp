@@ -1,8 +1,8 @@
 package seedu.address.model.tag;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.Iterator;
 
 import seedu.address.model.person.Person;
 
@@ -23,12 +23,12 @@ public class IsTagInPersonPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         Set<Tag> tagSet = person.getTags();
-        if(tagSet.isEmpty()) {
+        if (tagSet.isEmpty()) {
             return false;
         }
         Iterator iter = tagSet.iterator();
         while (iter.hasNext()) {
-            if(iter.next().equals(this.tag)) {
+            if (iter.next().equals(this.tag)) {
                 return true;
             }
         }
