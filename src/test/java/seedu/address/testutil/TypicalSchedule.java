@@ -1,0 +1,49 @@
+package seedu.address.testutil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.model.recurfrequency.RecurFrequency;
+import seedu.address.model.schedule.Event;
+import seedu.address.model.schedule.Schedule;
+
+/**
+ * A utility class containing a {@code Schedule} object to be used in tests.
+ */
+public class TypicalSchedule {
+
+    public static final Event SE_TUTORIAL = new EventBuilder().withEventDescription("CS2103T Tutorial")
+            .withDate("2022-03-16").withTime("0900").withDuration("1H")
+            .withRecurFrequency(RecurFrequency.WEEKLY).build();
+    public static final Event SE_LECTURE = new EventBuilder().withEventDescription("CS2103T Lecture")
+            .withDate("2022-03-18").withTime("1400").withDuration("2H")
+            .withRecurFrequency(RecurFrequency.WEEKLY).build();
+    public static final Event OS_TUTORIAL = new EventBuilder().withEventDescription("CS2106 Tutorial")
+            .withDate("2022-03-14").withTime("1000").withDuration("1H")
+            .withRecurFrequency(RecurFrequency.WEEKLY).build();
+    public static final Event OS_LECTURE = new EventBuilder().withEventDescription("CS2106 Lecture")
+            .withDate("2022-03-16").withTime("1000").withDuration("2H")
+            .withRecurFrequency(RecurFrequency.WEEKLY).build();
+    public static final Event OS_LAB = new EventBuilder().withEventDescription("CS2106 Lab")
+            .withDate("2022-03-17").withTime("1300").withDuration("1H")
+            .withRecurFrequency(RecurFrequency.WEEKLY).build();
+    public static final Event NATIONAL_DAY_PARTY = new EventBuilder().withEventDescription("National Day Party @BFF")
+            .withDate("2022-08-09").withTime("2000").withDuration("3H").build();
+    public static final Event ALICE_BIRTHDAY = new EventBuilder().withEventDescription("Alice Birthday Surprise")
+            .withDate("2022-03-14").withTime("1700").withDuration("4H").build();
+
+    private TypicalSchedule() {} // prevents instantiation
+
+    /**
+     * Returns an {@code AddressBook} with all the typical persons.
+     */
+    public static Schedule getTypicalSchedule() {
+        return new Schedule(getTypicalEvents());
+    }
+
+    public static List<Event> getTypicalEvents() {
+        return new ArrayList<>(Arrays.asList(SE_TUTORIAL, SE_LECTURE, OS_LECTURE, OS_TUTORIAL, OS_LAB,
+                NATIONAL_DAY_PARTY, ALICE_BIRTHDAY));
+    }
+}
