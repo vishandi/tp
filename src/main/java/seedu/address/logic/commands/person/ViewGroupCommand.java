@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
@@ -15,9 +16,11 @@ import seedu.address.model.tag.IsTagInPersonPredicate;
 public class ViewGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "viewGroup";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": List out all contacts that "
-            + "share the same tag. "
-            + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the contacts who share the same tag "
+            + "Parameters: "
+            + PREFIX_TAG + "TAG...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_TAG + "owesMoney";
     private final IsTagInPersonPredicate predicate;
 
     public ViewGroupCommand(IsTagInPersonPredicate predicate) {

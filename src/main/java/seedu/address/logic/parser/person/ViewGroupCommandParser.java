@@ -12,7 +12,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.IsTagInPersonPredicate;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new ViewGroupCommand object
+ */
 public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the ViewGroupCommand
+     * and returns a ViewGroupCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public ViewGroupCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
