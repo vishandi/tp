@@ -9,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.tag.IsTagInPersonPredicate;
 
+/**
+ * Command that lists all contacts who share the same tag
+ */
 public class ViewGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "viewGroup";
