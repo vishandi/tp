@@ -43,7 +43,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 
 --------------------------------------------------------------------------------------------------------------------
 
-## New/Modified Features (Coming in V1.2)
+## Features
 
 <div markdown="block" class="alert alert-info">
 
@@ -142,17 +142,14 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Deleting a tag: `deleteTag`
-Deletes a tag that a contact has.
+### View contacts by tags: `viewGroup`
+Shows the names of friends with the same tag
 
-Format: `deleteTag INDEX t/TAGTOBEDELETED`
-* Edits the person’s tag at the specified INDEX. The INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
-* TAGTOBEDELETED is case-insensitive. Eg. criminal will match Criminal
-* Only fully-named-tag will be matched. Eg. crim will not be matched with Criminal
-* TAGTOBEDELETED must be one of the tags that the person at index INDEX has.
+Format: `viewGroup t/TAG`
+* Shows contacts sharing the same tag
 
 Examples:
-* `deleteTag 2 t/Criminal`
+* `viewGroup` t/groupmates
 
 ### Adding a person’s schedule: `addEvent`
 Adds an event to the specified indexed contact.
@@ -207,11 +204,13 @@ Example:
 * `viewSchedule 5`
 
 ### Get friends who are free: `freeSchedule`
-Retrieves information of friends who are free at the specified time or date.
+Retrieves information of friends who are free at the specified time or date. Contacts without a schedule will not be 
+considered when retrieving information.
 
 Format: `freeSchedule ti/TIME [da/ DATE]`
 * Shows the friends who are free at the time specified today
 * Shows the friends who are free at the time on the date specified
+* Contacts with a schedule are filtered out of the list
 * TIME is the time at which the user want to find out if the person is free
 * TIME should be specified in 24h format
 * DATE should not be specified if TIME is not specified
@@ -226,11 +225,8 @@ Gets the common timing of a group of friends is free (by tag)
 Format: `freeGroupSchedule t/TAG`
 * Show the overlapping timings that a group of friends with the same tags are free
 
-### View contacts by tags: `viewGroup`
-Shows the names of friends with the same tag
-
-Format: `viewGroup t/TAG`
-* Shows contacts sharing the same tag
+Example:
+* `freeGroupSchedule t/groupmates`
 
 ### Clearing all entries : `clear`
 
@@ -257,6 +253,18 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
+##*Coming Soon...* (v1.3)
+
+### Viewing a person’s schedule: `viewSchedule`
+Shows the schedule of a specified person.
+
+Format: `viewSchedule INDEX`
+* Shows the schedule of a specific person at INDEX
+* The index refers to the index number shown in the displayed person list.
+* The index must be positive. Eg. 1, 2, 3…
+
+Example:
+* `viewSchedule 5`
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -274,9 +282,12 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`
 **AddEvent** | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`
-**EditEvent** | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., * `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
+**EditEvent** | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
 **DeleteEvent** | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`
+**FreeSchedule** | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`
+**FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **Help** | `help`
