@@ -8,7 +8,7 @@ while still having the benefits of a Graphical User Interface (GUI). If you are 
 and you can type fast, UniGenda can get your contact management tasks done faster than traditional GUI apps.
 
 #Table of Contents
-1. [Quick Start](#quick start)
+1. [Quick Start](#quick-start)
 2. [Features](#features)
    1. [Viewing help](#help)
    2. [Adding a person](#add)
@@ -33,7 +33,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick Start <a name="quick start"></a>
+## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
