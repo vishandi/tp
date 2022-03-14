@@ -219,7 +219,7 @@ considered when retrieving information.
 Format: `freeSchedule ti/TIME [da/ DATE]`
 * Shows the persons who are free at the time specified today
 * Shows the persons who are free at the time on the date specified
-* Contacts with a schedule are filtered out of the list
+* Contacts without a schedule are filtered out of the list
 * TIME is the time at which the user want to find out if the person is free
 * TIME should be specified in 24h format
 * DATE should not be specified if TIME is not specified
