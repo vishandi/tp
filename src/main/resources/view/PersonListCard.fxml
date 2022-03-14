@@ -42,6 +42,7 @@
             </children>
          </HBox>
          <HBox fx:id="telegramBox" alignment="CENTER_LEFT" onMouseClicked="#emailtoContact" onMouseEntered="#emailChangeColorWhenHovered" onMouseExited="#emailChangeColorWhenLeft" spacing="5" />
+         <HBox fx:id="githubBox" alignment="CENTER_LEFT" onMouseClicked="#emailtoContact" onMouseEntered="#emailChangeColorWhenHovered" onMouseExited="#emailChangeColorWhenLeft" spacing="5" />
          <HBox fx:id="emailBox" alignment="CENTER_LEFT" onMouseClicked="#emailtoContact" onMouseEntered="#emailChangeColorWhenHovered" onMouseExited="#emailChangeColorWhenLeft" spacing="5" />
          <HBox fx:id="addressBox" alignment="CENTER_LEFT" spacing="5" />
          <HBox fx:id="scheduleBox" alignment="CENTER_LEFT" spacing="5" />

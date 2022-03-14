@@ -20,6 +20,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
@@ -107,6 +108,21 @@ public class ParserUtil {
             throw new ParseException(Telegram.MESSAGE_CONSTRAINTS);
         }
         return new Telegram(username);
+    }
+
+    /**
+     * Parses a {@code String username} into a {@code GitHub}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code String username} is invalid.
+     */
+    public static GitHub parseGithub(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!GitHub.isValidGitHub(trimmedUsername) || trimmedUsername.equals("")) {
+            throw new ParseException(GitHub.MESSAGE_CONSTRAINTS);
+        }
+        return new GitHub(username);
     }
 
     /**

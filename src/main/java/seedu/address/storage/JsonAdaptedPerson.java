@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -29,6 +30,7 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String telegram;
+    private final String github;
     private final String email;
     private final String address;
     private final Schedule schedule;
@@ -39,13 +41,14 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("telegram") String telegram,
+            @JsonProperty("telegram") String telegram, @JsonProperty("github") String github,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("schedule") Schedule schedule,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.telegram = telegram;
+        this.github = github;
         this.email = email;
         this.address = address;
         this.schedule = schedule;
@@ -61,6 +64,7 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         telegram = source.getTelegram().value;
+        github = source.getGithub().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         schedule = source.getSchedule();
@@ -105,6 +109,15 @@ class JsonAdaptedPerson {
         }
         final Telegram modelTelegram = new Telegram(telegram);
 
+        if (github == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    GitHub.class.getSimpleName()));
+        }
+        if (!GitHub.isValidGitHub(github)) {
+            throw new IllegalValueException(GitHub.MESSAGE_CONSTRAINTS);
+        }
+        final GitHub modelGithub = new GitHub(github);
+
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -132,7 +145,8 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        return new Person(modelName, modelPhone, modelTelegram, modelEmail, modelAddress, modelSchedule, modelTags);
+        return new Person(modelName, modelPhone, modelTelegram,
+                modelGithub, modelEmail, modelAddress, modelSchedule, modelTags);
     }
 
 }

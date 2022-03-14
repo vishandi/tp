@@ -12,6 +12,7 @@ import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -33,12 +34,13 @@ public abstract class EditTypeCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Telegram updatedTelegram = editPersonDescriptor.getTelegram().orElse(personToEdit.getTelegram());
+        GitHub updatedGithub = editPersonDescriptor.getGithub().orElse(personToEdit.getGithub());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Schedule updatedSchedule = editPersonDescriptor.getSchedule().orElse(personToEdit.getSchedule());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedTelegram,
+        return new Person(updatedName, updatedPhone, updatedTelegram, updatedGithub,
                 updatedEmail, updatedAddress, updatedSchedule, updatedTags);
     }
 

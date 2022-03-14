@@ -3,12 +3,14 @@ package seedu.address.logic.parser.person;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.model.person.Address.EMPTY_ADDRESS;
 import static seedu.address.model.person.Email.EMPTY_EMAIL;
+import static seedu.address.model.person.GitHub.EMPTY_GITHUB;
 import static seedu.address.model.person.Telegram.EMPTY_TELEGRAM;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -43,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TELEGRAM,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TELEGRAM, PREFIX_GITHUB,
                         PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
@@ -59,6 +62,11 @@ public class AddCommandParser implements Parser<AddCommand> {
             telegram = ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get());
         }
 
+        GitHub github = EMPTY_GITHUB;
+        if (argMultimap.getValue(PREFIX_GITHUB).isPresent()) {
+            github = ParserUtil.parseGithub(argMultimap.getValue(PREFIX_GITHUB).get());
+        }
+
         Email email = EMPTY_EMAIL;
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
@@ -70,7 +78,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Person person = new Person(name, phone, telegram, email, address, new Schedule(new ArrayList<>()), tagList);
+        Person person = new Person(name, phone, telegram, github,
+                email, address, new Schedule(new ArrayList<>()), tagList);
 
         return new AddCommand(person);
     }

@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
@@ -28,6 +29,7 @@ public class EditUtil {
         private Name name;
         private Phone phone;
         private Telegram telegram;
+        private GitHub github;
         private Email email;
         private Address address;
         private Schedule schedule;
@@ -43,6 +45,7 @@ public class EditUtil {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setTelegram(toCopy.telegram);
+            setGithub(toCopy.github);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setSchedule(toCopy.schedule);
@@ -53,7 +56,7 @@ public class EditUtil {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, telegram, email, address, schedule, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, telegram, github, email, address, schedule, tags);
         }
 
         public void setName(Name name) {
@@ -78,6 +81,14 @@ public class EditUtil {
 
         public Optional<Telegram> getTelegram() {
             return Optional.ofNullable(telegram);
+        }
+
+        public void setGithub(GitHub github) {
+            this.github = github;
+        }
+
+        public Optional<GitHub> getGithub() {
+            return Optional.ofNullable(github);
         }
 
         public void setEmail(Email email) {
@@ -139,6 +150,7 @@ public class EditUtil {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getTelegram().equals(e.getTelegram())
+                    && getGithub().equals(e.getGithub())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getSchedule().equals(e.getSchedule())
