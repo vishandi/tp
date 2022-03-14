@@ -13,7 +13,7 @@ import seedu.address.model.tag.IsTagInPersonPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new ViewGroupCommand object
+ * Parses input arguments and creates a new ViewGroupCommand object.
  */
 public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
 
