@@ -7,13 +7,33 @@ UniGenda is a **desktop app for managing contacts, optimized for use via a Comma
 while still having the benefits of a Graphical User Interface (GUI). If you are an NUS student,
 and you can type fast, UniGenda can get your contact management tasks done faster than traditional GUI apps.
 
-
-* Table of Contents
-{:toc}
+#Table of Contents
+1. [Quick Start](#quick start)
+2. [Features](#features)
+   1. [Viewing help](#help)
+   2. [Adding a person](#add)
+   3. [Listing all persons](#list)
+   4. [Editing a person](#edit)
+   5. [Locating persons by name](#find)
+   6. [Deleting a person](#delete)
+   7. [Viewing contacts by tags](#view group)
+   8. [Adding a person's schedule](#add event)
+   9. [Editing a person's schedule](#edit event)
+   10. [Deleting a person's schedule](#delete event)
+   11. [Getting persons who are free](#free schedule)
+   12. [Getting common free timing of persons by tag](#free group schedule)
+   13. [Clearing all entries](#clear)
+   14. [Exiting the program](#exit)
+   15. [Saving the data](#saving data)
+   16. [Editing the data file](#editnig data)
+3. [Coming Soon](#coming soon)
+   1. [Viewing Schedule](#view schedule)
+4. [FAQ](#faq)
+5. [Command Summary](#command summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## Quick Start <a name="quick start"></a>
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
@@ -43,7 +63,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## Features  <a name="features"></a>
 
 <div markdown="block" class="alert alert-info">
 
@@ -69,7 +89,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 
 </div>
 
-### Viewing help : `help`
+### Viewing help : `help` <a name="help"></a>
 
 Shows a message explaning how to access the help page.
 
@@ -77,7 +97,7 @@ Shows a message explaning how to access the help page.
 
 Format: `help`
 
-### Adding a person: `add`
+### Adding a person: `add` <a name="add"></a>
 Adds a person to UniGenda without needing complete information about the person.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [e/EMAIL] [a/ADDRESS] [t/TAG]`
@@ -87,13 +107,13 @@ Examples:
 * add n/John Doe p/98765432
 * add n/Betsy Crow t/friend p/1234567 a/Newgate Prison t/Criminal
 
-### Listing all persons : `list`
+### Listing all persons : `list` <a name="list"></a>
 
 Shows a list of all persons in UniGenda.
 
 Format: `list`
 
-### Editing a person : `edit`
+### Editing a person : `edit` <a name="edit"></a>
 
 Edits an existing person in the UniGenda.
 
@@ -110,7 +130,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-### Locating persons by name: `find`
+### Locating persons by name: `find` <a name="find"></a>
 
 Finds persons whose names contain any of the given keywords.
 
@@ -128,7 +148,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Deleting a person : `delete`
+### Deleting a person : `delete` <a name="delete"></a>
 
 Deletes the specified person from UniGenda.
 
@@ -142,7 +162,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### View contacts by tags: `viewGroup`
+### Viewing contacts by tags: `viewGroup` <a name="view group"></a>
 Shows the names of friends with the same tag
 
 Format: `viewGroup t/TAG`
@@ -151,7 +171,7 @@ Format: `viewGroup t/TAG`
 Examples:
 * `viewGroup` t/groupmates
 
-### Adding a person’s schedule: `addEvent`
+### Adding a person’s schedule: `addEvent` <a name="add event"></a>
 Adds an event to the specified indexed contact.
 
 Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]`
@@ -170,7 +190,7 @@ Examples:
 * `addSchedule 3 da/20-12-2022 ti/10:00 du/2H30M`
 * `addSchedule 2 da/22-11-2023 ti/12:00`
 
-### Editing a person’s schedule: `editEvent`
+### Editing a person’s schedule: `editEvent` <a name="edit event"></a>
 Edits the schedule assigned to a person.
 
 Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]`
@@ -182,7 +202,7 @@ Example:
 * `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
 * `editEvent 3 1 ed/CS2103T lecture`
 
-### Deleting a person's schedule: `deleteEvent`
+### Deleting a person's schedule: `deleteEvent` <a name="delete event"></a>
 Deletes an event from the specified indexed contact.
 
 Format: `deleteEvent INDEX EVENT_NUMBER`
@@ -192,24 +212,13 @@ Format: `deleteEvent INDEX EVENT_NUMBER`
 Example:
 * `deleteEvent 3 3`
 
-### Viewing a person’s schedule: `viewSchedule`
-Shows the schedule of a specified person.
-
-Format: `viewSchedule INDEX`
-* Shows the schedule of a specific person at INDEX
-* The index refers to the index number shown in the displayed person list.
-* The index must be positive. Eg. 1, 2, 3…
-
-Example:
-* `viewSchedule 5`
-
-### Get friends who are free: `freeSchedule`
-Retrieves information of friends who are free at the specified time or date. Contacts without a schedule will not be 
+### Getting persons who are free: `freeSchedule` <a name="free schedule"></a>
+Retrieves information of persons who are free at the specified time or date. Contacts without a schedule will not be 
 considered when retrieving information.
 
 Format: `freeSchedule ti/TIME [da/ DATE]`
-* Shows the friends who are free at the time specified today
-* Shows the friends who are free at the time on the date specified
+* Shows the persons who are free at the time specified today
+* Shows the persons who are free at the time on the date specified
 * Contacts with a schedule are filtered out of the list
 * TIME is the time at which the user want to find out if the person is free
 * TIME should be specified in 24h format
@@ -219,8 +228,8 @@ Examples:
 * `freeSchedule ti/ 1200`
 * `freeSchedule ti/ 1400 da/14-02-2021`
 
-### Get team’s common free timing: `freeGroupSchedule`
-Gets the common timing of a group of friends is free (by tag)
+### Getting common free timing of persons by tag: `freeGroupSchedule` <a name="free group schedule"></a>
+Gets the common timings of persons who are free with the same tag.
 
 Format: `freeGroupSchedule t/TAG`
 * Show the overlapping timings that a group of friends with the same tags are free
@@ -228,23 +237,23 @@ Format: `freeGroupSchedule t/TAG`
 Example:
 * `freeGroupSchedule t/groupmates`
 
-### Clearing all entries : `clear`
+### Clearing all entries : `clear` <a name="clear"></a>
 
 Clears all entries from UniGenda.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### Exiting the program : `exit` <a name="exit"></a>
 
 Exits the program.
 
 Format: `exit`
 
-### Saving the data
+### Saving the data <a name="saving data"></a>
 
 UniGenda data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-### Editing the data file
+### Editing the data file  <a name="editing data"></a>
 
 UniGenda data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
@@ -253,9 +262,9 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
-##*Coming Soon...* (v1.3)
+##*Coming Soon...* (v1.3) <a name="coming soon"></a>
 
-### Viewing a person’s schedule: `viewSchedule`
+### Viewing a person’s schedule: `viewSchedule` <a name="view schedule"></a>
 Shows the schedule of a specified person.
 
 Format: `viewSchedule INDEX`
@@ -267,14 +276,14 @@ Example:
 * `viewSchedule 5`
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## FAQ <a name="faq"></a>
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous UniGenda home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## Command Summary <a name="command summary"></a>
 
 Action | Format, Examples
 --------|------------------
