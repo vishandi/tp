@@ -14,7 +14,7 @@ public class IsTagInPersonPredicate implements Predicate<Person> {
     private final Tag tag;
 
     /**
-     * Constructor method of TagMatchPredicate
+     * Constructor method of IsTagInPersonPredicate 
      */
     public IsTagInPersonPredicate(Tag tag) {
         this.tag = tag;
