@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import seedu.address.model.person.Person;
 
 /**
- * Tests whether a {@code Person}'s {@code tag}
+ * Tests whether a {@code Person} has specified {@code Tag}
  */
 public class IsTagInPersonPredicate implements Predicate<Person> {
 
