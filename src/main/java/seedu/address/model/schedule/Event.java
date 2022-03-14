@@ -16,6 +16,7 @@ import seedu.address.model.recurfrequency.RecurFrequency;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
+
     public static final String DEFAULT_TIME = "00:00";
     public static final String DEFAULT_DURATION = "2H";
     public static final String FULL_DAY_EVENT_DURATION = "24H";
