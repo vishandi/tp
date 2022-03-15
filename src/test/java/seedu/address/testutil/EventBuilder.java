@@ -17,8 +17,8 @@ public class EventBuilder {
 
     public static final String DEFAULT_EVENT_DESCRIPTION = "CS2101 Tutorial";
     public static final String DEFAULT_DATE = "2022-03-12";
-    public static final String DEFAULT_TIME = "1400";
-    public static final String DEFAULT_DURATION = "2H";
+    public static final String DEFAULT_TIME = "14:00";
+    public static final String DEFAULT_DURATION = "PT2H";
 
     private static final RecurFrequency DEFAULT_RECURRENCE = null;
 
