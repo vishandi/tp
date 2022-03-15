@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import seedu.address.model.recurfrequency.RecurFrequency;
@@ -44,17 +43,7 @@ public class TypicalSchedule {
     }
 
     public static List<Event> getTypicalEvents() {
-        ArrayList<Event> typicalEvents = new ArrayList<>();
-//        typicalEvents.add(SE_TUTORIAL);
-//        typicalEvents.add(SE_LECTURE);
-//        typicalEvents.add(OS_LECTURE);
-//        typicalEvents.add(OS_TUTORIAL);
-//        typicalEvents.add(OS_LAB);
-//        typicalEvents.add(NATIONAL_DAY_PARTY);
-//        typicalEvents.add(ALICE_BIRTHDAY);
-
-        Collections.addAll(typicalEvents, SE_TUTORIAL, SE_LECTURE, OS_LECTURE, OS_TUTORIAL, OS_LAB,
-                NATIONAL_DAY_PARTY, ALICE_BIRTHDAY);
-        return typicalEvents;
+        return new ArrayList<>(Arrays.asList(SE_TUTORIAL, SE_LECTURE, OS_LECTURE, OS_TUTORIAL, OS_LAB,
+                NATIONAL_DAY_PARTY, ALICE_BIRTHDAY));
     }
 }
