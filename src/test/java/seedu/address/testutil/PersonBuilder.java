@@ -147,10 +147,7 @@ public class PersonBuilder {
             Duration eventDuration = ParserUtil.parseDuration(duration);
             RecurFrequency eventRecurFrequency = ParserUtil.parseRecurFrequency(recurFrequency);
             Event event = new Event(eventDescription, eventDate, eventTime, eventDuration, eventRecurFrequency);
-            ArrayList<Event> newEvents = new ArrayList<>();
-            for (Event e : this.schedule.getEvents()) {
-                newEvents.add(e);
-            }
+            ArrayList<Event> newEvents = new ArrayList<>(this.schedule.getEvents());
             newEvents.add(event);
             this.schedule = new Schedule(newEvents);
             return this;
