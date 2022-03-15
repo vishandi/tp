@@ -48,6 +48,7 @@ public class IsPersonFreePredicate implements Predicate<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof IsPersonFreePredicate // instanceof handles nulls
-                && time.equals(((IsPersonFreePredicate) other).time)); // state check
+                && time.equals(((IsPersonFreePredicate) other).time)
+                && date.equals(((IsPersonFreePredicate) other).date)); // state check
     }
 }
