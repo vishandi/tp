@@ -15,7 +15,7 @@ import seedu.address.model.recurfrequency.RecurFrequency;
  * Represents a scheduled Event.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Event {
+public class Event implements Comparable<Event> {
 
     public static final String DEFAULT_TIME = "00:00";
     public static final String DEFAULT_DURATION = "2H";
@@ -97,6 +97,24 @@ public class Event {
      */
     public static boolean isValidEvent(Event event) {
         return EventDescription.isValidEventDescription(event.getEventDescription().toString());
+    }
+
+    public int compareTo(Event event) {
+        LocalDate eventDate = event.getDate();
+        if (date.isBefore(eventDate)) {
+            return -1;
+        } else if (date.isAfter(eventDate)) {
+            return 1;
+        }
+
+        LocalTime eventTime = event.getTime();
+        if (time.isBefore(eventTime)) {
+            return -1;
+        } else if (time.isAfter(eventTime)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     /**
