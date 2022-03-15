@@ -22,7 +22,6 @@
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
-
       <VBox>
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
@@ -36,19 +35,16 @@
                <children>
                   <VBox prefHeight="200.0">
                      <children>
-            
                     <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-            
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-            
                     <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                       <padding>
                         <Insets bottom="10" left="10" right="10" top="10" />
@@ -67,7 +63,6 @@
                   </VBox>
                </children>
             </HBox>
-
                     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
