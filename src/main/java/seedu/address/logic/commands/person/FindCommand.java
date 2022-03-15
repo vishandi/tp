@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;

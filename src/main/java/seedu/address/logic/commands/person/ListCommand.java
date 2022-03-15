@@ -2,7 +2,6 @@ package seedu.address.logic.commands.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_NO_PERSONS;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
