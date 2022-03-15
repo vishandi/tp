@@ -99,6 +99,11 @@ public class Event implements Comparable<Event> {
         return EventDescription.isValidEventDescription(event.getEventDescription().toString());
     }
 
+    /**
+     * Compares 2 {@code Event} based on date and time. Returns a positive integer if {@code event}
+     * occurs after the caller, a negative integer if {@code event} occurs before the caller, and 0
+     * if both {@code Event} have occurs on the same date and time.
+     */
     public int compareTo(Event event) {
         LocalDate eventDate = event.getDate();
         if (date.isBefore(eventDate)) {
