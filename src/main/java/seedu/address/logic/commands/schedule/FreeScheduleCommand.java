@@ -11,6 +11,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.IsPersonFreePredicate;
 
+/**
+ * Finds and list all persons whose schedule is free at give time or date.
+ * Persons without schedule is considered busy at all times.
+ */
 public class FreeScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "freeSchedule";
