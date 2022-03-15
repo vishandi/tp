@@ -25,7 +25,7 @@ public class FreeScheduleCommand extends Command {
             + "Parameters: "
             + PREFIX_TIME + "TIME"
             + "[" + PREFIX_DATE + "DATE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD
             + PREFIX_TIME + "12:00 "
             + PREFIX_DATE + "2022-02-14";
 
