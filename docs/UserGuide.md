@@ -100,7 +100,7 @@ Format: `help`
 ### Adding a person: `add`
 Adds a person to UniGenda without needing complete information about the person.
 
-Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 * Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
 
 Examples:
@@ -117,7 +117,7 @@ Format: `list`
 
 Edits an existing person in the UniGenda.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
