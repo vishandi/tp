@@ -72,10 +72,10 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-    public static final String INVALID_EVENT_DESCRIPTION_DESC = " " + PREFIX_EVENT_DESCRIPTION + "PARTY @ KENTRIDGE"; // '@' not allowed in event description
-    public static final String INVALID_EVENT_DATE_DESC = " " + PREFIX_DATE + "2022-March-14"; // alphabets not allowed for date
-    public static final String INVALID_EVENT_TIME_DESC = " " + PREFIX_TIME + "1100"; // missing ':' symbol
-    public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "oneH"; // one should be in number
+    public static final String INVALID_EVENT_DESCRIPTION_DESC = " " + PREFIX_EVENT_DESCRIPTION + "PARTY @ KENTRIDGE";
+    public static final String INVALID_EVENT_DATE_DESC = " " + PREFIX_DATE + "2022-March-14";
+    public static final String INVALID_EVENT_TIME_DESC = " " + PREFIX_TIME + "1100";
+    public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "oneH";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
