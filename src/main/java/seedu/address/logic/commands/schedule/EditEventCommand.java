@@ -30,10 +30,10 @@ public class EditEventCommand extends EditTypeCommand {
 
     public static final String COMMAND_WORD = "editEvent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a event of the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an event of the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDICES (must be a positive integer) "
+            + "Parameters: PERSON_INDEX EVENT_INDEX (must be a positive integer) "
             + "[" + PREFIX_EVENT_DESCRIPTION + "EVENT DESCRIPTION] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
