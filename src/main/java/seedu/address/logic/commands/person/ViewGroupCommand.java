@@ -32,7 +32,6 @@ public class ViewGroupCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
-        model.updateViewedPersonList(PREDICATE_SHOW_NO_PERSONS);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }

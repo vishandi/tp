@@ -62,7 +62,6 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
-        model.updateViewedPersonList(PREDICATE_SHOW_NO_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
