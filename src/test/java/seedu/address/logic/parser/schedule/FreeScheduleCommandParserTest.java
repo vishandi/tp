@@ -1,6 +1,12 @@
 package seedu.address.logic.parser.schedule;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_PI_DAY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_MORNING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -45,27 +51,24 @@ class FreeScheduleCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid time
-        assertParseFailure(parser, " " + PREFIX_TIME + "1000", Event.TIME_MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + PREFIX_TIME + INVALID_EVENT_TIME_DESC, Event.TIME_MESSAGE_CONSTRAINTS);
 
         // valid time but invalid date
-        assertParseFailure(parser, " " + PREFIX_TIME + "10:00 " + PREFIX_DATE + "14 March 2022",
+        assertParseFailure(parser, " " + TIME_DESC_MORNING + INVALID_EVENT_DATE_DESC,
                 Event.DATE_MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_timeAndDateSpecified_success() {
-        String time = "09:00";
-        String date = "2022-03-16";
         FreeScheduleCommand expectedCommand = new FreeScheduleCommand(
-                new IsPersonFreePredicate(LocalTime.parse(time), LocalDate.parse(date)));
-        assertParseSuccess(parser, " " + PREFIX_TIME + time + " " + PREFIX_DATE + date, expectedCommand);
+                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.parse(VALID_EVENT_DATE)));
+        assertParseSuccess(parser, " " + TIME_DESC_MORNING + DATE_DESC_PI_DAY, expectedCommand);
     }
 
     @Test
     public void parse_timeSpecified_success() {
-        String time = "09:00";
         FreeScheduleCommand expectedCommand = new FreeScheduleCommand(
-                new IsPersonFreePredicate(LocalTime.parse(time), LocalDate.now()));
-        assertParseSuccess(parser, " " + PREFIX_TIME + time, expectedCommand);
+                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now()));
+        assertParseSuccess(parser, " " + TIME_DESC_MORNING, expectedCommand);
     }
 }
