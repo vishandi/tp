@@ -1,7 +1,7 @@
 package seedu.address.model.schedule;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.testutil.TypicalSchedule.getTypicalEvents;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.TypicalSchedule.getTypicalSchedule;
 
 import java.time.LocalDate;
@@ -56,17 +56,24 @@ class IsPersonFreePredicateTest {
         // Check clash with time but not date
         predicate = new IsPersonFreePredicate(LocalTime.parse("10:00"), LocalDate.parse("2022-03-15"));
         assertTrue(predicate.test(typicalStudent));
+
+        // Clash date and end time
+        predicate = new IsPersonFreePredicate(LocalTime.parse("11:00"), LocalDate.parse("2022-03-14"));
+        assertTrue(predicate.test(typicalStudent));
     }
 
     @Test
     public void test_isPersonFree_returnsFalse() {
-        Schedule schedule = new Schedule(getTypicalEvents());
-        Person studentWithSchedule = new PersonBuilder().withSchedule(schedule).build();
+        Person studentWithSchedule = new PersonBuilder().withSchedule(getTypicalSchedule()).build();
         Person studentWithoutSchedule = new PersonBuilder().build();
+
+        // Clash date and start time
         IsPersonFreePredicate predicate =
                 new IsPersonFreePredicate(LocalTime.parse("10:00"), LocalDate.parse("2022-03-14"));
+        assertFalse(predicate.test(studentWithSchedule));
 
-        // Clash time and date
+        // Clash date and mid time
+        predicate = new IsPersonFreePredicate(LocalTime.parse("10:30"), LocalDate.parse("2022-03-14"));
         assertFalse(predicate.test(studentWithSchedule));
 
         // No schedule
