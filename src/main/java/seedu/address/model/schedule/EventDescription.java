@@ -48,8 +48,8 @@ public class EventDescription {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && eventDescription.equals(((Name) other).fullName)); // state check
+                || (other instanceof EventDescription // instanceof handles nulls
+                && eventDescription.equals(((EventDescription) other).eventDescription)); // state check
     }
 
     @Override
