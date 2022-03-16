@@ -129,7 +129,7 @@ public class Event {
         }
 
         return String.format("%s %s %s-%s%s%s", eventDescription, date.format(
-                        DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(),
+                        DateTimeFormatter.ofPattern("dd-MMM-yyyy")), time, getEndTime(),
                 plusDays, getRecurFrequency().map(x -> " " + x).orElse(""));
     }
 
