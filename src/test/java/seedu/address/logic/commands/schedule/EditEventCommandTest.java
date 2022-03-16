@@ -66,10 +66,6 @@ class EditEventCommandTest {
         List<Event> toEditEvents = new ArrayList<>(firstPerson.getSchedule().getEvents());
         Index lastEventIndex = Index.fromOneBased(toEditEvents.size());
 
-        EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
-                .withDate(VALID_EVENT_DATE).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
-        EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_PERSON, lastEventIndex, descriptor);
-
         Event toEditEvent = toEditEvents.remove(lastEventIndex.getZeroBased());
         Event editedEvent = new EventBuilder(toEditEvent)
                 .withDate(VALID_EVENT_DATE).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
@@ -77,10 +73,14 @@ class EditEventCommandTest {
         Schedule schedule = new Schedule(toEditEvents);
         Person editedPerson = new PersonBuilder(firstPerson).withSchedule(schedule).build();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(firstPerson, editedPerson);
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
+                .withDate(VALID_EVENT_DATE).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
+        EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_PERSON, lastEventIndex, descriptor);
 
         String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }
