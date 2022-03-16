@@ -16,6 +16,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.schedule.IsPersonFreePredicate;
 
+/**
+ * Parses input arguments and creates a new FreeScheduleCommand object.
+ */
 public class FreeScheduleCommandParser implements Parser<FreeScheduleCommand> {
     @Override
     public FreeScheduleCommand parse(String userInput) throws ParseException {
