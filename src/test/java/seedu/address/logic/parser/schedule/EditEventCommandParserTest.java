@@ -1,60 +1,37 @@
 package seedu.address.logic.parser.schedule;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_PI_DAY;
 import static seedu.address.logic.commands.CommandTestUtil.DURATION_DESC_TWO_HOURS;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_DESCRIPTION_DESC_CS2101;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DURATION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_TIME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RECUR_FREQUENCY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.RECUR_FREQUENCY_DESC_WEEKLY;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_MORNING;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DURATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RECUR_FREQUENCY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_HENDRI;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EditUtil;
-import seedu.address.logic.commands.person.EditCommand;
+import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.commands.schedule.EditEventCommand;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
 import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditEventDescriptorBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 class EditEventCommandParserTest {
 
@@ -136,7 +113,7 @@ class EditEventCommandParserTest {
                 + EVENT_DESCRIPTION_DESC_CS2101 + DATE_DESC_PI_DAY + TIME_DESC_MORNING + DURATION_DESC_TWO_HOURS
                 + RECUR_FREQUENCY_DESC_WEEKLY;
 
-        EditUtil.EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
                 .withEventDescription(VALID_EVENT_DESCRIPTION)
                 .withDate(VALID_EVENT_DATE).withTime(VALID_EVENT_TIME).withDuration(VALID_EVENT_DURATION)
                 .withRecurFrequency(VALID_RECUR_FREQUENCY).build();
@@ -151,11 +128,86 @@ class EditEventCommandParserTest {
         String userInput = targetIndex.getOneBased() + " " + INDEX_FIRST_EVENT.getOneBased()
                 + EVENT_DESCRIPTION_DESC_CS2101 + DATE_DESC_PI_DAY + TIME_DESC_MORNING;
 
-        EditUtil.EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
                 .withEventDescription(VALID_EVENT_DESCRIPTION)
                 .withDate(VALID_EVENT_DATE).withTime(VALID_EVENT_TIME).build();
         EditEventCommand expectedCommand = new EditEventCommand(targetIndex, INDEX_FIRST_EVENT, descriptor);
 
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    // more test cases required
+    @Test
+    public void parse_oneFieldSpecified_success() {
+        Index targetIndex = INDEX_HENDRI;
+        Index targetEventIndex = INDEX_FIRST_EVENT;
+        // event description
+        String userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased()
+                + EVENT_DESCRIPTION_DESC_CS2101;
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
+                .withEventDescription(VALID_EVENT_DESCRIPTION).build();
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // date
+        userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased() + DATE_DESC_PI_DAY;
+        descriptor = new EditEventDescriptorBuilder().withDate(VALID_EVENT_DATE).build();
+        expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // time
+        userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased() + TIME_DESC_MORNING;
+        descriptor = new EditEventDescriptorBuilder().withTime(VALID_EVENT_TIME).build();
+        expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // duration
+        userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased() + DURATION_DESC_TWO_HOURS;
+        descriptor = new EditEventDescriptorBuilder().withDuration(VALID_EVENT_DURATION).build();
+        expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // recur frequency
+        userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased() + RECUR_FREQUENCY_DESC_WEEKLY;
+        descriptor = new EditEventDescriptorBuilder().withRecurFrequency(VALID_RECUR_FREQUENCY).build();
+        expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_multipleRepeatedFields_acceptsLast() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetEventIndex = INDEX_FIRST_EVENT;
+
+        String userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased() + DATE_DESC_PI_DAY
+                + DURATION_DESC_TWO_HOURS + TIME_DESC_MORNING + DATE_DESC_PI_DAY + DURATION_DESC_TWO_HOURS
+                + TIME_DESC_MORNING;
+
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withDate(VALID_EVENT_DATE)
+                .withTime(VALID_EVENT_TIME).withDuration(VALID_EVENT_DURATION).build();
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_invalidValueFollowedByValidValue_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetEventIndex = INDEX_FIRST_EVENT;
+
+        // no other valid values specified
+        String userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased() + INVALID_EVENT_TIME_DESC
+                + TIME_DESC_MORNING;
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withTime(VALID_EVENT_TIME).build();
+        EditEventCommand expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // other valid values specified
+        userInput = targetIndex.getOneBased() + " " + targetEventIndex.getOneBased() + DATE_DESC_PI_DAY
+                + INVALID_EVENT_TIME_DESC + DURATION_DESC_TWO_HOURS + TIME_DESC_MORNING;
+        descriptor = new EditEventDescriptorBuilder().withDate(VALID_EVENT_DATE).withTime(VALID_EVENT_TIME)
+                .withDuration(VALID_EVENT_DURATION).build();
+        expectedCommand = new EditEventCommand(targetIndex, targetEventIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }
