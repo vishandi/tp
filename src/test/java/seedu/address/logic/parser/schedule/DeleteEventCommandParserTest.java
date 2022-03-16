@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
-import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 
 public class DeleteEventCommandParserTest {
 
