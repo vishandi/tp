@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 
 /**
- * Parses input arguments and creates a new EditEventCommand object
+ * Parses input arguments and creates a new DeleteEventCommand object.
  */
 public class DeleteEventCommandParser implements Parser<DeleteEventCommand> {
 

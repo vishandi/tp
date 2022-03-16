@@ -100,7 +100,7 @@ Format: `help`
 ### Adding a person: `add`
 Adds a person to UniGenda without needing complete information about the person.
 
-Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 * Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
 
 Examples:
@@ -117,7 +117,7 @@ Format: `list`
 
 Edits an existing person in the UniGenda.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -178,8 +178,14 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
+<<<<<<< HEAD
 * If DURATION is specified, TIME also needs to be specified.
 * DURATION should be in one of the following formats, where X is a positive integer representing hours, and Y is a positive integer representing minutes(not case-sensitive):
+=======
+* DATE should be in "YYYY-MM-DD" format
+* TIME should be in "HH:MM" format
+* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
+>>>>>>> 6dcc03c7b010d0d26cfe35db796ffdb07515ac0e
   * XHYM
   * XHY
   * XH
@@ -196,47 +202,52 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 
 
 
-Examples:
-* `addEvent 3 ed/Open House da/20-12-2022`
-* `addEvent 2 ed/CCA Meeting da/22-11-2023 ti/12:00 du/1H30M r/W`
+* `addEvent 3 da/2022-12-20 ti/10:00 du/2H30M`
+* `addEvent 2 da/2023-11-23 ti/12:00`
+
 
 ### Editing a person’s schedule: `editEvent`
 Edits the schedule assigned to a person.
 
 Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
+
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
-
+* DATE should be in "YYYY-MM-DD" format
+* TIME should be in "HH:MM" format
+* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
+  * XHYM
+  * XHY
+  * XH
+  * X
+  
 Example:
-* `editEvent 3 3 da/21-12-2022`
-* `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
+* `editEvent 3 3 da/2022-12-21`
+* `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`
 * `editEvent 3 1 ed/CS2103T lecture`
 
 ### Deleting a person's schedule: `deleteEvent`
 Deletes an event from the specified indexed contact.
 
-Format: `deleteEvent INDEX EVENT_NUMBER`
+Format: `deleteEvent INDEX EVENT_INDEX`
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * EVENT_NUMBER refers to the index of schedules. The schedule_number must be a positive integer 1, 2, …
 
 Example:
 * `deleteEvent 3 3`
 
-### Getting persons who are free: `freeSchedule`
-Retrieves information of persons who are free at the specified time or date. Contacts without a schedule will not be 
-considered when retrieving information.
-
 Format: `freeSchedule ti/TIME [da/ DATE]`
 * Shows the persons who are free at the time specified today
 * Shows the persons who are free at the time on the date specified
 * Contacts without a schedule are filtered out of the list
 * TIME is the time at which the user want to find out if the person is free
-* TIME should be specified in 24h format
 * DATE should not be specified if TIME is not specified
+* TIME should be in "HH:MM" format
+* DATE should be in "YYYY-MM-DD" format
 
 Examples:
-* `freeSchedule ti/ 1200`
-* `freeSchedule ti/ 1400 da/14-02-2021`
+* `freeSchedule ti/ 12:00`
+* `freeSchedule ti/ 14:00 da/2022-02-14`
 
 ### Getting common free timing of persons by tag: `freeGroupSchedule`
 Gets the common timings of persons who are free with the same tag.
@@ -303,7 +314,7 @@ Example:
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                               |
 | **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                       |
 | **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`                              |
-| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`  |
+| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`          |
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                             |
 | **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          |
 | **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                      |

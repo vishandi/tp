@@ -136,6 +136,16 @@ public class PersonBuilder {
     }
 
     /**
+     * Adds the {@code Event} into the {@code Schedule} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withEvent(Event event) {
+        ArrayList<Event> newEvents = new ArrayList<>(schedule.getEvents());
+        newEvents.add(event);
+        schedule = new Schedule(newEvents);
+        return this;
+    }
+
+    /**
      * Parses the {@code event} and set it to the {@code Schedule} of the {@code Person} that we are building.
      */
     public PersonBuilder withEvent(String description, String date, String time, String duration,
