@@ -162,6 +162,8 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/
 * If TIME is not specified, it will be considered as a full-day event.
 * If DURATION is specified, TIME also needs to be specified.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
+* DATE should be in "YYYY-MM-DD" format
+* TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
   * XHYM
   * XHY
@@ -170,19 +172,27 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/
 
 
 Examples:
-* `addSchedule 3 da/20-12-2022 ti/10:00 du/2H30M`
-* `addSchedule 2 da/22-11-2023 ti/12:00`
+* `addSchedule 3 da/2022-12-20 ti/10:00 du/2H30M`
+* `addSchedule 2 da/2023-11-23 ti/12:00`
 
 ### Editing a person’s schedule: `editEvent`
 Edits the schedule assigned to a person.
 
-Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]`
+Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION]`
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
+* DATE should be in "YYYY-MM-DD" format
+* TIME should be in "HH:MM" format
+* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
+  * XHYM
+  * XHY
+  * XH
+  * X
+
 
 Example:
-* `editEvent 3 3 da/21-12-2022`
-* `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
+* `editEvent 3 3 da/2022-12-21`
+* `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`
 * `editEvent 3 1 ed/CS2103T lecture`
 
 ### Deleting a person's schedule: `deleteEvent`
@@ -213,12 +223,13 @@ Format: `freeSchedule ti/TIME [da/ DATE]`
 * Shows the friends who are free at the time specified today
 * Shows the friends who are free at the time on the date specified
 * TIME is the time at which the user want to find out if the person is free
-* TIME should be specified in 24h format
 * DATE should not be specified if TIME is not specified
+* TIME should be in "HH:MM" format
+* DATE should be in "YYYY-MM-DD" format
 
 Examples:
-* `freeSchedule ti/ 1200`
-* `freeSchedule ti/ 1400 da/14-02-2021`
+* `freeSchedule ti/ 12:00`
+* `freeSchedule ti/ 14:00 da/2022-02-14`
 
 ### Get team’s common free timing: `freeGroupSchedule`
 Gets the common timing of a group of friends is free (by tag)
@@ -230,7 +241,7 @@ Format: `freeGroupSchedule t/TAG`
 Shows the names of friends with the same tag
 
 Format: `viewGroup t/TAG`
-* Shows contacts sharing the same tag
+* Show contacts sharing the same tag
 
 ### Clearing all entries : `clear`
 
