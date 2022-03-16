@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static java.time.temporal.TemporalAdjusters.next;
+import static seedu.address.model.recurfrequency.RecurFrequency.INVALID_RECUR_FREQUENCY_MESSAGE;
 
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
@@ -46,7 +47,7 @@ class JsonAdaptedEvent {
         this.date = date;
         this.time = time;
         this.duration = duration;
-        this.recurFrequency =recurFrequency;
+        this.recurFrequency = recurFrequency;
     }
 
     /**
@@ -99,13 +100,14 @@ class JsonAdaptedEvent {
         }
 
         if (recurFrequency != null && !RecurFrequency.isValidRecurFrequency(recurFrequency)) {
-            throw new IllegalValueException(RecurFrequency.INVALID_RECUR_FREQUENCY_MESSAGE);
+            throw new IllegalValueException(INVALID_RECUR_FREQUENCY_MESSAGE);
         }
         final RecurFrequency modelRecurFrequency = RecurFrequency.of(recurFrequency);
 
         final LocalDate oldDate;
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
         }
         try {
             oldDate = LocalDate.parse(date);

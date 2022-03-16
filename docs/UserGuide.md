@@ -191,18 +191,16 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
   * XH
   * YM
   * X
-  * RECUR_FREQUENCY, if provided, must be one of the following values:
-
-    | Value | Frequency |
-    |-----------|--------------|
-    | `D`   | Daily     |
-    | `W`   | Weekly    |
-    | `B`   | Biweekly  |
-    | `M`   | Monthly   |
-
-
-
-* `addEvent 3 da/2022-12-20 ti/10:00 du/2H30M`
+* RECUR_FREQUENCY, if provided, must be one of the following values:
+  
+| Value           | Frequency |
+|-----------------|-----------|
+| `D`, `Daily`    | Daily     |
+| `W`, `Weekly`   | Weekly    |
+| `B`, `Biweekly` | Biweekly  |
+| `M`, `Monthly`  | Monthly   |
+  
+* `addEvent 3 da/2022-12-20 ti/10:00 du/2H30M r/W`
 * `addEvent 2 da/2023-11-23 ti/12:00`
 
 

@@ -12,19 +12,23 @@ public enum RecurFrequency {
     DAILY("D", "DAILY"), MONTHLY("M", "MONTHLY"),
     NONE("NONE", "NONE");
 
+    public static final Set<RecurFrequency> VALID_FREQUENCIES =
+            Arrays.stream(RecurFrequency.values()).collect(Collectors.toSet());
+    public static final String INVALID_RECUR_FREQUENCY_MESSAGE = String.format("Recurrence "
+            + "frequency must be one of the following: %s", VALID_FREQUENCIES);
+    public static final String DEFAULT_RECURRENCE = NONE.fullName;
     private static final String DAILY_LABEL = "(Daily)";
     private static final String WEEKLY_LABEL = "(Weekly)";
     private static final String BIWEEKLY_LABEL = "(Biweekly)";
     private static final String MONTHLY_LABEL = "(Monthly)";
     private static final String INVALID_LABEL = "(Invalid)";
     private static final String NO_LABEL = "";
-    private static Set<RecurFrequency> validFrequencies = Arrays.stream(RecurFrequency.values()).collect(Collectors.toSet());
+
+
     private final String shortName;
     private final String fullName;
 
-    public static final String DEFAULT_RECURRENCE = NONE.fullName;
-    public static final String INVALID_RECUR_FREQUENCY_MESSAGE = String.format("Recurrence "
-            + "frequency must be one of the following: %s", validFrequencies);
+
 
     RecurFrequency(String shortName, String fullName) {
         this.shortName = shortName;
@@ -32,26 +36,30 @@ public enum RecurFrequency {
     }
 
     /**
-     * Gets the RecursiveFrequency corresponding to the given String frequency, if it exists. Otherwise, throws ParseException.
+     * Gets the RecursiveFrequency corresponding to the given String frequency, if it exists.
+     * Otherwise, throws ParseException.
      *
      * @param frequency The String format of the frequency
      * @return The RecursiveFrequency corresponding to the given String frequency, if it exists.
      * Otherwise, throws ParseException.
      */
     public static RecurFrequency of(String frequency) throws ParseException {
-        Optional<RecurFrequency> recurFrequency = validFrequencies.stream()
-                .filter(r -> r.shortName.equals(frequency) ||
-                        r.fullName.equals(frequency)).findFirst();
+        Optional<RecurFrequency> recurFrequency = VALID_FREQUENCIES.stream()
+                .filter(r -> r.shortName.equals(frequency)
+                        || r.fullName.equals(frequency)).findFirst();
         if (!recurFrequency.isPresent()) {
             throw new ParseException(INVALID_RECUR_FREQUENCY_MESSAGE);
         }
         return recurFrequency.get();
     }
 
+    /**
+     * Returns whether the provided String maps to a valid RecurFrequency value.
+     */
     public static boolean isValidRecurFrequency(String frequency) {
-        return validFrequencies.stream()
-                .anyMatch(recurFrequency -> recurFrequency.shortName.equals(frequency) ||
-                        recurFrequency.fullName.equals(frequency));
+        return VALID_FREQUENCIES.stream()
+                .anyMatch(recurFrequency -> recurFrequency.shortName.equals(frequency)
+                        || recurFrequency.fullName.equals(frequency));
     }
 
     /**
