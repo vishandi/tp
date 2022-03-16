@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,7 @@ public class JsonAdaptedSchedule {
         for (JsonAdaptedEvent event : events) {
             schedule.add(event.toModelType());
         }
+        Collections.sort(schedule);
         final List<Event> modelSchedule = new ArrayList<>(schedule);
 
         return new Schedule(modelSchedule);

@@ -218,7 +218,6 @@ public class ParserUtil {
         int minutes = 0;
         try {
             if (trimmedDuration.matches(DURATION_HOURS_MINUTES_REGEX)) {
-                System.out.println(trimmedDuration);
                 String[] splitDuration = trimmedDuration.split("H");
                 hours = Integer.parseInt(splitDuration[0]);
                 minutes = Integer.parseInt(splitDuration[1].split("M")[0]);

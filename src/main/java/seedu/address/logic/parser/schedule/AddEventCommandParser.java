@@ -76,7 +76,6 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         }
         RecurFrequency recurFrequency = ParserUtil.parseRecurFrequency(argMultimap.getValue(
                 PREFIX_RECUR_FREQUENCY).orElse(DEFAULT_RECURRENCE));
-
         Event event = new Event(eventDescription, date, time, duration, recurFrequency);
 
         return new AddEventCommand(index, event);

@@ -119,33 +119,33 @@ class JsonAdaptedEvent {
     }
 
     private LocalDate updateDate(LocalDate date, RecurFrequency recurFrequency) throws InvalidEnumArgumentException {
+        LocalDate newDate = date;
         LocalDate today = LocalDate.now();
-        LocalDate newDate = today;
         switch (recurFrequency) {
         case NONE:
             return date;
         case DAILY:
-            if (date.isAfter(today)) {
+            if (today.isAfter(date)) {
                 newDate = today;
             }
             break;
         case WEEKLY:
             LocalDate resetDate = date.plusDays(7);
-            if (date.isAfter(resetDate)) {
+            if (today.isAfter(resetDate)) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
             }
             break;
         case BIWEEKLY:
             resetDate = date.plusDays(14);
-            if (date.isAfter(resetDate)) {
+            if (today.isAfter(resetDate)) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek)).with(next(dayOfWeek));
             }
             break;
         case MONTHLY:
             resetDate = date.plusMonths(1);
-            if (date.isAfter(resetDate)) {
+            if (today.isAfter(resetDate)) {
                 int dayOfMonth = date.getDayOfMonth();
                 try {
                     newDate = today.withDayOfMonth(dayOfMonth);

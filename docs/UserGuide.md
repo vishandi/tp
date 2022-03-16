@@ -187,7 +187,6 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
 
   * XHYM
-  * XHY
   * XH
   * YM
   * X
