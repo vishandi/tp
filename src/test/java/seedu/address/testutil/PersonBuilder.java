@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -159,6 +160,7 @@ public class PersonBuilder {
             Event event = new Event(eventDescription, eventDate, eventTime, eventDuration, eventRecurFrequency);
             ArrayList<Event> newEvents = new ArrayList<>(this.schedule.getEvents());
             newEvents.add(event);
+            Collections.sort(newEvents);
             this.schedule = new Schedule(newEvents);
             return this;
         } catch (ParseException e) {
