@@ -20,6 +20,7 @@ import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
 
@@ -42,7 +43,7 @@ public class EditEventCommand extends EditTypeCommand {
             + "Example: " + COMMAND_WORD + " 1 2 "
             + PREFIX_TIME + "10:00";
 
-    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "%1$s's event edited successfully";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
     private final Index targetIndex;
@@ -77,13 +78,14 @@ public class EditEventCommand extends EditTypeCommand {
         }
 
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, targetEventIndex, editEventDescriptor);
+        Event editedEvent = updatedSchedule.getEvent(targetEventIndex.getZeroBased());
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setSchedule(updatedSchedule);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, personToEdit.getName()));
+        return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
     @Override
