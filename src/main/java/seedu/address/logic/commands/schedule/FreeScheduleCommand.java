@@ -12,7 +12,8 @@ import seedu.address.model.Model;
 import seedu.address.model.schedule.IsPersonFreePredicate;
 
 /**
- * Lists all {@code Person} who are free at the given time and date. If no date is given, the command assumes today's date
+ * Lists all {@code Person} who are free at the given time and date. 
+ * If no date is given, the command assumes today's date.
  * Persons without schedule is considered busy at all times.
  */
 public class FreeScheduleCommand extends Command {
