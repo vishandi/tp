@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -152,6 +153,7 @@ public class PersonBuilder {
                 newEvents.add(e);
             }
             newEvents.add(event);
+            Collections.sort(newEvents);
             this.schedule = new Schedule(newEvents);
             return this;
         } catch (ParseException e) {

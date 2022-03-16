@@ -117,9 +117,10 @@ public class Event implements Comparable<Event> {
             return -1;
         } else if (time.isAfter(eventTime)) {
             return 1;
-        } else {
-            return 0;
         }
+
+        Duration eventDuration = event.getDuration();
+        return duration.compareTo(eventDuration);
     }
 
     /**
