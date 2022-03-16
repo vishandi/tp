@@ -174,26 +174,36 @@ Examples:
 ### Adding a person’s schedule: `addEvent`
 Adds an event to the specified indexed contact.
 
-Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]`
+Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
-* If TIME is not specified, it will be considered as a full-day event.
-* If DURATION is specified, TIME also needs to be specified.
+* If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
-* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
+* If DURATION is specified, TIME also needs to be specified.
+* DURATION should be in one of the following formats, where X is a positive integer representing hours, and Y is a positive integer representing minutes(not case-sensitive):
   * XHYM
   * XHY
   * XH
+  * YM
   * X
+  * RECUR_FREQUENCY, if provided, must be one of the following values:
+
+    | Value | Frequency    |
+    |-------|--------------|
+    | `D`   | Content Cell |
+    | `W`   | Content Cell |
+    | `B`   | Biweekly     |
+    | `M`   | Monthly      |
+
 
 
 Examples:
-* `addSchedule 3 da/20-12-2022 ti/10:00 du/2H30M`
-* `addSchedule 2 da/22-11-2023 ti/12:00`
+* `addEvent 3 ed/Open House da/20-12-2022`
+* `addEvent 2 ed/CCA Meeting da/22-11-2023 ti/12:00 du/1H30M r/W`
 
 ### Editing a person’s schedule: `editEvent`
 Edits the schedule assigned to a person.
 
-Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]`
+Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
 
@@ -285,18 +295,18 @@ Example:
 
 ## Command Summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`
-**AddEvent** | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`
-**EditEvent** | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`
-**DeleteEvent** | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`
-**FreeSchedule** | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`
-**FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
+| Action                | Format, Examples                                                                                                                                                          |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Clear**             | `clear`                                                                                                                                                                   |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                       |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                               |
+| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                       |
+| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`                              |
+| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`  |
+| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                             |
+| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          |
+| **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                      |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                |
+| **List**              | `list`                                                                                                                                                                    |
+| **Help**              | `help`                                                                                                                                                                    |

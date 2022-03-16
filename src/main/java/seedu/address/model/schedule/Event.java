@@ -21,7 +21,8 @@ public class Event {
     public static final String DEFAULT_DURATION = "2H";
     public static final String FULL_DAY_EVENT_DURATION = "24H";
     public static final String DATE_MESSAGE_CONSTRAINTS = "Event date should be in YYYY-MM-DD format";
-    public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in XHYM, XHY, XH or X format,"
+    public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in"
+            + " XHYM, XHY, XH, YM or X format,"
             + " where X is an integer representing the number of hours"
             + " and Y is an integer representing the number of minutes.";
     public static final String TIME_MESSAGE_CONSTRAINTS = "Event time should be in HH:MM format";
