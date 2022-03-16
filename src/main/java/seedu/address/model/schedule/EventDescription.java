@@ -3,8 +3,6 @@ package seedu.address.model.schedule;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.person.Name;
-
 public class EventDescription {
     public static final String MESSAGE_CONSTRAINTS =
             "Event descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
