@@ -189,8 +189,8 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 
     | Value | Frequency    |
     |-------|--------------|
-    | `D`   | Content Cell |
-    | `W`   | Content Cell |
+    | `D`   | Daily |
+    | `W`   | Weekly |
     | `B`   | Biweekly     |
     | `M`   | Monthly      |
 
