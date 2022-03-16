@@ -34,9 +34,6 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    private static final String DURATION_HOURS_REGEX = "^[0-9]*H?";
-    private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M?";
-    private static final String DURATION_MINUTES_REGEX = "[0-9]*M";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -206,7 +203,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String duration} into a {@code Duration}.
+     * Parses a {@code String duration} into an {@code Duration}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code duration} is invalid.
@@ -214,19 +211,12 @@ public class ParserUtil {
     public static Duration parseDuration(String duration) throws ParseException {
         requireNonNull(duration);
         String trimmedDuration = duration.trim().toUpperCase();
-        int hours = 0;
-        int minutes = 0;
         try {
-            if (trimmedDuration.matches(DURATION_HOURS_MINUTES_REGEX)) {
-                String[] splitDuration = trimmedDuration.split("H");
-                hours = Integer.parseInt(splitDuration[0]);
+            String[] splitDuration = trimmedDuration.split("H");
+            int hours = Integer.parseInt(splitDuration[0]);
+            int minutes = 0;
+            if (splitDuration.length > 1) {
                 minutes = Integer.parseInt(splitDuration[1].split("M")[0]);
-            } else if (trimmedDuration.matches(DURATION_HOURS_REGEX)) {
-                hours = Integer.parseInt(trimmedDuration.split("H")[0]);
-            } else if (trimmedDuration.matches(DURATION_MINUTES_REGEX)) {
-                minutes = Integer.parseInt(trimmedDuration.split("M")[0]);
-            } else {
-                throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
             }
             return Duration.ofHours(hours).plusMinutes(minutes);
         } catch (DateTimeParseException | NumberFormatException e) {
