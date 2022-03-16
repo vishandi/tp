@@ -178,30 +178,26 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
-<<<<<<< HEAD
 * If DURATION is specified, TIME also needs to be specified.
-* DURATION should be in one of the following formats, where X is a positive integer representing hours, and Y is a positive integer representing minutes(not case-sensitive):
-=======
 * DATE should be in "YYYY-MM-DD" format
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
-
   * XHYM
   * XH
   * YM
   * X
 * RECUR_FREQUENCY, if provided, must be one of the following values:
-  
+
 | Value           | Frequency |
 |-----------------|-----------|
 | `D`, `Daily`    | Daily     |
 | `W`, `Weekly`   | Weekly    |
 | `B`, `Biweekly` | Biweekly  |
 | `M`, `Monthly`  | Monthly   |
-  
-* `addEvent 3 da/2022-12-20 ti/10:00 du/2H30M r/W`
-* `addEvent 2 da/2023-11-23 ti/12:00`
 
+Examples:
+* `addEvent 3 ed/Open House da/2022-12-20`
+* `addEvent 2 ed/CCA Meeting da/2023-11-23 ti/12:00 du/1H30M r/W`
 
 ### Editing a person’s schedule: `editEvent`
 Edits the schedule assigned to a person.
@@ -217,6 +213,14 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
   * XHY
   * XH
   * X
+* RECUR_FREQUENCY, if provided, must be one of the following values:
+
+| Value           | Frequency |
+|-----------------|-----------|
+| `D`, `Daily`    | Daily     |
+| `W`, `Weekly`   | Weekly    |
+| `B`, `Biweekly` | Biweekly  |
+| `M`, `Monthly`  | Monthly   |
   
 Example:
 * `editEvent 3 3 da/2022-12-21`
