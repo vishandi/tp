@@ -143,7 +143,6 @@ public class Event implements Comparable<Event> {
         if (numDays > 0) {
             plusDays = String.format(" (+%s)", numDays);
         }
-        
         return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
                         DateTimeFormatter.ofPattern("dd-MMM-yyyy")), time, getEndTime(),
                 plusDays, getRecurFrequency().getLabel());

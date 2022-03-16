@@ -151,11 +151,6 @@ public class Person {
                     .append(getAddress());
         }
 
-        if (!Schedule.isEmptySchedule(getSchedule())) {
-            builder.append("; Events: ")
-                    .append(getSchedule());
-        }
-
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
