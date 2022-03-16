@@ -3,8 +3,10 @@ package seedu.address.logic.commands.schedule;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS2101;
+import static seedu.address.logic.commands.CommandTestUtil.RECUR_FREQUENCY_DESC_WEEKLY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RECUR_FREQUENCY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
@@ -67,20 +69,20 @@ class EditEventCommandTest {
         Index lastEventIndex = Index.fromOneBased(toEditEvents.size());
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
-                .withEventDescription(VALID_EVENT_DESCRIPTION).withDate(VALID_EVENT_DATE).build();
+                .withDate(VALID_EVENT_DATE).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
         EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_PERSON, lastEventIndex, descriptor);
 
         Event toEditEvent = toEditEvents.remove(lastEventIndex.getZeroBased());
         Event editedEvent = new EventBuilder(toEditEvent)
-                .withEventDescription(VALID_EVENT_DESCRIPTION).withDate(VALID_EVENT_DATE).build();
+                .withDate(VALID_EVENT_DATE).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
         toEditEvents.add(editedEvent);
         Schedule schedule = new Schedule(toEditEvents);
         Person editedPerson = new PersonBuilder(firstPerson).withSchedule(schedule).build();
 
-        String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
-
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
+
+        String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }
