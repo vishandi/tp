@@ -189,8 +189,8 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/
 
 
 Examples:
-* `addSchedule 3 da/2022-12-20 ti/10:00 du/2H30M`
-* `addSchedule 2 da/2023-11-23 ti/12:00`
+* `addEvent 3 da/2022-12-20 ti/10:00 du/2H30M`
+* `addEvent 2 da/2023-11-23 ti/12:00`
 
 ### Editing a person’s schedule: `editEvent`
 Edits the schedule assigned to a person.
