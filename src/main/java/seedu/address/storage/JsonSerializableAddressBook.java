@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.InvalidEnumArgumentException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -44,8 +45,9 @@ public class JsonSerializableAddressBook {
      * Converts this address book into the model's {@code AddressBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
+     * @throws InvalidEnumArgumentException if there are any unhandled RecurFrequency cases.
      */
-    public AddressBook toModelType() throws IllegalValueException {
+    public AddressBook toModelType() throws IllegalValueException, InvalidEnumArgumentException {
         AddressBook addressBook = new AddressBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();

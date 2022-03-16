@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 
 import seedu.address.model.recurfrequency.RecurFrequency;
 
@@ -29,20 +28,11 @@ public class Event {
     public static final String MISSING_TIME_MESSAGE = "The event start time must be specified "
             + "if the duration is specified!";
 
-    private static final String PLACEHOLDER_EVENT_DESCRIPTION = "Event Description";
     private final EventDescription eventDescription;
     private final LocalDate date;
     private final LocalTime time;
     private final Duration duration;
     private final RecurFrequency recurFrequency;
-
-    private Event() {
-        this.eventDescription = new EventDescription(PLACEHOLDER_EVENT_DESCRIPTION);
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
-        this.duration = Duration.ZERO;
-        this.recurFrequency = null;
-    }
 
     /**
      * Every field must be present, and only recurFrequency can be null.
@@ -81,8 +71,8 @@ public class Event {
         return eventDescription;
     }
 
-    public Optional<RecurFrequency> getRecurFrequency() {
-        return Optional.ofNullable(recurFrequency);
+    public RecurFrequency getRecurFrequency() {
+        return recurFrequency;
     }
 
     /**
@@ -90,7 +80,7 @@ public class Event {
      * @return
      */
     public boolean isRecurring() {
-        return getRecurFrequency().isPresent();
+        return recurFrequency.equals(RecurFrequency.NONE);
     }
 
     /**
@@ -129,9 +119,9 @@ public class Event {
             plusDays = String.format(" (+%s)", numDays);
         }
 
-        return String.format("%s %s %s-%s%s%s", eventDescription, date.format(
+        return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
                         DateTimeFormatter.ofPattern("dd-MMM-YYYY")), time, getEndTime(),
-                plusDays, getRecurFrequency().map(x -> " " + x).orElse(""));
+                plusDays, getRecurFrequency().getLabel());
     }
 
 }

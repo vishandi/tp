@@ -241,9 +241,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code recurFrequency} is invalid.
      */
     public static RecurFrequency parseRecurFrequency(String recurFrequency) throws ParseException {
-        if (recurFrequency == null) {
-            return null;
-        }
+        requireNonNull(recurFrequency);
         String trimmedRecurFrequency = recurFrequency.trim();
         return RecurFrequency.of(trimmedRecurFrequency);
     }

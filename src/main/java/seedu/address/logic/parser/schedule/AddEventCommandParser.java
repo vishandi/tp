@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.model.recurfrequency.RecurFrequency.DEFAULT_RECURRENCE;
 import static seedu.address.model.schedule.Event.DEFAULT_DURATION;
 import static seedu.address.model.schedule.Event.DEFAULT_TIME;
 import static seedu.address.model.schedule.Event.FULL_DAY_EVENT_DURATION;
@@ -74,7 +75,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
             duration = ParserUtil.parseDuration(FULL_DAY_EVENT_DURATION);
         }
         RecurFrequency recurFrequency = ParserUtil.parseRecurFrequency(argMultimap.getValue(
-                PREFIX_RECUR_FREQUENCY).orElse(null));
+                PREFIX_RECUR_FREQUENCY).orElse(DEFAULT_RECURRENCE));
 
         Event event = new Event(eventDescription, date, time, duration, recurFrequency);
 

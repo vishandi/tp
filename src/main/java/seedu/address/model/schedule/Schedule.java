@@ -16,9 +16,6 @@ public class Schedule {
     public static final Schedule EMPTY_SCHEDULE = new Schedule(new ArrayList<>());
     private final List<Event> events = new ArrayList<>();
 
-    private Schedule() {
-    }
-
     /**
      * Every field must be present and not null.
      */
