@@ -34,8 +34,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    private static final String DURATION_HOURS_REGEX = "^[0-9]*H?";
-    private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M?";
+    private static final String DURATION_HOURS_REGEX = "^[0-9]*H";
+    private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M";
     private static final String DURATION_MINUTES_REGEX = "[0-9]*M";
 
     /**
