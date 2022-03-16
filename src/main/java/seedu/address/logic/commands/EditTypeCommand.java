@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -58,7 +59,7 @@ public abstract class EditTypeCommand extends Command {
         Event toEditEvent = updatedEvents.remove(targetEventIndex.getZeroBased());
         Event updatedEvent = createEditedEvent(toEditEvent, editEventDescriptor);
         updatedEvents.add(targetEventIndex.getZeroBased(), updatedEvent);
-
+        Collections.sort(updatedEvents);
         return new Schedule(updatedEvents);
     }
 
@@ -72,7 +73,7 @@ public abstract class EditTypeCommand extends Command {
         List<Event> scheduleEvents = scheduleToEdit.getEvents();
         ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
         updatedEvents.add(eventToAdd);
-
+        Collections.sort(updatedEvents);
         return new Schedule(updatedEvents);
     }
 
