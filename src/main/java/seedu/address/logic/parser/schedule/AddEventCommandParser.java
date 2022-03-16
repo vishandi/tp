@@ -30,6 +30,9 @@ import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 
+/**
+ * Parses input arguments and creates a new AddEventCommand object.
+ */
 public class AddEventCommandParser implements Parser<AddEventCommand> {
 
     /**
