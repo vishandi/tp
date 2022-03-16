@@ -1,5 +1,7 @@
 package seedu.address.model.recurfrequency;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -44,9 +46,10 @@ public enum RecurFrequency {
      * Otherwise, throws ParseException.
      */
     public static RecurFrequency of(String frequency) throws ParseException {
+        requireNonNull(frequency);
         Optional<RecurFrequency> recurFrequency = VALID_FREQUENCIES.stream()
                 .filter(r -> r.shortName.equals(frequency)
-                        || r.fullName.equals(frequency)).findFirst();
+                        || r.fullName.equals(frequency.toUpperCase())).findFirst();
         if (!recurFrequency.isPresent()) {
             throw new ParseException(INVALID_RECUR_FREQUENCY_MESSAGE);
         }
