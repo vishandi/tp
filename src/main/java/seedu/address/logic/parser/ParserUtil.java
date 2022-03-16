@@ -35,7 +35,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final String DURATION_HOURS_REGEX = "^[0-9]*H?";
-    private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M?";
+    private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M";
     private static final String DURATION_MINUTES_REGEX = "[0-9]*M";
 
     /**
@@ -218,6 +218,7 @@ public class ParserUtil {
         int minutes = 0;
         try {
             if (trimmedDuration.matches(DURATION_HOURS_MINUTES_REGEX)) {
+                System.out.println(trimmedDuration);
                 String[] splitDuration = trimmedDuration.split("H");
                 hours = Integer.parseInt(splitDuration[0]);
                 minutes = Integer.parseInt(splitDuration[1].split("M")[0]);

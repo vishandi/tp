@@ -185,7 +185,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * DATE should be in "YYYY-MM-DD" format
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
->>>>>>> 6dcc03c7b010d0d26cfe35db796ffdb07515ac0e
+
   * XHYM
   * XHY
   * XH
@@ -193,12 +193,12 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
   * X
   * RECUR_FREQUENCY, if provided, must be one of the following values:
 
-    | Value | Frequency    |
-    |-------|--------------|
-    | `D`   | Content Cell |
-    | `W`   | Content Cell |
-    | `B`   | Biweekly     |
-    | `M`   | Monthly      |
+    | Value | Frequency |
+    |-----------|--------------|
+    | `D`   | Daily     |
+    | `W`   | Weekly    |
+    | `B`   | Biweekly  |
+    | `M`   | Monthly   |
 
 
 

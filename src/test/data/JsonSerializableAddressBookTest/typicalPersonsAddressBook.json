@@ -9,19 +9,17 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "MONTHLY"
       } ]
     },
     "tagged" : [ "friends" ]
@@ -34,19 +32,17 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "MONTHLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "DAILY"
       } ]
     },
     "tagged" : [ "owesMoney", "friends" ]
@@ -59,19 +55,17 @@
     "address" : "wall street",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "NONE"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "MONTHLY"
       } ]
     },
     "tagged" : [ ]
@@ -84,19 +78,17 @@
     "address" : "10th street",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "MONTHLY"
       } ]
     },
     "tagged" : [ "friends" ]
@@ -109,19 +101,17 @@
     "address" : "michegan ave",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "MONTHLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "WEEKLY"
       } ]
     },
     "tagged" : [ ]
@@ -134,19 +124,17 @@
     "address" : "little tokyo",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "MONTHLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "NONE"
       } ]
     },
     "tagged" : [ ]
@@ -159,19 +147,17 @@
     "address" : "4th street",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "MONTHLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "WEEKLY"
       } ]
     },
     "tagged" : [ ]
@@ -184,12 +170,11 @@
     "address" : "PGPR",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "Tutorial CS2103T"
-        },
+        "eventDescription" : "Tutorial CS2103T",
         "date" : "2022-09-03",
         "time" : "10:00:00",
-        "duration" : "PT1H"
+        "duration" : "PT1H",
+        "recurFrequency" : "MONTHLY"
       } ]
     },
     "tagged" : [ ]

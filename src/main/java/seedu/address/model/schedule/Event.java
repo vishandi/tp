@@ -16,8 +16,10 @@ import seedu.address.model.recurfrequency.RecurFrequency;
  */
 public class Event {
 
+    public static final String DEFAULT_DATE = "2022-12-20";
     public static final String DEFAULT_TIME = "00:00";
     public static final String DEFAULT_DURATION = "2H";
+    public static final String DEFAULT_EVENT_DESCRIPTION = "CS2103T Tutorial";
     public static final String FULL_DAY_EVENT_DURATION = "24H";
     public static final String DATE_MESSAGE_CONSTRAINTS = "Event date should be in YYYY-MM-DD format";
     public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in"
@@ -39,7 +41,7 @@ public class Event {
      */
     public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration,
                  RecurFrequency recurFrequency) {
-        requireAllNonNull(eventDescription, date, time, duration);
+        requireAllNonNull(eventDescription, date, time, duration, recurFrequency);
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
@@ -77,7 +79,6 @@ public class Event {
 
     /**
      * Returns true if the Event is recurring.
-     * @return
      */
     public boolean isRecurring() {
         return recurFrequency.equals(RecurFrequency.NONE);

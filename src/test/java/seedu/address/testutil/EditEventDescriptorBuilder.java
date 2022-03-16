@@ -31,7 +31,7 @@ public class EditEventDescriptorBuilder {
         descriptor.setDate(event.getDate());
         descriptor.setTime(event.getTime());
         descriptor.setDuration(event.getDuration());
-        descriptor.setRecurFrequency(event.getRecurFrequency().orElse(null)); // default no recurrence
+        descriptor.setRecurFrequency(event.getRecurFrequency()); // default no recurrence
     }
 
     /**
