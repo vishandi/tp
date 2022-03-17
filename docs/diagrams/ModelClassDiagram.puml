@@ -18,7 +18,11 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Telegram
+Class GitHub
+Class Schedule
 Class Tag
+Class Event
 
 }
 
@@ -38,9 +42,14 @@ AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
+Person *--> Telegram
+Person *--> GitHub
 Person *--> Email
 Person *--> Address
+Person *--> Schedule
 Person *--> "*" Tag
+
+Schedule *--> "*" Event
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
