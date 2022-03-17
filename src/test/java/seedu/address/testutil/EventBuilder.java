@@ -53,7 +53,11 @@ public class EventBuilder {
      * Sets the {@code EventDescription} of the {@code Event} that we are building.
      */
     public EventBuilder withEventDescription(String eventDescription) {
-        this.eventDescription = new EventDescription(eventDescription);
+        try {
+            this.eventDescription = ParserUtil.parseEventDescription(eventDescription);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
