@@ -22,13 +22,13 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
-   13. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-freegroupschedule)
-   14. [Clearing all entries](#clearing-all-entries--clear)
-   15. [Exiting the program](#exiting-the-program--exit)
-   16. [Saving the data](#saving-the-data)
-   17. [Editing the data file](#editing-the-data-file)
+   13. [Clearing all entries](#clearing-all-entries--clear)
+   14. [Exiting the program](#exiting-the-program--exit)
+   15. [Saving the data](#saving-the-data)
+   16. [Editing the data file](#editing-the-data-file)
 3. [Coming Soon](#coming-soon-v13)
    1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
+   2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 
@@ -261,15 +261,6 @@ Examples:
 * `freeSchedule ti/ 12:00`
 * `freeSchedule ti/ 14:00 da/2022-02-14`
 
-### Getting common free timing of persons by tag: `freeGroupSchedule`
-Gets the common timings of persons who are free with the same tag.
-
-Format: `freeGroupSchedule t/TAG`
-* Show the overlapping timings that a group of friends with the same tags are free
-
-Example:
-* `freeGroupSchedule t/groupmates`
-
 ### Clearing all entries : `clear`
 
 Clears all entries from UniGenda.
@@ -307,6 +298,17 @@ Format: `viewSchedule INDEX`
 
 Example:
 * `viewSchedule 5`
+
+
+### Getting common free timing of persons by tag: `findCommonTiming`
+Gets the common timings of persons who are free with the same tag.
+
+Format: `findCommonTiming t/TAG`
+* Show the overlapping timings that a group of friends with the same tags are free
+
+Example:
+* `findCommonTiming t/groupmates`
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -328,8 +330,7 @@ Example:
 | **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`                              |
 | **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`  |
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                             |
-| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          |
-| **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                      |
+| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          | 
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                |
 | **List**              | `list`                                                                                                                                                                    |
 | **Help**              | `help`                                                                                                                                                                    |
