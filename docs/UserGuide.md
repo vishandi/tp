@@ -331,6 +331,7 @@ Example:
 | **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`  |
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                             |
 | **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          | 
+| **ViewGroup**         | `viewGroup t/TAG`<br> e.g., `viewGroup t/groupmates`                                                                                          | 
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                |
 | **List**              | `list`                                                                                                                                                                    |
 | **Help**              | `help`                                                                                                                                                                    |
