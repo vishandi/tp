@@ -3,7 +3,7 @@ layout: page
 title: UniGenda
 ---
 
-[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
+[![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/AY2122S2-CS2103T-W09-1/tp/actions)
 [![codecov](https://codecov.io/gh/AY2122S2-CS2103T-W09-1/tp/branch/master/graph/badge.svg?token=3GOZ258RU7)](https://codecov.io/gh/AY2122S2-CS2103T-W09-1/tp)
 
 ![Ui](images/Ui.png)
