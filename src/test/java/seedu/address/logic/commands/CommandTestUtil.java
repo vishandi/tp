@@ -19,12 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -76,12 +78,14 @@ public class CommandTestUtil {
     public static final String INVALID_EVENT_DATE_DESC = " " + PREFIX_DATE + "2022-March-14";
     public static final String INVALID_EVENT_TIME_DESC = " " + PREFIX_TIME + "1100";
     public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "oneH";
+    public static final String INVALID_RECUR_FREQUENCY_DESC = " " + PREFIX_RECUR_FREQUENCY + "X";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditPersonDescriptor DESC_AMY;
     public static final EditPersonDescriptor DESC_BOB;
+    public static final EditEventDescriptor DESC_CS2101;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -90,6 +94,9 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_CS2101 = new EditEventDescriptorBuilder().withEventDescription(VALID_EVENT_DESCRIPTION)
+                .withDate(VALID_EVENT_DATE).withTime(VALID_EVENT_TIME).withDuration(VALID_EVENT_DURATION)
+                .withRecurFrequency(VALID_RECUR_FREQUENCY).build();
     }
 
     /**

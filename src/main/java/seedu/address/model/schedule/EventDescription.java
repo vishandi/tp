@@ -3,8 +3,6 @@ package seedu.address.model.schedule;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.person.Name;
-
 public class EventDescription {
     public static final String MESSAGE_CONSTRAINTS =
             "Event descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -48,8 +46,8 @@ public class EventDescription {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && eventDescription.equals(((Name) other).fullName)); // state check
+                || (other instanceof EventDescription // instanceof handles nulls
+                && eventDescription.equals(((EventDescription) other).eventDescription)); // state check
     }
 
     @Override

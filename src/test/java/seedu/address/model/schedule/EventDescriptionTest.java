@@ -31,4 +31,26 @@ class EventDescriptionTest {
         assertTrue(EventDescription.isValidEventDescription("Hougang 1st Ave")); // with capital letters
         assertTrue(EventDescription.isValidEventDescription("Blk 64 Lorong 5 Toa Payoh")); //long names
     }
+
+    @Test
+    public void equals() {
+        EventDescription eventDescription = new EventDescription("CS2101");
+        EventDescription eventDescriptionCopy = new EventDescription("CS2101");
+        EventDescription eventDescriptionDifferent = new EventDescription("CS2103T");
+
+        // same object -> returns true
+        assertTrue(eventDescription.equals(eventDescription));
+
+        // same values -> returns true
+        assertTrue(eventDescription.equals(eventDescriptionCopy));
+
+        // null -> returns false
+        assertFalse(eventDescription.equals(null));
+
+        // different type -> returns false
+        assertFalse(eventDescription.equals(5));
+
+        // different person -> returns false
+        assertFalse(eventDescription.equals(eventDescriptionDifferent));
+    }
 }
