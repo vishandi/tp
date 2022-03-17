@@ -39,10 +39,9 @@ class JsonAdaptedEvent {
      */
     @JsonCreator
     public JsonAdaptedEvent(@JsonProperty("eventDescription") String eventDescription,
-                             @JsonProperty("date") String date,
-                             @JsonProperty("time") String time,
-                             @JsonProperty("duration") String duration,
-                             @JsonProperty("recurFrequency") String recurFrequency) {
+            @JsonProperty("date") String date, @JsonProperty("time") String time,
+            @JsonProperty("duration") String duration,
+            @JsonProperty("recurFrequency") String recurFrequency) {
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
@@ -51,10 +50,10 @@ class JsonAdaptedEvent {
     }
 
     /**
-     * Converts a given {@code Event} into this class for Jackson use.
+     * Constructs a {@code JsonAdaptedEvent} using the attributes of the given {@code Event} for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
-        eventDescription = source.getEventDescription().eventDescription;
+        eventDescription = source.getEventDescription().value;
         date = source.getDate().toString();
         time = source.getTime().toString();
         duration = source.getDuration().toString();
@@ -77,22 +76,22 @@ class JsonAdaptedEvent {
         }
         final EventDescription modelEventDescription = new EventDescription(eventDescription);
 
-        final LocalTime modelTime;
         if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalTime.class.getSimpleName()));
         }
+        final LocalTime modelTime;
         try {
             modelTime = LocalTime.parse(time);
         } catch (DateTimeParseException e) {
             throw new IllegalValueException(Event.TIME_MESSAGE_CONSTRAINTS);
         }
 
-        final Duration modelDuration;
         if (duration == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Duration.class.getSimpleName()));
         }
+        final Duration modelDuration;
         try {
             modelDuration = Duration.parse(duration);
         } catch (DateTimeParseException e) {
@@ -104,11 +103,11 @@ class JsonAdaptedEvent {
         }
         final RecurFrequency modelRecurFrequency = RecurFrequency.of(recurFrequency);
 
-        final LocalDate oldDate;
         if (date == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
         }
+        final LocalDate oldDate;
         try {
             oldDate = LocalDate.parse(date);
         } catch (DateTimeParseException e) {

@@ -27,7 +27,8 @@ public class JsonAdaptedSchedule {
     }
 
     /**
-     * Converts a given {@code Schedule} into this class for Jackson use.
+     * Constructs a {@code JsonAdaptedSchedule} using the events of the given {@code Schedule},
+     * for Jackson use.
      */
     public JsonAdaptedSchedule(Schedule source) {
         events.addAll(source.getEvents().stream()
@@ -42,13 +43,12 @@ public class JsonAdaptedSchedule {
      * @throws InvalidEnumArgumentException if there are any unhandled RecurFrequency cases.
      */
     public Schedule toModelType() throws IllegalValueException, InvalidEnumArgumentException {
-        final List<Event> schedule = new ArrayList<>();
+        final List<Event> modelEvents = new ArrayList<>();
         for (JsonAdaptedEvent event : events) {
-            schedule.add(event.toModelType());
+            modelEvents.add(event.toModelType());
         }
-        Collections.sort(schedule);
-        final List<Event> modelSchedule = new ArrayList<>(schedule);
+        Collections.sort(modelEvents);
 
-        return new Schedule(modelSchedule);
+        return new Schedule(modelEvents);
     }
 }

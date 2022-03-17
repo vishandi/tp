@@ -15,10 +15,10 @@ public class EventDescription {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String eventDescription;
+    public final String value;
 
     private EventDescription() {
-        this.eventDescription = "";
+        this.value = "";
     }
 
     /**
@@ -29,7 +29,7 @@ public class EventDescription {
     public EventDescription(String eventDescription) {
         requireNonNull(eventDescription);
         checkArgument(isValidEventDescription(eventDescription), MESSAGE_CONSTRAINTS);
-        this.eventDescription = eventDescription;
+        this.value = eventDescription;
     }
 
     /**
@@ -42,19 +42,19 @@ public class EventDescription {
 
     @Override
     public String toString() {
-        return eventDescription;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && eventDescription.equals(((Name) other).fullName)); // state check
+                && value.equals(((Name) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return eventDescription.hashCode();
+        return value.hashCode();
     }
 
 }

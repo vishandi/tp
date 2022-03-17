@@ -43,7 +43,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("telegram") String telegram, @JsonProperty("github") String github,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("schedule") JsonAdaptedSchedule schedule,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -59,10 +59,10 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Constructs a {@code JsonAdaptedPerson} using the attributes of the given {@code Person} for Jackson use.
      */
     public JsonAdaptedPerson(Person source) {
-        name = source.getName().fullName;
+        name = source.getName().value;
         phone = source.getPhone().value;
         telegram = source.getTelegram().value;
         github = source.getGithub().value;
