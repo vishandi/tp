@@ -169,14 +169,14 @@ Views the specified person from UniGenda.
 
 Format: `view INDEX`
 
-* Deletes the person at the specified `INDEX`.
+* Views the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `view 4` views the 2nd person in UniGenda.
+* `list` followed by `view 4` views the 4th person in UniGenda.
   ![result for 'view 4'](images/viewResult.png)
-* `find Betsy` followed by `view 1` deletes the 1st person in the results of the `find` command.
+* `find Betsy` followed by `view 1` views the 1st person in the results of the `find` command.
 
 
 ### Viewing contacts by tags: `viewGroup`
