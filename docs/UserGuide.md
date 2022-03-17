@@ -261,15 +261,6 @@ Examples:
 * `freeSchedule ti/ 12:00`
 * `freeSchedule ti/ 14:00 da/2022-02-14`
 
-### Getting common free timing of persons by tag: `freeGroupSchedule`
-Gets the common timings of persons who are free with the same tag.
-
-Format: `freeGroupSchedule t/TAG`
-* Show the overlapping timings that a group of friends with the same tags are free
-
-Example:
-* `freeGroupSchedule t/groupmates`
-
 ### Clearing all entries : `clear`
 
 Clears all entries from UniGenda.
@@ -307,6 +298,16 @@ Format: `viewSchedule INDEX`
 
 Example:
 * `viewSchedule 5`
+
+
+### Getting common free timing of persons by tag: `freeGroupSchedule`
+Gets the common timings of persons who are free with the same tag.
+
+Format: `freeGroupSchedule t/TAG`
+* Show the overlapping timings that a group of friends with the same tags are free
+
+Example:
+* `freeGroupSchedule t/groupmates`
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
