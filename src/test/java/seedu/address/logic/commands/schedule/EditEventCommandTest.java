@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RECUR_FREQUENCY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
@@ -59,7 +60,7 @@ class EditEventCommandTest {
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }
 
-    /* Not sure why this test method pass on computer but not with gradlew
+    // Not sure why this test method pass on computer but not with gradlew
     @Test
     public void execute_someFieldsSpecified_success() {
         Person firstPerson = model.getFilteredPersonList().get(0);
@@ -80,11 +81,10 @@ class EditEventCommandTest {
         String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(firstPerson, editedPerson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }
-    */
 
     @Test
     public void execute_invalidPersonIndex_failure() {
