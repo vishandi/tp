@@ -92,7 +92,7 @@ class AddEventCommandParserTest {
         assertParseFailure(parser, "-5 " + EVENT_DESCRIPTION_DESC_CS2101 + DATE_DESC_PI_DAY, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0 0" + EVENT_DESCRIPTION_DESC_CS2101 + DATE_DESC_PI_DAY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + EVENT_DESCRIPTION_DESC_CS2101 + DATE_DESC_PI_DAY, MESSAGE_INVALID_FORMAT);
 
         // multiple indices
         assertParseFailure(parser, "1 1" + EVENT_DESCRIPTION_DESC_CS2101 + DATE_DESC_PI_DAY, MESSAGE_INVALID_FORMAT);
