@@ -47,9 +47,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_ADDRESS_CAT = "Block 369, Cathy Street 2";
     public static final String VALID_TELEGRAM_CAT = "Catherine_Quek";
-    public static final String VALID_TELEGRAM_DUMMY = "telegram";
     public static final String VALID_GITHUB_CAT = "Cat-Quek";
-    public static final String VALID_GITHUB_DUMMY = "github";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -72,9 +70,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String ADDRESS_DESC_CAT = " " + PREFIX_ADDRESS + VALID_ADDRESS_CAT;
     public static final String TELEGRAM_DESC_CAT = " " + PREFIX_TELEGRAM + VALID_TELEGRAM_CAT;
-    public static final String TELEGRAM_DESC_DUMMY = " " + PREFIX_TELEGRAM + VALID_TELEGRAM_DUMMY;
     public static final String GITHUB_DESC_CAT = " " + PREFIX_GITHUB + VALID_GITHUB_CAT;
-    public static final String GITHUB_DESC_DUMMY = " " + PREFIX_GITHUB + VALID_GITHUB_DUMMY;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 

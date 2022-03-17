@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_CAT;
 import static seedu.address.logic.commands.CommandTestUtil.GITHUB_DESC_CAT;
-import static seedu.address.logic.commands.CommandTestUtil.GITHUB_DESC_DUMMY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_GITHUB_DESC;
@@ -27,7 +26,6 @@ import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_CAT;
-import static seedu.address.logic.commands.CommandTestUtil.TELEGRAM_DESC_DUMMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -76,12 +74,12 @@ public class AddCommandParserTest {
                 new AddCommand(expectedPerson));
 
         // multiple telegrams - last telegram accepted
-        assertParseSuccess(parser, NAME_DESC_CAT + PHONE_DESC_CAT + TELEGRAM_DESC_DUMMY + TELEGRAM_DESC_CAT
+        assertParseSuccess(parser, NAME_DESC_CAT + PHONE_DESC_CAT + INVALID_TELEGRAM_DESC + TELEGRAM_DESC_CAT
                 + GITHUB_DESC_CAT + EMAIL_DESC_CAT + ADDRESS_DESC_CAT + TAG_DESC_FRIEND,
                 new AddCommand(expectedPerson));
 
         // multiple githubs - last github accepted
-        assertParseSuccess(parser, NAME_DESC_CAT + PHONE_DESC_CAT + TELEGRAM_DESC_CAT + GITHUB_DESC_DUMMY
+        assertParseSuccess(parser, NAME_DESC_CAT + PHONE_DESC_CAT + TELEGRAM_DESC_CAT + INVALID_GITHUB_DESC
                 + GITHUB_DESC_CAT + EMAIL_DESC_CAT + ADDRESS_DESC_CAT + TAG_DESC_FRIEND,
                 new AddCommand(expectedPerson));
 
