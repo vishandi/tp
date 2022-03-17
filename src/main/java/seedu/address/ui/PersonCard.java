@@ -133,13 +133,41 @@ public class PersonCard extends UiPart<Region> {
     }
 
     @FXML
-    private void emailChangeColorWhenHovered() {
-        emailBox.setStyle("-fx-background-color: #ff0000; ");
+    private void openGithub() {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            URI githubUri = null;
+            try {
+                githubUri = new URI("https://github.com/" + person.getGithub());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            try {
+                desktop.browse(githubUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
-    private void emailChangeColorWhenLeft() {
-        emailBox.setStyle("-fx-background-color: transparent; ");
+    private void changeEmailColorWhenHovered() {
+        emailBox.setStyle("-fx-background-color: #c66c6c;");
+    }
+
+    @FXML
+    private void changeEmailColorWhenLeft() {
+        emailBox.setStyle("-fx-background-color: transparent;");
+    }
+
+    @FXML
+    private void changeGithubColorWhenHovered() {
+        githubBox.setStyle("-fx-background-color: #c66c6c;");
+    }
+
+    @FXML
+    private void changeGithubColorWhenLeft() {
+        githubBox.setStyle("-fx-background-color: transparent;");
     }
 
     @Override
