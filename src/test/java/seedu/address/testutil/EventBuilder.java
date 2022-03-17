@@ -19,8 +19,7 @@ public class EventBuilder {
     public static final String DEFAULT_DATE = "2022-03-12";
     public static final String DEFAULT_TIME = "14:00";
     public static final String DEFAULT_DURATION = "PT2H";
-
-    private static final RecurFrequency DEFAULT_RECURRENCE = null;
+    public static final RecurFrequency DEFAULT_RECURRENCE = RecurFrequency.WEEKLY;
 
     private EventDescription eventDescription;
     private LocalDate date;
