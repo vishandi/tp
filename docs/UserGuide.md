@@ -16,18 +16,19 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    4. [Editing a person](#editing-a-person--edit)
    5. [Locating persons by name](#locating-persons-by-name-find)
    6. [Deleting a person](#deleting-a-person--delete)
-   7. [Viewing contacts by tags](#viewing-contacts-by-tags-viewgroup)
-   8. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
-   9. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
-   10. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
-   11. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
-   12. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-freegroupschedule)
+   7. [Viewing a person](#viewing-a-person--view)
+   8. [Viewing contacts by tags](#viewing-contacts-by-tags-viewgroup)
+   9. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
+   10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
+   11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
+   12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
    13. [Clearing all entries](#clearing-all-entries--clear)
    14. [Exiting the program](#exiting-the-program--exit)
    15. [Saving the data](#saving-the-data)
    16. [Editing the data file](#editing-the-data-file)
 3. [Coming Soon](#coming-soon-v13)
    1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
+   2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 
@@ -162,6 +163,22 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Viewing a person : `view`
+
+Views the specified person from UniGenda.
+
+Format: `view INDEX`
+
+* Views the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `view 4` views the 4th person in UniGenda.
+  ![result for 'view 4'](images/viewResult.png)
+* `find Betsy` followed by `view 1` views the 1st person in the results of the `find` command.
+
+
 ### Viewing contacts by tags: `viewGroup`
 Shows the names of friends with the same tag
 
@@ -243,15 +260,6 @@ Examples:
 * `freeSchedule ti/ 12:00`
 * `freeSchedule ti/ 14:00 da/2022-02-14`
 
-### Getting common free timing of persons by tag: `freeGroupSchedule`
-Gets the common timings of persons who are free with the same tag.
-
-Format: `freeGroupSchedule t/TAG`
-* Show the overlapping timings that a group of friends with the same tags are free
-
-Example:
-* `freeGroupSchedule t/groupmates`
-
 ### Clearing all entries : `clear`
 
 Clears all entries from UniGenda.
@@ -289,6 +297,17 @@ Format: `viewSchedule INDEX`
 
 Example:
 * `viewSchedule 5`
+
+
+### Getting common free timing of persons by tag: `findCommonTiming`
+Gets the common timings of persons who are free with the same tag.
+
+Format: `findCommonTiming t/TAG`
+* Show the overlapping timings that a group of friends with the same tags are free
+
+Example:
+* `findCommonTiming t/groupmates`
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -310,8 +329,7 @@ Example:
 | **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`                              |
 | **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`  |
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                             |
-| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          |
-| **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                      |
+| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          | 
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                |
 | **List**              | `list`                                                                                                                                                                    |
 | **Help**              | `help`                                                                                                                                                                    |
