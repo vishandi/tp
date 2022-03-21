@@ -17,7 +17,7 @@ import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 
 public class JsonAdaptedEventTest {
-    private static final String INVALID_EVENT_DESCRIPTION = "Do l@b";
+    private static final String INVALID_EVENT_DESCRIPTION = "";
     private static final String INVALID_DATE = "20-12-2022";
     private static final String INVALID_TIME = "09:000";
     private static final String INVALID_DURATION = "8HdM";
