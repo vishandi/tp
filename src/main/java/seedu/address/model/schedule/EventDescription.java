@@ -5,16 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class EventDescription {
     public static final String MESSAGE_CONSTRAINTS =
-            "Event descriptions cannot contain /";
+            "Event descriptions cannot contain \"/\"";
     public static final String VALIDATION_REGEX = "^(?!.*\\/).+$";
     public final String value;
-
-    /**
-     * An empty constructor for Jackson to initialise an {@code EventDescription}.
-     */
-    private EventDescription() {
-        this.value = "";
-    }
 
     /**
      * Constructs a {@code Name}.

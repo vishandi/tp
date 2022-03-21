@@ -1,13 +1,9 @@
 package seedu.address.storage;
 
-import static java.time.temporal.TemporalAdjusters.next;
-
-import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,7 +21,6 @@ import seedu.address.model.schedule.EventDescription;
 class JsonAdaptedEvent {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-    public static final String MISSING_RECUR_FREQUENCY_CASE = "%s switch case is missing in JsonAdaptedEvent!";
 
     private final String eventDescription;
     private final String date;
@@ -75,6 +70,17 @@ class JsonAdaptedEvent {
         }
         final EventDescription modelEventDescription = new EventDescription(eventDescription);
 
+        if (date == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
+        }
+        final LocalDate modelDate;
+        try {
+            modelDate = LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            throw new IllegalValueException(Event.DATE_MESSAGE_CONSTRAINTS);
+        }
+
         if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalTime.class.getSimpleName()));
@@ -108,51 +114,7 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(RecurFrequency.INVALID_RECUR_FREQUENCY_MESSAGE);
         }
 
-        if (date == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, LocalDate.class.getSimpleName()));
-        }
-        final LocalDate oldDate;
-        try {
-            oldDate = LocalDate.parse(date);
-        } catch (DateTimeParseException e) {
-            throw new IllegalValueException(Event.DATE_MESSAGE_CONSTRAINTS);
-        }
-        final LocalDate modelDate = updateDate(oldDate, modelRecurFrequency);;
-        return new Event(modelEventDescription, modelDate, modelTime, modelDuration, modelRecurFrequency);
-    }
-
-    private LocalDate updateDate(LocalDate date, RecurFrequency recurFrequency) throws InvalidEnumArgumentException {
-        LocalDate newDate = date;
-        LocalDate today = LocalDate.now();
-        switch (recurFrequency) {
-        case NONE:
-            return date;
-        case DAILY:
-            if (today.isAfter(date)) {
-                newDate = today;
-            }
-            break;
-        case WEEKLY:
-            LocalDate resetDate = date.plusDays(7);
-            if (today.isAfter(resetDate)) {
-                DayOfWeek dayOfWeek = date.getDayOfWeek();
-                newDate = today.with(next(dayOfWeek));
-            }
-            break;
-        case BIWEEKLY:
-            resetDate = date.plusDays(14);
-            if (today.isAfter(resetDate)) {
-                DayOfWeek dayOfWeek = date.getDayOfWeek();
-                newDate = today.with(next(dayOfWeek));
-                if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
-                    newDate = newDate.with(next(dayOfWeek));
-                }
-            }
-            break;
-        default:
-            throw new InvalidEnumArgumentException(String.format(MISSING_RECUR_FREQUENCY_CASE, recurFrequency));
-        }
-        return newDate;
+        Event event = new Event(modelEventDescription, modelDate, modelTime, modelDuration, modelRecurFrequency);
+        return event.getNextRecurringEvent();
     }
 }

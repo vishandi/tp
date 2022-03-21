@@ -1,13 +1,18 @@
 package seedu.address.model.schedule;
 
+import static java.time.temporal.TemporalAdjusters.next;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.logging.Logger;
 
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.recurfrequency.RecurFrequency;
 
 /**
@@ -29,7 +34,10 @@ public class Event implements Comparable<Event> {
     public static final String TIME_MESSAGE_CONSTRAINTS = "Event time should be in HH:MM format";
     public static final String MISSING_TIME_MESSAGE = "The event start time must be specified "
             + "if the duration is specified!";
+    public static final String MISSING_RECUR_FREQUENCY_CASE =
+            "%s switch case is missing in Event::getNextRecurrenceDate! Returning initial date...";
 
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private final EventDescription eventDescription;
     private final LocalDate date;
     private final LocalTime time;
@@ -77,11 +85,8 @@ public class Event implements Comparable<Event> {
         return recurFrequency;
     }
 
-    /**
-     * Returns true if the Event is recurring.
-     */
-    public boolean isRecurring() {
-        return recurFrequency.equals(RecurFrequency.NONE);
+    public Event getNextRecurringEvent() {
+        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
     }
 
     /**
@@ -89,6 +94,42 @@ public class Event implements Comparable<Event> {
      */
     public static boolean isValidEvent(Event event) {
         return EventDescription.isValidEventDescription(event.getEventDescription().toString());
+    }
+
+    /**
+     * Returns the next recurring {@code LocalDate} of the {@code Event}, which can be today,
+     * if the {@code Event} is recurring. Otherwise, returns the {@code Event} date.
+     */
+    public LocalDate getNextRecurrenceDate() {
+        LocalDate newDate = date;
+        LocalDate today = LocalDate.now();
+        switch (recurFrequency) {
+        case NONE:
+            return date;
+        case DAILY:
+            if (today.isAfter(date)) {
+                newDate = today;
+            }
+            break;
+        case WEEKLY:
+            if (today.isAfter(date)) {
+                DayOfWeek dayOfWeek = date.getDayOfWeek();
+                newDate = today.with(next(dayOfWeek));
+            }
+            break;
+        case BIWEEKLY:
+            if (today.isAfter(date)) {
+                DayOfWeek dayOfWeek = date.getDayOfWeek();
+                newDate = today.with(next(dayOfWeek));
+                if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
+                    newDate = newDate.with(next(dayOfWeek));
+                }
+            }
+            break;
+        default:
+            logger.warning(String.format(MISSING_RECUR_FREQUENCY_CASE, recurFrequency));
+        }
+        return newDate;
     }
 
     /**

@@ -131,7 +131,7 @@ public class JsonAdaptedEventTest {
     }
 
     @Test
-    public void updateDate_daily_success() throws Exception {
+    public void toModelType_updateDaily_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
                 VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_DAILY);
         LocalDate expectedDate = LocalDate.now();
@@ -139,7 +139,7 @@ public class JsonAdaptedEventTest {
     }
 
     @Test
-    public void updateDate_weekly_success() throws Exception {
+    public void toModelType_updateWeekly_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
                 VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_WEEKLY);
         LocalDate expectedDate = LocalDate.now().with(next(PAST_RESET_DATE_ODD_DAYOFWEEK));
@@ -147,7 +147,7 @@ public class JsonAdaptedEventTest {
     }
 
     @Test
-    public void updateDate_oddWeek_biweekly_success() throws Exception {
+    public void toModelType_updateOddWeekBiweekly_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
                 VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_BIWEEKLY);
         LocalDate today = LocalDate.now();
@@ -159,7 +159,7 @@ public class JsonAdaptedEventTest {
     }
 
     @Test
-    public void updateDate_evenWeek_biweekly_success() throws Exception {
+    public void toModelType_updateEvenWeekBiweekly_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
                 VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_EVEN, VALID_TIME, VALID_DURATION, RECURFREQUENCY_BIWEEKLY);
         LocalDate today = LocalDate.now();
