@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static java.time.temporal.TemporalAdjusters.next;
-import static seedu.address.model.recurfrequency.RecurFrequency.INVALID_RECUR_FREQUENCY_MESSAGE;
 
 import java.time.DateTimeException;
 import java.time.DayOfWeek;
@@ -16,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.InvalidEnumArgumentException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
@@ -98,10 +98,16 @@ class JsonAdaptedEvent {
             throw new IllegalValueException(Event.DURATION_MESSAGE_CONSTRAINTS);
         }
 
-        if (recurFrequency != null && !RecurFrequency.isValidRecurFrequency(recurFrequency)) {
-            throw new IllegalValueException(INVALID_RECUR_FREQUENCY_MESSAGE);
+        if (recurFrequency == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    RecurFrequency.class.getSimpleName()));
         }
-        final RecurFrequency modelRecurFrequency = RecurFrequency.of(recurFrequency);
+        final RecurFrequency modelRecurFrequency;
+        try {
+            modelRecurFrequency = RecurFrequency.of(recurFrequency);
+        } catch (ParseException e) {
+            throw new IllegalValueException(RecurFrequency.INVALID_RECUR_FREQUENCY_MESSAGE);
+        }
 
         if (date == null) {
             throw new IllegalValueException(String.format(
@@ -139,7 +145,10 @@ class JsonAdaptedEvent {
             resetDate = date.plusDays(14);
             if (today.isAfter(resetDate)) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
-                newDate = today.with(next(dayOfWeek)).with(next(dayOfWeek));
+                newDate = today.with(next(dayOfWeek));
+                if (Duration.between(newDate, date).toDaysPart() != 14) {
+                    newDate = newDate.with(next(dayOfWeek));
+                }
             }
             break;
         case MONTHLY:
