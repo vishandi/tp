@@ -5,8 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class EventDescription {
     public static final String MESSAGE_CONSTRAINTS =
-            "Event descriptions should only contain alphanumeric characters and spaces, and it should not be blank";
-
+            "Event descriptions cannot contain /";
+    public static final String VALIDATION_REGEX = "^(?!.*\\/).+$";
     public final String value;
 
     /**
@@ -31,8 +31,7 @@ public class EventDescription {
      * Returns true if a given string is a valid eventDescription.
      */
     public static boolean isValidEventDescription(String test) {
-        String trimmedTest = test.trim();
-        return !trimmedTest.equals("");
+        return test.trim().matches(VALIDATION_REGEX);
     }
 
     @Override

@@ -21,7 +21,8 @@ class EventDescriptionTest {
         // invalid name
         assertFalse(EventDescription.isValidEventDescription("")); // empty string
         assertFalse(EventDescription.isValidEventDescription(" ")); // spaces only
-
+        assertFalse(EventDescription.isValidEventDescription("Meet John /at NUS")); //contains /
+        assertFalse(EventDescription.isValidEventDescription("/go school")); //starts with /
 
         // valid name
         assertTrue(EventDescription.isValidEventDescription("corporation drive")); // alphabets only
