@@ -36,9 +36,13 @@ public class JsonAdaptedEventTest {
     private static final String RECURFREQUENCY_WEEKLY = "WEEKLY";
     private static final String RECURFREQUENCY_BIWEEKLY = "BIWEEKLY";
 
-    private static final LocalDate PAST_RESET_DATE_LOCALDATE = LocalDate.of(2020, 3, 14);
-    private static final DayOfWeek PAST_RESET_DATE_DAYOFWEEK = PAST_RESET_DATE_LOCALDATE.getDayOfWeek();
-    private static final String PAST_RESET_DATE = PAST_RESET_DATE_LOCALDATE.toString();
+    private static final LocalDate PAST_RESET_DATE_ODD_LOCALDATE = LocalDate.of(2020, 3, 14);
+    private static final DayOfWeek PAST_RESET_DATE_ODD_DAYOFWEEK = PAST_RESET_DATE_ODD_LOCALDATE.getDayOfWeek();
+    private static final String PAST_RESET_DATE_ODD = PAST_RESET_DATE_ODD_LOCALDATE.toString();
+
+    private static final LocalDate PAST_RESET_DATE_EVEN_LOCALDATE = LocalDate.of(2020, 3, 7);
+    private static final DayOfWeek PAST_RESET_DATE_EVEN_DAYOFWEEK = PAST_RESET_DATE_EVEN_LOCALDATE.getDayOfWeek();
+    private static final String PAST_RESET_DATE_EVEN = PAST_RESET_DATE_EVEN_LOCALDATE.toString();
 
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws Exception {
@@ -129,7 +133,7 @@ public class JsonAdaptedEventTest {
     @Test
     public void updateDate_daily_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
-                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE, VALID_TIME, VALID_DURATION, RECURFREQUENCY_DAILY);
+                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_DAILY);
         LocalDate expectedDate = LocalDate.now();
         assertEquals(expectedDate, event.toModelType().getDate());
     }
@@ -137,19 +141,31 @@ public class JsonAdaptedEventTest {
     @Test
     public void updateDate_weekly_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
-                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE, VALID_TIME, VALID_DURATION, RECURFREQUENCY_WEEKLY);
-        LocalDate expectedDate = LocalDate.now().with(next(PAST_RESET_DATE_DAYOFWEEK));
+                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_WEEKLY);
+        LocalDate expectedDate = LocalDate.now().with(next(PAST_RESET_DATE_ODD_DAYOFWEEK));
         assertEquals(expectedDate, event.toModelType().getDate());
     }
 
     @Test
-    public void updateDate_biweekly_success() throws Exception {
+    public void updateDate_oddWeek_biweekly_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
-                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE, VALID_TIME, VALID_DURATION, RECURFREQUENCY_BIWEEKLY);
+                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_BIWEEKLY);
         LocalDate today = LocalDate.now();
-        LocalDate expectedDate = today.with(next(PAST_RESET_DATE_DAYOFWEEK));
-        if (ChronoUnit.DAYS.between(PAST_RESET_DATE_LOCALDATE, expectedDate) % 14 != 0) {
-            expectedDate = expectedDate.with(next(PAST_RESET_DATE_DAYOFWEEK));
+        LocalDate expectedDate = today.with(next(PAST_RESET_DATE_ODD_DAYOFWEEK));
+        if (ChronoUnit.DAYS.between(PAST_RESET_DATE_ODD_LOCALDATE, expectedDate) % 14 != 0) {
+            expectedDate = expectedDate.with(next(PAST_RESET_DATE_ODD_DAYOFWEEK));
+        }
+        assertEquals(expectedDate, event.toModelType().getDate());
+    }
+
+    @Test
+    public void updateDate_evenWeek_biweekly_success() throws Exception {
+        JsonAdaptedEvent event = new JsonAdaptedEvent(
+                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_EVEN, VALID_TIME, VALID_DURATION, RECURFREQUENCY_BIWEEKLY);
+        LocalDate today = LocalDate.now();
+        LocalDate expectedDate = today.with(next(PAST_RESET_DATE_EVEN_DAYOFWEEK));
+        if (ChronoUnit.DAYS.between(PAST_RESET_DATE_EVEN_LOCALDATE, expectedDate) % 14 != 0) {
+            expectedDate = expectedDate.with(next(PAST_RESET_DATE_EVEN_DAYOFWEEK));
         }
         assertEquals(expectedDate, event.toModelType().getDate());
     }
