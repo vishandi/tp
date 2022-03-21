@@ -33,6 +33,15 @@ public class Schedule {
         return Collections.unmodifiableList(events);
     }
 
+    /**
+     * Returns an Event object at specified index
+     *
+     * @param index of the Event object to retrieve
+     * @return an Event object
+     */
+    public Event getEvent(int index) {
+        return events.get(index);
+    }
 
     /**
      * Returns true if the given event is valid.

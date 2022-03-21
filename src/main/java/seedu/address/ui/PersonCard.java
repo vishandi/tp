@@ -63,11 +63,11 @@ public class PersonCard extends UiPart<Region> {
      */
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
-        ImageView addressIcon = new ImageView("./images/address_icon.png");
-        ImageView emailIcon = new ImageView("./images/email_icon.png");
-        ImageView scheduleIcon = new ImageView("./images/schedule_icon.png");
-        ImageView telegramIcon = new ImageView("./images/telegram_icon.png");
-        ImageView githubIcon = new ImageView("./images/github_icon.png");
+        ImageView addressIcon = new ImageView("/images/address_icon.png");
+        ImageView emailIcon = new ImageView("/images/email_icon.png");
+        ImageView scheduleIcon = new ImageView("/images/schedule_icon.png");
+        ImageView telegramIcon = new ImageView("/images/telegram_icon.png");
+        ImageView githubIcon = new ImageView("/images/github_icon.png");
         addressIcon.setFitHeight(16);
         addressIcon.setFitWidth(16);
         emailIcon.setFitHeight(16);
@@ -133,13 +133,41 @@ public class PersonCard extends UiPart<Region> {
     }
 
     @FXML
-    private void emailChangeColorWhenHovered() {
-        emailBox.setStyle("-fx-background-color: #ff0000; ");
+    private void openGithub() {
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            URI githubUri = null;
+            try {
+                githubUri = new URI("https://github.com/" + person.getGithub());
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            try {
+                desktop.browse(githubUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
-    private void emailChangeColorWhenLeft() {
-        emailBox.setStyle("-fx-background-color: transparent; ");
+    private void changeEmailColorWhenHovered() {
+        emailBox.setStyle("-fx-background-color: #c66c6c;");
+    }
+
+    @FXML
+    private void changeEmailColorWhenLeft() {
+        emailBox.setStyle("-fx-background-color: transparent;");
+    }
+
+    @FXML
+    private void changeGithubColorWhenHovered() {
+        githubBox.setStyle("-fx-background-color: #c66c6c;");
+    }
+
+    @FXML
+    private void changeGithubColorWhenLeft() {
+        githubBox.setStyle("-fx-background-color: transparent;");
     }
 
     @Override

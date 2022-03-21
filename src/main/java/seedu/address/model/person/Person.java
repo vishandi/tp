@@ -115,6 +115,7 @@ public class Person {
                 && otherPerson.getGithub().equals(getGithub())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getSchedule().equals(getSchedule())
                 && otherPerson.getTags().equals(getTags());
     }
 

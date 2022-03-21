@@ -79,4 +79,22 @@ public class AddEventCommand extends EditTypeCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAdd, personToEdit.getName()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddEventCommand)) {
+            return false;
+        }
+
+        // state check
+        AddEventCommand e = (AddEventCommand) other;
+        return targetIndex.equals(e.targetIndex)
+                && eventToAdd.equals(e.eventToAdd);
+    }
 }

@@ -1,11 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.model.recurfrequency.RecurFrequency.DEFAULT_RECURRENCE;
-import static seedu.address.model.schedule.Event.DEFAULT_DATE;
-import static seedu.address.model.schedule.Event.DEFAULT_DURATION;
-import static seedu.address.model.schedule.Event.DEFAULT_EVENT_DESCRIPTION;
-import static seedu.address.model.schedule.Event.DEFAULT_TIME;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +14,11 @@ import seedu.address.model.schedule.EventDescription;
  * A utility class to help with building Event objects.
  */
 public class EventBuilder {
+    public static final String DEFAULT_EVENT_DESCRIPTION = "CS2101 Tutorial";
+    public static final String DEFAULT_DATE = "2022-03-12";
+    public static final String DEFAULT_TIME = "14:00";
+    public static final String DEFAULT_DURATION = "2H";
+    public static final String DEFAULT_RECURRENCE = "WEEKLY";
 
     private EventDescription eventDescription;
     private LocalDate date;
@@ -57,7 +56,11 @@ public class EventBuilder {
      * Sets the {@code EventDescription} of the {@code Event} that we are building.
      */
     public EventBuilder withEventDescription(String eventDescription) {
-        this.eventDescription = new EventDescription(eventDescription);
+        try {
+            this.eventDescription = ParserUtil.parseEventDescription(eventDescription);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

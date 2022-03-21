@@ -42,7 +42,7 @@ public class TypicalSchedule {
     }
 
     public static List<Event> getTypicalEvents() {
-        return new ArrayList<>(Arrays.asList(SE_TUTORIAL, SE_LECTURE, OS_LECTURE, OS_TUTORIAL, OS_LAB,
-                NATIONAL_DAY_PARTY, ALICE_BIRTHDAY));
+        return new ArrayList<>(Arrays.asList(OS_TUTORIAL, ALICE_BIRTHDAY, SE_TUTORIAL, OS_LECTURE, OS_LAB,
+                SE_LECTURE, NATIONAL_DAY_PARTY));
     }
 }
