@@ -10,9 +10,8 @@ import java.util.stream.Collectors;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public enum RecurFrequency {
-    WEEKLY("W", "WEEKLY"), BIWEEKLY("BW", "BIWEEKLY"),
-    DAILY("D", "DAILY"), MONTHLY("M", "MONTHLY"),
-    NONE("NONE", "NONE");
+    DAILY("D", "DAILY"), WEEKLY("W", "WEEKLY"),
+    BIWEEKLY("BW", "BIWEEKLY"), NONE("NONE", "NONE");
 
     public static final Set<RecurFrequency> VALID_FREQUENCIES =
             Arrays.stream(RecurFrequency.values()).collect(Collectors.toSet());
@@ -22,7 +21,6 @@ public enum RecurFrequency {
     private static final String DAILY_LABEL = "(Daily)";
     private static final String WEEKLY_LABEL = "(Weekly)";
     private static final String BIWEEKLY_LABEL = "(Biweekly)";
-    private static final String MONTHLY_LABEL = "(Monthly)";
     private static final String INVALID_LABEL = "(Invalid)";
     private static final String NO_LABEL = "";
 
@@ -77,8 +75,6 @@ public enum RecurFrequency {
             return WEEKLY_LABEL;
         case BIWEEKLY:
             return BIWEEKLY_LABEL;
-        case MONTHLY:
-            return MONTHLY_LABEL;
         default:
             //Should not happen
             return INVALID_LABEL;

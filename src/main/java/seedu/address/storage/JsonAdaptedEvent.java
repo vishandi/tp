@@ -2,14 +2,12 @@ package seedu.address.storage;
 
 import static java.time.temporal.TemporalAdjusters.next;
 
-import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -149,17 +147,6 @@ class JsonAdaptedEvent {
                 newDate = today.with(next(dayOfWeek));
                 if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
                     newDate = newDate.with(next(dayOfWeek));
-                }
-            }
-            break;
-        case MONTHLY:
-            resetDate = date.plusMonths(1);
-            if (today.isAfter(resetDate)) {
-                int dayOfMonth = date.getDayOfMonth();
-                try {
-                    newDate = today.withDayOfMonth(dayOfMonth);
-                } catch (DateTimeException e) {
-                    newDate = today.with(TemporalAdjusters.lastDayOfMonth());
                 }
             }
             break;
