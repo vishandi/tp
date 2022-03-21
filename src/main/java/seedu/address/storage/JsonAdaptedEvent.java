@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.InvalidEnumArgumentException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 
 /**
  * Jackson-friendly version of {@link Event}.

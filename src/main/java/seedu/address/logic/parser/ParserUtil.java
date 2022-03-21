@@ -23,10 +23,10 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Tag;
 import seedu.address.model.person.Telegram;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.EventDescription;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.schedule.RecurFrequency;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

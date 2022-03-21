@@ -15,9 +15,9 @@ import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 
 public class JsonAdaptedEventTest {
     private static final String INVALID_EVENT_DESCRIPTION = "";

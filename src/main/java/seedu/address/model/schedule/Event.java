@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.recurfrequency.RecurFrequency;
 
 /**
  * Represents a scheduled Event.

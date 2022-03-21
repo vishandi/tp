@@ -1,4 +1,4 @@
-package seedu.address.model.recurfrequency;
+package seedu.address.model.schedule;
 
 import static java.util.Objects.requireNonNull;
 

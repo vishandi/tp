@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.recurfrequency.RecurFrequency.DEFAULT_RECURRENCE;
+import static seedu.address.model.schedule.RecurFrequency.DEFAULT_RECURRENCE;
 
 import java.util.List;
 

@@ -3,9 +3,9 @@ package seedu.address.testutil;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.

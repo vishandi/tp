@@ -8,11 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.recurfrequency.RecurFrequency.DEFAULT_RECURRENCE;
 import static seedu.address.model.schedule.Event.DEFAULT_DURATION;
 import static seedu.address.model.schedule.Event.DEFAULT_TIME;
 import static seedu.address.model.schedule.Event.FULL_DAY_EVENT_DURATION;
 import static seedu.address.model.schedule.Event.MISSING_TIME_MESSAGE;
+import static seedu.address.model.schedule.RecurFrequency.DEFAULT_RECURRENCE;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -27,9 +27,9 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 
 /**
  * Parses input arguments and creates a new AddEventCommand object.
