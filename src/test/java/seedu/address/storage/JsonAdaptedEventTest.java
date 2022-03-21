@@ -1,13 +1,16 @@
 package seedu.address.storage;
 
+import static java.time.temporal.TemporalAdjusters.next;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSchedule.SE_TUTORIAL;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +31,14 @@ public class JsonAdaptedEventTest {
     private static final String VALID_TIME = SE_TUTORIAL.getTime().toString();
     private static final String VALID_DURATION = SE_TUTORIAL.getDuration().toString();
     private static final String VALID_RECURFREQUENCY = SE_TUTORIAL.getRecurFrequency().toString();
+
+    private static final String RECURFREQUENCY_DAILY = "D";
+    private static final String RECURFREQUENCY_WEEKLY = "WEEKLY";
+    private static final String RECURFREQUENCY_BIWEEKLY = "BIWEEKLY";
+
+    private static final LocalDate PAST_RESET_DATE_LOCALDATE = LocalDate.of(2020, 3, 14);
+    private static final DayOfWeek PAST_RESET_DATE_DAYOFWEEK = PAST_RESET_DATE_LOCALDATE.getDayOfWeek();
+    private static final String PAST_RESET_DATE = PAST_RESET_DATE_LOCALDATE.toString();
 
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws Exception {
@@ -115,4 +126,31 @@ public class JsonAdaptedEventTest {
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
 
+    @Test
+    public void updateDate_daily_success() throws Exception {
+        JsonAdaptedEvent event = new JsonAdaptedEvent(
+                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE, VALID_TIME, VALID_DURATION, RECURFREQUENCY_DAILY);
+        LocalDate expectedDate = LocalDate.now();
+        assertEquals(expectedDate, event.toModelType().getDate());
+    }
+
+    @Test
+    public void updateDate_weekly_success() throws Exception {
+        JsonAdaptedEvent event = new JsonAdaptedEvent(
+                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE, VALID_TIME, VALID_DURATION, RECURFREQUENCY_WEEKLY);
+        LocalDate expectedDate = LocalDate.now().with(next(PAST_RESET_DATE_DAYOFWEEK));
+        assertEquals(expectedDate, event.toModelType().getDate());
+    }
+
+    @Test
+    public void updateDate_biweekly_success() throws Exception {
+        JsonAdaptedEvent event = new JsonAdaptedEvent(
+                VALID_EVENT_DESCRIPTION, PAST_RESET_DATE, VALID_TIME, VALID_DURATION, RECURFREQUENCY_BIWEEKLY);
+        LocalDate today = LocalDate.now();
+        LocalDate expectedDate = today.with(next(PAST_RESET_DATE_DAYOFWEEK));
+        if (ChronoUnit.DAYS.between(PAST_RESET_DATE_LOCALDATE, expectedDate) % 14 != 0) {
+            expectedDate = expectedDate.with(next(PAST_RESET_DATE_DAYOFWEEK));
+        }
+        assertEquals(expectedDate, event.toModelType().getDate());
+    }
 }

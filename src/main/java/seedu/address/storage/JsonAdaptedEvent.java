@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -146,7 +147,7 @@ class JsonAdaptedEvent {
             if (today.isAfter(resetDate)) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
-                if (Duration.between(newDate, date).toDaysPart() != 14) {
+                if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
                     newDate = newDate.with(next(dayOfWeek));
                 }
             }
