@@ -20,6 +20,8 @@ public enum RecurFrequency {
             Arrays.stream(RecurFrequency.values()).collect(Collectors.toSet());
     public static final String INVALID_RECUR_FREQUENCY_MESSAGE =
             String.format("Recurrence frequency must be one of the following: %s", VALID_FREQUENCIES);
+    public static final String MISSING_RECUR_FREQUENCY_CASE =
+            "%s switch case is missing in RecurFrequency::getLabel! Returning invalid label...";
     public static final String DEFAULT_RECURRENCE = NONE.fullName;
     private static final String DAILY_LABEL = "(Daily)";
     private static final String WEEKLY_LABEL = "(Weekly)";
@@ -27,8 +29,7 @@ public enum RecurFrequency {
     private static final String INVALID_LABEL = "(Invalid)";
     private static final String NO_LABEL = "";
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
-    public static final String MISSING_RECUR_FREQUENCY_CASE =
-            "%s switch case is missing in RecurFrequency::getLabel! Returning invalid label...";
+
 
     private final String shortName;
     private final String fullName;
