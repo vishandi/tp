@@ -3,9 +3,9 @@ package seedu.address.testutil;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -31,7 +31,7 @@ public class EditEventDescriptorBuilder {
         descriptor.setDate(event.getDate());
         descriptor.setTime(event.getTime());
         descriptor.setDuration(event.getDuration());
-        descriptor.setRecurFrequency(event.getRecurFrequency().orElse(null)); // default no recurrence
+        descriptor.setRecurFrequency(event.getRecurFrequency()); // default no recurrence
     }
 
     /**

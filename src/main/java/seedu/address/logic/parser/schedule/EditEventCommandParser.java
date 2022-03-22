@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.model.schedule.RecurFrequency.DEFAULT_RECURRENCE;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
         }
         if (argMultimap.getValue(PREFIX_RECUR_FREQUENCY).isPresent()) {
             editEventDescriptor.setRecurFrequency(ParserUtil.parseRecurFrequency(
-                    argMultimap.getValue(PREFIX_RECUR_FREQUENCY).get()));
+                    argMultimap.getValue(PREFIX_RECUR_FREQUENCY).orElse(DEFAULT_RECURRENCE)));
         }
 
         if (!editEventDescriptor.isAnyFieldEdited()) {

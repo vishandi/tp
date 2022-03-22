@@ -50,7 +50,7 @@ public class TypicalPersons {
             .withEmail("anna@example.com").withAddress("4th street").build();
     public static final Person HENDRI = new PersonBuilder().withName("Hendri Tanjaya").withPhone("85108989")
             .withEmail("hendri@example.com").withAddress("PGPR")
-            .withEvent("Tutorial CS2103T", "2022-03-16", "09:00", "1H", "W").build();
+            .withClosestEvent("Tutorial CS2103T", "2022-03-16", "09:00", "1H", "W").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")

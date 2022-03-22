@@ -1,9 +1,7 @@
-package seedu.address.model.tag;
+package seedu.address.model.person;
 
 import java.util.Set;
 import java.util.function.Predicate;
-
-import seedu.address.model.person.Person;
 
 /**
  * Tests whether a {@code Person} has specified {@code Tag}

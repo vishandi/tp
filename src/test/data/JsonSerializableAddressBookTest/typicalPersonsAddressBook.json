@@ -9,57 +9,43 @@
     "address" : "123, Jurong West Ave 6, #08-111",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Tutorial"
-        },
+        "eventDescription" : "CS2106 Tutorial",
         "date" : "2022-03-14",
         "time" : "10:00:00",
         "duration" : "PT1H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "Alice Birthday Surprise"
-        },
+        "eventDescription" : "Alice Birthday Surprise",
         "date" : "2022-03-14",
         "time" : "17:00:00",
         "duration" : "PT4H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-03-16",
         "time" : "09:00:00",
         "duration" : "PT1H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lecture"
-        },
+        "eventDescription" : "CS2106 Lecture",
         "date" : "2022-03-16",
         "time" : "10:00:00",
         "duration" : "PT2H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-03-17",
         "time" : "13:00:00",
         "duration" : "PT1H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Lecture"
-        },
+        "eventDescription" : "CS2103T Lecture",
         "date" : "2022-03-18",
         "time" : "14:00:00",
         "duration" : "PT2H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "National Day Party at BFF"
-        },
+        "eventDescription" : "National Day Party at BFF",
         "date" : "2022-08-09",
         "time" : "20:00:00",
         "duration" : "PT3H",
@@ -76,57 +62,43 @@
     "address" : "311, Clementi Ave 2, #02-25",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Tutorial"
-        },
+        "eventDescription" : "CS2106 Tutorial",
         "date" : "2022-03-14",
         "time" : "10:00:00",
         "duration" : "PT1H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "Alice Birthday Surprise"
-        },
+        "eventDescription" : "Alice Birthday Surprise",
         "date" : "2022-03-14",
         "time" : "17:00:00",
         "duration" : "PT4H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-03-16",
         "time" : "09:00:00",
         "duration" : "PT1H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lecture"
-        },
+        "eventDescription" : "CS2106 Lecture",
         "date" : "2022-03-16",
         "time" : "10:00:00",
         "duration" : "PT2H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-03-17",
         "time" : "13:00:00",
         "duration" : "PT1H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Lecture"
-        },
+        "eventDescription" : "CS2103T Lecture",
         "date" : "2022-03-18",
         "time" : "14:00:00",
         "duration" : "PT2H",
         "recurFrequency" : "WEEKLY"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "National Day Party at BFF"
-        },
+        "eventDescription" : "National Day Party at BFF",
         "date" : "2022-08-09",
         "time" : "20:00:00",
         "duration" : "PT3H",
@@ -198,9 +170,7 @@
     "address" : "PGPR",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "Tutorial CS2103T"
-        },
+        "eventDescription" : "Tutorial CS2103T",
         "date" : "2022-03-16",
         "time" : "09:00:00",
         "duration" : "PT1H",

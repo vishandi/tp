@@ -90,7 +90,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-    public static final String INVALID_EVENT_DESCRIPTION_DESC = " " + PREFIX_EVENT_DESCRIPTION + "PARTY @ KENTRIDGE";
+    public static final String INVALID_EVENT_DESCRIPTION_DESC = " " + PREFIX_EVENT_DESCRIPTION + "/L@b"; // contains /
     public static final String INVALID_EVENT_DATE_DESC = " " + PREFIX_DATE + "2022-March-14";
     public static final String INVALID_EVENT_TIME_DESC = " " + PREFIX_TIME + "1100";
     public static final String INVALID_DURATION_DESC = " " + PREFIX_DURATION + "oneH";
@@ -166,7 +166,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
+        final String[] splitName = person.getName().value.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());

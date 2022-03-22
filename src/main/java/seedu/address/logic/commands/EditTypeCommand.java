@@ -17,12 +17,12 @@ import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Tag;
 import seedu.address.model.person.Telegram;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.tag.Tag;
 
 public abstract class EditTypeCommand extends Command {
     /**
@@ -100,7 +100,7 @@ public abstract class EditTypeCommand extends Command {
         LocalTime updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
         Duration updatedDuration = editEventDescriptor.getDuration().orElse(eventToEdit.getDuration());
         RecurFrequency updatedRecurFrequency = editEventDescriptor.getRecurFrequency()
-                .orElse(eventToEdit.getRecurFrequency().orElse(null));
+                .orElse(eventToEdit.getRecurFrequency());
         return new Event(updatedEventDescription, updatedDate, updatedTime, updatedDuration, updatedRecurFrequency);
     }
 }

@@ -203,16 +203,13 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
   * XH
   * YM
   * X
-  * RECUR_FREQUENCY, if provided, must be one of the following values:
+* RECUR_FREQUENCY, if provided, must be one of the following values:
 
-    | Value | Frequency    |
-    |-------|--------------|
-    | `D`   | Daily        |
-    | `W`   | Weekly       |
-    | `B`   | Biweekly     |
-    | `M`   | Monthly      |
-
-
+| Value           | Frequency |
+|-----------------|-----------|
+| `D`, `Daily`    | Daily     |
+| `W`, `Weekly`   | Weekly    |
+| `B`, `Biweekly` | Biweekly  |
 
 Examples:
 * `addEvent 3 ed/Open House da/2022-12-20`
@@ -222,6 +219,7 @@ Examples:
 Edits the schedule assigned to a person.
 
 Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
+
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
 * DATE should be in "YYYY-MM-DD" format
@@ -231,6 +229,13 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
   * XHY
   * XH
   * X
+* RECUR_FREQUENCY, if provided, must be one of the following values:
+
+| Value           | Frequency |
+|-----------------|-----------|
+| `D`, `Daily`    | Daily     |
+| `W`, `Weekly`   | Weekly    |
+| `B`, `Biweekly` | Biweekly  |
   
 Example:
 * `editEvent 3 3 da/2022-12-21`
@@ -318,18 +323,18 @@ Example:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
-
-| Action                | Format, Examples                                                                                                                                                          |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Clear**             | `clear`                                                                                                                                                                   |
-| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                       |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                               |
-| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                       |
-| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`                              |
-| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`  |
-| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                             |
-| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          | 
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                |
-| **List**              | `list`                                                                                                                                                                    |
-| **Help**              | `help`                                                                                                                                                                    |
+| Action                | Format, Examples                                                                                                                                                                              |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
+| **Clear**             | `clear`                                                                                                                                                                                       |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
+| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
+| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
+| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
+| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
+| **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
+| **List**              | `list`                                                                                                                                                                                        |
+| **Help**              | `help`                                                                                                                                                                                        |

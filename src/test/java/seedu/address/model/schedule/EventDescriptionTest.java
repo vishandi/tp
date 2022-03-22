@@ -21,8 +21,8 @@ class EventDescriptionTest {
         // invalid name
         assertFalse(EventDescription.isValidEventDescription("")); // empty string
         assertFalse(EventDescription.isValidEventDescription(" ")); // spaces only
-        assertFalse(EventDescription.isValidEventDescription("^")); // only non-alphanumeric characters
-        assertFalse(EventDescription.isValidEventDescription("Jurong*")); // contains non-alphanumeric characters
+        assertFalse(EventDescription.isValidEventDescription("Meet John /at NUS")); //contains /
+        assertFalse(EventDescription.isValidEventDescription("/go school")); //starts with /
 
         // valid name
         assertTrue(EventDescription.isValidEventDescription("corporation drive")); // alphabets only
@@ -30,6 +30,8 @@ class EventDescriptionTest {
         assertTrue(EventDescription.isValidEventDescription("hougang 1st Ave")); // alphanumeric characters
         assertTrue(EventDescription.isValidEventDescription("Hougang 1st Ave")); // with capital letters
         assertTrue(EventDescription.isValidEventDescription("Blk 64 Lorong 5 Toa Payoh")); //long names
+        assertTrue(EventDescription.isValidEventDescription("^")); // non-alphanumeric characters
+        assertTrue(EventDescription.isValidEventDescription("Jurong*")); // contains non-alphanumeric characters
     }
 
     @Test
