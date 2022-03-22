@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Schedule {
 
-    public static final String EMPTY_SCHEDULE_MESSAGE = "No schedule recorded yet.";
+    public static final String EMPTY_SCHEDULE_MESSAGE = "No schedule recorded for %1$s.";
     public static final String MESSAGE_CONSTRAINTS =
             "A Schedule's Events must have alphanumeric event descriptions, date formats YYYY-MM-DD, "
                     + "time formats HH:MM and duration format in hours";
@@ -44,7 +44,7 @@ public class Schedule {
     }
 
     /**
-     * Returns true if the given event is valid.
+     * Returns true if the given schedule is valid.
      */
     public static boolean isValidSchedule(Schedule schedule) {
         for (Event event : schedule.getEvents()) {
