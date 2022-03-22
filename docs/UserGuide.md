@@ -22,10 +22,11 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
-   13. [Clearing all entries](#clearing-all-entries--clear)
-   14. [Exiting the program](#exiting-the-program--exit)
-   15. [Saving the data](#saving-the-data)
-   16. [Editing the data file](#editing-the-data-file)
+   13. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
+   14. [Clearing all entries](#clearing-all-entries--clear)
+   15. [Exiting the program](#exiting-the-program--exit)
+   16. [Saving the data](#saving-the-data)
+   17. [Editing the data file](#editing-the-data-file)
 3. [Coming Soon](#coming-soon-v13)
    1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
    2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
@@ -253,6 +254,7 @@ Format: `deleteEvent INDEX EVENT_INDEX`
 Example:
 * `deleteEvent 3 3`
 
+### Getting persons who are free: `freeSchedule`
 Format: `freeSchedule ti/TIME [da/ DATE]`
 * Shows the persons who are free at the time specified today
 * Shows the persons who are free at the time on the date specified
@@ -265,6 +267,14 @@ Format: `freeSchedule ti/TIME [da/ DATE]`
 Examples:
 * `freeSchedule ti/ 12:00`
 * `freeSchedule ti/ 14:00 da/2022-02-14`
+
+### Exporting a person's schedule: `export`
+Format: `export INDEX`
+* Allows user to export schedule of person at specified index
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+
+Examples:
+* `export 1`
 
 ### Clearing all entries : `clear`
 
