@@ -108,11 +108,8 @@ public class ParserUtil {
     public static Telegram parseTelegram(String username) throws ParseException {
         requireNonNull(username);
         String trimmedUsername = username.trim();
-        if (!Telegram.isValidTelegram(trimmedUsername)) {
+        if (!Telegram.isValidTelegram(trimmedUsername) || trimmedUsername.equals("")) {
             throw new ParseException(Telegram.MESSAGE_CONSTRAINTS);
-        }
-        if (trimmedUsername.equals("")) {
-            return Telegram.EMPTY_TELEGRAM;
         }
         return new Telegram(username);
     }
@@ -126,11 +123,8 @@ public class ParserUtil {
     public static GitHub parseGithub(String username) throws ParseException {
         requireNonNull(username);
         String trimmedUsername = username.trim();
-        if (!GitHub.isValidGitHub(trimmedUsername)) {
+        if (!GitHub.isValidGitHub(trimmedUsername) || trimmedUsername.equals("")) {
             throw new ParseException(GitHub.MESSAGE_CONSTRAINTS);
-        }
-        if (trimmedUsername.equals("")) {
-            return GitHub.EMPTY_GITHUB;
         }
         return new GitHub(username);
     }
@@ -144,11 +138,8 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
+        if (!Address.isValidAddress(trimmedAddress) || trimmedAddress.equals("")) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        if (trimmedAddress.equals("")) {
-            return Address.EMPTY_ADDRESS;
         }
         return new Address(trimmedAddress);
     }
@@ -162,11 +153,8 @@ public class ParserUtil {
     public static Email parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
+        if (!Email.isValidEmail(trimmedEmail) || trimmedEmail.equals("")) {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        if (trimmedEmail.equals("")) {
-            return Email.EMPTY_EMAIL;
         }
         return new Email(trimmedEmail);
     }
