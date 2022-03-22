@@ -191,19 +191,19 @@ A successful execution of the AddEvent command is described as follows:
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
   * Pros: Slightly more OOP
   * Cons: Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
-##### Event's date, time and duration attributes
+##### Implementing event's date, time and duration attributes
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
   * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
 * **Alternative 2:** Create our own Date, Time and Duration classes
   * Pros: More customisable
   * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
 ##### Updating the model when an event is added
-* **Alterative 1 (current choice):** Create a new `Schedule` and use the new `Schedule` to create new `Person` to update the `Model`
+* **Alterative 1 (current choice):** Create a new `Schedule` and `Person` to update the `Model`
   * Pros: More defensive
   * Cons: Troublesome to implement
-* **Alternative 2:** Add an addEvent() to `Schedule`, allows us to update the `Person` without creating objects
-  * Pros: Straightforward and easy to implement
-  * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time.
+* **Alternative 2:** Add an addEvent() function to `Schedule`, allows us to update the `Person` without creating objects
+  * Pros: Straightforward to implement
+  * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time, causing bugs to appear
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
