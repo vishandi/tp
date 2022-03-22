@@ -28,9 +28,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.commands.schedule.EditEventCommand;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 
 class EditEventCommandParserTest {

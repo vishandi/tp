@@ -23,7 +23,11 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.GitHub;
+import seedu.address.model.person.Tag;
+import seedu.address.model.person.Telegram;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -57,16 +61,16 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_TELEGRAM).isPresent()) {
-            editPersonDescriptor.setTelegram(ParserUtil.parseTelegram(argMultimap.getValue(PREFIX_TELEGRAM).get()));
+            editPersonDescriptor.setTelegram(parseTelegramForEdit(argMultimap.getValue(PREFIX_TELEGRAM).get()));
         }
         if (argMultimap.getValue(PREFIX_GITHUB).isPresent()) {
-            editPersonDescriptor.setGithub(ParserUtil.parseGithub(argMultimap.getValue(PREFIX_GITHUB).get()));
+            editPersonDescriptor.setGithub(parseGithubForEdit(argMultimap.getValue(PREFIX_GITHUB).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+            editPersonDescriptor.setEmail(parseEmailForEdit(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            editPersonDescriptor.setAddress(parseAddressForEdit(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
@@ -90,6 +94,70 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
+    }
+
+    /**
+     * Parses {@code String username} into a {@code Telegram} if {@code username} is a valid username
+     * or an empty username. If it is an empty username, it will be parsed into {@code Telegram.EMPTY_TELEGRAM}.
+     */
+    private Telegram parseTelegramForEdit(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!Telegram.isValidTelegram(trimmedUsername)) {
+            throw new ParseException(Telegram.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmedUsername.equals("")) {
+            return Telegram.EMPTY_TELEGRAM;
+        }
+        return new Telegram(trimmedUsername);
+    }
+
+    /**
+     * Parses {@code String username} into a {@code GitHub} if {@code username} is a valid username
+     * or an empty username. If it is an empty username, it will be parsed into {@code GitHub.EMPTY_GITHUB}.
+     */
+    private GitHub parseGithubForEdit(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedUsername = username.trim();
+        if (!GitHub.isValidGitHub(trimmedUsername)) {
+            throw new ParseException(GitHub.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmedUsername.equals("")) {
+            return GitHub.EMPTY_GITHUB;
+        }
+        return new GitHub(trimmedUsername);
+    }
+
+    /**
+     * Parses {@code String email} into a {@code Email} if {@code username} is a valid email
+     * or an empty email. If it is an empty email, it will be parsed into {@code Email.EMPTY_EMAIL}.
+     */
+    private Email parseEmailForEdit(String email) throws ParseException {
+        requireNonNull(email);
+        String trimmedEmail = email.trim();
+        if (!Email.isValidEmail(trimmedEmail)) {
+            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmedEmail.equals("")) {
+            return Email.EMPTY_EMAIL;
+        }
+        return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses {@code String address} into a {@code Address} if {@code address} is a valid address
+     * or an empty address. If it is an empty address, it will be parsed into {@code Address.EMPTY_ADDRESS}.
+     */
+    private Address parseAddressForEdit(String address) throws ParseException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        if (!Address.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        }
+        if (trimmedAddress.equals("")) {
+            return Address.EMPTY_ADDRESS;
+        }
+        return new Address(trimmedAddress);
     }
 
 }

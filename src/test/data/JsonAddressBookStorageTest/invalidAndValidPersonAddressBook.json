@@ -6,16 +6,12 @@
     "address": "4th street",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
         "duration" : "PT3H"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
         "duration" : "PT3H"
@@ -28,16 +24,12 @@
     "address": "4th street",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
         "duration" : "PT3H"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
         "duration" : "PT3H"

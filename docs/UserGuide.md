@@ -22,13 +22,13 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
-   13. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-freegroupschedule)
-   14. [Clearing all entries](#clearing-all-entries--clear)
-   15. [Exiting the program](#exiting-the-program--exit)
-   16. [Saving the data](#saving-the-data)
-   17. [Editing the data file](#editing-the-data-file)
+   13. [Clearing all entries](#clearing-all-entries--clear)
+   14. [Exiting the program](#exiting-the-program--exit)
+   15. [Saving the data](#saving-the-data)
+   16. [Editing the data file](#editing-the-data-file)
 3. [Coming Soon](#coming-soon-v13)
    1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
+   2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 
@@ -126,6 +126,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without
   specifying any tags after it.
+* You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -200,20 +201,16 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
   * XHYM
-  * XHY
   * XH
   * YM
   * X
-  * RECUR_FREQUENCY, if provided, must be one of the following values:
+* RECUR_FREQUENCY, if provided, must be one of the following values:
 
-    | Value | Frequency    |
-    |-------|--------------|
-    | `D`   | Daily        |
-    | `W`   | Weekly       |
-    | `B`   | Biweekly     |
-    | `M`   | Monthly      |
-
-
+| Value           | Frequency |
+|-----------------|-----------|
+| `D`, `Daily`    | Daily     |
+| `W`, `Weekly`   | Weekly    |
+| `B`, `Biweekly` | Biweekly  |
 
 Examples:
 * `addEvent 3 ed/Open House da/2022-12-20`
@@ -223,6 +220,7 @@ Examples:
 Edits the schedule assigned to a person.
 
 Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
+
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
 * DATE should be in "YYYY-MM-DD" format
@@ -232,6 +230,13 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
   * XHY
   * XH
   * X
+* RECUR_FREQUENCY, if provided, must be one of the following values:
+
+| Value           | Frequency |
+|-----------------|-----------|
+| `D`, `Daily`    | Daily     |
+| `W`, `Weekly`   | Weekly    |
+| `B`, `Biweekly` | Biweekly  |
   
 Example:
 * `editEvent 3 3 da/2022-12-21`
@@ -299,15 +304,14 @@ Format: `viewSchedule INDEX`
 Example:
 * `viewSchedule 5`
 
-
-### Getting common free timing of persons by tag: `freeGroupSchedule`
+### Getting common free timing of persons by tag: `findCommonTiming`
 Gets the common timings of persons who are free with the same tag.
 
-Format: `freeGroupSchedule t/TAG`
+Format: `findCommonTiming t/TAG`
 * Show the overlapping timings that a group of friends with the same tags are free
 
 Example:
-* `freeGroupSchedule t/groupmates`
+* `findCommonTiming t/groupmates`
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -318,19 +322,19 @@ Example:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
-
-| Action                | Format, Examples                                                                                                                                                          |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
-| **Clear**             | `clear`                                                                                                                                                                   |
-| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                       |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                               |
-| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                       |
-| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1`                              |
-| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [t/TAG]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2`  |
-| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                             |
-| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                          |
-| **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                      |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                |
-| **List**              | `list`                                                                                                                                                                    |
-| **Help**              | `help`                                                                                                                                                                    |
+| Action                | Format, Examples                                                                                                                                                                              |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
+| **Clear**             | `clear`                                                                                                                                                                                       |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
+| **View**              | `view INDEX`<br>e.g., `view 1`                                                                                                                                                                |
+| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
+| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
+| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
+| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
+| **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
+| **List**              | `list`                                                                                                                                                                                        |
+| **Help**              | `help`                                                                                                                                                                                        |

@@ -11,8 +11,9 @@ import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Tag;
 import seedu.address.model.person.Telegram;
-import seedu.address.model.tag.Tag;
+
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -61,6 +62,10 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withTelegram(String telegram) {
+        if (telegram.equals("")) {
+            descriptor.setTelegram(Telegram.EMPTY_TELEGRAM);
+            return this;
+        }
         descriptor.setTelegram(new Telegram(telegram));
         return this;
     }
@@ -69,6 +74,10 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code GitHub} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withGithub(String github) {
+        if (github.equals("")) {
+            descriptor.setGithub(GitHub.EMPTY_GITHUB);
+            return this;
+        }
         descriptor.setGithub(new GitHub(github));
         return this;
     }
@@ -77,6 +86,10 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withEmail(String email) {
+        if (email.equals("")) {
+            descriptor.setEmail(Email.EMPTY_EMAIL);
+            return this;
+        }
         descriptor.setEmail(new Email(email));
         return this;
     }
@@ -85,6 +98,10 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
+        if (address.equals("")) {
+            descriptor.setAddress(Address.EMPTY_ADDRESS);
+            return this;
+        }
         descriptor.setAddress(new Address(address));
         return this;
     }

@@ -16,12 +16,12 @@ import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Tag;
 import seedu.address.model.person.Telegram;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -142,12 +142,14 @@ public class PersonBuilder {
     public PersonBuilder withEvent(Event event) {
         ArrayList<Event> newEvents = new ArrayList<>(schedule.getEvents());
         newEvents.add(event);
+        Collections.sort(newEvents);
         schedule = new Schedule(newEvents);
         return this;
     }
 
     /**
-     * Parses the {@code event} and set it to the {@code Schedule} of the {@code Person} that we are building.
+     * Parses the arguments to create an {@code Event} and add it to the {@code Schedule}
+     * of the {@code Person} that we are building.
      */
     public PersonBuilder withEvent(String description, String date, String time, String duration,
                                    String recurFrequency) {
@@ -160,6 +162,31 @@ public class PersonBuilder {
             Event event = new Event(eventDescription, eventDate, eventTime, eventDuration, eventRecurFrequency);
             ArrayList<Event> newEvents = new ArrayList<>(this.schedule.getEvents());
             newEvents.add(event);
+            Collections.sort(newEvents);
+            this.schedule = new Schedule(newEvents);
+            return this;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    /**
+     * Parses the arguments to create an {@code Event} and add its next recurrence to the {@code Schedule} of the
+     * {@code Person} that we are building.
+     */
+    public PersonBuilder withClosestEvent(String description, String date, String time, String duration,
+                                   String recurFrequency) {
+        EventDescription eventDescription = new EventDescription(description);
+        try {
+            LocalDate eventDate = ParserUtil.parseDate(date);
+            LocalTime eventTime = ParserUtil.parseTime(time);
+            Duration eventDuration = ParserUtil.parseDuration(duration);
+            RecurFrequency eventRecurFrequency = ParserUtil.parseRecurFrequency(recurFrequency);
+            Event event = new Event(eventDescription, eventDate, eventTime, eventDuration, eventRecurFrequency);
+            Event nextRecurringEvent = event.getNextRecurringEvent();
+            ArrayList<Event> newEvents = new ArrayList<>(this.schedule.getEvents());
+            newEvents.add(nextRecurringEvent);
             Collections.sort(newEvents);
             this.schedule = new Schedule(newEvents);
             return this;

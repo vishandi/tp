@@ -63,11 +63,11 @@ public class PersonCard extends UiPart<Region> {
      */
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
-        ImageView addressIcon = new ImageView("./images/address_icon.png");
-        ImageView emailIcon = new ImageView("./images/email_icon.png");
-        ImageView scheduleIcon = new ImageView("./images/schedule_icon.png");
-        ImageView telegramIcon = new ImageView("./images/telegram_icon.png");
-        ImageView githubIcon = new ImageView("./images/github_icon.png");
+        ImageView addressIcon = new ImageView("/images/address_icon.png");
+        ImageView emailIcon = new ImageView("/images/email_icon.png");
+        ImageView scheduleIcon = new ImageView("/images/schedule_icon.png");
+        ImageView telegramIcon = new ImageView("/images/telegram_icon.png");
+        ImageView githubIcon = new ImageView("/images/github_icon.png");
         addressIcon.setFitHeight(16);
         addressIcon.setFitWidth(16);
         emailIcon.setFitHeight(16);
@@ -81,7 +81,7 @@ public class PersonCard extends UiPart<Region> {
 
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().value);
         phone.setText(person.getPhone().value);
         if (!person.getTelegram().isEmpty()) {
             telegramBox.getChildren().add(telegramIcon);
