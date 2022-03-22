@@ -160,7 +160,7 @@ This section describes some noteworthy details on how certain features are imple
 #### Implementation
 
 To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
-* Each `Person` has an added `Schedule` attribute.
+* Each `Person` has a `Schedule` attribute.
 * A `Schedule` contains a list of `Event`s.
 * An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`
   * Here, the `RecurFrequency` indicates how often the `Event` occurs, which can be daily, weekly, biweekly or none.
