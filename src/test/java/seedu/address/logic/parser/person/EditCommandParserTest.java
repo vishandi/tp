@@ -30,7 +30,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TELEGRAM_CAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GITHUB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TELEGRAM;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -54,6 +58,10 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class EditCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
+    private static final String TELEGRAM_EMPTY = " " + PREFIX_TELEGRAM;
+    private static final String GITHUB_EMPTY = " " + PREFIX_GITHUB;
+    private static final String EMAIL_EMPTY = " " + PREFIX_EMAIL;
+    private static final String ADDRESS_EMPTY = " " + PREFIX_ADDRESS;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -229,6 +237,43 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_resetOptionalAttributes_success() {
+        Index targetIndex = INDEX_THIRD_PERSON;
+
+        // Telegram
+        String userInput = targetIndex.getOneBased() + TELEGRAM_EMPTY;
+
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTelegram("").build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // GitHub
+        userInput = targetIndex.getOneBased() + GITHUB_EMPTY;
+
+        descriptor = new EditPersonDescriptorBuilder().withGithub("").build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // Email
+        userInput = targetIndex.getOneBased() + EMAIL_EMPTY;
+
+        descriptor = new EditPersonDescriptorBuilder().withEmail("").build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // Address
+        userInput = targetIndex.getOneBased() + ADDRESS_EMPTY;
+
+        descriptor = new EditPersonDescriptorBuilder().withAddress("").build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
