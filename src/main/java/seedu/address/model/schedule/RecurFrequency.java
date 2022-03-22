@@ -5,8 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public enum RecurFrequency {
@@ -23,6 +26,9 @@ public enum RecurFrequency {
     private static final String BIWEEKLY_LABEL = "(Biweekly)";
     private static final String INVALID_LABEL = "(Invalid)";
     private static final String NO_LABEL = "";
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    public static final String MISSING_RECUR_FREQUENCY_CASE =
+            "%s switch case is missing in RecurFrequency::getLabel! Returning invalid label...";
 
     private final String shortName;
     private final String fullName;
@@ -77,6 +83,7 @@ public enum RecurFrequency {
             return BIWEEKLY_LABEL;
         default:
             //Should not happen
+            logger.warning(String.format(MISSING_RECUR_FREQUENCY_CASE, this));
             return INVALID_LABEL;
         }
     }
