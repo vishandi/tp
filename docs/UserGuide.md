@@ -301,8 +301,7 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
-##*Coming Soon...* (v1.3)
-
+###*Coming Soon...* (v1.3)
 ### Viewing a person’s schedule: `viewSchedule`
 Shows the schedule of a specified person.
 
