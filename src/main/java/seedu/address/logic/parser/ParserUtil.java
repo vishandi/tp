@@ -111,7 +111,7 @@ public class ParserUtil {
         if (!Telegram.isValidTelegram(trimmedUsername) || trimmedUsername.equals("")) {
             throw new ParseException(Telegram.MESSAGE_CONSTRAINTS);
         }
-        return new Telegram(username);
+        return new Telegram(trimmedUsername);
     }
 
     /**
@@ -126,7 +126,7 @@ public class ParserUtil {
         if (!GitHub.isValidGitHub(trimmedUsername) || trimmedUsername.equals("")) {
             throw new ParseException(GitHub.MESSAGE_CONSTRAINTS);
         }
-        return new GitHub(username);
+        return new GitHub(trimmedUsername);
     }
 
     /**
