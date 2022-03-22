@@ -21,7 +21,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.storage.JsonAdaptedSchedule;
 
 /**
- * Exports the schedule of a {@code Person}.
+ * Exports the {@code Schedule} of a {@code Person}.
  */
 public class ExportCommand extends Command {
 
