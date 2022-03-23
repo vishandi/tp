@@ -160,7 +160,7 @@ This section describes some noteworthy details on how certain features are imple
 #### Implementation
 
 To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
-* Each `Person` has an added `Schedule` attribute.
+* Each `Person` has a `Schedule` attribute.
 * A `Schedule` contains a list of `Event`s.
 * An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`
   * Here, the `RecurFrequency` indicates how often the `Event` occurs, which can be daily, weekly, biweekly or none.
@@ -170,9 +170,9 @@ To enable users to track their contacts' schedules, 2 new classes have been adde
 To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
 The parsing of the AddEvent command is handled by the following classes:
 * `AddressBookParser`
-  * Checks that the command contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
+  * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
 * `AddEventCommandParser`
-  * Parses the command to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
+  * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
   * Returns an `AddEventCommand` to be executed by the `LogicManager`
 
 A successful execution of the AddEvent command is described as follows:
