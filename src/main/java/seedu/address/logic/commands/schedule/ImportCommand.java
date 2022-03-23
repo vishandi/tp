@@ -39,9 +39,28 @@ public class ImportCommand extends EditTypeCommand {
 
     public static final String MESSAGE_SUCCESS = "%1$s's schedule has been replaced with the imported schedule!";
     public static final String MESSAGE_FAILURE =
-            "Data in the specified file path is in invalid format, %1$s's schedule is unchanged.";
+            "Data in %s is in invalid format, %s's schedule is unchanged.";
     public static final String INVALID_FILE_MESSAGE =
-            "File is empty, does not exist, or not in json format! %1$s's schedule is unchanged.";
+            "File is empty, does not exist, or is not in json format! %s's schedule is unchanged.";
+    public static final String FAILED_TO_READ_FILE_MESSAGE = "Failed to read from file: %s";
+    public static final String VALID_DATA_FORMAT_EXAMPLE =
+            "{\n" +
+                    "  \"events\" : [ {\n" +
+                    "    \"eventDescription\" : \"CS2106 Tutorial\",\n" +
+                    "    \"date\" : \"2022-03-14\",\n" +
+                    "    \"time\" : \"10:00:00\",\n" +
+                    "    \"duration\" : \"PT1H\",\n" +
+                    "    \"recurFrequency\" : \"WEEKLY\"\n" +
+                    "  }, {\n" +
+                    "    \"eventDescription\" : \"Alice Birthday Surprise\",\n" +
+                    "    \"date\" : \"2022-03-14\",\n" +
+                    "    \"time\" : \"17:00:00\",\n" +
+                    "    \"duration\" : \"PT4H\",\n" +
+                    "    \"recurFrequency\" : \"WEEKLY\"\n" +
+                    "  } ]\n" +
+                    "}";
+    public static final String MESSAGE_FAILURE_WITH_EXAMPLE =
+            MESSAGE_FAILURE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
 
     private final Index targetIndex;
     private final Path filePath;
@@ -56,7 +75,7 @@ public class ImportCommand extends EditTypeCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, DataConversionException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -66,16 +85,24 @@ public class ImportCommand extends EditTypeCommand {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
 
-        Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule =
-                JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
+        Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule;
+        try {
+            importedJsonAdaptedSchedule =
+                    JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
+        } catch (DataConversionException e) {
+            throw new CommandException(String.format(
+                    FAILED_TO_READ_FILE_MESSAGE + e.getMessage(), filePath.getFileName()));
+        }
+
         if (!importedJsonAdaptedSchedule.isPresent()) {
-            return new CommandResult(String.format(INVALID_FILE_MESSAGE, personToEdit.getName()));
+            throw new CommandException(String.format(INVALID_FILE_MESSAGE, personToEdit.getName()));
         }
         Schedule importedSchedule;
         try {
             importedSchedule = importedJsonAdaptedSchedule.get().toModelType();
         } catch (IllegalValueException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, personToEdit.getName()));
+            throw new CommandException(String.format(
+                    MESSAGE_FAILURE_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
         }
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setSchedule(importedSchedule);
