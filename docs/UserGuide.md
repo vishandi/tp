@@ -304,7 +304,6 @@ Format: `viewSchedule INDEX`
 Example:
 * `viewSchedule 5`
 
-
 ### Getting common free timing of persons by tag: `findCommonTiming`
 Gets the common timings of persons who are free with the same tag.
 
@@ -313,7 +312,6 @@ Format: `findCommonTiming t/TAG`
 
 Example:
 * `findCommonTiming t/groupmates`
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
