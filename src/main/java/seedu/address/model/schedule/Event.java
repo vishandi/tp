@@ -139,7 +139,8 @@ public class Event implements Comparable<Event> {
      */
     public boolean willDateCollide(LocalDate date) {
         if (this.date.isAfter(date)) {
-            return false; // start date of event is after checking date -> will never collide
+            // if start date of event is after the date we are checking, then they will never collide
+            return false;
         }
 
         switch (recurFrequency) {
