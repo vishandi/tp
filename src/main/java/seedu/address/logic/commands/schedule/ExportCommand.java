@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -31,6 +32,7 @@ public class ExportCommand extends Command {
             + ": Exports the schedule of the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
+    public static final String MESSAGE_SCHEDULE_EMPTY = "No existing schedule for %1$s.";
 
     private static final Logger logger = LogsCenter.getLogger(ExportCommand.class);
     private final Index targetIndex;
@@ -55,15 +57,17 @@ public class ExportCommand extends Command {
 
         Schedule toExportSchedule = targetPerson.getSchedule();
         if (Schedule.isEmptySchedule(toExportSchedule)) {
-            throw new CommandException(String.format(Schedule.EMPTY_SCHEDULE_MESSAGE, targetPerson.getName()));
+            throw new CommandException(String.format(MESSAGE_SCHEDULE_EMPTY, targetPerson.getName()));
         }
 
         Path exportFile = Paths.get("data", String.format("%1$s.json", targetPerson.getName()));
         try {
+            FileUtil.createIfMissing(exportFile);
             JsonUtil.saveJsonFile(new JsonAdaptedSchedule(toExportSchedule), exportFile);
             logger.info(targetPerson.getName() + "'s schedule saved at " + exportFile + ".");
         } catch (IOException e) {
             logger.warning("Unable to save " + targetPerson.getName() + "'s schedule in " + exportFile + ": " + e);
+            throw new CommandException("Something wrong has occurred. Schedule not exported");
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetPerson.getName()));
