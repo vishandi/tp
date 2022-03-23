@@ -71,7 +71,7 @@ class FreeScheduleCommandTest {
     //    }
 
     @Test
-    public void execute_noClashInTimeAndDate_multiplePersonsFound() throws Exception {
+    public void execute_noClashInTimeAndDate_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         IsPersonFreePredicate predicate =
                 new IsPersonFreePredicate(LocalTime.parse("09:00"), LocalDate.parse("2022-03-13"));

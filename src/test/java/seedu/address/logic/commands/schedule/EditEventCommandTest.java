@@ -39,7 +39,7 @@ class EditEventCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecified_success() throws Exception {
+    public void execute_allFieldsSpecified_success() {
         Event editedEvent = new EventBuilder().build();
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder(editedEvent).build();
         EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_PERSON, INDEX_FIRST_EVENT, descriptor);
@@ -87,7 +87,7 @@ class EditEventCommandTest {
     */
 
     @Test
-    public void execute_invalidPersonIndex_failure() throws Exception {
+    public void execute_invalidPersonIndex_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withDate(VALID_EVENT_DATE).build();
         EditEventCommand editCommand = new EditEventCommand(outOfBoundIndex, INDEX_FIRST_EVENT, descriptor);
@@ -96,7 +96,7 @@ class EditEventCommandTest {
     }
 
     @Test
-    public void execute_validPersonIndexInvalidEventIndex_failure() throws Exception {
+    public void execute_validPersonIndexInvalidEventIndex_failure() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Index outOfBoundIndex = Index.fromOneBased(firstPerson.getSchedule().getEvents().size() + 1);
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withDate(VALID_EVENT_DATE).build();
