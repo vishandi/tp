@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAY
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
@@ -38,28 +39,34 @@ public class ImportCommand extends EditTypeCommand {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_FILEPATH + "typicalSchedule.json";
 
     public static final String MESSAGE_SUCCESS = "%1$s's schedule has been replaced with the imported schedule!";
-    public static final String MESSAGE_FAILURE =
-            "Data in %s is in invalid format, %s's schedule is unchanged.";
-    public static final String INVALID_FILE_MESSAGE =
-            "File is empty, does not exist, or is not in json format! %s's schedule is unchanged.";
-    public static final String FAILED_TO_READ_FILE_MESSAGE = "Failed to read from file: %s";
+    public static final String FILE_DOES_NOT_EXIST_MESSAGE = "File \"%s\" does not exist in \"%s\"";
+    public static final String FILE_PATH_IS_DIRECTORY_MESSAGE = "File path should not be a directory!";
+    public static final String FILE_NOT_READABLE_MESSAGE = "You do not have access to the specified file path!";
+    public static final String UNKNOWN_ERROR_MESSAGE =
+            "Unknown error when reading the file! %s's schedule is unchanged.";
     public static final String VALID_DATA_FORMAT_EXAMPLE = "{\n"
-                    + "  \"events\" : [ {\n"
-                    + "    \"eventDescription\" : \"CS2106 Tutorial\",\n"
-                    + "    \"date\" : \"2022-03-14\",\n"
-                    + "    \"time\" : \"10:00:00\",\n"
-                    + "    \"duration\" : \"PT1H\",\n"
-                    + "    \"recurFrequency\" : \"WEEKLY\"\n"
-                    + "  }, {\n"
-                    + "    \"eventDescription\" : \"Alice Birthday Surprise\",\n"
-                    + "    \"date\" : \"2022-03-14\",\n"
-                    + "    \"time\" : \"17:00:00\",\n"
-                    + "    \"duration\" : \"PT4H\",\n"
-                    + "    \"recurFrequency\" : \"WEEKLY\"\n"
-                    + "  } ]\n"
-                    + "}";
-    public static final String MESSAGE_FAILURE_WITH_EXAMPLE =
-            MESSAGE_FAILURE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
+            + "  \"events\" : [ {\n"
+            + "    \"eventDescription\" : \"CS2106 Tutorial\",\n"
+            + "    \"date\" : \"2022-03-14\",\n"
+            + "    \"time\" : \"10:00:00\",\n"
+            + "    \"duration\" : \"PT1H\",\n"
+            + "    \"recurFrequency\" : \"WEEKLY\"\n"
+            + "  }, {\n"
+            + "    \"eventDescription\" : \"Alice Birthday Surprise\",\n"
+            + "    \"date\" : \"2022-03-14\",\n"
+            + "    \"time\" : \"17:00:00\",\n"
+            + "    \"duration\" : \"PT4H\",\n"
+            + "    \"recurFrequency\" : \"WEEKLY\"\n"
+            + "  } ]\n"
+            + "}";
+    public static final String NOT_JSON_FORMAT_MESSAGE =
+            "Data in \"%s\" is empty or not in valid json format! %s's schedule is unchanged.";
+    public static final String NOT_JSON_FORMAT_WITH_EXAMPLE =
+            NOT_JSON_FORMAT_MESSAGE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
+    public static final String INVALID_DATA_MESSAGE =
+            "Data is in valid json format, but contains invalid headers or values! %s's schedule is unchanged.";
+    public static final String INVALID_DATA_WITH_EXAMPLE =
+            INVALID_DATA_MESSAGE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
 
     private final Index targetIndex;
     private final Path filePath;
@@ -84,24 +91,36 @@ public class ImportCommand extends EditTypeCommand {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
 
+        if (Files.notExists(filePath)) {
+            throw new CommandException(String.format(
+                    FILE_DOES_NOT_EXIST_MESSAGE, filePath.getFileName(), filePath.toAbsolutePath().getParent()));
+        }
+        if (Files.isDirectory(filePath)) {
+            throw new CommandException(String.format(FILE_PATH_IS_DIRECTORY_MESSAGE, filePath));
+        }
+        if (!Files.isReadable(filePath)) {
+            throw new CommandException(String.format(FILE_NOT_READABLE_MESSAGE, filePath));
+        }
+
         Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule;
         try {
             importedJsonAdaptedSchedule =
                     JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
         } catch (DataConversionException e) {
             throw new CommandException(String.format(
-                    FAILED_TO_READ_FILE_MESSAGE + e.getMessage(), filePath.getFileName()));
+                    NOT_JSON_FORMAT_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
         }
 
         if (!importedJsonAdaptedSchedule.isPresent()) {
-            throw new CommandException(String.format(INVALID_FILE_MESSAGE, personToEdit.getName()));
+            throw new CommandException(String.format(UNKNOWN_ERROR_MESSAGE, personToEdit.getName()));
         }
+
         Schedule importedSchedule;
         try {
             importedSchedule = importedJsonAdaptedSchedule.get().toModelType();
         } catch (IllegalValueException e) {
             throw new CommandException(String.format(
-                    MESSAGE_FAILURE_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
+                    INVALID_DATA_WITH_EXAMPLE, personToEdit.getName()));
         }
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setSchedule(importedSchedule);
