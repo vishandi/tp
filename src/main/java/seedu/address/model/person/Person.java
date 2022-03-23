@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.schedule.Schedule;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -115,6 +114,7 @@ public class Person {
                 && otherPerson.getGithub().equals(getGithub())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getSchedule().equals(getSchedule())
                 && otherPerson.getTags().equals(getTags());
     }
 
@@ -149,11 +149,6 @@ public class Person {
         if (!getAddress().isEmpty()) {
             builder.append("; Address: ")
                     .append(getAddress());
-        }
-
-        if (!Schedule.isEmptySchedule(getSchedule())) {
-            builder.append("; Events: ")
-                    .append(getSchedule());
         }
 
         Set<Tag> tags = getTags();

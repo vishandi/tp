@@ -18,7 +18,6 @@ import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Telegram;
-import seedu.address.model.schedule.Schedule;
 
 public class JsonAdaptedPersonTest {
     private static final String INVALID_NAME = "R@chel";
@@ -32,7 +31,8 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_TELEGRAM = BENSON.getTelegram().toString();
     private static final String VALID_GITHUB = BENSON.getGithub().toString();
-    private static final Schedule VALID_SCHEDULE = BENSON.getSchedule();
+    private static final JsonAdaptedSchedule VALID_SCHEDULE = new JsonAdaptedSchedule(
+            BENSON.getSchedule().getEvents().stream().map(JsonAdaptedEvent::new).collect(Collectors.toList()));
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());

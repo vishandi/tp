@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.Tag;
 
 /**
  * Jackson-friendly version of {@link Tag}.
@@ -22,7 +22,7 @@ class JsonAdaptedTag {
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Constructs a {@code JsonAdaptedTag} using the given {@code Tag} for Jackson use.
      */
     public JsonAdaptedTag(Tag source) {
         tagName = source.tagName;

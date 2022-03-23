@@ -59,7 +59,7 @@ class EditEventCommandTest {
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }
 
-    /* Not sure why this test method pass on computer but not with gradlew
+    /* Not sure why this test method pass on computer but not with gradlew. Need more time to look into the problem.
     @Test
     public void execute_someFieldsSpecified_success() {
         Person firstPerson = model.getFilteredPersonList().get(0);
@@ -80,7 +80,7 @@ class EditEventCommandTest {
         String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(firstPerson, editedPerson);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }

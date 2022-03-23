@@ -1,15 +1,18 @@
 package seedu.address.model.schedule;
 
+import static java.time.temporal.TemporalAdjusters.next;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
+import java.util.logging.Logger;
 
-import seedu.address.model.recurfrequency.RecurFrequency;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 
 /**
  * Represents a scheduled Event.
@@ -17,38 +20,35 @@ import seedu.address.model.recurfrequency.RecurFrequency;
  */
 public class Event implements Comparable<Event> {
 
+    public static final String DEFAULT_DATE = "2022-12-20";
     public static final String DEFAULT_TIME = "00:00";
     public static final String DEFAULT_DURATION = "2H";
+    public static final String DEFAULT_EVENT_DESCRIPTION = "CS2103T Tutorial";
     public static final String FULL_DAY_EVENT_DURATION = "24H";
     public static final String DATE_MESSAGE_CONSTRAINTS = "Event date should be in YYYY-MM-DD format";
-    public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in XHYM, XHY, XH or X format,"
+    public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in"
+            + " XHYM, XH, YM or X format,"
             + " where X is an integer representing the number of hours"
             + " and Y is an integer representing the number of minutes.";
     public static final String TIME_MESSAGE_CONSTRAINTS = "Event time should be in HH:MM format";
     public static final String MISSING_TIME_MESSAGE = "The event start time must be specified "
             + "if the duration is specified!";
+    public static final String MISSING_RECUR_FREQUENCY_CASE =
+            "%s switch case is missing in Event::getNextRecurrenceDate! Returning initial date...";
 
-    private static final String PLACEHOLDER_EVENT_DESCRIPTION = "Event Description";
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private final EventDescription eventDescription;
     private final LocalDate date;
     private final LocalTime time;
     private final Duration duration;
     private final RecurFrequency recurFrequency;
 
-    private Event() {
-        this.eventDescription = new EventDescription(PLACEHOLDER_EVENT_DESCRIPTION);
-        this.date = LocalDate.now();
-        this.time = LocalTime.now();
-        this.duration = Duration.ZERO;
-        this.recurFrequency = null;
-    }
-
     /**
      * Every field must be present, and only recurFrequency can be null.
      */
     public Event(EventDescription eventDescription, LocalDate date, LocalTime time, Duration duration,
                  RecurFrequency recurFrequency) {
-        requireAllNonNull(eventDescription, date, time, duration);
+        requireAllNonNull(eventDescription, date, time, duration, recurFrequency);
         this.eventDescription = eventDescription;
         this.date = date;
         this.time = time;
@@ -80,16 +80,12 @@ public class Event implements Comparable<Event> {
         return eventDescription;
     }
 
-    public Optional<RecurFrequency> getRecurFrequency() {
-        return Optional.ofNullable(recurFrequency);
+    public RecurFrequency getRecurFrequency() {
+        return recurFrequency;
     }
 
-    /**
-     * Returns true if the Event is recurring.
-     * @return
-     */
-    public boolean isRecurring() {
-        return getRecurFrequency().isPresent();
+    public Event getNextRecurringEvent() {
+        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
     }
 
     /**
@@ -97,6 +93,42 @@ public class Event implements Comparable<Event> {
      */
     public static boolean isValidEvent(Event event) {
         return EventDescription.isValidEventDescription(event.getEventDescription().toString());
+    }
+
+    /**
+     * Returns the next recurring {@code LocalDate} of the {@code Event}, which can be today,
+     * if the {@code Event} is recurring. Otherwise, returns the {@code Event} date.
+     */
+    public LocalDate getNextRecurrenceDate() {
+        LocalDate newDate = date;
+        LocalDate today = LocalDate.now();
+        switch (recurFrequency) {
+        case NONE:
+            return date;
+        case DAILY:
+            if (today.isAfter(date)) {
+                newDate = today;
+            }
+            break;
+        case WEEKLY:
+            if (today.isAfter(date)) {
+                DayOfWeek dayOfWeek = date.getDayOfWeek();
+                newDate = today.with(next(dayOfWeek));
+            }
+            break;
+        case BIWEEKLY:
+            if (today.isAfter(date)) {
+                DayOfWeek dayOfWeek = date.getDayOfWeek();
+                newDate = today.with(next(dayOfWeek));
+                if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
+                    newDate = newDate.with(next(dayOfWeek));
+                }
+            }
+            break;
+        default:
+            logger.warning(String.format(MISSING_RECUR_FREQUENCY_CASE, recurFrequency));
+        }
+        return newDate;
     }
 
     /**
@@ -151,10 +183,9 @@ public class Event implements Comparable<Event> {
         if (numDays > 0) {
             plusDays = String.format(" (+%s)", numDays);
         }
-
-        return String.format("%s %s %s-%s%s%s", eventDescription, date.format(
+        return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
                         DateTimeFormatter.ofPattern("dd-MMM-yyyy")), time, getEndTime(),
-                plusDays, getRecurFrequency().map(x -> " " + x).orElse(""));
+                plusDays, getRecurFrequency().getLabel());
     }
 
 }

@@ -23,10 +23,10 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Tag;
 import seedu.address.model.person.Telegram;
-import seedu.address.model.recurfrequency.RecurFrequency;
 import seedu.address.model.schedule.EventDescription;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.schedule.RecurFrequency;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -34,6 +34,10 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static final String DURATION_HOURS_REGEX = "^[0-9]*H?";
+    private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M";
+    private static final String DURATION_MINUTES_REGEX = "[0-9]*M";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -107,7 +111,7 @@ public class ParserUtil {
         if (!Telegram.isValidTelegram(trimmedUsername) || trimmedUsername.equals("")) {
             throw new ParseException(Telegram.MESSAGE_CONSTRAINTS);
         }
-        return new Telegram(username);
+        return new Telegram(trimmedUsername);
     }
 
     /**
@@ -122,7 +126,7 @@ public class ParserUtil {
         if (!GitHub.isValidGitHub(trimmedUsername) || trimmedUsername.equals("")) {
             throw new ParseException(GitHub.MESSAGE_CONSTRAINTS);
         }
-        return new GitHub(username);
+        return new GitHub(trimmedUsername);
     }
 
     /**
@@ -211,12 +215,19 @@ public class ParserUtil {
     public static Duration parseDuration(String duration) throws ParseException {
         requireNonNull(duration);
         String trimmedDuration = duration.trim().toUpperCase();
+        int hours = 0;
+        int minutes = 0;
         try {
-            String[] splitDuration = trimmedDuration.split("H");
-            int hours = Integer.parseInt(splitDuration[0]);
-            int minutes = 0;
-            if (splitDuration.length > 1) {
+            if (trimmedDuration.matches(DURATION_HOURS_MINUTES_REGEX)) {
+                String[] splitDuration = trimmedDuration.split("H");
+                hours = Integer.parseInt(splitDuration[0]);
                 minutes = Integer.parseInt(splitDuration[1].split("M")[0]);
+            } else if (trimmedDuration.matches(DURATION_HOURS_REGEX)) {
+                hours = Integer.parseInt(trimmedDuration.split("H")[0]);
+            } else if (trimmedDuration.matches(DURATION_MINUTES_REGEX)) {
+                minutes = Integer.parseInt(trimmedDuration.split("M")[0]);
+            } else {
+                throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
             }
             return Duration.ofHours(hours).plusMinutes(minutes);
         } catch (DateTimeParseException | NumberFormatException e) {
@@ -231,9 +242,7 @@ public class ParserUtil {
      * @throws ParseException if the given {@code recurFrequency} is invalid.
      */
     public static RecurFrequency parseRecurFrequency(String recurFrequency) throws ParseException {
-        if (recurFrequency == null) {
-            return null;
-        }
+        requireNonNull(recurFrequency);
         String trimmedRecurFrequency = recurFrequency.trim();
         return RecurFrequency.of(trimmedRecurFrequency);
     }

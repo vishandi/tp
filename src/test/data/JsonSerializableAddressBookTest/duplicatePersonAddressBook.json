@@ -8,19 +8,17 @@
     "address": "123, Jurong West Ave 6, #08-111",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "NONE"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "NONE"
       } ]
     },
     "tagged": [ "friends" ]
@@ -33,20 +31,19 @@
     "address": "4th street",
     "schedule" : {
       "events" : [ {
-        "eventDescription" : {
-          "eventDescription" : "CS2103T Tutorial"
-        },
+        "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
         "time" : "10:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "NONE"
       }, {
-        "eventDescription" : {
-          "eventDescription" : "CS2106 Lab"
-        },
+        "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
         "time" : "12:00:00",
-        "duration" : "PT3H"
+        "duration" : "PT3H",
+        "recurFrequency" : "NONE"
       } ]
-    }
+    },
+    "tagged": [ "friends" ]
   } ]
 }
