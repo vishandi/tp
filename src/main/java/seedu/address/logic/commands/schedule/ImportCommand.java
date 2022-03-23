@@ -43,22 +43,21 @@ public class ImportCommand extends EditTypeCommand {
     public static final String INVALID_FILE_MESSAGE =
             "File is empty, does not exist, or is not in json format! %s's schedule is unchanged.";
     public static final String FAILED_TO_READ_FILE_MESSAGE = "Failed to read from file: %s";
-    public static final String VALID_DATA_FORMAT_EXAMPLE =
-            "{\n" +
-                    "  \"events\" : [ {\n" +
-                    "    \"eventDescription\" : \"CS2106 Tutorial\",\n" +
-                    "    \"date\" : \"2022-03-14\",\n" +
-                    "    \"time\" : \"10:00:00\",\n" +
-                    "    \"duration\" : \"PT1H\",\n" +
-                    "    \"recurFrequency\" : \"WEEKLY\"\n" +
-                    "  }, {\n" +
-                    "    \"eventDescription\" : \"Alice Birthday Surprise\",\n" +
-                    "    \"date\" : \"2022-03-14\",\n" +
-                    "    \"time\" : \"17:00:00\",\n" +
-                    "    \"duration\" : \"PT4H\",\n" +
-                    "    \"recurFrequency\" : \"WEEKLY\"\n" +
-                    "  } ]\n" +
-                    "}";
+    public static final String VALID_DATA_FORMAT_EXAMPLE = "{\n"
+                    + "  \"events\" : [ {\n"
+                    + "    \"eventDescription\" : \"CS2106 Tutorial\",\n"
+                    + "    \"date\" : \"2022-03-14\",\n"
+                    + "    \"time\" : \"10:00:00\",\n"
+                    + "    \"duration\" : \"PT1H\",\n"
+                    + "    \"recurFrequency\" : \"WEEKLY\"\n"
+                    + "  }, {\n"
+                    + "    \"eventDescription\" : \"Alice Birthday Surprise\",\n"
+                    + "    \"date\" : \"2022-03-14\",\n"
+                    + "    \"time\" : \"17:00:00\",\n"
+                    + "    \"duration\" : \"PT4H\",\n"
+                    + "    \"recurFrequency\" : \"WEEKLY\"\n"
+                    + "  } ]\n"
+                    + "}";
     public static final String MESSAGE_FAILURE_WITH_EXAMPLE =
             MESSAGE_FAILURE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
 
