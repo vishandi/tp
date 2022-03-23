@@ -11,7 +11,6 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":Person" as Person LOGIC_COLOR
 end box
 
 [-> LogicManager : execute("addevent 1 ed/Tutorial da/2022-03-14")
@@ -45,18 +44,6 @@ deactivate AddressBookParser
 
 LogicManager -> AddEventCommand : execute(model)
 activate AddEventCommand
-
-AddEventCommand -> Model : getFilteredPersonList()
-activate Model
-
-Model --> AddEventCommand
-deactivate Model
-
-AddEventCommand -> Person : getSchedule()
-activate Person
-
-Person --> AddEventCommand : scheduleToEdit
-deactivate Person
 
 AddEventCommand -> AddEventCommand : createEditedSchedule(scheduleToEdit, eventToAdd)
 activate AddEventCommand
