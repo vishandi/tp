@@ -49,19 +49,36 @@ public class ExportCommand extends Command {
         }
 
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-        Schedule toStoreSchedule = targetPerson.getSchedule();
+        Schedule toExportSchedule = targetPerson.getSchedule();
 
-        if (Schedule.isEmptySchedule(toStoreSchedule)) {
+        if (Schedule.isEmptySchedule(toExportSchedule)) {
             throw new CommandException(String.format(Schedule.EMPTY_SCHEDULE_MESSAGE, targetPerson.getName()));
         }
 
         Path exportFile = Paths.get("data", String.format("%1$s.json", targetPerson.getName()));
         try {
-            JsonUtil.saveJsonFile(new JsonAdaptedSchedule(toStoreSchedule), exportFile);
+            JsonUtil.saveJsonFile(new JsonAdaptedSchedule(toExportSchedule), exportFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetPerson.getName()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instance of handles nulls
+        if (!(other instanceof  ExportCommand)) {
+            return false;
+        }
+
+        // state check
+        ExportCommand e = (ExportCommand) other;
+        return targetIndex.equals(e.targetIndex);
     }
 }
