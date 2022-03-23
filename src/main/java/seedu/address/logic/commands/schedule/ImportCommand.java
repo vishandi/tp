@@ -35,7 +35,7 @@ public class ImportCommand extends EditTypeCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a schedule from a json file and "
             + "replaces the indexed person's schedule with the imported schedule.\n"
             + "Parameters: PERSON_INDEX (must be a positive integer) "
-            + PREFIX_FILEPATH + "FILEPATH\n"
+            + PREFIX_FILEPATH + "FILE_PATH\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_FILEPATH + "typicalSchedule.json";
 
     public static final String MESSAGE_SUCCESS = "%1$s's schedule has been replaced with the imported schedule!";

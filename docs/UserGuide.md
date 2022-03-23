@@ -274,7 +274,8 @@ Imports a schedule from a file to the person at the specified index.
 Format: `import INDEX pa/FILE_PATH`
 
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
-* The file's data **must be in json format**, but the file itself may have any extension (eg. .json, .txt etc.)
+* The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.)
+* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path)
 
 Examples:
 `import 1 pa/typicalSchedule.json`
