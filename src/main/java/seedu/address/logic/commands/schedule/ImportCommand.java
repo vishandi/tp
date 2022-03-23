@@ -40,7 +40,8 @@ public class ImportCommand extends EditTypeCommand {
     public static final String MESSAGE_SUCCESS = "%1$s's schedule has been replaced with the imported schedule!";
     public static final String MESSAGE_FAILURE =
             "Data in the specified file path is in invalid format, %1$s's schedule is unchanged.";
-    public static final String EMPTY_FILE_MESSAGE = "File is empty! %1$s's schedule is unchanged.";
+    public static final String INVALID_FILE_MESSAGE =
+            "File is empty, does not exist, or not in json format! %1$s's schedule is unchanged.";
 
     private final Index targetIndex;
     private final Path filePath;
@@ -65,11 +66,11 @@ public class ImportCommand extends EditTypeCommand {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
 
-        Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule = JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
+        Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule =
+                JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
         if (!importedJsonAdaptedSchedule.isPresent()) {
-            return new CommandResult(String.format(EMPTY_FILE_MESSAGE, personToEdit.getName()));
+            return new CommandResult(String.format(INVALID_FILE_MESSAGE, personToEdit.getName()));
         }
-        
         Schedule importedSchedule;
         try {
             importedSchedule = importedJsonAdaptedSchedule.get().toModelType();

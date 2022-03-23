@@ -43,7 +43,7 @@ class AddEventCommandTest {
     }
 
     @Test
-    public void execute_allFieldsSpecified_success() {
+    public void execute_allFieldsSpecified_success() throws Exception {
         Event toAddEvent = eventBuilder.build();
         AddEventCommand addEventCommand =
                 new AddEventCommand(INDEX_FIRST_PERSON, toAddEvent);
@@ -59,7 +59,7 @@ class AddEventCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndex_failure() {
+    public void execute_invalidPersonIndex_failure() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         Event toAddEvent = eventBuilder.build();
         AddEventCommand addEventCommand = new AddEventCommand(outOfBoundIndex, toAddEvent);

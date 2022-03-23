@@ -30,7 +30,7 @@ public class DeleteEventCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndices_success() {
+    public void execute_validIndices_success() throws Exception {
         Index indexHendri = INDEX_HENDRI;
         Index indexFirstEvent = INDEX_FIRST_EVENT;
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(
@@ -56,7 +56,7 @@ public class DeleteEventCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndex_failure() {
+    public void execute_invalidPersonIndex_failure() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteEventCommand deleteEventCommand = new DeleteEventCommand(
                 outOfBoundIndex,
@@ -67,7 +67,7 @@ public class DeleteEventCommandTest {
     }
 
     @Test
-    public void execute_invalidEventIndex_failure() {
+    public void execute_invalidEventIndex_failure() throws Exception {
         Person hendri = getTypicalPersons().get(
                 INDEX_HENDRI.getZeroBased());
         Index outOfBoundIndex =
