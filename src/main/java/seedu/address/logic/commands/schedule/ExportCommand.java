@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.logic.commands.Command;
@@ -30,6 +32,7 @@ public class ExportCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    private static final Logger logger = LogsCenter.getLogger(ExportCommand.class);
     private final Index targetIndex;
 
     /**
@@ -42,15 +45,15 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        logger.info("Exporting schedule...");
 
+        List<Person> lastShownList = model.getFilteredPersonList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
-        Schedule toExportSchedule = targetPerson.getSchedule();
 
+        Schedule toExportSchedule = targetPerson.getSchedule();
         if (Schedule.isEmptySchedule(toExportSchedule)) {
             throw new CommandException(String.format(Schedule.EMPTY_SCHEDULE_MESSAGE, targetPerson.getName()));
         }
@@ -58,8 +61,9 @@ public class ExportCommand extends Command {
         Path exportFile = Paths.get("data", String.format("%1$s.json", targetPerson.getName()));
         try {
             JsonUtil.saveJsonFile(new JsonAdaptedSchedule(toExportSchedule), exportFile);
+            logger.info(targetPerson.getName() + "'s schedule saved at " + exportFile + ".");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Unable to save " + targetPerson.getName() + "'s schedule in " + exportFile + ": " + e);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetPerson.getName()));
@@ -73,7 +77,7 @@ public class ExportCommand extends Command {
         }
 
         // instance of handles nulls
-        if (!(other instanceof  ExportCommand)) {
+        if (!(other instanceof ExportCommand)) {
             return false;
         }
 
