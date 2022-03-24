@@ -155,14 +155,14 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 ### FreeSchedule feature
-This section details how the `freeSchedule` command is implemented. This command allows the user to find contacts who are free at the specified time and date. The contacts who are free will then be displayed just like the `list` command.
+This section details how the `freeSchedule` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
 
 ####Implementation
 `FreeScheduleCommandParser`, `FreeScheduleCommand` and `IsPersonFreePredicate` classes are involved in the execution of the `freeSchedule` command.
 
-The `parse` method inside the `FreeScheduleCommandParser` receives the user input, extracts the required arguments. It then creates a new `IsPersonFreePredicate` object that will help check if the user's contacts' schedule coincides with the specified time and date.
+The `parse` method inside the `FreeScheduleCommandParser` receives the user input and extracts the required arguments. It then creates a new `IsPersonFreePredicate` object that will help check if the user's contacts' schedule coincides with the specified time and date.
 
-Given below is one example usage scenario and explanation on how the `freeSchedule` feature behaves at each step. You may also refer the sequence diagram below.
+Given below is one example usage scenario and explanation on how the `freeSchedule` command behaves at each step. You may also refer to the sequence diagram below.
 
 Step 1. The user enters `freeSchedule ti/10:00 da/2022-03-24` to find if there are any contacts who are free at the specified time and date. The arguments `ti/10:00 da/2022-03-24` are passed to the `FreeScheduleCommandParser` through its `parse` method call.
 
@@ -177,44 +177,32 @@ Step 5. During the execution of the command, the `FreeScheduleCommand` object ca
 Step 6. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
 
 ####Sequence Diagram
-The following sequence diagram shows how the `freeSchedule` feature works for the example above:
+The following sequence diagram shows how the `freeSchedule` command works for the example above:
 ![FreeScheduleSequenceDiagram](images/FreeScheduleSequenceDiagram.png)
 
 ####Activity Diagram
-The following activity diagram summarizes what happens when the `freeSchedule` feature is triggered:
+The following activity diagram summarizes what happens when the `freeSchedule` command is triggered:
 ![FreeScheduleActivityDiagram](images/FreeScheduleActivityDiagram.png)
 
 ####Design Considerations
-**Aspect: Should we consider the recurring events?**
-* Alternative 1: The date collision do not consider if the events will repeat in the future.
-  * Pro: 
-    * Easier implementation as we will only have to check if the events happen on the same date as the specified date.
-  * Con: 
-    * User will not be able to plan meetings with contacts in advance.
-* Alternative 2 (current implementation): The date collision considers events which will repeat in the future.
-  * Pro: 
-    * Users will be able to plan meetings with contacts in advance.
-  * Con: 
-    * Harder implementation as well will have to consider the recurring frequency every time we check the dates with the event.
-
-**Aspect: What to do with dates that have passed?**
-* Alternative 1 (current implementation): Ignore dates that have passed.
+**Aspect: Should we allow dates that have already passed?**
+* **Alternative 1 (current implementation)**: Ignore dates that have passed.
   * Pro:
     * Prevents users from expecting the wrong results when recurring events are involved.
   * Cons:
     * Harder implementation as we would have to consider all events with respect to today.
-* Alternative 2: Treat the past dates as a normal dates.
+* **Alternative 2**: Treat the past dates as a normal dates.
   * Pros:
     * Easy implementation as there is nothing special to take note.
   * Con:
     * Does not make sense to check dates have already passed.
 
 **Aspect: What to do with contacts who do not have a schedule?**
-* Alternative 1: Contacts without schedule are always free
+* **Alternative 1**: Contacts without schedule are always free
   * Cons:
     * Contacts without schedule may not be free at the specified date and time.
     * We will have to check all contacts for their schedule and display all contacts.
-* Alternative 2 (current implementation): Contacts without schedule are always busy
+* **Alternative 2 (current implementation)**: Contacts without schedule are always busy
   * Pros:
     * Higher certainty that contacts shown will be free.
     * Less information to process as we ignore contacts without schedule.
