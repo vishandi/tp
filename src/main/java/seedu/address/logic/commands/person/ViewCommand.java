@@ -45,4 +45,11 @@ public class ViewCommand extends Command {
                 String.format(MESSAGE_VIEW_PERSON_SUCCESS, personToView)
         );
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewCommand // instanceof handles nulls
+                && targetIndex.equals(((ViewCommand) other).targetIndex)); // state check
+    }
 }
