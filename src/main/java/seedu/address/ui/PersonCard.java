@@ -17,7 +17,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.schedule.Schedule;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Person} in the list version.
  */
 public class PersonCard extends UiPart<Region> {
 
