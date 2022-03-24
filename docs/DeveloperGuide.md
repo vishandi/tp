@@ -154,6 +154,72 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+### FreeSchedule feature
+This section details how the `freeSchedule` command is implemented. This command allows the user to find contacts who are free at the specified time and date. The contacts who are free will then be displayed just like the `list` command.
+
+####Implementation
+`FreeScheduleCommandParser`, `FreeScheduleCommand` and `IsPersonFreePredicate` classes are involved in the execution of the `freeSchedule` command.
+
+The `parse` method inside the `FreeScheduleCommandParser` receives the user input, extracts the required arguments. It then creates a new `IsPersonFreePredicate` object that will help check if the user's contacts' schedule coincides with the specified time and date.
+
+Given below is one example usage scenario and explanation on how the `freeSchedule` feature behaves at each step. You may also refer the sequence diagram below.
+
+Step 1. The user enters `freeSchedule ti/10:00 da/2022-03-24` to find if there are any contacts who are free at the specified time and date. The arguments `ti/10:00 da/2022-03-24` are passed to the `FreeScheduleCommandParser` through its `parse` method call.
+
+Step 2. The user input `ti/10:00 da/2022-03-24` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseTime` and `ParserUtil#parseDate` are used to check for invalid inputs.
+
+Step 3. A new `IsPersonFreePredicate` object is created and encapsulated by a new `FreeScheduleCommand` object.
+
+Step 4. The `FreeScheduleCommand` object is returned to the `LogicManager`.
+
+Step 5. During the execution of the command, the `FreeScheduleCommand` object calls `Model#updateFilteredPersonList` method with the `IsPersonFreePredicate` to update the display of the current list of contacts. If there are contacts who are free at the specified time and date, then a list of the contacts who are free will be shown. Otherwise, an empty list will be shown.
+
+Step 6. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
+
+####Sequence Diagram
+The following sequence diagram shows how the `freeSchedule` feature works for the example above:
+![FreeScheduleSequenceDiagram](images/FreeScheduleSequenceDiagram.png)
+
+####Activity Diagram
+The following activity diagram summarizes what happens when the `freeSchedule` feature is triggered:
+![FreeScheduleActivityDiagram](images/FreeScheduleActivityDiagram.png)
+
+####Design Considerations
+**Aspect: Should we consider the recurring events?**
+* Alternative 1: The date collision do not consider if the events will repeat in the future.
+  * Pro: 
+    * Easier implementation as we will only have to check if the events happen on the same date as the specified date.
+  * Con: 
+    * User will not be able to plan meetings with contacts in advance.
+* Alternative 2 (current implementation): The date collision considers events which will repeat in the future.
+  * Pro: 
+    * Users will be able to plan meetings with contacts in advance.
+  * Con: 
+    * Harder implementation as well will have to consider the recurring frequency every time we check the dates with the event.
+
+**Aspect: What to do with dates that have passed?**
+* Alternative 1 (current implementation): Ignore dates that have passed.
+  * Pro:
+    * Prevents users from expecting the wrong results when recurring events are involved.
+  * Cons:
+    * Harder implementation as we would have to consider all events with respect to today.
+* Alternative 2: Treat the past dates as a normal dates.
+  * Pros:
+    * Easy implementation as there is nothing special to take note.
+  * Con:
+    * Does not make sense to check dates have already passed.
+
+**Aspect: What to do with contacts who do not have a schedule?**
+* Alternative 1: Contacts without schedule are always free
+  * Cons:
+    * Contacts without schedule may not be free at the specified date and time.
+    * We will have to check all contacts for their schedule and display all contacts.
+* Alternative 2 (current implementation): Contacts without schedule are always busy
+  * Pros:
+    * Higher certainty that contacts shown will be free.
+    * Less information to process as we ignore contacts without schedule.
+  * Con:
+    * Contacts without schedule may be free at the specified date and time.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -382,10 +448,51 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Saving data
+### Getting contacts who are free at specified time and date
+1. Assuming that all contacts do not have a schedule.
+   1. Test case: `freeSchedule ti/10:00 da/2022-05-01`<br>
+      Expected: No contacts displayed.
+   
+   2. Test case: `freeSchedule ti/10:00`
+      Expected: Same result as previous.
+
+2. Assuming that some contacts have a schedule.
+   Situation 1: All contacts are free today at 10am.
+   1. Test case: `freeSchedule ti/10:00`<br>
+      Expected: Displays all contacts with a schedule.
+   
+   Situation 2: All contacts are not free today at specified time.
+   1. Test case: `freeSchedule ti/10:00`<br>
+      Expected: No contacts displayed.
+   
+   Situation 3: Some contacts are free today at specified time.
+   1. Test case: `freeSchedule ti/10:00`<br>
+      Expected: Contacts who are free today at 10am displayed.
+   2. Test case: `freeSchedule ti/08:00 ti/10:00`<br>
+      Expected: Contacts who are free today at 10am will be displayed.
+   3. Test case: `freeSchedule ti/200:00 ti/10:00`<br>
+      Expected: Same result as previous.
+
+   Situation 4. Giving a date that is in the past.
+   1. Test case: `freeSchedule ti/10:00 da/2000-01-01`<br>
+      Expected: No contacts displayed.
+
+3. Assuming that some contacts have recurring events.
+   Situation 1: Contacts have daily events.
+   1. Test case: 
+
+4. Wrong inputs
+   1. Test case: `freeSchedule ti/1000`
+      Expected: Nothing happens. Error message written in result box.
+   2. Test case: `freeSchedule ti/10:00 da/01 Dec 2022`
+      Expected: Same result as previous.
+   
+_{ more test cases to be added }_
+
+#### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+1. _{ more test cases …​ }_free 
