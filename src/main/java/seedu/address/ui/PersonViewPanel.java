@@ -41,7 +41,7 @@ public class PersonViewPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ViewPersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonViewCard(person, getIndex() + 1).getRoot());
             }
         }
     }
