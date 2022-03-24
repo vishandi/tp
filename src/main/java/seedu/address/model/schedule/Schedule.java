@@ -44,7 +44,7 @@ public class Schedule {
     }
 
     /**
-     * Returns true if the given event is valid.
+     * Returns true if the given schedule is valid.
      */
     public static boolean isValidSchedule(Schedule schedule) {
         for (Event event : schedule.getEvents()) {
