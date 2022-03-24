@@ -74,7 +74,7 @@ public class ImportCommand extends EditTypeCommand {
             NOT_JSON_FORMAT_MESSAGE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
 
     public static final String INVALID_DATA_MESSAGE =
-            "Data contains an empty schedule, or has invalid headers and/or values! %s's schedule is unchanged.";
+            "Data contains invalid headers and/or values! %s's schedule is unchanged.";
     public static final String INVALID_DATA_REFER_TEMPLATE =
             INVALID_DATA_MESSAGE + "\n" + REFER_TEMPLATE_MESSAGE;
     public static final String INVALID_DATA_WITH_EXAMPLE =
