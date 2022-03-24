@@ -15,9 +15,9 @@ import seedu.address.model.schedule.Schedule;
 /**
  * An UI component that displays information of a {@code Person} in the viewed version.
  */
-public class PersonViewCard extends UiPart<Region> {
+public class ScheduleCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonViewCard.fxml";
+    private static final String FXML = "ScheduleCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -45,7 +45,7 @@ public class PersonViewCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonViewCard(Person person) {
+    public ScheduleCard(Person person) {
         super(FXML);
         ImageView scheduleIcon = new ImageView("/images/schedule_icon.png");
         scheduleIcon.setFitHeight(16);
@@ -74,12 +74,12 @@ public class PersonViewCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonViewCard)) {
+        if (!(other instanceof ScheduleCard)) {
             return false;
         }
 
         // state check
-        PersonViewCard card = (PersonViewCard) other;
+        ScheduleCard card = (ScheduleCard) other;
         return person.equals(card.person);
     }
 }
