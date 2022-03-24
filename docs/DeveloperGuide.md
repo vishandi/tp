@@ -163,8 +163,8 @@ To implement `viewSchedule`, we made a new `FilteredList<Person>` object called 
 Moreover, we created `PersonViewPanel.java`, `PersonViewCard.java`, and their respective `.fxml` files so it will be 
 easier to maintain or develop.
 
-Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take a particular index
-as input, and we filter the `ViewPersonList` by some criteria.
+Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, 
+and we retrieve information based on the filtered list.
 
 To **view** a person, the user needs to run the **view** command.
 The parsing of the viewSchedule command is handled by the following classes:
@@ -186,16 +186,16 @@ A successful execution of the **view** command is described as follows:
 <img src="images/ViewScheduleSequenceDiagram.png" />
 
 #### Design Considerations
-##### ViewedPersonList or ViewedPerson
+##### ViewedPersonList or ViewedPerson to store information which Persons' Schedules to View.
 * **Alternative 1 (current choice):** ViewedPersonList as a FilteredList
     * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
     * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
-* **Alternative 2:** Viewed Person as a Person
+* **Alternative 2:** ViewedPerson as a Person
     * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
     * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
   display more than one Person.
-##### Displayed Attributes
-* **Alternative 1 (current choice):** Name, Phone, Schedule; No Schedule on Person List
+##### Displayed Attributes upon calling viewSchedule
+* **Alternative 1 (current choice):** Display required attributes like Name, Phone, and Schedule; No Schedule on Person List
     * Pros: Cleaner look of Person List, can display more detailed version of Events.
     * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
 * **Alternative 2:** All attributes of a Person both on Schedule and Person List
