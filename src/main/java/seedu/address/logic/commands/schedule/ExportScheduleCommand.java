@@ -24,9 +24,9 @@ import seedu.address.storage.JsonAdaptedSchedule;
 /**
  * Exports the {@code Schedule} of a {@code Person}.
  */
-public class ExportCommand extends Command {
+public class ExportScheduleCommand extends Command {
 
-    public static final String COMMAND_WORD = "export";
+    public static final String COMMAND_WORD = "exportSchedule";
     public static final String MESSAGE_SUCCESS = "%1$s's schedule exported!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports the schedule of the person identified by the index number used in the displayed person list.\n"
@@ -34,13 +34,13 @@ public class ExportCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_SCHEDULE_EMPTY = "No existing schedule for %1$s.";
 
-    private static final Logger logger = LogsCenter.getLogger(ExportCommand.class);
+    private static final Logger logger = LogsCenter.getLogger(ExportScheduleCommand.class);
     private final Index targetIndex;
 
     /**
      * @param index of the person's schedule to export
      */
-    public ExportCommand(Index index) {
+    public ExportScheduleCommand(Index index) {
         targetIndex = index;
     }
 
@@ -81,12 +81,12 @@ public class ExportCommand extends Command {
         }
 
         // instance of handles nulls
-        if (!(other instanceof ExportCommand)) {
+        if (!(other instanceof ExportScheduleCommand)) {
             return false;
         }
 
         // state check
-        ExportCommand e = (ExportCommand) other;
+        ExportScheduleCommand e = (ExportScheduleCommand) other;
         return targetIndex.equals(e.targetIndex);
     }
 }
