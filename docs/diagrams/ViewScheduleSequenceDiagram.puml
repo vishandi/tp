@@ -56,7 +56,7 @@ activate SamePersonPredicate
 SamePersonPredicate --> ViewScheduleCommand : predicate
 deactivate SamePersonPredicate
 
-ViewScheduleCommand -> Model : updateViewedPersonList(predicate)
+ViewScheduleCommand -> Model : updateViewSchedulePerson(predicate)
 activate Model
 
 Model --> ViewScheduleCommand

@@ -40,7 +40,7 @@ public class ViewScheduleCommand extends Command {
         }
 
         Person personToView = lastShownList.get(targetIndex.getZeroBased());
-        model.updateViewedPersonList(new SamePersonPredicate(personToView));
+        model.updateViewSchedulePerson(new SamePersonPredicate(personToView));
         return new CommandResult(
                 String.format(MESSAGE_VIEW_PERSON_SUCCESS, personToView.getName().value)
         );

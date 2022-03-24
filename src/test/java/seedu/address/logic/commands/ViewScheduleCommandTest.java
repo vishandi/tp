@@ -34,7 +34,7 @@ public class ViewScheduleCommandTest {
                 personToView.getName().value);
 
         SamePersonPredicate predicate = new SamePersonPredicate(personToView);
-        expectedModel.updateViewedPersonList(predicate);
+        expectedModel.updateViewSchedulePerson(predicate);
 
         assertCommandSuccess(viewScheduleCommand, model, expectedMessage, expectedModel);
     }
@@ -59,7 +59,7 @@ public class ViewScheduleCommandTest {
 
         SamePersonPredicate predicate = new SamePersonPredicate(personToView);
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.updateViewedPersonList(predicate);
+        expectedModel.updateViewSchedulePerson(predicate);
 
         assertCommandSuccess(viewScheduleCommand, model, expectedMessage, expectedModel);
     }

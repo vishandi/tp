@@ -159,7 +159,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-To implement `viewSchedule`, we made a new `FilteredList<Person>` object called `ViewedPersonList` in `ModelManager` to store the persons that we want to show.
+To implement `viewSchedule`, we made a new `FilteredList<Person>` object called `viewedPerson` in `ModelManager` to store the persons that we want to show.
 Moreover, we created `PersonViewPanel.java`, `PersonViewCard.java`, and their respective `.fxml` files so it will be 
 easier to maintain or develop.
 
@@ -179,18 +179,18 @@ A successful execution of the **view** command is described as follows:
 1. The `ViewScheduleCommand` retrieves the currently listed `Person`'s from the `Model`.
 2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the viewSchedule command.
 3. `ViewScheduleCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
-4. `ViewScheduleCommand` updates the `Model`'s `ViewedPersonList` by parsing in the `SamePersonPredicate`.
+4. `ViewScheduleCommand` updates the `Model`'s `viewedPerson` by parsing in the `SamePersonPredicate`.
 5. `ViewScheduleCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
 6. The GUI will be updated accordingly.
 
 <img src="images/ViewScheduleSequenceDiagram.png" />
 
 #### Design Considerations
-##### ViewedPersonList or ViewedPerson to store information which Persons' Schedules to View.
-* **Alternative 1 (current choice):** ViewedPersonList as a FilteredList
+##### viewedPerson as FilteredList or a Person.
+* **Alternative 1 (current choice):** viewedPerson as a FilteredList
     * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
     * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
-* **Alternative 2:** ViewedPerson as a Person
+* **Alternative 2:** viewedPerson as a Person
     * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
     * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
   display more than one Person.
