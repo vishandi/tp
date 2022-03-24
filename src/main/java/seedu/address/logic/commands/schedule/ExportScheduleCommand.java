@@ -27,7 +27,7 @@ import seedu.address.storage.JsonAdaptedSchedule;
 public class ExportScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "exportSchedule";
-    public static final String MESSAGE_SUCCESS = "%1$s's schedule exported!";
+    public static final String MESSAGE_SUCCESS = "%1$s's schedule exported to %2$s!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports the schedule of the person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -60,7 +60,7 @@ public class ExportScheduleCommand extends Command {
             throw new CommandException(String.format(MESSAGE_SCHEDULE_EMPTY, targetPerson.getName()));
         }
 
-        Path exportFile = Paths.get("data", String.format("%1$s.json", targetPerson.getName()));
+        Path exportFile = Paths.get("data", "export", String.format("%1$s.json", targetPerson.getName()));
         try {
             FileUtil.createIfMissing(exportFile);
             JsonUtil.saveJsonFile(new JsonAdaptedSchedule(toExportSchedule), exportFile);
@@ -70,7 +70,7 @@ public class ExportScheduleCommand extends Command {
             throw new CommandException("Something wrong has occurred. Schedule not exported");
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetPerson.getName(), exportFile));
     }
 
     @Override
