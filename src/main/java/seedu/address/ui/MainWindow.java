@@ -126,9 +126,6 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        System.out.println("HASLJDHASJLDHAKSJDHASD");
-        System.out.println(logic.getViewedPersonList());
-
         viewListPanel = new PersonViewPanel(logic.getViewedPersonList()); //TODO: CHANGE THIS!!!!!!
         viewListPanelPlaceholder.getChildren().add(viewListPanel.getRoot());
     }
