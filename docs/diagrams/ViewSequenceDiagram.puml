@@ -50,7 +50,7 @@ LogicManager -> ViewCommand : execute()
 activate ViewCommand
 
 create SamePersonPredicate
-ViewCommand -> SamePersonPredicate : personToView:Person
+ViewCommand -> SamePersonPredicate : personToView
 activate SamePersonPredicate
 
 SamePersonPredicate --> ViewCommand : predicate
