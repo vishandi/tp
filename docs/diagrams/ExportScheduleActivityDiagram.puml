@@ -1,0 +1,20 @@
+@startuml
+start
+:User executes freeSchedule command;
+
+:FreeScheduleCommandParser parses the user input;
+
+if () then ([valid index])
+    if () then ([non-empty schedule])
+    :Save specified
+    person's schedule;
+    else ([empty schedule])
+    :Throw exception regarding
+    missing schedule;
+    endif
+else ([invalid index])
+    :Throw exception regarding
+    invalid arguments;
+endif
+stop
+@enduml

@@ -155,6 +155,49 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### ExportSchedule feature
+This section details how the `exportSchedule` command is implemented. This command allows the user to export the schedule of contacts in UniGenda.
+
+####Implementation
+`ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command.
+
+The `parse` method inside the `ExportScheduleCommandParser` receives the user input and extracts the required arguments. It will then get the `Schedule` of specified `Person` corresponding to the user input and save the schedule in Json format.
+
+Given below is one example usage scenario and explanation on how the `exportSchedule` command behaves at each step. You may also refer to the sequence diagram below.
+
+Step 1. The user enters `exportSchedule 1` as the command to export the schedule of specified person. The argument `1` is passed to the `ExportScheduleCommandParser` through its `parse` method call.
+
+Step 2. The user input `1` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseIndex` is used to check for invalid or out of range inputs.
+
+Step 3. The `ExportScheduleCommand` object is returned to the `LogicManager`.
+
+Step 4. During the execution of the command, the `ExportScheduleCommand` object checks if the schedule that we are retrieving exists. If it exists, `JsonUtil#saveJsonFile` method will be called. We also ensure that the folder that we are trying to save to exist, if it does not exist, we will create the folder. The schedule is then immediately saved as a Json file.
+
+Step 5. A `CommandResult` object indicating that the `exportSchedule` command is successful will be created and returned to the `LogicManager`.
+
+####Sequence Diagram
+The following sequence diagram shows how the `exportSchedule` command works for the example above:
+![ExportScheduleSequenceDiagram](images/ExportScheduleSequenceDiagram.png)
+
+####Activity Diagram
+The following activity diagram summarizes what happens when then `exportSchedule` command is triggered:
+![ExportScheduleActivityDiagram](images/ExportScheduleActivityDiagram.png)
+
+####Design Considerations
+**Aspect: Where should we save the file?**
+* **Alternative 1**: Users specify where they want the file to be saved.
+  * Pro: 
+    * Users will be able to save wherever they like.
+  * Con:
+    * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
+
+* **Alternative 2 (current implementation)**: We save the file to the data folder.
+  * Pros:
+    * Location for exported file will not change.
+    * Do not have to check if the file path is an absolute path or a relative path.
+  * Con:
+    * Users will not be able to save the file where they like.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
