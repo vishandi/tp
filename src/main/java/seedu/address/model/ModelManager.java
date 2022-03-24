@@ -125,14 +125,19 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Person> getViewedPersonList() {
-        return viewedPerson;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of currently viewed person.
+     */
+    @Override
+    public ObservableList<Person> getViewedPersonList() {
+        return viewedPerson;
     }
 
     @Override
