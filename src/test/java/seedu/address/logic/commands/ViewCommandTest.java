@@ -30,7 +30,7 @@ public class ViewCommandTest {
         Person personToView = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         ViewCommand viewCommand = new ViewCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(ViewCommand.MESSAGE_VIEW_PERSON_SUCCESS, personToView);
+        String expectedMessage = String.format(ViewCommand.MESSAGE_VIEW_PERSON_SUCCESS, personToView.getName().value);
 
         SamePersonPredicate predicate = new SamePersonPredicate(personToView);
         expectedModel.updateViewedPersonList(predicate);
@@ -53,7 +53,7 @@ public class ViewCommandTest {
         Person personToView = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         ViewCommand viewCommand = new ViewCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(ViewCommand.MESSAGE_VIEW_PERSON_SUCCESS, personToView);
+        String expectedMessage = String.format(ViewCommand.MESSAGE_VIEW_PERSON_SUCCESS, personToView.getName().value);
 
         SamePersonPredicate predicate = new SamePersonPredicate(personToView);
         expectedModel.updateFilteredPersonList(predicate);

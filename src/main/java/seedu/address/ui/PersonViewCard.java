@@ -53,8 +53,7 @@ public class PersonViewCard extends UiPart<Region> {
         scheduleIcon.setFitWidth(16);
 
         this.person = person;
-        name.setText(person.getName().value);
-        name.setFont(new Font(100));
+        name.setText(String.format("%1$s's Schedule", person.getName().value));
         phone.setText(person.getPhone().value);
 
         if (!Schedule.isEmptySchedule(person.getSchedule())) {
