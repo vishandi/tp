@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
-import seedu.address.model.schedule.Schedule;
 
 /**
  * An UI component that displays information of a {@code Person} in the list version.

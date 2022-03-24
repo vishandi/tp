@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -7,14 +9,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import seedu.address.model.person.Person;
 import seedu.address.model.schedule.Schedule;
-
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Person} in the viewed version.
@@ -51,7 +48,7 @@ public class PersonViewCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonViewCard(Person person, int displayedIndex) {
+    public PersonViewCard(Person person) {
         super(FXML);
         ImageView scheduleIcon = new ImageView("/images/schedule_icon.png");
         scheduleIcon.setFitHeight(16);
@@ -59,6 +56,7 @@ public class PersonViewCard extends UiPart<Region> {
 
         this.person = person;
         name.setText(person.getName().value);
+        name.setFont(new Font(100));
         phone.setText(person.getPhone().value);
 
         if (!Schedule.isEmptySchedule(person.getSchedule())) {
