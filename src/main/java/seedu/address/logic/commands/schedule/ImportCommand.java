@@ -5,14 +5,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAY
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.CommandResult;
@@ -59,12 +62,21 @@ public class ImportCommand extends EditTypeCommand {
             + "    \"recurFrequency\" : \"WEEKLY\"\n"
             + "  } ]\n"
             + "}";
+    public static final Path TEMPLATE_FILE_PATH = Paths.get("data", "template.json");
+    public static final String REFER_TEMPLATE_MESSAGE =
+            String.format("Refer to %s for a valid json template.", TEMPLATE_FILE_PATH.toAbsolutePath());
+
     public static final String NOT_JSON_FORMAT_MESSAGE =
-            "Data in \"%s\" is empty or not in valid json format! %s's schedule is unchanged.";
+            "\"%s\" is empty or not in valid json format! %s's schedule is unchanged.";
+    public static final String NOT_JSON_FORMAT_REFER_TEMPLATE =
+            NOT_JSON_FORMAT_MESSAGE + "\n" + REFER_TEMPLATE_MESSAGE;
     public static final String NOT_JSON_FORMAT_WITH_EXAMPLE =
             NOT_JSON_FORMAT_MESSAGE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
+
     public static final String INVALID_DATA_MESSAGE =
-            "Data is in valid json format, but contains invalid headers or values! %s's schedule is unchanged.";
+            "Data contains an empty schedule, or has invalid headers and/or values! %s's schedule is unchanged.";
+    public static final String INVALID_DATA_REFER_TEMPLATE =
+            INVALID_DATA_MESSAGE + "\n" + REFER_TEMPLATE_MESSAGE;
     public static final String INVALID_DATA_WITH_EXAMPLE =
             INVALID_DATA_MESSAGE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
 
@@ -104,11 +116,12 @@ public class ImportCommand extends EditTypeCommand {
 
         Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule;
         try {
-            importedJsonAdaptedSchedule =
-                    JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
-        } catch (DataConversionException e) {
-            throw new CommandException(String.format(
+            importedJsonAdaptedSchedule = JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
+        } catch (DataConversionException ive) {
+            createTemplate(String.format(
                     NOT_JSON_FORMAT_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
+            throw new CommandException(String.format(
+                    NOT_JSON_FORMAT_REFER_TEMPLATE, filePath.getFileName(), personToEdit.getName()));
         }
 
         if (!importedJsonAdaptedSchedule.isPresent()) {
@@ -118,10 +131,20 @@ public class ImportCommand extends EditTypeCommand {
         Schedule importedSchedule;
         try {
             importedSchedule = importedJsonAdaptedSchedule.get().toModelType();
-        } catch (IllegalValueException e) {
+        } catch (IllegalValueException ive) {
+            createTemplate(String.format(
+                    INVALID_DATA_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
             throw new CommandException(String.format(
-                    INVALID_DATA_WITH_EXAMPLE, personToEdit.getName()));
+                    INVALID_DATA_REFER_TEMPLATE, personToEdit.getName()));
         }
+
+        if (importedSchedule.isEmpty()) {
+            createTemplate(String.format(
+                    INVALID_DATA_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
+            throw new CommandException(String.format(
+                    INVALID_DATA_REFER_TEMPLATE, personToEdit.getName()));
+        }
+
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setSchedule(importedSchedule);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
@@ -129,6 +152,20 @@ public class ImportCommand extends EditTypeCommand {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName()));
+    }
+
+    /**
+     * Creates a template file with valid schedule data.
+     *
+     * @param errorMessage the error message to throw if template file fails to create
+     * @throws CommandException if template file fails to create
+     */
+    private void createTemplate(String errorMessage) throws CommandException {
+        try {
+            FileUtil.writeToFile(TEMPLATE_FILE_PATH, VALID_DATA_FORMAT_EXAMPLE);
+        } catch (IOException ioe) {
+            throw new CommandException(errorMessage);
+        }
     }
 
     @Override

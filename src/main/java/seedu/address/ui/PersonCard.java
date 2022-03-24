@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
-import seedu.address.model.schedule.Schedule;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -103,7 +102,7 @@ public class PersonCard extends UiPart<Region> {
             Label addressLabel = new Label(person.getAddress().value);
             addressBox.getChildren().add(addressLabel);
         }
-        if (!Schedule.isEmptySchedule(person.getSchedule())) {
+        if (!person.getSchedule().isEmpty()) {
             scheduleBox.getChildren().add(scheduleIcon);
             Label scheduleLabel = new Label(person.getSchedule().toString());
             scheduleBox.getChildren().add(scheduleLabel);
