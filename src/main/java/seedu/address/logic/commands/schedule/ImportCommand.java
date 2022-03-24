@@ -62,7 +62,7 @@ public class ImportCommand extends EditTypeCommand {
             + "    \"recurFrequency\" : \"WEEKLY\"\n"
             + "  } ]\n"
             + "}";
-    public static final Path TEMPLATE_FILE_PATH = Paths.get("data", "template.json");
+    public static final Path TEMPLATE_FILE_PATH = Paths.get("data", "template", "template.json");
     public static final String REFER_TEMPLATE_MESSAGE =
             String.format("Refer to %s for a valid json template.", TEMPLATE_FILE_PATH.toAbsolutePath());
 
@@ -162,6 +162,7 @@ public class ImportCommand extends EditTypeCommand {
      */
     private void createTemplate(String errorMessage) throws CommandException {
         try {
+            FileUtil.createParentDirsOfFile(TEMPLATE_FILE_PATH);
             FileUtil.writeToFile(TEMPLATE_FILE_PATH, VALID_DATA_FORMAT_EXAMPLE);
         } catch (IOException ioe) {
             throw new CommandException(errorMessage);
