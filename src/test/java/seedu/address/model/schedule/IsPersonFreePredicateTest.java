@@ -62,7 +62,7 @@ class IsPersonFreePredicateTest {
         assertTrue(predicate.test(typicalStudent));
     }
 
-    //To retest
+    // To do manual testing
     //    @Test
     //    public void test_isPersonFree_returnsFalse() {
     //        Person studentWithSchedule = new PersonBuilder().withSchedule(getTypicalSchedule()).build();
