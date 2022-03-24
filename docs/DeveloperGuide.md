@@ -186,7 +186,7 @@ The following activity diagram summarizes what happens when then `exportSchedule
 ####Design Considerations
 **Aspect: Where should we save the file?**
 * **Alternative 1**: Users specify where they want the file to be saved.
-  * Pro: 
+  * Pro:
     * Users will be able to save wherever they like.
   * Con:
     * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
