@@ -45,18 +45,6 @@ deactivate AddressBookParser
 LogicManager -> AddEventCommand : execute(model)
 activate AddEventCommand
 
-AddEventCommand -> AddEventCommand : createEditedSchedule(scheduleToEdit, eventToAdd)
-activate AddEventCommand
-
-AddEventCommand --> AddEventCommand : updatedSchedule
-deactivate AddEventCommand
-
-AddEventCommand -> AddEventCommand : createEditedPerson(personToEdit, editPersonDescriptor)
-activate AddEventCommand
-
-AddEventCommand --> AddEventCommand : editedPerson
-deactivate AddEventCommand
-
 AddEventCommand -> Model : setPerson(personToEdit, editedPerson)
 activate Model
 
