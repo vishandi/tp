@@ -155,6 +155,56 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### View Person Feature
+
+#### Implementation
+
+To make the GUI cleaner and simpler, we decided not to display the schedule of each person in the person list.
+Instead, we made another panel on the right that will display the schedule of each person upon calling the function View.
+
+To do this, we made a new `FilteredList<Person>` object called `ViewedPersonList` in `ModelManager` to store the persons that we want to show.
+Moreover, we created `PersonViewPanel.java`, `PersonViewCard.java`, and their respective `.fxml` files so it will be 
+easier to maintain or develop.
+
+Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take a particular index
+as input, and we filter the `ViewPersonList` by some criteria.
+
+To **view** a person, the user needs to run the **view** command.
+The parsing of the view command is handled by the following classes:
+* `AddressBookParser`
+    * Checks that the user input contains the ViewCommand.COMMAND_WORD and calls `ViewCommand#parse()`
+* `ViewCommandParser`
+    * Parses the user input to create an `Index` of the person to view.
+    * Returns a `ViewCommand` to be executed by the `LogicManager`
+    * In case of invalid index, it will be handled by the `ViewCommand` upon execution.
+
+A successful execution of the **view** command is described as follows:
+1. The `ViewCommand` retrieves the currently listed `Person`'s from the `Model`.
+2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the view command.
+3. `ViewCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
+4. `ViewCommand` updates the `Model`'s `ViewedPersonList` by parsing in the `SamePersonPredicate`.
+5. `ViewCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
+6. The GUI will be updated accordingly.
+
+<img src="images/ViewSequenceDiagram.png" />
+
+#### Design Considerations
+##### ViewedPersonList Object Type
+* **Alternative 1 (current choice):** FilteredList
+    * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
+    * Cons: Not intuitive since now the view command only support viewing one Person.
+* **Alternative 2:** Person
+    * Pros: More intuitive because it **is** the displayed Person.
+    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
+  display more than one Person.
+##### Displayed Attributes
+* **Alternative 1 (current choice):** Name, Phone, Schedule; No Schedule on Person List
+    * Pros: Cleaner look of Person List, can display more detailed version of Events.
+    * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
+* **Alternative 2:** All attributes of a Person both on Schedule and Person List
+    * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
+    * Cons: Person List display only fits a few Persons at a time.
+    
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
