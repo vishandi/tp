@@ -186,11 +186,11 @@ A successful execution of the **view** command is described as follows:
 <img src="images/ViewScheduleSequenceDiagram.png" />
 
 #### Design Considerations
-##### ViewedPersonList Object Type
-* **Alternative 1 (current choice):** FilteredList
+##### ViewedPersonList or ViewedPerson
+* **Alternative 1 (current choice):** ViewedPersonList as a FilteredList
     * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
     * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
-* **Alternative 2:** Person
+* **Alternative 2:** Viewed Person as a Person
     * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
     * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
   display more than one Person.
