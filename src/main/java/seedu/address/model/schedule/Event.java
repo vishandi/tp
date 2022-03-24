@@ -132,6 +132,31 @@ public class Event implements Comparable<Event> {
     }
 
     /**
+     * Returns true if date collides with {@code Event}'s date and recurrence
+     *
+     * @param date used to check against {@code Event}'s date
+     * @return true if date collides with {@code Event}'s date and recurrence
+     */
+    public boolean willDateCollide(LocalDate date) {
+        if (this.date.isAfter(date)) {
+            // if start date of event is after the date we are checking, then they will never collide
+            return false;
+        }
+
+        switch (recurFrequency) {
+        case DAILY:
+            return true;
+        case WEEKLY:
+            return this.date.getDayOfWeek().equals(date.getDayOfWeek());
+        case BIWEEKLY:
+            return (ChronoUnit.DAYS.between(this.date, date) % 14 == 0);
+        default:
+            // case NONE and INVALID falls through to reach here
+            return this.date.equals(date);
+        }
+    }
+
+    /**
      * Compares 2 {@code Event} based on date and time. Returns a positive integer if {@code event}
      * occurs after the caller, a negative integer if {@code event} occurs before the caller, and 0
      * if both {@code Event} have occurs on the same date and time.
