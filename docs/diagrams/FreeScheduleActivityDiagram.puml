@@ -3,8 +3,8 @@ start
 :User executes command;
 
 if () then ([valid arguments])
-    :Filter model;
-    :Display filtered model;
+    :Filter Model;
+    :Display filtered Model;
 else ([else])
 
 endif
