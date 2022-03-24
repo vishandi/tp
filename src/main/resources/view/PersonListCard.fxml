@@ -45,7 +45,6 @@
          <HBox fx:id="githubBox" alignment="CENTER_LEFT" onMouseClicked="#openGithub" onMouseEntered="#changeGithubColorWhenHovered" onMouseExited="#changeGithubColorWhenLeft" spacing="5" />
          <HBox fx:id="emailBox" alignment="CENTER_LEFT" onMouseClicked="#emailtoContact" onMouseEntered="#changeEmailColorWhenHovered" onMouseExited="#changeEmailColorWhenLeft" spacing="5" />
          <HBox fx:id="addressBox" alignment="CENTER_LEFT" spacing="5" />
-         <HBox fx:id="scheduleBox" alignment="CENTER_LEFT" spacing="5" />
     </VBox>
       <rowConstraints>
          <RowConstraints />
