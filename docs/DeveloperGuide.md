@@ -159,10 +159,7 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-To make the GUI cleaner and simpler, we decided not to display the schedule of each person in the person list.
-Instead, we made another panel on the right that will display the schedule of each person upon calling the function `viewSchedule`.
-
-To do this, we made a new `FilteredList<Person>` object called `ViewedPersonList` in `ModelManager` to store the persons that we want to show.
+To implement `viewSchedule`, we made a new `FilteredList<Person>` object called `ViewedPersonList` in `ModelManager` to store the persons that we want to show.
 Moreover, we created `PersonViewPanel.java`, `PersonViewCard.java`, and their respective `.fxml` files so it will be 
 easier to maintain or develop.
 
