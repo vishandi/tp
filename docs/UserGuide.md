@@ -23,10 +23,11 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
    13. [Importing a person's schedule](#importing-a-persons-schedule-import)
-   14. [Clearing all entries](#clearing-all-entries--clear)
-   15. [Exiting the program](#exiting-the-program--exit)
-   16. [Saving the data](#saving-the-data)
-   17. [Editing the data file](#editing-the-data-file)
+   14. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
+   15. [Clearing all entries](#clearing-all-entries--clear)
+   16. [Exiting the program](#exiting-the-program--exit)
+   17. [Saving the data](#saving-the-data)
+   18. [Editing the data file](#editing-the-data-file)
 3. [Coming Soon](#coming-soon-v13)
    1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
    2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
@@ -254,6 +255,7 @@ Format: `deleteEvent INDEX EVENT_INDEX`
 Example:
 * `deleteEvent 3 3`
 
+### Getting persons who are free: `freeSchedule`
 Format: `freeSchedule ti/TIME [da/ DATE]`
 * Shows the persons who are free at the time specified today
 * Shows the persons who are free at the time on the date specified
@@ -268,17 +270,23 @@ Examples:
 * `freeSchedule ti/ 14:00 da/2022-02-14`
 
 ### Importing a person's schedule: `import`
-
 Imports a schedule from a file to the person at the specified index.
 
 Format: `import INDEX pa/FILE_PATH`
-
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.)
 * `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path)
 
 Examples:
 `import 1 pa/typicalSchedule.json`
+
+### Exporting a person's schedule: `export`
+Format: `export INDEX`
+* Allows user to export schedule of person at specified index
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+
+Examples:
+* `export 1`
 
 ### Clearing all entries : `clear`
 
@@ -305,8 +313,7 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
-##*Coming Soon...* (v1.3)
-
+###*Coming Soon...* (v1.3)
 ### Viewing a person’s schedule: `viewSchedule`
 Shows the schedule of a specified person.
 
@@ -350,6 +357,7 @@ Example:
 | **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
 | **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
 | **Import**            | `import 1 pa/FILE_PATH`<br> e.g., `import 1 pa/typicalSchedule.json`                                                                                                                          |
+| **Export**            | `export INDEX`<br> e.g., `export 1`                                                                                                                                                           |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**              | `list`                                                                                                                                                                                        |
 | **Help**              | `help`                                                                                                                                                                                        |
