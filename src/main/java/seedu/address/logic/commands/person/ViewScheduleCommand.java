@@ -14,11 +14,11 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.SamePersonPredicate;
 
 
-public class ViewCommand extends Command {
-    public static final String COMMAND_WORD = "view";
+public class ViewScheduleCommand extends Command {
+    public static final String COMMAND_WORD = "viewSchedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": views the person identified by the index number used in the displayed person list.\n"
+            + ": views the person's schedule identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -26,7 +26,7 @@ public class ViewCommand extends Command {
 
     private final Index targetIndex;
 
-    public ViewCommand(Index targetIndex) {
+    public ViewScheduleCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -49,7 +49,7 @@ public class ViewCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewCommand // instanceof handles nulls
-                && targetIndex.equals(((ViewCommand) other).targetIndex)); // state check
+                || (other instanceof ViewScheduleCommand // instanceof handles nulls
+                && targetIndex.equals(((ViewScheduleCommand) other).targetIndex)); // state check
     }
 }
