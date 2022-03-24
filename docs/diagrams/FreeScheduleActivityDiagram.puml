@@ -1,24 +1,12 @@
 @startuml
 start
-:User executes freeSchedule command;
+:User executes command;
 
-:FreeScheduleCommandParser parses the user input;
-
-if () then ([hasTimePrefix and hasDatePrefix])
-    :Get the user specified
-    time and date;
-    :Create IsPersonFreePredicate;
-    :Filter model with predicate;
+if () then ([valid arguments])
+    :Filter model;
+    :Display filtered model;
 else ([else])
-    if () then ([hasTimePrefix])
-    :Get the user specified time
-    and set date to today;
-    :Create IsPersonFreePredicate;
-    :Filter model with predicate;
-    else ([else])
-    :Throw exception regarding
-    missing prefix or invalid arguments;
-    endif
+
 endif
 stop
 @enduml
