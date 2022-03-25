@@ -167,17 +167,17 @@ It then creates a new 'IsTagInPersonPredicate' object that will help check if co
 
 Given below is an example usage scenario and explanation on how the 'findCommonTiming' command behaves at each step.
 
-Step 1. The user enters 'findCommonTiming t/friends da/2022-03-04' to find the common timings that the contacts who share the same tag are free. 
+1. The user enters 'findCommonTiming t/friends da/2022-03-04' to find the common timings that the contacts who share the same tag are free. 
 The arguments 't/friends da/2022-03-04' are passed to the 'findCommonTimingParser' through its 'parse' method call.
 
-Step 2. The user input 't/friends da/2022-03-04' will be checked to ensure that empty input is not given.
+2. The user input 't/friends da/2022-03-04' will be checked to ensure that empty input is not given.
 
-Step 3. A new 'IsTagInPersonPredicate' object is created and encapsulated by a new 'FindCommonTiming'
+3. A new 'IsTagInPersonPredicate' object is created and encapsulated by a new 'FindCommonTiming'
 object.
 
-Step 4. The 'FindCommonTiming' object is returned to the 'LogicManager'.
+4. The 'FindCommonTiming' object is returned to the 'LogicManager'.
 
-Step 5. During the execution of the command, the 'FindCommonTiming' object calls 'Model#updateFilteredPersonList' method with the 'IsTagInPersonPredicate' to get the list of contacts that share the same tag. 
+5. During the execution of the command, the 'FindCommonTiming' object calls 'Model#updateFilteredPersonList' method with the 'IsTagInPersonPredicate' to get the list of contacts that share the same tag. 
 The schedules of all the contacts will be consolidated and events will be checked if they occur on the date inputted by the user.
 A default timeslot will be created such that it will be assumed that the whole day is free, after which 30-minute timeslots will be blocked out according to events that are determined to occur on that particular date.
 
