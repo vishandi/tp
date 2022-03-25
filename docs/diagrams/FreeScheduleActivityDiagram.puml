@@ -1,0 +1,12 @@
+@startuml
+start
+:User executes command;
+
+if () then ([valid arguments])
+    :Filter Model;
+    :Display filtered Model;
+else ([else])
+
+endif
+stop
+@enduml
