@@ -34,7 +34,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ScheduleDisplayPanel viewListPanel;
+    private ScheduleCardPanel viewListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -126,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        viewListPanel = new ScheduleDisplayPanel(logic.getViewedPersonList()); //TODO: CHANGE THIS!!!!!!
+        viewListPanel = new ScheduleCardPanel(logic.getViewedPersonList()); //TODO: CHANGE THIS!!!!!!
         viewListPanelPlaceholder.getChildren().add(viewListPanel.getRoot());
     }
 

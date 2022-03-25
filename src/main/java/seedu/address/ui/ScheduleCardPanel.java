@@ -13,17 +13,17 @@ import seedu.address.model.person.Person;
 /**
  * Panel containing the viewed list of persons.
  */
-public class ScheduleDisplayPanel extends UiPart<Region> {
+public class ScheduleCardPanel extends UiPart<Region> {
     private static final String FXML = "ScheduleCardPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ScheduleDisplayPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ScheduleCardPanel.class);
 
     @FXML
     private ListView<Person> viewedPersonListView;
 
     /**
-     * Creates a {@code ScheduleDisplayPanel} with the given {@code ObservableList}.
+     * Creates a {@code ScheduleCardPanel} with the given {@code ObservableList}.
      */
-    public ScheduleDisplayPanel(ObservableList<Person> personList) {
+    public ScheduleCardPanel(ObservableList<Person> personList) {
         super(FXML);
         viewedPersonListView.setItems(personList);
         viewedPersonListView.setCellFactory(listView -> new ViewedPersonListViewCell());

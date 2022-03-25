@@ -159,9 +159,9 @@ This section describes some noteworthy details on how certain features are imple
 
 #### Implementation
 
-To implement `viewSchedule`, we made a new `FilteredList<Person>` object called `viewedPerson` in `ModelManager` to store the persons that we want to show.
-Moreover, we created `PersonViewPanel.java`, `PersonViewCard.java`, and their respective `.fxml` files so it will be 
-easier to maintain or develop.
+To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution.
+
+Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files so it will be easier to maintain or develop the GUI in the future.
 
 Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, 
 and we retrieve information based on the filtered list.
@@ -179,7 +179,7 @@ A successful execution of the **view** command is described as follows:
 1. The `ViewScheduleCommand` retrieves the currently listed `Person`'s from the `Model`.
 2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the viewSchedule command.
 3. `ViewScheduleCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
-4. `ViewScheduleCommand` updates the `Model`'s `viewedPerson` by parsing in the `SamePersonPredicate`.
+4. `ViewScheduleCommand` updates the `Model`'s `viewedPerson` (the `FilteredList<Person>` object) by parsing in the `SamePersonPredicate`.
 5. `ViewScheduleCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
 6. The GUI will be updated accordingly.
 
