@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.exceptions.InvalidEnumArgumentException;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
@@ -40,9 +39,8 @@ public class JsonAdaptedSchedule {
      * Converts this Jackson-friendly adapted schedule object into the model's {@code Schedule} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted schedule.
-     * @throws InvalidEnumArgumentException if there are any unhandled RecurFrequency cases.
      */
-    public Schedule toModelType() throws IllegalValueException, InvalidEnumArgumentException {
+    public Schedule toModelType() throws IllegalValueException {
         final List<Event> modelEvents = new ArrayList<>();
         for (JsonAdaptedEvent event : events) {
             modelEvents.add(event.toModelType());
