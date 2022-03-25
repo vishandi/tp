@@ -64,7 +64,7 @@ public class ImportCommand extends EditTypeCommand {
             + "}";
     public static final Path TEMPLATE_FILE_PATH = Paths.get("data", "template", "template.json");
     public static final String REFER_TEMPLATE_MESSAGE =
-            String.format("Refer to %s for a valid json template.", TEMPLATE_FILE_PATH.toAbsolutePath());
+            String.format("Refer to %s for a valid Json template.", TEMPLATE_FILE_PATH);
 
     public static final String NOT_JSON_FORMAT_MESSAGE =
             "\"%s\" is empty or not in valid json format! %s's schedule is unchanged.";
