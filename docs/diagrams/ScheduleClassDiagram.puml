@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class "<<enumeration>>\nRecurFrequency" as RecurFrequency
+
+Person *--> Schedule
+Schedule *--> "*" Event
+Event *--> EventDescription
+Event *--> LocalDate
+Event *--> LocalTime
+Event *--> Duration
+Event *--> RecurFrequency
+
+@enduml

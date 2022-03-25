@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -22,13 +21,7 @@
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
       <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+        <Label fx:id="name" styleClass="view_big_label" text="\$first" />
       </HBox>
       <FlowPane fx:id="tags" />
          <HBox alignment="CENTER_LEFT" spacing="5">
@@ -41,10 +34,7 @@
             <Label fx:id="phone" text="\$phone" />
             </children>
          </HBox>
-         <HBox fx:id="telegramBox" alignment="CENTER_LEFT" spacing="5" />
-         <HBox fx:id="githubBox" alignment="CENTER_LEFT" onMouseClicked="#openGithub" onMouseEntered="#changeGithubColorWhenHovered" onMouseExited="#changeGithubColorWhenLeft" spacing="5" />
-         <HBox fx:id="emailBox" alignment="CENTER_LEFT" onMouseClicked="#emailtoContact" onMouseEntered="#changeEmailColorWhenHovered" onMouseExited="#changeEmailColorWhenLeft" spacing="5" />
-         <HBox fx:id="addressBox" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="scheduleBox" alignment="CENTER_LEFT" spacing="5" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

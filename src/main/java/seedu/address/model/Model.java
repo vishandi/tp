@@ -83,7 +83,7 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of a particular person */
-    ObservableList<Person> getViewedPersonList();
+    ObservableList<Person> getViewSchedulePerson();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -92,8 +92,8 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of teh viewed person list.
+     * Updates the filter of the viewed person list.
      * @param predicate
      */
-    void updateViewedPersonList(Predicate<Person> predicate);
+    void updateViewSchedulePerson(Predicate<Person> predicate);
 }
