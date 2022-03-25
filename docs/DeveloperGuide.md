@@ -155,6 +155,54 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### FindCommonTiming feature
+This section details how the  'findCommonTiming' command is implemented. This command allows the user to 
+get the common free timings of contacts who share the same tag. The timings that the contacts are free
+at the specified date will be displayed.
+
+### Implementation
+'FindCommonTimingParser', 'FindCommonTimingCommand' and 'IsTagInPersonPredicate' classes are involved in the
+execution of the 'findCommonTiming' command.
+
+The 'parse' method inside the 'FindCommandTimingParser' receives the user input and extracts the required arguments.
+It then creates a new 'IsTagInPersonPredicate' object that will help check if contacts in the address book have the 
+tag that the user has inputted.
+
+Given below is an example usage scenario and explanation on how the 'findCommonTiming' command behaves at each step.
+
+Step 1. The user enters 'findCommonTiming t/friends da/2022-03-04' to find the common timings that the contacts who
+share the same tag are free. The arguments 't/friends da/2022-03-04' are passed to the 'findCommonTimingParser'
+through its 'parse' method call.
+
+Step 2. The user input 't/friends da/2022-03-04' will be checked to ensure that empty input is not given.
+
+Step 3. A new 'IsTagInPersonPredicate' object is created and encapsulated by a new 'FindCommonTiming'
+object.
+
+Step 4. The 'FindCommonTiming' object is returned to the 'LogicManager'.
+
+Step 5. During the execution of the command, the 'FindCommonTiming' object calls 'Model#updateFilteredPersonList'
+method with the 'IsTagInPersonPredicate' to get the list of contacts that share the same tag. The schedules of all
+the contacts will be consolidated and events will be checked if they occur on the date inputted by the user.
+A default timeslot will be created such that it will be assumed that the whole day is free, after which 30-minute
+timeslots will be blocked out according to events that are determined to occur on that particular date.
+
+Step 6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in
+intervals of 30 minutes). These timeslots will then be displayed to the user.
+
+### Design Considerations
+**Aspect: Should we show timings that a group of contacts with the same tag are free by the minute, or in 30-minute blocks?**
+* **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
+    * Pros:
+        * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
+        * More easily understood by users who are likely to plan meetings in 30-minute intervals
+    * Con:
+        * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
+* **Alternative 2**: Show common free timings accurate to the minute
+    * Pros:
+        * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
+    * Con:
+        * Efficiency of implementation would be compromised to cater to a smaller target group.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
