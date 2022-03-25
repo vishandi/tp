@@ -1,0 +1,66 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":AddEventCommandParser" as AddEventCommandParser LOGIC_COLOR
+participant ":AddEventCommand" as AddEventCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addevent 1 ed/Tutorial da/2022-03-14")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("addevent 1 ed/Tutorial da/2022-03-14")
+activate AddressBookParser
+
+create AddEventCommandParser
+AddressBookParser -> AddEventCommandParser
+activate AddEventCommandParser
+
+AddEventCommandParser --> AddressBookParser
+deactivate AddEventCommandParser
+
+AddressBookParser -> AddEventCommandParser : parse("1 ed/Tutorial da/2022-03-14")
+activate AddEventCommandParser
+
+create AddEventCommand
+AddEventCommandParser -> AddEventCommand : AddEventCommand(index, eventToAdd)
+activate AddEventCommand
+
+AddEventCommand --> AddEventCommandParser
+deactivate AddEventCommand
+
+AddEventCommandParser --> AddressBookParser
+deactivate AddEventCommandParser
+
+AddressBookParser --> LogicManager
+deactivate AddressBookParser
+
+LogicManager -> AddEventCommand : execute(model)
+activate AddEventCommand
+
+AddEventCommand -> Model : setPerson(personToEdit, editedPerson)
+activate Model
+
+Model --> AddEventCommand
+deactivate Model
+
+create CommandResult
+AddEventCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddEventCommand
+deactivate CommandResult
+
+AddEventCommand --> LogicManager
+deactivate AddEventCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
