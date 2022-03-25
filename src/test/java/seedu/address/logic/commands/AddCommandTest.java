@@ -150,12 +150,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getViewedPersonList() {
+        public ObservableList<Person> getViewSchedulePerson() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateViewedPersonList(Predicate<Person> predicate) {
+        public void updateViewSchedulePerson(Predicate<Person> predicate) {
         }
     }
 
