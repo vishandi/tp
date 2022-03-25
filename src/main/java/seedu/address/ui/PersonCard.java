@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Person} in the list version.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -51,8 +51,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox emailBox;
     @FXML
-    private HBox scheduleBox;
-    @FXML
     private FlowPane tags;
 
 
@@ -64,15 +62,12 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         ImageView addressIcon = new ImageView("/images/address_icon.png");
         ImageView emailIcon = new ImageView("/images/email_icon.png");
-        ImageView scheduleIcon = new ImageView("/images/schedule_icon.png");
         ImageView telegramIcon = new ImageView("/images/telegram_icon.png");
         ImageView githubIcon = new ImageView("/images/github_icon.png");
         addressIcon.setFitHeight(16);
         addressIcon.setFitWidth(16);
         emailIcon.setFitHeight(16);
         emailIcon.setFitWidth(16);
-        scheduleIcon.setFitHeight(16);
-        scheduleIcon.setFitWidth(16);
         telegramIcon.setFitHeight(16);
         telegramIcon.setFitWidth(16);
         githubIcon.setFitHeight(16);
@@ -101,11 +96,6 @@ public class PersonCard extends UiPart<Region> {
             addressBox.getChildren().add(addressIcon);
             Label addressLabel = new Label(person.getAddress().value);
             addressBox.getChildren().add(addressLabel);
-        }
-        if (!person.getSchedule().isEmpty()) {
-            scheduleBox.getChildren().add(scheduleIcon);
-            Label scheduleLabel = new Label(person.getSchedule().toString());
-            scheduleBox.getChildren().add(scheduleLabel);
         }
 
         person.getTags().stream()

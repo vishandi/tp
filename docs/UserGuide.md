@@ -16,7 +16,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    4. [Editing a person](#editing-a-person--edit)
    5. [Locating persons by name](#locating-persons-by-name-find)
    6. [Deleting a person](#deleting-a-person--delete)
-   7. [Viewing a person](#viewing-a-person--view)
+   7. [Viewing a person's schedule](#viewing-a-persons-schedule-viewschedule)
    8. [Viewing contacts by tags](#viewing-contacts-by-tags-viewgroup)
    9. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
@@ -166,20 +166,21 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
-### Viewing a person : `view`
+### Viewing a person : `viewSchedule`
 
-Views the specified person from UniGenda.
+Views the specified person's Schedule from UniGenda.
 
-Format: `view INDEX`
+Format: `viewSchedule INDEX`
 
-* Views the person at the specified `INDEX`.
+* Views the person's schedule at the specified `INDEX`.
+* The view will be displayed in the right panel of UniGenda.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `view 4` views the 4th person in UniGenda.
+* `list` followed by `viewSchedule 4` views the 4th person in UniGenda.
   ![result for 'view 4'](images/viewResult.png)
-* `find Betsy` followed by `view 1` views the 1st person in the results of the `find` command.
+* `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command.
 
 
 ### Viewing contacts by tags: `viewGroup`
@@ -351,7 +352,7 @@ Example:
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
 | **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
-| **View**              | `view INDEX`<br>e.g., `view 1`                                                                                                                                                                |
+| **ViewSchedule**      | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
 | **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
 | **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |

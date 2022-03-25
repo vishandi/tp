@@ -155,6 +155,159 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+###  Add Event Feature
+
+#### Implementation
+
+To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
+* Each `Person` has a `Schedule` attribute.
+* A `Schedule` contains a list of `Event`s.
+* An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`
+  * Here, the `RecurFrequency` indicates how often the `Event` occurs, which can be daily, weekly, biweekly or none.
+
+  <img src="images/ScheduleClassDiagram.png" width="500" />
+
+To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
+The parsing of the AddEvent command is handled by the following classes:
+* `AddressBookParser`
+  * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
+* `AddEventCommandParser`
+  * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
+  * Returns an `AddEventCommand` to be executed by the `LogicManager`
+
+A successful execution of the AddEvent command is described as follows:
+1. The `AddEventCommand` retrieves the currently listed `Person`s from the `Model`.
+2. The `personToEdit` is obtained from the above list using the `Index` created during the parsing of the AddEvent command.
+3. `AddEventCommand` gets the `Schedule` of the `personToEdit` and creates a new `Schedule` with the added `Event` created during the parsing of the AddEvent command.
+4. `AddEventCommand` creates a new `Person` with the updated `Schedule` and uses `Model#setPerson()` to replace the `personToEdit` with the `Person` with the updated `Schedule`.
+5. `AddEventCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
+
+  <img src="images/AddEventSequenceDiagram.png" width="1500" />
+
+#### Design considerations
+##### Differentiating recurring events and non-recurring events
+* **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
+  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
+* **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
+  * Pros: Slightly more OOP
+  * Cons:
+    * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
+    * More awkward type checking and casting when checking for recurrence.
+##### Implementing event's date, time and duration attributes
+* **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
+  * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
+* **Alternative 2:** Create our own Date, Time and Duration classes
+  * Pros: More customisable
+  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
+##### Updating the model when an event is added
+* **Alterative 1 (current choice):** Create a new `Schedule` and `Person` to update the `Model`
+  * Pros: More defensive
+  * Cons: Troublesome to implement
+* **Alternative 2:** Add an addEvent() function to `Schedule`, allows us to update the `Person` without creating objects
+  * Pros: Straightforward to implement
+  * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time, causing bugs to appear
+
+### FreeSchedule feature
+This section details how the `freeSchedule` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
+
+####Implementation
+`FreeScheduleCommandParser`, `FreeScheduleCommand` and `IsPersonFreePredicate` classes are involved in the execution of the `freeSchedule` command.
+
+The `parse` method inside the `FreeScheduleCommandParser` receives the user input and extracts the required arguments. It then creates a new `IsPersonFreePredicate` object that will help check if the user's contacts' schedule coincides with the specified time and date.
+
+Given below is one example usage scenario and explanation on how the `freeSchedule` command behaves at each step. You may also refer to the sequence diagram below.
+
+Step 1. The user enters `freeSchedule ti/10:00 da/2022-03-24` to find if there are any contacts who are free at the specified time and date. The arguments `ti/10:00 da/2022-03-24` are passed to the `FreeScheduleCommandParser` through its `parse` method call.
+
+Step 2. The user input `ti/10:00 da/2022-03-24` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseTime` and `ParserUtil#parseDate` are used to check for invalid inputs.
+
+Step 3. A new `IsPersonFreePredicate` object is created and encapsulated by a new `FreeScheduleCommand` object.
+
+Step 4. The `FreeScheduleCommand` object is returned to the `LogicManager`.
+
+Step 5. During the execution of the command, the `FreeScheduleCommand` object calls `Model#updateFilteredPersonList` method with the `IsPersonFreePredicate` to update the display of the current list of contacts. If there are contacts who are free at the specified time and date, then a list of the contacts who are free will be shown. Otherwise, an empty list will be shown.
+
+Step 6. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
+
+####Sequence Diagram
+The following sequence diagram shows how the `freeSchedule` command works for the example above:
+![FreeScheduleSequenceDiagram](images/FreeScheduleSequenceDiagram.png)
+
+####Activity Diagram
+The following activity diagram summarizes what happens when the `freeSchedule` command is triggered:
+![FreeScheduleActivityDiagram](images/FreeScheduleActivityDiagram.png)
+
+####Design Considerations
+**Aspect: Should we allow dates that have already passed?**
+* **Alternative 1 (current implementation)**: Ignore dates that have passed.
+  * Pro:
+    * Prevents users from expecting the wrong results when recurring events are involved.
+  * Cons:
+    * Harder implementation as we would have to consider all events with respect to today.
+* **Alternative 2**: Treat the past dates as a normal dates.
+  * Pros:
+    * Easy implementation as there is nothing special to take note.
+  * Con:
+    * Does not make sense to check dates have already passed.
+
+**Aspect: What to do with contacts who do not have a schedule?**
+* **Alternative 1**: Contacts without schedule are always free
+  * Cons:
+    * Contacts without schedule may not be free at the specified date and time.
+    * We will have to check all contacts for their schedule and display all contacts.
+* **Alternative 2 (current implementation)**: Contacts without schedule are always busy
+  * Pros:
+    * Higher certainty that contacts shown will be free.
+    * Less information to process as we ignore contacts without schedule.
+  * Con:
+    * Contacts without schedule may be free at the specified date and time.
+
+### View Schedule Feature
+
+#### Implementation
+
+To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution.
+
+Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files so it will be easier to maintain or develop the GUI in the future.
+
+Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, 
+and we retrieve information based on the filtered list.
+
+To **view** a person, the user needs to run the **view** command.
+The parsing of the viewSchedule command is handled by the following classes:
+* `AddressBookParser`
+    * Checks that the user input contains the ViewScheduleCommand.COMMAND_WORD and calls `ViewScheduleCommand#parse()`
+* `ViewScheduleCommandParser`
+    * Parses the user input to create an `Index` of the person to view.
+    * Returns a `ViewScheduleCommand` to be executed by the `LogicManager`
+    * In case of invalid index, it will be handled by the `ViewScheduleCommand` upon execution.
+
+A successful execution of the **view** command is described as follows:
+1. The `ViewScheduleCommand` retrieves the currently listed `Person`'s from the `Model`.
+2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the viewSchedule command.
+3. `ViewScheduleCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
+4. `ViewScheduleCommand` updates the `Model`'s `viewedPerson` (the `FilteredList<Person>` object) by parsing in the `SamePersonPredicate`.
+5. `ViewScheduleCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
+6. The GUI will be updated accordingly.
+
+<img src="images/ViewScheduleSequenceDiagram.png" />
+
+#### Design Considerations
+##### viewedPerson as FilteredList or a Person.
+* **Alternative 1 (current choice):** viewedPerson as a FilteredList
+    * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
+    * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
+* **Alternative 2:** viewedPerson as a Person
+    * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
+    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
+  display more than one Person.
+##### Displayed Attributes upon calling viewSchedule
+* **Alternative 1 (current choice):** Display required attributes like Name, Phone, and Schedule; No Schedule on Person List
+    * Pros: Cleaner look of Person List, can display more detailed version of Events.
+    * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
+* **Alternative 2:** All attributes of a Person both on Schedule and Person List
+    * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
+    * Cons: Person List display only fits a few Persons at a time.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -382,10 +535,51 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Saving data
+### Getting contacts who are free at specified time and date
+1. Assuming that all contacts do not have a schedule.
+   1. Test case: `freeSchedule ti/10:00 da/2022-05-01`<br>
+      Expected: No contacts displayed.
+   
+   2. Test case: `freeSchedule ti/10:00`
+      Expected: Same result as previous.
+
+2. Assuming that some contacts have a schedule.
+   Situation 1: All contacts are free today at 10am.
+   1. Test case: `freeSchedule ti/10:00`<br>
+      Expected: Displays all contacts with a schedule.
+   
+   Situation 2: All contacts are not free today at specified time.
+   1. Test case: `freeSchedule ti/10:00`<br>
+      Expected: No contacts displayed.
+   
+   Situation 3: Some contacts are free today at specified time.
+   1. Test case: `freeSchedule ti/10:00`<br>
+      Expected: Contacts who are free today at 10am displayed.
+   2. Test case: `freeSchedule ti/08:00 ti/10:00`<br>
+      Expected: Contacts who are free today at 10am will be displayed.
+   3. Test case: `freeSchedule ti/200:00 ti/10:00`<br>
+      Expected: Same result as previous.
+
+   Situation 4. Giving a date that is in the past.
+   1. Test case: `freeSchedule ti/10:00 da/2000-01-01`<br>
+      Expected: No contacts displayed.
+
+3. Assuming that some contacts have recurring events.
+   Situation 1: Contacts have daily events.
+   1. Test case: 
+
+4. Wrong inputs
+   1. Test case: `freeSchedule ti/1000`
+      Expected: Nothing happens. Error message written in result box.
+   2. Test case: `freeSchedule ti/10:00 da/01 Dec 2022`
+      Expected: Same result as previous.
+   
+_{ more test cases to be added }_
+
+#### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_
+1. _{ more test cases …​ }_free 
