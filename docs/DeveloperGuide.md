@@ -154,6 +154,59 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+###  Add Event Feature
+
+#### Implementation
+
+To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
+* Each `Person` has a `Schedule` attribute.
+* A `Schedule` contains a list of `Event`s.
+* An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`
+  * Here, the `RecurFrequency` indicates how often the `Event` occurs, which can be daily, weekly, biweekly or none.
+
+  <img src="images/ScheduleClassDiagram.png" width="500" />
+
+To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
+The parsing of the AddEvent command is handled by the following classes:
+* `AddressBookParser`
+  * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
+* `AddEventCommandParser`
+  * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
+  * Returns an `AddEventCommand` to be executed by the `LogicManager`
+
+A successful execution of the AddEvent command is described as follows:
+1. The `AddEventCommand` retrieves the currently listed `Person`s from the `Model`.
+2. The `personToEdit` is obtained from the above list using the `Index` created during the parsing of the AddEvent command.
+3. `AddEventCommand` gets the `Schedule` of the `personToEdit` and creates a new `Schedule` with the added `Event` created during the parsing of the AddEvent command.
+4. `AddEventCommand` creates a new `Person` with the updated `Schedule` and uses `Model#setPerson()` to replace the `personToEdit` with the `Person` with the updated `Schedule`.
+5. `AddEventCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
+
+  <img src="images/AddEventSequenceDiagram.png" width="1500" />
+
+#### Design considerations
+##### Differentiating recurring events and non-recurring events
+* **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
+  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
+* **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
+  * Pros: Slightly more OOP
+  * Cons:
+    * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
+    * More awkward type checking and casting when checking for recurrence.
+##### Implementing event's date, time and duration attributes
+* **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
+  * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
+* **Alternative 2:** Create our own Date, Time and Duration classes
+  * Pros: More customisable
+  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
+##### Updating the model when an event is added
+* **Alterative 1 (current choice):** Create a new `Schedule` and `Person` to update the `Model`
+  * Pros: More defensive
+  * Cons: Troublesome to implement
+* **Alternative 2:** Add an addEvent() function to `Schedule`, allows us to update the `Person` without creating objects
+  * Pros: Straightforward to implement
+  * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time, causing bugs to appear
+
 ### FreeSchedule feature
 This section details how the `freeSchedule` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
 
@@ -209,57 +262,52 @@ The following activity diagram summarizes what happens when the `freeSchedule` c
   * Con:
     * Contacts without schedule may be free at the specified date and time.
 
-###  Add Event Feature
+### View Schedule Feature
 
 #### Implementation
 
-To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
-* Each `Person` has a `Schedule` attribute.
-* A `Schedule` contains a list of `Event`s.
-* An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`
-  * Here, the `RecurFrequency` indicates how often the `Event` occurs, which can be daily, weekly, biweekly or none.
+To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution.
 
-  <img src="images/ScheduleClassDiagram.png" width="500" />
+Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files so it will be easier to maintain or develop the GUI in the future.
 
-To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
-The parsing of the AddEvent command is handled by the following classes:
+Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, 
+and we retrieve information based on the filtered list.
+
+To **view** a person, the user needs to run the **view** command.
+The parsing of the viewSchedule command is handled by the following classes:
 * `AddressBookParser`
-  * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
-* `AddEventCommandParser`
-  * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
-  * Returns an `AddEventCommand` to be executed by the `LogicManager`
+    * Checks that the user input contains the ViewScheduleCommand.COMMAND_WORD and calls `ViewScheduleCommand#parse()`
+* `ViewScheduleCommandParser`
+    * Parses the user input to create an `Index` of the person to view.
+    * Returns a `ViewScheduleCommand` to be executed by the `LogicManager`
+    * In case of invalid index, it will be handled by the `ViewScheduleCommand` upon execution.
 
-A successful execution of the AddEvent command is described as follows:
-1. The `AddEventCommand` retrieves the currently listed `Person`s from the `Model`.
-2. The `personToEdit` is obtained from the above list using the `Index` created during the parsing of the AddEvent command.
-3. `AddEventCommand` gets the `Schedule` of the `personToEdit` and creates a new `Schedule` with the added `Event` created during the parsing of the AddEvent command.
-4. `AddEventCommand` creates a new `Person` with the updated `Schedule` and uses `Model#setPerson()` to replace the `personToEdit` with the `Person` with the updated `Schedule`.
-5. `AddEventCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
+A successful execution of the **view** command is described as follows:
+1. The `ViewScheduleCommand` retrieves the currently listed `Person`'s from the `Model`.
+2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the viewSchedule command.
+3. `ViewScheduleCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
+4. `ViewScheduleCommand` updates the `Model`'s `viewedPerson` (the `FilteredList<Person>` object) by parsing in the `SamePersonPredicate`.
+5. `ViewScheduleCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
+6. The GUI will be updated accordingly.
 
-  <img src="images/AddEventSequenceDiagram.png" width="1500" />
+<img src="images/ViewScheduleSequenceDiagram.png" />
 
-#### Design considerations
-##### Differentiating recurring events and non-recurring events
-* **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
-  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
-* **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
-  * Pros: Slightly more OOP
-  * Cons:
-    * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
-    * More awkward type checking and casting when checking for recurrence.
-##### Implementing event's date, time and duration attributes
-* **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
-  * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
-* **Alternative 2:** Create our own Date, Time and Duration classes
-  * Pros: More customisable
-  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
-##### Updating the model when an event is added
-* **Alterative 1 (current choice):** Create a new `Schedule` and `Person` to update the `Model`
-  * Pros: More defensive
-  * Cons: Troublesome to implement
-* **Alternative 2:** Add an addEvent() function to `Schedule`, allows us to update the `Person` without creating objects
-  * Pros: Straightforward to implement
-  * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time, causing bugs to appear
+#### Design Considerations
+##### viewedPerson as FilteredList or a Person.
+* **Alternative 1 (current choice):** viewedPerson as a FilteredList
+    * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
+    * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
+* **Alternative 2:** viewedPerson as a Person
+    * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
+    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
+  display more than one Person.
+##### Displayed Attributes upon calling viewSchedule
+* **Alternative 1 (current choice):** Display required attributes like Name, Phone, and Schedule; No Schedule on Person List
+    * Pros: Cleaner look of Person List, can display more detailed version of Events.
+    * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
+* **Alternative 2:** All attributes of a Person both on Schedule and Person List
+    * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
+    * Cons: Person List display only fits a few Persons at a time.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
