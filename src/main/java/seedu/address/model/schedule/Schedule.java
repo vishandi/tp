@@ -2,6 +2,7 @@ package seedu.address.model.schedule;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +32,24 @@ public class Schedule {
      */
     public List<Event> getEvents() {
         return Collections.unmodifiableList(events);
+    }
+
+    /**
+     * Returns a Schedule object containing events that are coming in the next 7 days.
+     * The events in the schedule has been updated with the respective next recurring date.
+     */
+    public Schedule getUpcomingSchedule() {
+        List<Event> upcomingEvents = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        LocalDate nextWeek = today.plusDays(7);
+
+        for (Event event : getEvents()) {
+            if (event.getNextRecurrenceDate().isBefore(nextWeek)) {
+                upcomingEvents.add(event.getNextRecurringEvent());
+            }
+        }
+
+        return new Schedule(upcomingEvents);
     }
 
     /**

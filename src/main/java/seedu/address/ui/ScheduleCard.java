@@ -30,7 +30,13 @@ public class ScheduleCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
+    private Label scheduleHeader;
+    @FXML
     private HBox scheduleBox;
+    @FXML
+    private Label upcomingScheduleHeader;
+    @FXML
+    private HBox upcomingScheduleBox;
     @FXML
     private FlowPane tags;
 
@@ -43,14 +49,24 @@ public class ScheduleCard extends UiPart<Region> {
         scheduleIcon.setFitHeight(16);
         scheduleIcon.setFitWidth(16);
 
+        ImageView upcomingScheduleIcon = new ImageView("/images/schedule_icon.png");
+        upcomingScheduleIcon.setFitHeight(16);
+        upcomingScheduleIcon.setFitWidth(16);
+
         this.person = person;
-        name.setText(String.format("%1$s's Schedule", person.getName().value));
+        name.setText(person.getName().value);
         phone.setText(person.getPhone().value);
+        scheduleHeader.setText(String.format("%1$s's Schedule", person.getName().value));
+        upcomingScheduleHeader.setText(String.format("%1$s's Upcoming Schedule", person.getName().value));
 
         if (!Schedule.isEmptySchedule(person.getSchedule())) {
-            scheduleBox.getChildren().add(scheduleIcon);
             Label scheduleLabel = new Label(person.getSchedule().toString());
             scheduleBox.getChildren().add(scheduleLabel);
+        }
+
+        if (!Schedule.isEmptySchedule(person.getUpcomingSchedule())) {
+            Label upcomingScheduleLabel = new Label(person.getUpcomingSchedule().toString());
+            upcomingScheduleBox.getChildren().add(upcomingScheduleLabel);
         }
 
         person.getTags().stream()
