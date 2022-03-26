@@ -40,11 +40,9 @@ public class Schedule {
      */
     public Schedule getUpcomingSchedule() {
         List<Event> upcomingEvents = new ArrayList<>();
-        LocalDate today = LocalDate.now();
-        LocalDate nextWeek = today.plusDays(7);
 
         for (Event event : getEvents()) {
-            if (event.getNextRecurrenceDate().isBefore(nextWeek)) {
+            if (event.isOccuringThisWeek()) {
                 upcomingEvents.add(event.getNextRecurringEvent());
             }
         }

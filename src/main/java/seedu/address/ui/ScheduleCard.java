@@ -62,11 +62,20 @@ public class ScheduleCard extends UiPart<Region> {
         if (!Schedule.isEmptySchedule(person.getSchedule())) {
             Label scheduleLabel = new Label(person.getSchedule().toString());
             scheduleBox.getChildren().add(scheduleLabel);
+        } else {
+            Label scheduleLabel = new Label(String.format("%1$s' doesn't have any Schedule recorded yet.",
+                    person.getName().value));
+            scheduleBox.getChildren().add(scheduleLabel);
         }
 
         if (!Schedule.isEmptySchedule(person.getUpcomingSchedule())) {
             Label upcomingScheduleLabel = new Label(person.getUpcomingSchedule().toString());
             upcomingScheduleBox.getChildren().add(upcomingScheduleLabel);
+        } else {
+            Label scheduleLabel = new Label(
+                    String.format("%1$s' doesn't have any Upcoming Schedule for the following week.",
+                    person.getName().value));
+            upcomingScheduleBox.getChildren().add(scheduleLabel);
         }
 
         person.getTags().stream()
