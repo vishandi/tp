@@ -21,9 +21,10 @@ public class SetUserCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets the specified person in the contact list as the user and moves the contact to the top.\n"
-            + "Example: " + COMMAND_WORD + " 2";
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SET_USER_SUCCESS = "%s set as user!";
+    public static final String MESSAGE_SET_USER_SUCCESS = "%s set as the user!";
 
     private final Index targetIndex;
 
@@ -43,6 +44,6 @@ public class SetUserCommand extends Command {
         Person user = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(user);
         model.insertPerson(user, 0);
-        return new CommandResult(String.format(MESSAGE_SET_USER_SUCCESS, user));
+        return new CommandResult(String.format(MESSAGE_SET_USER_SUCCESS, user.getName()));
     }
 }
