@@ -19,6 +19,7 @@ title: Developer Guide
     * address_icon.png : <a href="https://www.flaticon.com/free-icons/address" title="address icons">Address icons created by Freepik - Flaticon</a>
     * schedule_icon.png : <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Freepik - Flaticon</a>
     * upcoming_schedule_icon.png : <a href="https://www.flaticon.com/free-icons/upcoming" title="upcoming icons">Upcoming icons created by Freepik - Flaticon</a>
+    * days.png : <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Creaticca Creative Agency - Flaticon</a>
 * {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
