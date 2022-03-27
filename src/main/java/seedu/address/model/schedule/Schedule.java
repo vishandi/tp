@@ -59,6 +59,8 @@ public class Schedule {
             }
         }
 
+        Collections.sort(upcomingEvents);
+
         return new Schedule(upcomingEvents);
     }
 
