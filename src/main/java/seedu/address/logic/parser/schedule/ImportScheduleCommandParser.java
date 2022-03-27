@@ -15,13 +15,13 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new ImportCommand object.
+ * Parses input arguments and creates a new ImportScheduleCommand object.
  */
-public class ImportCommandParser implements Parser<ImportScheduleCommand> {
+public class ImportScheduleCommandParser implements Parser<ImportScheduleCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ImportCommand
-     * and returns an ImportCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ImportScheduleCommand
+     * and returns an ImportScheduleCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ImportScheduleCommand parse(String args) throws ParseException {

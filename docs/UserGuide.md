@@ -270,17 +270,17 @@ Examples:
 * `freeSchedule ti/ 12:00`
 * `freeSchedule ti/ 14:00 da/2022-02-14`
 
-### Importing a person's schedule: `import`
+### Importing a person's schedule: `importSchedule`
 Imports a schedule from a file to the person at the specified index.
 
-Format: `import INDEX pa/FILE_PATH`
+Format: `importSchedule INDEX pa/FILE_PATH`
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.)
 * The imported `Schedule` **cannot be empty**.
 * `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path)
 
 Examples:
-`import 1 pa/typicalSchedule.json`
+`importSchedule 1 pa/typicalSchedule.json`
 
 ### Exporting a person's schedule: `export`
 Format: `export INDEX`
@@ -358,7 +358,7 @@ Example:
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
 | **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
 | **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
-| **Import**            | `import 1 pa/FILE_PATH`<br> e.g., `import 1 pa/typicalSchedule.json`                                                                                                                          |
+| **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
 | **Export**            | `export INDEX`<br> e.g., `export 1`                                                                                                                                                           |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**              | `list`                                                                                                                                                                                        |
