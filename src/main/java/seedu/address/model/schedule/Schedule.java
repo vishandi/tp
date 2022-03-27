@@ -34,6 +34,22 @@ public class Schedule {
     }
 
     /**
+     * Returns a Schedule object containing events that are coming in the next 7 days.
+     * The events in the schedule has been updated with the respective next recurring date.
+     */
+    public Schedule getUpcomingSchedule() {
+        List<Event> upcomingEvents = new ArrayList<>();
+
+        for (Event event : getEvents()) {
+            if (event.isOccuringThisWeek()) {
+                upcomingEvents.add(event.getNextRecurringEvent());
+            }
+        }
+
+        return new Schedule(upcomingEvents);
+    }
+
+    /**
      * Returns an Event object at specified index
      *
      * @param index of the Event object to retrieve

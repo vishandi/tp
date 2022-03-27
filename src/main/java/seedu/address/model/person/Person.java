@@ -80,6 +80,13 @@ public class Person {
     }
 
     /**
+     * Returns a schedule containing upcoming events that are coming in the following 1 week.
+     */
+    public Schedule getUpcomingSchedule() {
+        return schedule.getUpcomingSchedule();
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
