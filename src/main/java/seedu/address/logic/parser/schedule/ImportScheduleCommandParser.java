@@ -26,11 +26,9 @@ public class ImportScheduleCommandParser implements Parser<ImportScheduleCommand
      */
     public ImportScheduleCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FILEPATH);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILEPATH);
 
-        if (!argMultimap.getValue(PREFIX_FILEPATH).isPresent()
-                || argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getValue(PREFIX_FILEPATH).isPresent() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportScheduleCommand.MESSAGE_USAGE));
         }
