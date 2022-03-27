@@ -31,7 +31,7 @@ public class SetUserCommandTest {
         Person personToSetUser = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         SetUserCommand setUserCommand = new SetUserCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(SetUserCommand.MESSAGE_SET_USER_SUCCESS, personToSetUser);
+        String expectedMessage = String.format(SetUserCommand.MESSAGE_SET_USER_SUCCESS, personToSetUser.getName());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToSetUser);
@@ -55,7 +55,7 @@ public class SetUserCommandTest {
         Person personToSetUser = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         SetUserCommand setUserCommand = new SetUserCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(SetUserCommand.MESSAGE_SET_USER_SUCCESS, personToSetUser);
+        String expectedMessage = String.format(SetUserCommand.MESSAGE_SET_USER_SUCCESS, personToSetUser.getName());
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToSetUser);

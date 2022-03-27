@@ -46,4 +46,11 @@ public class SetUserCommand extends Command {
         model.insertPerson(user, 0);
         return new CommandResult(String.format(MESSAGE_SET_USER_SUCCESS, user.getName()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SetUserCommand // instanceof handles nulls
+                && targetIndex.equals(((SetUserCommand) other).targetIndex)); // state check
+    }
 }
