@@ -31,9 +31,9 @@ import seedu.address.storage.JsonAdaptedSchedule;
  * Imports a {@code Schedule} from the specified json file and replaces the indexed {@code Person}'s schedule with
  * the imported {@code Schedule}
  */
-public class ImportCommand extends EditTypeCommand {
+public class ImportScheduleCommand extends EditTypeCommand {
 
-    public static final String COMMAND_WORD = "import";
+    public static final String COMMAND_WORD = "importSchedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a schedule from a json file and "
             + "replaces the indexed person's schedule with the imported schedule.\n"
@@ -42,11 +42,10 @@ public class ImportCommand extends EditTypeCommand {
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_FILEPATH + "typicalSchedule.json";
 
     public static final String MESSAGE_SUCCESS = "%1$s's schedule has been replaced with the imported schedule!";
-    public static final String FILE_DOES_NOT_EXIST_MESSAGE = "File \"%s\" does not exist in \"%s\"";
+    public static final String FILE_DOES_NOT_EXIST_MESSAGE = "\"%1$s\" does not exist in \"%2$s\"";
     public static final String FILE_PATH_IS_DIRECTORY_MESSAGE = "File path should not be a directory!";
     public static final String FILE_NOT_READABLE_MESSAGE = "You do not have access to the specified file path!";
-    public static final String UNKNOWN_ERROR_MESSAGE =
-            "Unknown error when reading the file! %s's schedule is unchanged.";
+    public static final String UNKNOWN_ERROR_MESSAGE = "Unknown error when reading the file!";
     public static final String VALID_DATA_FORMAT_EXAMPLE = "{\n"
             + "  \"events\" : [ {\n"
             + "    \"eventDescription\" : \"CS2106 Tutorial\",\n"
@@ -66,17 +65,14 @@ public class ImportCommand extends EditTypeCommand {
     public static final String REFER_TEMPLATE_MESSAGE =
             String.format("Refer to %s for a valid json template.", TEMPLATE_FILE_PATH.toAbsolutePath());
 
-    public static final String NOT_JSON_FORMAT_MESSAGE =
-            "\"%s\" is empty or not in valid json format! %s's schedule is unchanged.";
+    public static final String NOT_JSON_FORMAT_MESSAGE = "\"%s\" is empty or not in valid json format!";
     public static final String NOT_JSON_FORMAT_REFER_TEMPLATE =
             NOT_JSON_FORMAT_MESSAGE + "\n" + REFER_TEMPLATE_MESSAGE;
     public static final String NOT_JSON_FORMAT_WITH_EXAMPLE =
             NOT_JSON_FORMAT_MESSAGE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
 
-    public static final String INVALID_DATA_MESSAGE =
-            "Data contains invalid headers and/or values! %s's schedule is unchanged.";
-    public static final String INVALID_DATA_REFER_TEMPLATE =
-            INVALID_DATA_MESSAGE + "\n" + REFER_TEMPLATE_MESSAGE;
+    public static final String INVALID_DATA_MESSAGE = "Data contains invalid headers and/or values!";
+    public static final String INVALID_DATA_REFER_TEMPLATE = INVALID_DATA_MESSAGE + "\n" + REFER_TEMPLATE_MESSAGE;
     public static final String INVALID_DATA_WITH_EXAMPLE =
             INVALID_DATA_MESSAGE + "\nExample of valid data:\n" + VALID_DATA_FORMAT_EXAMPLE;
 
@@ -87,7 +83,7 @@ public class ImportCommand extends EditTypeCommand {
      * @param targetIndex of the person in the filtered person list to edit
      * @param filePath of the file to be read
      */
-    public ImportCommand(Index targetIndex, Path filePath) {
+    public ImportScheduleCommand(Index targetIndex, Path filePath) {
         this.targetIndex = targetIndex;
         this.filePath = filePath;
     }
@@ -102,7 +98,57 @@ public class ImportCommand extends EditTypeCommand {
         }
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
+        checkValidFilePath(filePath);
+        Schedule importedSchedule = convertFileDataToSchedule(filePath);
 
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        editPersonDescriptor.setSchedule(importedSchedule);
+        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName()));
+    }
+
+    /**
+     * Converts the data in the specified file path into a {@code Schedule}.
+     *
+     * @throws CommandException if the data is in invalid format or contains illegal values and/or headers
+     */
+    private Schedule convertFileDataToSchedule(Path filePath) throws CommandException {
+        Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule;
+        try {
+            importedJsonAdaptedSchedule = JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
+        } catch (DataConversionException ive) {
+            createTemplate(String.format(NOT_JSON_FORMAT_WITH_EXAMPLE, filePath.getFileName()));
+            throw new CommandException(String.format(NOT_JSON_FORMAT_REFER_TEMPLATE, filePath.getFileName()));
+        }
+
+        if (!importedJsonAdaptedSchedule.isPresent()) {
+            throw new CommandException(String.format(UNKNOWN_ERROR_MESSAGE));
+        }
+
+        Schedule importedSchedule;
+        try {
+            importedSchedule = importedJsonAdaptedSchedule.get().toModelType();
+        } catch (IllegalValueException ive) {
+            createTemplate(String.format(INVALID_DATA_WITH_EXAMPLE, filePath.getFileName()));
+            throw new CommandException(String.format(INVALID_DATA_REFER_TEMPLATE));
+        }
+
+        if (importedSchedule.isEmpty()) {
+            createTemplate(String.format(INVALID_DATA_WITH_EXAMPLE, filePath.getFileName()));
+            throw new CommandException(String.format(INVALID_DATA_REFER_TEMPLATE));
+        }
+        return importedSchedule;
+    }
+
+    /**
+     * Checks if the provided filePath is a readable file.
+     *
+     * @throws CommandException if the file path is empty, a directory or is not readable
+     */
+    private void checkValidFilePath(Path filePath) throws CommandException {
         if (Files.notExists(filePath)) {
             throw new CommandException(String.format(
                     FILE_DOES_NOT_EXIST_MESSAGE, filePath.getFileName(), filePath.toAbsolutePath().getParent()));
@@ -113,45 +159,6 @@ public class ImportCommand extends EditTypeCommand {
         if (!Files.isReadable(filePath)) {
             throw new CommandException(String.format(FILE_NOT_READABLE_MESSAGE, filePath));
         }
-
-        Optional<JsonAdaptedSchedule> importedJsonAdaptedSchedule;
-        try {
-            importedJsonAdaptedSchedule = JsonUtil.readJsonFile(filePath, JsonAdaptedSchedule.class);
-        } catch (DataConversionException ive) {
-            createTemplate(String.format(
-                    NOT_JSON_FORMAT_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
-            throw new CommandException(String.format(
-                    NOT_JSON_FORMAT_REFER_TEMPLATE, filePath.getFileName(), personToEdit.getName()));
-        }
-
-        if (!importedJsonAdaptedSchedule.isPresent()) {
-            throw new CommandException(String.format(UNKNOWN_ERROR_MESSAGE, personToEdit.getName()));
-        }
-
-        Schedule importedSchedule;
-        try {
-            importedSchedule = importedJsonAdaptedSchedule.get().toModelType();
-        } catch (IllegalValueException ive) {
-            createTemplate(String.format(
-                    INVALID_DATA_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
-            throw new CommandException(String.format(
-                    INVALID_DATA_REFER_TEMPLATE, personToEdit.getName()));
-        }
-
-        if (importedSchedule.isEmpty()) {
-            createTemplate(String.format(
-                    INVALID_DATA_WITH_EXAMPLE, filePath.getFileName(), personToEdit.getName()));
-            throw new CommandException(String.format(
-                    INVALID_DATA_REFER_TEMPLATE, personToEdit.getName()));
-        }
-
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        editPersonDescriptor.setSchedule(importedSchedule);
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName()));
     }
 
     /**
@@ -177,12 +184,12 @@ public class ImportCommand extends EditTypeCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ImportCommand)) {
+        if (!(other instanceof ImportScheduleCommand)) {
             return false;
         }
 
         // state check
-        ImportCommand e = (ImportCommand) other;
+        ImportScheduleCommand e = (ImportScheduleCommand) other;
         return targetIndex.equals(e.targetIndex)
                 && filePath.equals(e.filePath);
     }
