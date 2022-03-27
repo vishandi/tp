@@ -253,7 +253,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 | `D`, `Daily`    | Daily     |
 | `W`, `Weekly`   | Weekly    |
 | `B`, `Biweekly` | Biweekly  |
-  
+
 Example:
 * `editEvent 3 3 da/2022-12-21`
 * `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`

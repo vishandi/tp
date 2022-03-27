@@ -53,4 +53,5 @@ public class SetUserCommand extends Command {
                 || (other instanceof SetUserCommand // instanceof handles nulls
                 && targetIndex.equals(((SetUserCommand) other).targetIndex)); // state check
     }
+
 }
