@@ -8,13 +8,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
-import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -78,13 +76,8 @@ public class EditEventCommand extends EditTypeCommand {
         }
 
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, targetEventIndex, editEventDescriptor);
+        model.setSchedule(personToEdit, updatedSchedule);
         Event editedEvent = updatedSchedule.getEvent(targetEventIndex.getZeroBased());
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        editPersonDescriptor.setSchedule(updatedSchedule);
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 

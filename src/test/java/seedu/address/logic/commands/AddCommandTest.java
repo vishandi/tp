@@ -22,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -136,6 +137,11 @@ public class AddCommandTest {
 
         @Override
         public void setPerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSchedule(Person target, Schedule updatedSchedule) {
             throw new AssertionError("This method should not be called.");
         }
 
