@@ -108,6 +108,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void insertPerson(Person person, Integer index) {
+        addressBook.insertPerson(person, index);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 

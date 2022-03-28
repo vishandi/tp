@@ -166,6 +166,20 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Setting a contact as the user : `setUser`
+
+Sets the specified person as the user and shifts the contact to the top of the list.
+
+Format: `setUser INDEX`
+
+* Sets the person at the specified `INDEX` as the user.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user.
+* `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user.
+
 ### Viewing a person : `viewSchedule`
 
 Views the specified person's Schedule from UniGenda.
@@ -240,7 +254,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 | `D`, `Daily`    | Daily     |
 | `W`, `Weekly`   | Weekly    |
 | `B`, `Biweekly` | Biweekly  |
-  
+
 Example:
 * `editEvent 3 3 da/2022-12-21`
 * `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`
@@ -351,6 +365,7 @@ Example:
 | **Clear**             | `clear`                                                                                                                                                                                       |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **SetUser**           | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
 | **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
 | **ViewSchedule**      | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
 | **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
