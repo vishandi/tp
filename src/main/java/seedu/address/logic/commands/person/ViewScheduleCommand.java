@@ -16,6 +16,7 @@ import seedu.address.model.person.SamePersonPredicate;
 
 public class ViewScheduleCommand extends Command {
     public static final String COMMAND_WORD = "viewSchedule";
+    public static final String COMMAND_WORD_LOWER = "viewschedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": views the person's schedule identified by the index number used in the displayed person list.\n"

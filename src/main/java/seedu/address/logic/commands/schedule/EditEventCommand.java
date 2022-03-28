@@ -30,6 +30,7 @@ import seedu.address.model.schedule.Schedule;
 public class EditEventCommand extends EditTypeCommand {
 
     public static final String COMMAND_WORD = "editEvent";
+    public static final String COMMAND_WORD_LOWER = "editevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an event of the person identified "
             + "by the index number used in the displayed person list. "

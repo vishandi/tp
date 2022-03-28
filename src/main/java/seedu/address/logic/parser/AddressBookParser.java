@@ -61,7 +61,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -87,22 +87,22 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AddEventCommand.COMMAND_WORD:
+        case AddEventCommand.COMMAND_WORD_LOWER:
             return new AddEventCommandParser().parse(arguments);
 
-        case FreeScheduleCommand.COMMAND_WORD:
+        case FreeScheduleCommand.COMMAND_WORD_LOWER:
             return new FreeScheduleCommandParser().parse(arguments);
 
-        case EditEventCommand.COMMAND_WORD:
+        case EditEventCommand.COMMAND_WORD_LOWER:
             return new EditEventCommandParser().parse(arguments);
 
-        case DeleteEventCommand.COMMAND_WORD:
+        case DeleteEventCommand.COMMAND_WORD_LOWER:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case ViewGroupCommand.COMMAND_WORD:
+        case ViewGroupCommand.COMMAND_WORD_LOWER:
             return new ViewGroupCommandParser().parse(arguments);
 
-        case ViewScheduleCommand.COMMAND_WORD:
+        case ViewScheduleCommand.COMMAND_WORD_LOWER:
             return new ViewScheduleCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
