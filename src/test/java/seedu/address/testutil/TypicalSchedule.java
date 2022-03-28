@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,8 @@ public class TypicalSchedule {
             .withDate("2022-08-09").withTime("20:00").withDuration("3H").build().getNextRecurringEvent();
     public static final Event ALICE_BIRTHDAY = new EventBuilder().withEventDescription("Alice Birthday Surprise")
             .withDate("2022-03-14").withTime("17:00").withDuration("4H").build().getNextRecurringEvent();
+    public static final LocalTime TYPICAL_TIME = LocalTime.parse("10:00");
+    public static final LocalDate TYPICAL_DATE = LocalDate.parse("2022-02-14");
 
     private TypicalSchedule() {} // prevents instantiation
 

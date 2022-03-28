@@ -90,14 +90,14 @@ public class AddressBookParser {
         case AddEventCommand.COMMAND_WORD_LOWER:
             return new AddEventCommandParser().parse(arguments);
 
-        case FreeScheduleCommand.COMMAND_WORD_LOWER:
-            return new FreeScheduleCommandParser().parse(arguments);
-
         case EditEventCommand.COMMAND_WORD_LOWER:
             return new EditEventCommandParser().parse(arguments);
 
         case DeleteEventCommand.COMMAND_WORD_LOWER:
             return new DeleteEventCommandParser().parse(arguments);
+
+        case FreeScheduleCommand.COMMAND_WORD_LOWER:
+            return new FreeScheduleCommandParser().parse(arguments);
 
         case ViewGroupCommand.COMMAND_WORD_LOWER:
             return new ViewGroupCommandParser().parse(arguments);
