@@ -16,8 +16,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -30,7 +30,7 @@ import seedu.address.storage.JsonAdaptedSchedule;
  * Imports a {@code Schedule} from the specified json file and replaces the indexed {@code Person}'s schedule with
  * the imported {@code Schedule}
  */
-public class ImportScheduleCommand extends EditTypeCommand {
+public class ImportScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "importSchedule";
 
