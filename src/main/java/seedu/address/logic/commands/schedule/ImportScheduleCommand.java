@@ -3,7 +3,6 @@ package seedu.address.logic.commands.schedule;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,6 +22,7 @@ import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.SamePersonPredicate;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.storage.JsonAdaptedSchedule;
 
@@ -106,7 +106,7 @@ public class ImportScheduleCommand extends EditTypeCommand {
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName()));
     }
 
