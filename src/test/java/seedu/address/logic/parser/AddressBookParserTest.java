@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -23,10 +25,12 @@ import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
 import seedu.address.logic.commands.person.ListCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
+import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.schedule.Event;
+import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -97,6 +101,16 @@ public class AddressBookParserTest {
         AddEventCommand command = (AddEventCommand) parser
                 .parseCommand(PersonUtil.getAddEventCommand(INDEX_FIRST_PERSON, event));
         assertEquals(new AddEventCommand(INDEX_FIRST_PERSON, event), command);
+    }
+
+    @Test
+    public void parseCommand_editEvent() throws Exception {
+        Event event = new EventBuilder().build();
+        EditEventDescriptor descriptor = new EditEventDescriptorBuilder(event).build();
+        EditEventCommand command = (EditEventCommand) parser.parseCommand(EditEventCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + INDEX_FIRST_EVENT.getOneBased()
+                + " " + PersonUtil.getEditEventDescriptorDetails(descriptor));
+        assertEquals(new EditEventCommand(INDEX_FIRST_PERSON, INDEX_FIRST_EVENT, descriptor), command);
     }
 
     @Test

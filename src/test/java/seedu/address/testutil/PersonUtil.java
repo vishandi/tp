@@ -15,7 +15,6 @@ import java.time.Duration;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EditUtil;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
 import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.person.AddCommand;
@@ -91,6 +90,27 @@ public class PersonUtil {
         sb.append(PREFIX_TIME + event.getTime().toString() + " ");
         sb.append(PREFIX_DURATION + durationString + " ");
         sb.append(PREFIX_RECUR_FREQUENCY + event.getRecurFrequency().getShortName() + " ");
+        return sb.toString();
+    }
+
+    /**
+     * Returns the part of command string for the given {@code EditEventDescriptor}'s details.
+     */
+    public static String getEditEventDescriptorDetails(EditEventDescriptor descriptor) {
+        StringBuilder sb = new StringBuilder();
+        descriptor.getEventDescription().ifPresent(ed -> sb.append(PREFIX_EVENT_DESCRIPTION)
+                .append(ed.value).append(" "));
+        descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date).append(" "));
+        descriptor.getTime().ifPresent(time -> sb.append(PREFIX_TIME).append(time).append(" "));
+        if (descriptor.getDuration().isPresent()) {
+            Duration duration = descriptor.getDuration().get();
+            String hours = String.valueOf(duration.toHours());
+            String minutes = String.valueOf(duration.toMinutes() % 60);
+            String durationString = String.format("%1$sH%2$sM", hours, minutes);
+            sb.append(PREFIX_DURATION).append(durationString).append(" ");
+        }
+        descriptor.getRecurFrequency().ifPresent(rf -> sb.append(PREFIX_RECUR_FREQUENCY)
+                .append(rf.getShortName()).append(" "));
         return sb.toString();
     }
 }
