@@ -36,7 +36,6 @@ public class PersonUtil {
     }
 
     public static String getAddEventCommand(Index index, Event event) {
-        System.out.println(AddEventCommand.COMMAND_WORD + " " + index.getOneBased() + " " + getEventDetails(event));
         return AddEventCommand.COMMAND_WORD + " " + index.getOneBased() + " " + getEventDetails(event);
     }
 

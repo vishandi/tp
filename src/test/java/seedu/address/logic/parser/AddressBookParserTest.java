@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -24,13 +25,16 @@ import seedu.address.logic.commands.person.DeleteCommand;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
 import seedu.address.logic.commands.person.ListCommand;
+import seedu.address.logic.commands.person.ViewGroupCommand;
 import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.IsTagInPersonPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Tag;
 import seedu.address.model.schedule.Event;
 import seedu.address.testutil.EditEventDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -123,6 +127,16 @@ public class AddressBookParserTest {
                 DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                 + " " + INDEX_FIRST_EVENT.getOneBased());
         assertEquals(new DeleteEventCommand(INDEX_FIRST_PERSON, INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_viewGroup() throws Exception {
+        String keyword = "foo";
+        ViewGroupCommand command = (ViewGroupCommand) parser.parseCommand(
+                ViewGroupCommand.COMMAND_WORD + " " + PREFIX_TAG + " " + keyword
+        );
+        System.out.println(ViewGroupCommand.COMMAND_WORD + " " + PREFIX_TAG + " " + keyword);
+        assertEquals(new ViewGroupCommand(new IsTagInPersonPredicate(new Tag(keyword))), command);
     }
 
     @Test
