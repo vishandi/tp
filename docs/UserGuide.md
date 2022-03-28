@@ -168,7 +168,7 @@ Examples:
 
 ### Viewing a person : `viewSchedule`
 
-Views the specified person's Schedule from UniGenda.
+Views the specified person's Schedule from UniGenda. You can see the person's upcoming schedule for the following week starting **now**, and the list of the person's schedule.
 
 Format: `viewSchedule INDEX`
 
@@ -176,6 +176,9 @@ Format: `viewSchedule INDEX`
 * The view will be displayed in the right panel of UniGenda.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* **now** refers to the time that your system is currently in. 
+* If you change your system's time, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
+* If a certain Event has passed according to your system's time, it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 
 Examples:
 * `list` followed by `viewSchedule 4` views the 4th person in UniGenda.
@@ -218,6 +221,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 Examples:
 * `addEvent 3 ed/Open House da/2022-12-20`
 * `addEvent 2 ed/CCA Meeting da/2023-11-23 ti/12:00 du/1H30M r/W`
+* `addEvent 1 ed/CS2103T Coding da/2023-10-23 ti/12:00 du/1H30M r/Daily`
 
 ### Editing a person’s schedule: `editEvent`
 Edits the schedule assigned to a person.
@@ -228,7 +232,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 * At least one of the optional fields must be provided
 * DATE should be in "YYYY-MM-DD" format
 * TIME should be in "HH:MM" format
-* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
+* DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
   * XHYM
   * XHY
   * XH
