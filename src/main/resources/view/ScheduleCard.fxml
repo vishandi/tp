@@ -34,17 +34,6 @@
             <Label fx:id="phone" text="\$phone" />
             </children>
          </HBox>
-         <HBox fx:id="scheduleBoxHeader" alignment="CENTER_LEFT" spacing="5">
-            <children>
-               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../images/schedule_icon.png" />
-                  </image>
-               </ImageView>
-               <Label fx:id="scheduleHeader" styleClass="view_medium_label" text="Label" />
-            </children>
-         </HBox>
-         <HBox fx:id="scheduleBox" alignment="CENTER_LEFT" spacing="5" />
          <HBox fx:id="upcomingScheduleBoxHeader" alignment="CENTER_LEFT" spacing="5">
             <children>
                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -133,6 +122,17 @@
             </children>
          </HBox>
          <HBox fx:id="scheduleDay6" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="scheduleBoxHeader" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/schedule_icon.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="scheduleHeader" styleClass="view_medium_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="scheduleBox" alignment="CENTER_LEFT" spacing="5" />
     </VBox>
       <rowConstraints>
          <RowConstraints />
