@@ -24,6 +24,7 @@ import seedu.address.logic.commands.person.DeleteCommand;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
 import seedu.address.logic.commands.person.ListCommand;
+import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
@@ -36,6 +37,8 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EventBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+
+import javax.swing.text.View;
 
 public class AddressBookParserTest {
 
@@ -120,6 +123,14 @@ public class AddressBookParserTest {
                 DeleteEventCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                 + " " + INDEX_FIRST_EVENT.getOneBased());
         assertEquals(new DeleteEventCommand(INDEX_FIRST_PERSON, INDEX_FIRST_EVENT), command);
+    }
+
+    @Test
+    public void parseCommand_viewSchedule() throws Exception {
+        ViewScheduleCommand command = (ViewScheduleCommand) parser.parseCommand(
+                ViewScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+        );
+        assertEquals(new ViewScheduleCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
