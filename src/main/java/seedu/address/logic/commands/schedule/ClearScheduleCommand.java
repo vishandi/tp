@@ -12,6 +12,7 @@ import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.SamePersonPredicate;
 import seedu.address.model.schedule.Schedule;
 
 
@@ -50,6 +51,7 @@ public class ClearScheduleCommand extends EditTypeCommand {
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
 
         model.setSchedule(personToEdit, new Schedule(new ArrayList<>()));
+        model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_CLEAR_SCHEDULE_SUCCESS, personToEdit.getName()));
     }
 
