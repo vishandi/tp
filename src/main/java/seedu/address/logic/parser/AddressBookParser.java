@@ -6,11 +6,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.person.AddCommand;
+import seedu.address.logic.commands.person.ClearCommand;
 import seedu.address.logic.commands.person.DeleteCommand;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
@@ -18,6 +18,7 @@ import seedu.address.logic.commands.person.ListCommand;
 import seedu.address.logic.commands.person.ViewGroupCommand;
 import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
+import seedu.address.logic.commands.schedule.ClearScheduleCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportCommand;
@@ -30,6 +31,7 @@ import seedu.address.logic.parser.person.FindCommandParser;
 import seedu.address.logic.parser.person.ViewGroupCommandParser;
 import seedu.address.logic.parser.person.ViewScheduleCommandParser;
 import seedu.address.logic.parser.schedule.AddEventCommandParser;
+import seedu.address.logic.parser.schedule.ClearScheduleCommandParser;
 import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
 import seedu.address.logic.parser.schedule.ExportCommandParser;
@@ -98,6 +100,9 @@ public class AddressBookParser {
 
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
+
+        case ClearScheduleCommand.COMMAND_WORD:
+            return new ClearScheduleCommandParser().parse(arguments);
 
         case ViewGroupCommand.COMMAND_WORD:
             return new ViewGroupCommandParser().parse(arguments);
