@@ -93,6 +93,18 @@ public class Schedule {
         return test.getEvents().isEmpty();
     }
 
+    public String getDailyScheduleFormat() {
+        final StringBuilder builder = new StringBuilder();
+
+        int counter = 1;
+        for (Event event : events) {
+            builder.append(String.format("%s. %s\n", counter, event.getDailyScheduleFormat()));
+            counter += 1;
+        }
+
+        return builder.toString();
+    }
+
     /**
      * Returns true if both schedules have the same list of events.
      */

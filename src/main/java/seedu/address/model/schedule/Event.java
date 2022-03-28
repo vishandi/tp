@@ -180,6 +180,16 @@ public class Event implements Comparable<Event> {
         return duration.compareTo(eventDuration);
     }
 
+    public String getDailyScheduleFormat() {
+        String plusDays = "";
+        long numDays = ChronoUnit.DAYS.between(getDate(), getEndDate());
+        if (numDays > 0) {
+            plusDays = String.format(" (+%s)", numDays);
+        }
+        return String.format("%s %s-%s%s %s", eventDescription, time, getEndTime(),
+                plusDays, getRecurFrequency().getLabel());
+    }
+
     /**
      * Returns true if both schedules have the same list of events.
      */

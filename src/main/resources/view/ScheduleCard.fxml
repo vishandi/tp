@@ -63,7 +63,7 @@
                    <Image url="@../images/days.png" />
                 </image>
              </ImageView>
-             <Label fx:id="headerDay0" styleClass="view_days_label" text="Label" />
+             <Label fx:id="headerDay0" styleClass="view_today_label" text="Label" />
           </children>
        </HBox>
        <HBox fx:id="scheduleDay0" alignment="CENTER_LEFT" spacing="5" />

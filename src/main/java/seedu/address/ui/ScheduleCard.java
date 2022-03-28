@@ -110,7 +110,7 @@ public class ScheduleCard extends UiPart<Region> {
 
         for (int i = 0; i < 7; i++) {
             if (!Schedule.isEmptySchedule(person.getUpcomingSchedule(i))) {
-                Label upcomingScheduleLabel = new Label(person.getUpcomingSchedule(i).toString());
+                Label upcomingScheduleLabel = new Label(person.getUpcomingSchedule(i).getDailyScheduleFormat());
                 dailySchedule.get(i).getChildren().add(upcomingScheduleLabel);
             } else {
                 Label upcomingScheduleLabel = new Label(String.format(NO_UPCOMING_SCHEDULE_MESSAGE,
