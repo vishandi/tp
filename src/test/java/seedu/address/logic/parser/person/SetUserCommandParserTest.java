@@ -9,13 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.person.SetUserCommand;
 
-/**
- * As we are only doing white-box testing, our test cases do not cover path variations
- * outside of the SetUserCommand code. For example, inputs "1" and "1 abc" take the
- * same path through the SetUserCommand, and therefore we test only one of them.
- * The path variation for those two cases occur inside the ParserUtil, and
- * therefore should be covered by the ParserUtilTest.
- */
 public class SetUserCommandParserTest {
 
     private SetUserCommandParser parser = new SetUserCommandParser();

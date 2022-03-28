@@ -28,8 +28,8 @@ public class SetUserCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Person personToSetUser = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        SetUserCommand setUserCommand = new SetUserCommand(INDEX_FIRST_PERSON);
+        Person personToSetUser = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        SetUserCommand setUserCommand = new SetUserCommand(INDEX_SECOND_PERSON);
 
         String expectedMessage = String.format(SetUserCommand.MESSAGE_SET_USER_SUCCESS, personToSetUser.getName());
 
@@ -50,7 +50,7 @@ public class SetUserCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_SECOND_PERSON);
 
         Person personToSetUser = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         SetUserCommand setUserCommand = new SetUserCommand(INDEX_FIRST_PERSON);
