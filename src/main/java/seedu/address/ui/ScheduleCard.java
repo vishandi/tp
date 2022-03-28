@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
-import seedu.address.model.schedule.Schedule;
 
 /**
  * An UI component that displays information of a {@code Person} in the viewed version.
@@ -59,7 +58,7 @@ public class ScheduleCard extends UiPart<Region> {
         scheduleHeader.setText(String.format("%1$s's Schedule", person.getName().value));
         upcomingScheduleHeader.setText(String.format("%1$s's Upcoming Schedule", person.getName().value));
 
-        if (!Schedule.isEmptySchedule(person.getSchedule())) {
+        if ((!person.getSchedule().isEmpty())) {
             Label scheduleLabel = new Label(person.getSchedule().toString());
             scheduleBox.getChildren().add(scheduleLabel);
         } else {
@@ -68,7 +67,7 @@ public class ScheduleCard extends UiPart<Region> {
             scheduleBox.getChildren().add(scheduleLabel);
         }
 
-        if (!Schedule.isEmptySchedule(person.getUpcomingSchedule())) {
+        if (!person.getUpcomingSchedule().isEmpty()) {
             Label upcomingScheduleLabel = new Label(person.getUpcomingSchedule().toString());
             upcomingScheduleBox.getChildren().add(upcomingScheduleLabel);
         } else {

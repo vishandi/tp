@@ -22,11 +22,12 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
-   13. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
-   14. [Clearing all entries](#clearing-all-entries--clear)
-   15. [Exiting the program](#exiting-the-program--exit)
-   16. [Saving the data](#saving-the-data)
-   17. [Editing the data file](#editing-the-data-file)
+   13. [Importing a person's schedule](#importing-a-persons-schedule-import)
+   14. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
+   15. [Clearing all entries](#clearing-all-entries--clear)
+   16. [Exiting the program](#exiting-the-program--exit)
+   17. [Saving the data](#saving-the-data)
+   18. [Editing the data file](#editing-the-data-file)
 3. [Coming Soon](#coming-soon-v13)
    1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
    2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
@@ -269,6 +270,18 @@ Examples:
 * `freeSchedule ti/ 12:00`
 * `freeSchedule ti/ 14:00 da/2022-02-14`
 
+### Importing a person's schedule: `importSchedule`
+Imports a schedule from a file to the person at the specified index.
+
+Format: `importSchedule INDEX pa/FILE_PATH`
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+* The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.)
+* The imported `Schedule` **cannot be empty**.
+* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path)
+
+Examples:
+`importSchedule 1 pa/typicalSchedule.json`
+
 ### Exporting a person's schedule: `export`
 Format: `export INDEX`
 * Allows user to export schedule of person at specified index
@@ -345,6 +358,7 @@ Example:
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
 | **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
 | **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
+| **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
 | **Export**            | `export INDEX`<br> e.g., `export 1`                                                                                                                                                           |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**              | `list`                                                                                                                                                                                        |

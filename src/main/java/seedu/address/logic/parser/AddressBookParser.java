@@ -22,6 +22,7 @@ import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportCommand;
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
+import seedu.address.logic.commands.schedule.ImportScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.person.AddCommandParser;
 import seedu.address.logic.parser.person.DeleteCommandParser;
@@ -34,6 +35,7 @@ import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
 import seedu.address.logic.parser.schedule.ExportCommandParser;
 import seedu.address.logic.parser.schedule.FreeScheduleCommandParser;
+import seedu.address.logic.parser.schedule.ImportScheduleCommandParser;
 
 
 /**
@@ -104,6 +106,9 @@ public class AddressBookParser {
 
         case ViewScheduleCommand.COMMAND_WORD:
             return new ViewScheduleCommandParser().parse(arguments);
+
+        case ImportScheduleCommand.COMMAND_WORD:
+            return new ImportScheduleCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
