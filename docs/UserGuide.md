@@ -89,6 +89,8 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* All commands are case-insensitive, i.e. `addevent` or `AdDEvenT` works for `addEvent` commands.
+
 </div>
 
 ### Viewing help : `help`
