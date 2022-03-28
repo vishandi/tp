@@ -16,7 +16,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.logic.EditUtil.EditPersonDescriptor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -101,11 +100,7 @@ public class ImportScheduleCommand extends EditTypeCommand {
         checkValidFilePath(filePath);
         Schedule importedSchedule = convertFileDataToSchedule(filePath);
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        editPersonDescriptor.setSchedule(importedSchedule);
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        model.setPerson(personToEdit, editedPerson);
+        model.setSchedule(personToEdit, importedSchedule);
         model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit.getName()));
     }
