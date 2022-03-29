@@ -35,6 +35,7 @@ public class TypicalSchedule {
             .withDate("2022-03-14").withTime("17:00").withDuration("4H").build().getNextRecurringEvent();
     public static final LocalTime TYPICAL_TIME = LocalTime.parse("10:00");
     public static final LocalDate TYPICAL_DATE = LocalDate.parse("2022-02-14");
+    public static final String TYPICAL_PATH = "typicalSchedule.json";
 
     private TypicalSchedule() {} // prevents instantiation
 

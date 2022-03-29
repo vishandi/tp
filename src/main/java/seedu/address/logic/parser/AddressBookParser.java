@@ -108,19 +108,19 @@ public class AddressBookParser {
         case ViewGroupCommand.COMMAND_WORD_LOWER:
             return new ViewGroupCommandParser().parse(arguments);
 
-        case ClearScheduleCommand.COMMAND_WORD:
+        case ClearScheduleCommand.COMMAND_WORD_LOWER:
             return new ClearScheduleCommandParser().parse(arguments);
 
         case ViewScheduleCommand.COMMAND_WORD_LOWER:
             return new ViewScheduleCommandParser().parse(arguments);
 
-        case ImportScheduleCommand.COMMAND_WORD:
+        case ImportScheduleCommand.COMMAND_WORD_LOWER:
             return new ImportScheduleCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
 
-        case SetUserCommand.COMMAND_WORD:
+        case SetUserCommand.COMMAND_WORD_LOWER:
             return new SetUserCommandParser().parse(arguments);
 
         default:

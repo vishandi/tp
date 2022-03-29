@@ -5,14 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILEPATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalSchedule.TYPICAL_DATE;
+import static seedu.address.testutil.TypicalSchedule.TYPICAL_PATH;
 import static seedu.address.testutil.TypicalSchedule.TYPICAL_TIME;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +39,7 @@ import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportCommand;
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
+import seedu.address.logic.commands.schedule.ImportScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.IsTagInPersonPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -186,6 +190,15 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_importSchedule() throws Exception {
+        ImportScheduleCommand command = (ImportScheduleCommand) parser.parseCommand(
+                ImportScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_FILEPATH + TYPICAL_PATH
+        );
+        assertEquals(new ImportScheduleCommand(INDEX_FIRST_PERSON, Paths.get(TYPICAL_PATH)), command);
+    }
+
+    @Test
     public void parseCommand_allLowerCase_success() throws ParseException {
         // addEvent
         Event event = new EventBuilder().build();
@@ -223,10 +236,17 @@ public class AddressBookParserTest {
         assertEquals(new ViewGroupCommand(new IsTagInPersonPredicate(new Tag(keyword))), viewGroupCommand);
 
         // viewSchedule
-        ViewScheduleCommand command = (ViewScheduleCommand) parser.parseCommand(
+        ViewScheduleCommand viewScheduleCommand = (ViewScheduleCommand) parser.parseCommand(
                 ViewScheduleCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON.getOneBased()
         );
-        assertEquals(new ViewScheduleCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new ViewScheduleCommand(INDEX_FIRST_PERSON), viewScheduleCommand);
+
+        // importSchedule
+        ImportScheduleCommand importScheduleCommand = (ImportScheduleCommand) parser.parseCommand(
+                ImportScheduleCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_FILEPATH + TYPICAL_PATH
+        );
+        assertEquals(new ImportScheduleCommand(INDEX_FIRST_PERSON, Paths.get(TYPICAL_PATH)), importScheduleCommand);
     }
 
     @Test
