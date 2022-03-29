@@ -23,6 +23,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.SamePersonPredicate;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
 import seedu.address.model.schedule.RecurFrequency;
@@ -84,6 +85,8 @@ public class EditEventCommand extends Command {
 
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, targetEventIndex, editEventDescriptor);
         model.setSchedule(personToEdit, updatedSchedule);
+        model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
+
         Event editedEvent = updatedSchedule.getEvent(targetEventIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }

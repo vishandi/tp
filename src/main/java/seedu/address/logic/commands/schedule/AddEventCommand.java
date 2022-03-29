@@ -19,6 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.SamePersonPredicate;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
@@ -71,6 +72,7 @@ public class AddEventCommand extends Command {
         Schedule scheduleToEdit = personToEdit.getSchedule();
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, eventToAdd);
         model.setSchedule(personToEdit, updatedSchedule);
+        model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAdd, personToEdit.getName()));
     }
 

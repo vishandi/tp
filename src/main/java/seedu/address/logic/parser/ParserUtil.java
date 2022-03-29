@@ -188,9 +188,23 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            return LocalDate.parse(trimmedDate);
+            LocalDate localDate = LocalDate.parse(trimmedDate);
+            checkValidDate(localDate);
+            return localDate;
         } catch (DateTimeParseException e) {
             throw new ParseException(DATE_MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * A helper function to check if a date satisfies the year constraints.
+     *
+     * @throws ParseException if the year of the given {@code date} is less than 2000 or more than 2100
+     */
+    private static void checkValidDate(LocalDate date) throws ParseException {
+        int year = date.getYear();
+        if (year < 2000 || year > 2100) {
+            throw new ParseException("The date of the event must be between year 2000 to 2100 inclusive!");
         }
     }
 
@@ -226,16 +240,54 @@ public class ParserUtil {
                 String[] splitDuration = trimmedDuration.split("H");
                 hours = Integer.parseInt(splitDuration[0]);
                 minutes = Integer.parseInt(splitDuration[1].split("M")[0]);
+                checkValidHoursAndMinutes(hours, minutes);
             } else if (trimmedDuration.matches(DURATION_HOURS_REGEX)) {
                 hours = Integer.parseInt(trimmedDuration.split("H")[0]);
+                checkValidHours(hours);
             } else if (trimmedDuration.matches(DURATION_MINUTES_REGEX)) {
                 minutes = Integer.parseInt(trimmedDuration.split("M")[0]);
+                checkValidMinutes(minutes);
             } else {
                 throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
             }
             return Duration.ofHours(hours).plusMinutes(minutes);
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * A helper function to check if the hours and minutes satisfies duration constraints.
+     *
+     * @throws ParseException if the {@code hours} and {@code minutes} combined exceeds 336 hours (2 weeks)
+     */
+    private static void checkValidHoursAndMinutes(int hours, int minutes) throws ParseException {
+        checkValidMinutes(minutes);
+        checkValidHours(hours);
+        if (hours == 336 && minutes > 0) {
+            throw new ParseException("The event's duration cannot exceed 2 weeks! (336 hours)");
+        }
+    }
+
+    /**
+     * A helper function to check if the hours satisfy duration constraints.
+     *
+     * @throws ParseException if the given {@code hours} is less than 0 or more than 336
+     */
+    private static void checkValidHours(int hours) throws ParseException {
+        if (hours < 0 || hours > 336) {
+            throw new ParseException("The event's duration cannot exceed 2 weeks! (336 hours)");
+        }
+    }
+
+    /**
+     * A helper function to check if the minutes satisfy minute constraints.
+     *
+     * @throws ParseException if the given {@code minutes} is less than 0 or larger than 59
+     */
+    private static void checkValidMinutes(int minutes) throws ParseException {
+        if (minutes < 0 || minutes > 59) {
+            throw new ParseException("The minutes should be an integer between 0 to 59!");
         }
     }
 
