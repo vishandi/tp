@@ -27,6 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String TOO_LONG_NAME = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String INVALID_PHONE = "+651234";
+    private static final String TOO_LONG_PHONE = "0000000000000000";
     private static final String INVALID_TELEGRAM = "abcde**";
     private static final String INVALID_GITHUB = "ab--e";
     private static final String INVALID_EMAIL = "example.com";
@@ -35,6 +36,7 @@ public class ParserUtilTest {
     private static final String VALID_NAME = "Rachel Walker";
     private static final String MAXIMUM_LENGTH_NAME = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String VALID_PHONE = "123456";
+    private static final String MAXIMUM_LENGTH_PHONE = "000000000000000";
     private static final String VALID_TELEGRAM = "abcde";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_GITHUB = "abcde";
@@ -99,12 +101,16 @@ public class ParserUtilTest {
     @Test
     public void parsePhone_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(TOO_LONG_PHONE));
     }
 
     @Test
     public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
         Phone expectedPhone = new Phone(VALID_PHONE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+
+        Phone maximumLengthPhone = new Phone(MAXIMUM_LENGTH_PHONE);
+        assertEquals(maximumLengthPhone, ParserUtil.parsePhone(MAXIMUM_LENGTH_PHONE));
     }
 
     @Test
