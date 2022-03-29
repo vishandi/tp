@@ -18,7 +18,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.schedule.Schedule;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code ClearScheduleCommand}.
@@ -39,7 +38,7 @@ public class ClearScheduleCommandTest {
         assertEquals(commandResult, new CommandResult(expectedMessage));
 
         Person updatedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        assertTrue(Schedule.isEmptySchedule(updatedPerson.getSchedule()));
+        assertTrue(updatedPerson.getSchedule().isEmpty());
     }
 
     @Test
@@ -64,7 +63,7 @@ public class ClearScheduleCommandTest {
         assertEquals(commandResult, new CommandResult(expectedMessage));
 
         Person updatedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        assertTrue(Schedule.isEmptySchedule(updatedPerson.getSchedule()));
+        assertTrue(updatedPerson.getSchedule().isEmpty());
     }
 
     @Test
