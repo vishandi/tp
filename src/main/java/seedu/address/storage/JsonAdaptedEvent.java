@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.EventDescription;
@@ -49,7 +50,7 @@ class JsonAdaptedEvent {
         eventDescription = source.getEventDescription().value;
         date = source.getDate().toString();
         time = source.getTime().toString();
-        duration = source.getDuration().toString();
+        duration = source.getDuration().toString().substring(2);
         recurFrequency = source.getRecurFrequency().toString();
     }
 
@@ -74,9 +75,9 @@ class JsonAdaptedEvent {
         }
         final LocalDate modelDate;
         try {
-            modelDate = LocalDate.parse(date);
-        } catch (DateTimeParseException e) {
-            throw new IllegalValueException(Event.DATE_MESSAGE_CONSTRAINTS);
+            modelDate = ParserUtil.parseDate(date);
+        } catch (ParseException e) {
+            throw new IllegalValueException(e.getMessage());
         }
 
         if (time == null) {
@@ -85,9 +86,9 @@ class JsonAdaptedEvent {
         }
         final LocalTime modelTime;
         try {
-            modelTime = LocalTime.parse(time);
-        } catch (DateTimeParseException e) {
-            throw new IllegalValueException(Event.TIME_MESSAGE_CONSTRAINTS);
+            modelTime = ParserUtil.parseTime(time);
+        } catch (ParseException e) {
+            throw new IllegalValueException(e.getMessage());
         }
 
         if (duration == null) {
@@ -96,7 +97,7 @@ class JsonAdaptedEvent {
         }
         final Duration modelDuration;
         try {
-            modelDuration = Duration.parse(duration);
+            modelDuration = ParserUtil.parseDuration(duration);
         } catch (DateTimeParseException e) {
             throw new IllegalValueException(Event.DURATION_MESSAGE_CONSTRAINTS);
         }

@@ -37,9 +37,12 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    private static final String DATE_REGEX = "\\d{4}-\\d{2}-\\d{2}";
+    private static final String TIME_REGEX = "\\d{2}:\\d{2}";
     private static final String DURATION_HOURS_REGEX = "^[0-9]*H?";
     private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M";
     private static final String DURATION_MINUTES_REGEX = "[0-9]*M";
+
 
     private static final String FILE_PATH_MESSAGE_CONSTRAINTS = "File path cannot be empty!";
 
@@ -187,12 +190,15 @@ public class ParserUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
+        if (!trimmedDate.matches(DATE_REGEX)) {
+            throw new ParseException(DATE_MESSAGE_CONSTRAINTS);
+        }
         try {
             LocalDate localDate = LocalDate.parse(trimmedDate);
             checkValidDate(localDate);
             return localDate;
         } catch (DateTimeParseException e) {
-            throw new ParseException(DATE_MESSAGE_CONSTRAINTS);
+            throw new ParseException("The provided date does not exist!");
         }
     }
 
@@ -217,10 +223,13 @@ public class ParserUtil {
     public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
+        if (!trimmedTime.matches(TIME_REGEX)) {
+            throw new ParseException(TIME_MESSAGE_CONSTRAINTS);
+        }
         try {
             return LocalTime.parse(trimmedTime);
         } catch (DateTimeParseException e) {
-            throw new ParseException(TIME_MESSAGE_CONSTRAINTS);
+            throw new ParseException("The provided time is invalid!");
         }
     }
 
@@ -287,7 +296,7 @@ public class ParserUtil {
      */
     private static void checkValidMinutes(int minutes) throws ParseException {
         if (minutes < 0 || minutes > 59) {
-            throw new ParseException("The minutes should be an integer between 0 to 59!");
+            throw new ParseException("Minutes should be an integer between 0 to 59 inclusive!");
         }
     }
 
