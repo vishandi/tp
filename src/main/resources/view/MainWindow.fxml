@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="720" minWidth="960" maxHeight = "720" maxWidth = "960" onCloseRequest="#handleExit" title="UniGenda" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.HBox?>
+<fx:root minHeight="720" maxHeight="720" minWidth="1080" maxWidth="1080" onCloseRequest="#handleExit" title="UniGenda" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/unigenda.png" />
   </icons>
@@ -31,39 +32,37 @@
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
         </MenuBar>
-            <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <items>
-                  <VBox prefHeight="200.0">
-                     <children>
-                    <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                      <padding>
-                        <Insets bottom="5" left="10" right="10" top="5" />
-                      </padding>
-                    </StackPane>
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                      <padding>
-                        <Insets bottom="5" left="10" right="10" top="5" />
-                      </padding>
-                    </StackPane>
-                    <VBox fx:id="personList" minWidth="480" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-                      <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                      </padding>
-                      <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                    </VBox>
-                     </children>
-                  </VBox>
-                  <VBox fx:id="personList1" minWidth="480.0" styleClass="pane-with-border">
-                     <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                     </padding>
-                     <children>
-                        <StackPane fx:id="viewListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-               </items>
-            </SplitPane>
-                    <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        <HBox VBox.vgrow="ALWAYS">
+          <VBox minWidth="500">
+             <children>
+            <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding>
+                <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+            </StackPane>
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+              <padding>
+                <Insets bottom="5" left="10" right="10" top="5" />
+              </padding>
+            </StackPane>
+            <VBox fx:id="personList" minWidth="480" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            </VBox>
+             </children>
+          </VBox>
+          <VBox fx:id="personList1" minWidth="570.0" styleClass="pane-with-border">
+             <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+             </padding>
+             <children>
+                <StackPane fx:id="viewListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+             </children>
+          </VBox>
+        </HBox>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>
