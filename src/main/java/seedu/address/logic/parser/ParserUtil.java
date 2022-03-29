@@ -5,6 +5,8 @@ import static seedu.address.model.schedule.Event.DATE_MESSAGE_CONSTRAINTS;
 import static seedu.address.model.schedule.Event.DURATION_MESSAGE_CONSTRAINTS;
 import static seedu.address.model.schedule.Event.TIME_MESSAGE_CONSTRAINTS;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -38,6 +40,8 @@ public class ParserUtil {
     private static final String DURATION_HOURS_REGEX = "^[0-9]*H?";
     private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M";
     private static final String DURATION_MINUTES_REGEX = "[0-9]*M";
+
+    private static final String FILE_PATH_MESSAGE_CONSTRAINTS = "File path cannot be empty!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -272,5 +276,19 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String filePath} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code filePath} is invalid.
+     */
+    public static Path parseFilePath(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        if (filePath.trim().equals("")) {
+            throw new ParseException(FILE_PATH_MESSAGE_CONSTRAINTS);
+        }
+        return Paths.get(filePath);
     }
 }

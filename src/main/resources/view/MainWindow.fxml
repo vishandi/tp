@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="680" onCloseRequest="#handleExit" title="UniGenda" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="720" minWidth="960" maxHeight = "720" maxWidth = "960" onCloseRequest="#handleExit" title="UniGenda" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/unigenda.png" />
   </icons>
@@ -45,7 +45,7 @@
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-                    <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="personList" minWidth="480" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
                       <padding>
                         <Insets bottom="10" left="10" right="10" top="10" />
                       </padding>
@@ -53,7 +53,7 @@
                     </VBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="personList1" minWidth="340.0" styleClass="pane-with-border">
+                  <VBox fx:id="personList1" minWidth="480.0" styleClass="pane-with-border">
                      <padding>
                         <Insets bottom="10" left="10" right="10" top="10" />
                      </padding>

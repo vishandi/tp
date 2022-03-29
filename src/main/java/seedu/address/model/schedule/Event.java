@@ -132,25 +132,6 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns true if the next recurrence of this event is happening this week.
-     */
-    public boolean isOccuringThisWeek() {
-        LocalDate today = LocalDate.now();
-        LocalDate nextWeek = today.plusDays(8);
-        LocalTime timeNow = LocalTime.now();
-
-        if (getNextRecurrenceDate().isAfter(today) && getNextRecurrenceDate().isBefore(nextWeek)) {
-            return true;
-        }
-
-        if (getNextRecurrenceDate().isEqual(today)) {
-            return timeNow.isBefore(time);
-        }
-
-        return false;
-    }
-
-    /**
      * Returns true if date collides with {@code Event}'s date and recurrence
      *
      * @param date used to check against {@code Event}'s date
@@ -197,6 +178,16 @@ public class Event implements Comparable<Event> {
 
         Duration eventDuration = event.getDuration();
         return duration.compareTo(eventDuration);
+    }
+
+    public String getDailyScheduleFormat() {
+        String plusDays = "";
+        long numDays = ChronoUnit.DAYS.between(getDate(), getEndDate());
+        if (numDays > 0) {
+            plusDays = String.format(" (+%s)", numDays);
+        }
+        return String.format("%s-%s%s %s %s", time, getEndTime(),
+                plusDays, eventDescription, getRecurFrequency().getLabel());
     }
 
     /**
