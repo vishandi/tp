@@ -13,15 +13,6 @@ public class AddressTest {
         assertThrows(NullPointerException.class, () -> new Address(null));
     }
 
-    /*
-    //Address can be empty now.
-    @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
-    }
-     */
-
     @Test
     public void isValidAddress() {
         // null address
@@ -30,10 +21,13 @@ public class AddressTest {
         // invalid addresses
         //assertFalse(Address.isValidAddress("")); // empty string Address can be empty.
         assertFalse(Address.isValidAddress(" ")); // spaces only
+        assertFalse(Address.isValidAddress("Leng Inc; 123 Market St; USA SanFransisco")); // 41 characters
+        assertFalse(Address.isValidAddress("[]/\\")); // invalid punctuations
 
         // valid addresses
         assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
         assertTrue(Address.isValidAddress("-")); // one character
-        assertTrue(Address.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        assertTrue(Address.isValidAddress("Leng Inc; 123 Market St; US SanFransisco")); // maximum length address
+        assertTrue(Address.isValidAddress("!\"#$&'()*+,-.:;<=>?@ ")); // punctuations
     }
 }

@@ -11,13 +11,15 @@ public class Address {
     //Default Address if address is not specified on add.
     public static final Address EMPTY_ADDRESS = new Address("");
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Addresses should not exceed 40 characters and only takes"
+            + " alphanumeric characters and the following punctuations: !\"#$&'()*+,-.:;<=>?@";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX =
+            "[a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@][a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@ ]{0,39}";
 
     public final String value;
 

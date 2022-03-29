@@ -31,6 +31,8 @@ public class ParserUtilTest {
     private static final String INVALID_TELEGRAM = "abcde**";
     private static final String INVALID_GITHUB = "ab--e";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_ADDRESS = "[]/\\";
+    private static final String TOO_LONG_ADDRESS = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -39,6 +41,7 @@ public class ParserUtilTest {
     private static final String MAXIMUM_LENGTH_PHONE = "000000000000000";
     private static final String VALID_TELEGRAM = "abcde";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String MAXIMUM_LENGTH_ADDRESS = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String VALID_GITHUB = "abcde";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
@@ -172,9 +175,18 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseAddress_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+        assertThrows(ParseException.class, () -> ParserUtil.parseAddress(TOO_LONG_ADDRESS));
+    }
+
+    @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
+
+        Address maximumLengthAddress = new Address(MAXIMUM_LENGTH_ADDRESS);
+        assertEquals(maximumLengthAddress, ParserUtil.parseAddress(MAXIMUM_LENGTH_ADDRESS));
     }
 
     @Test
@@ -182,6 +194,10 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+
+        String maximumLengthAddressWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_ADDRESS + WHITESPACE;
+        Address maximumLengthAddress = new Address(MAXIMUM_LENGTH_ADDRESS);
+        assertEquals(maximumLengthAddress, ParserUtil.parseAddress(maximumLengthAddressWithWhitespace));
     }
 
     @Test
