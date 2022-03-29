@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -19,7 +19,7 @@ import seedu.address.model.schedule.Schedule;
 /**
  * Clears the {@code Schedule} of an existing person in the address book.
  */
-public class ClearScheduleCommand extends EditTypeCommand {
+public class ClearScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "clearSchedule";
 
