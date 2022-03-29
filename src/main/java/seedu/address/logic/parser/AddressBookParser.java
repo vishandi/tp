@@ -15,6 +15,7 @@ import seedu.address.logic.commands.person.DeleteCommand;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
 import seedu.address.logic.commands.person.ListCommand;
+import seedu.address.logic.commands.person.SetUserCommand;
 import seedu.address.logic.commands.person.ViewGroupCommand;
 import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
@@ -23,11 +24,13 @@ import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportCommand;
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
+import seedu.address.logic.commands.schedule.ImportScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.person.AddCommandParser;
 import seedu.address.logic.parser.person.DeleteCommandParser;
 import seedu.address.logic.parser.person.EditCommandParser;
 import seedu.address.logic.parser.person.FindCommandParser;
+import seedu.address.logic.parser.person.SetUserCommandParser;
 import seedu.address.logic.parser.person.ViewGroupCommandParser;
 import seedu.address.logic.parser.person.ViewScheduleCommandParser;
 import seedu.address.logic.parser.schedule.AddEventCommandParser;
@@ -36,6 +39,7 @@ import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
 import seedu.address.logic.parser.schedule.ExportCommandParser;
 import seedu.address.logic.parser.schedule.FreeScheduleCommandParser;
+import seedu.address.logic.parser.schedule.ImportScheduleCommandParser;
 
 
 /**
@@ -110,8 +114,14 @@ public class AddressBookParser {
         case ViewScheduleCommand.COMMAND_WORD:
             return new ViewScheduleCommandParser().parse(arguments);
 
+        case ImportScheduleCommand.COMMAND_WORD:
+            return new ImportScheduleCommandParser().parse(arguments);
+
         case ExportCommand.COMMAND_WORD:
             return new ExportCommandParser().parse(arguments);
+
+        case SetUserCommand.COMMAND_WORD:
+            return new SetUserCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

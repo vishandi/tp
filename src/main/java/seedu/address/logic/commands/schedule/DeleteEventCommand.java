@@ -4,21 +4,23 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
 
 /**
  * Deletes an event of an existing person in the schedule of address book.
  */
-public class DeleteEventCommand extends EditTypeCommand {
+public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteEvent";
 
@@ -63,6 +65,16 @@ public class DeleteEventCommand extends EditTypeCommand {
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS,
                 personToEdit.getName(),
                 targetEventIndex.getOneBased()));
+    }
+
+    private static Schedule createDeletedSchedule(Schedule scheduleToEdit, Index targetIndex) {
+        assert scheduleToEdit != null;
+
+        List<Event> scheduleEvents = scheduleToEdit.getEvents();
+        ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
+        updatedEvents.remove(targetIndex.getZeroBased());
+
+        return new Schedule(updatedEvents);
     }
 
     @Override

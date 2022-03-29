@@ -22,11 +22,12 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
-   13. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
-   14. [Clearing all entries](#clearing-all-entries--clear)
-   15. [Exiting the program](#exiting-the-program--exit)
-   16. [Saving the data](#saving-the-data)
-   17. [Editing the data file](#editing-the-data-file)
+   13. [Importing a person's schedule](#importing-a-persons-schedule-import)
+   14. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
+   15. [Clearing all entries](#clearing-all-entries--clear)
+   16. [Exiting the program](#exiting-the-program--exit)
+   17. [Saving the data](#saving-the-data)
+   18. [Editing the data file](#editing-the-data-file)
 3. [Coming Soon](#coming-soon-v13)
    1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
    2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
@@ -165,6 +166,20 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
 
+### Setting a contact as the user : `setUser`
+
+Sets the specified person as the user and shifts the contact to the top of the list.
+
+Format: `setUser INDEX`
+
+* Sets the person at the specified `INDEX` as the user.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+Examples:
+* `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user.
+* `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user.
+
 ### Viewing a person : `viewSchedule`
 
 Views the specified person's Schedule from UniGenda.
@@ -239,7 +254,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 | `D`, `Daily`    | Daily     |
 | `W`, `Weekly`   | Weekly    |
 | `B`, `Biweekly` | Biweekly  |
-  
+
 Example:
 * `editEvent 3 3 da/2022-12-21`
 * `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`
@@ -268,6 +283,18 @@ Format: `freeSchedule ti/TIME [da/ DATE]`
 Examples:
 * `freeSchedule ti/ 12:00`
 * `freeSchedule ti/ 14:00 da/2022-02-14`
+
+### Importing a person's schedule: `importSchedule`
+Imports a schedule from a file to the person at the specified index.
+
+Format: `importSchedule INDEX pa/FILE_PATH`
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+* The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.)
+* The imported `Schedule` **cannot be empty**.
+* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path)
+
+Examples:
+`importSchedule 1 pa/typicalSchedule.json`
 
 ### Exporting a person's schedule: `export`
 Format: `export INDEX`
@@ -338,6 +365,7 @@ Example:
 | **Clear**             | `clear`                                                                                                                                                                                       |
 | **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
 | **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **SetUser**           | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
 | **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
 | **ViewSchedule**      | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
 | **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
@@ -345,6 +373,7 @@ Example:
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
 | **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
 | **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
+| **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
 | **Export**            | `export INDEX`<br> e.g., `export 1`                                                                                                                                                           |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**              | `list`                                                                                                                                                                                        |
