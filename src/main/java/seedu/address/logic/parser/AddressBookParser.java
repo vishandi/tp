@@ -117,7 +117,7 @@ public class AddressBookParser {
         case ImportScheduleCommand.COMMAND_WORD_LOWER:
             return new ImportScheduleCommandParser().parse(arguments);
 
-        case ExportScheduleCommand.COMMAND_WORD:
+        case ExportScheduleCommand.COMMAND_WORD_LOWER:
             return new ExportScheduleCommandParser().parse(arguments);
 
         case SetUserCommand.COMMAND_WORD_LOWER:

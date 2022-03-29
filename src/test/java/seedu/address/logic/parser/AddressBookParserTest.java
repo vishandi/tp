@@ -37,7 +37,7 @@ import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
-import seedu.address.logic.commands.schedule.ExportCommand;
+import seedu.address.logic.commands.schedule.ExportScheduleCommand;
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
 import seedu.address.logic.commands.schedule.ImportScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -69,7 +69,8 @@ public class AddressBookParserTest {
     private static final String FREE_SCHEDULE_COMMAND_UPPER = "FREESCHEDULE";
     private static final String VIEW_GROUP_COMMAND_UPPER = "VIEWGROUP";
     private static final String VIEW_SCHEDULE_COMMAND_UPPER = "VIEWSCHEDULE";
-    private static final String EXPORT_COMMAND_UPPER = "EXPORT";
+    private static final String EXPORT_SCHEDULE_COMMAND_UPPER = "EXPORTSCHEDULE";
+    private static final String IMPORT_SCHEDULE_COMMAND_UPPER = "IMPORTSCHEDULE";
 
     private final AddressBookParser parser = new AddressBookParser();
 
@@ -182,11 +183,11 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_export() throws Exception {
-        ExportCommand command = (ExportCommand) parser.parseCommand(
-                ExportCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+    public void parseCommand_exportSchedule() throws Exception {
+        ExportScheduleCommand command = (ExportScheduleCommand) parser.parseCommand(
+                ExportScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
         );
-        assertEquals(new ExportCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new ExportScheduleCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
@@ -241,12 +242,19 @@ public class AddressBookParserTest {
         );
         assertEquals(new ViewScheduleCommand(INDEX_FIRST_PERSON), viewScheduleCommand);
 
+        // exportSchedule
+        ExportScheduleCommand exportScheduleCommand = (ExportScheduleCommand) parser.parseCommand(
+                ExportScheduleCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON.getOneBased()
+        );
+        assertEquals(new ExportScheduleCommand(INDEX_FIRST_PERSON), exportScheduleCommand);
+
         // importSchedule
         ImportScheduleCommand importScheduleCommand = (ImportScheduleCommand) parser.parseCommand(
                 ImportScheduleCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON.getOneBased() + " "
                         + PREFIX_FILEPATH + TYPICAL_PATH
         );
         assertEquals(new ImportScheduleCommand(INDEX_FIRST_PERSON, Paths.get(TYPICAL_PATH)), importScheduleCommand);
+
     }
 
     @Test
@@ -333,11 +341,18 @@ public class AddressBookParserTest {
         );
         assertEquals(new ViewScheduleCommand(INDEX_FIRST_PERSON), command);
 
-        // export
-        ExportCommand exportCommand = (ExportCommand) parser.parseCommand(
-                EXPORT_COMMAND_UPPER + " " + INDEX_FIRST_PERSON.getOneBased()
+        // exportSchedule
+        ExportScheduleCommand exportScheduleCommand = (ExportScheduleCommand) parser.parseCommand(
+                EXPORT_SCHEDULE_COMMAND_UPPER + " " + INDEX_FIRST_PERSON.getOneBased()
         );
-        assertEquals(new ExportCommand(INDEX_FIRST_PERSON), exportCommand);
+        assertEquals(new ExportScheduleCommand(INDEX_FIRST_PERSON), exportScheduleCommand);
+
+        // importSchedule
+        ImportScheduleCommand importScheduleCommand = (ImportScheduleCommand) parser.parseCommand(
+                IMPORT_SCHEDULE_COMMAND_UPPER + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_FILEPATH + TYPICAL_PATH
+        );
+        assertEquals(new ImportScheduleCommand(INDEX_FIRST_PERSON, Paths.get(TYPICAL_PATH)), importScheduleCommand);
     }
 
     @Test
