@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.model.schedule.Event.DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -65,6 +66,10 @@ public class AddEventCommand extends Command {
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        if (eventToAdd.isValidDurationWithRecurFrequency()) {
+            throw new CommandException(DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS);
         }
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());

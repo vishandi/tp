@@ -35,6 +35,8 @@ public class Event implements Comparable<Event> {
             + "if the duration is specified!";
     public static final String MISSING_RECUR_FREQUENCY_CASE =
             "%s switch case is missing in Event::getNextRecurrenceDate! Returning initial date...";
+    public static final String DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS =
+            "Duration should not be longer than frequency of event!";
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private final EventDescription eventDescription;
@@ -93,6 +95,27 @@ public class Event implements Comparable<Event> {
      */
     public static boolean isValidEvent(Event event) {
         return EventDescription.isValidEventDescription(event.getEventDescription().toString());
+    }
+
+    public boolean isValidDurationWithRecurFrequency() {
+        switch (recurFrequency) {
+        case DAILY:
+            if (duration.compareTo(Duration.ofDays(1)) > 0) {
+                return false;
+            }
+            break;
+        case WEEKLY:
+            if (duration.compareTo(Duration.ofDays(7)) > 0) {
+                return false;
+            }
+            break;
+        case BIWEEKLY:
+            if (duration.compareTo(Duration.ofDays(14)) > 0) {
+                return false;
+            }
+            break;
+        }
+        return true;
     }
 
     /**

@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.model.schedule.Event.DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -93,7 +94,7 @@ public class EditEventCommand extends Command {
      * edited with {@code editEventDescriptor} at {@code targetEventIndex}.
      */
     private static Schedule createEditedSchedule(
-            Schedule scheduleToEdit, Index targetEventIndex, EditEventDescriptor editEventDescriptor) {
+            Schedule scheduleToEdit, Index targetEventIndex, EditEventDescriptor editEventDescriptor) throws CommandException {
         assert scheduleToEdit != null;
 
         List<Event> scheduleEvents = scheduleToEdit.getEvents();
@@ -101,6 +102,9 @@ public class EditEventCommand extends Command {
 
         Event toEditEvent = updatedEvents.remove(targetEventIndex.getZeroBased());
         Event updatedEvent = createEditedEvent(toEditEvent, editEventDescriptor);
+        if (!updatedEvent.isValidDurationWithRecurFrequency()) {
+            throw new CommandException(DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS);
+        }
         updatedEvents.add(targetEventIndex.getZeroBased(), updatedEvent);
         Collections.sort(updatedEvents);
         return new Schedule(updatedEvents);
