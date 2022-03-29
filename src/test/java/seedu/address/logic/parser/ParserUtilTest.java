@@ -25,6 +25,7 @@ import seedu.address.model.person.Telegram;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
+    private static final String TOO_LONG_NAME = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_TELEGRAM = "abcde**";
     private static final String INVALID_GITHUB = "ab--e";
@@ -32,6 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
+    private static final String MAXIMUM_LENGTH_NAME = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_TELEGRAM = "abcde";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
@@ -70,12 +72,16 @@ public class ParserUtilTest {
     @Test
     public void parseName_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+        assertThrows(ParseException.class, () -> ParserUtil.parseName(TOO_LONG_NAME));
     }
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+
+        Name maximumLengthName = new Name(MAXIMUM_LENGTH_NAME);
+        assertEquals(maximumLengthName, ParserUtil.parseName(MAXIMUM_LENGTH_NAME));
     }
 
     @Test
