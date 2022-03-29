@@ -186,8 +186,8 @@ public class Event implements Comparable<Event> {
         if (numDays > 0) {
             plusDays = String.format(" (+%s)", numDays);
         }
-        return String.format("%s %s-%s%s %s", eventDescription, time, getEndTime(),
-                plusDays, getRecurFrequency().getLabel());
+        return String.format("%s-%s%s %s %s", time, getEndTime(),
+                plusDays, eventDescription, getRecurFrequency().getLabel());
     }
 
     /**

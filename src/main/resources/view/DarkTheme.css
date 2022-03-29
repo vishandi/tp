@@ -142,27 +142,28 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 20px;
     -fx-text-fill: #010504;
-    -fx-padding: 5px;
-    -fx-border-insets: 5px;
-    -fx-background-insets: 5px;
+    -fx-padding: 8px;
+    -fx-border-insets: 8px;
+    -fx-background-insets: 8px;
 }
 
 .view_days_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
-    -fx-padding: 3px;
-    -fx-border-insets: 3px;
-    -fx-background-insets: 3px;
+    -fx-background-color: #d57b22;
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
 }
 
 .view_today_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-background-color: #d57b22;
-    -fx-padding: 3px;
-    -fx-border-insets: 3px;
-    -fx-background-insets: 3px;
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
 }
 
 .stack-pane {

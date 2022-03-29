@@ -20,7 +20,7 @@ import seedu.address.model.schedule.Schedule;
 public class ScheduleCard extends UiPart<Region> {
 
     private static final String FXML = "ScheduleCard.fxml";
-    private static final String SCHEDULE_HEADER = "%1$s's Schedule";
+    private static final String SCHEDULE_HEADER = "%1$s's Full Schedule";
     private static final String UPCOMING_SCHEDULE_HEADER = "%1$s's Upcoming Schedule";
     private static final String NO_SCHEDULE_MESSAGE = "%1$s doesn't have any Schedule recorded yet.";
     private static final String NO_UPCOMING_SCHEDULE_MESSAGE =

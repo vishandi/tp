@@ -49,10 +49,15 @@
           <children>
              <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                 <image>
-                   <Image url="@../images/days.png" />
+                   <Image url="@../images/today.png" />
                 </image>
              </ImageView>
              <Label fx:id="headerDay0" styleClass="view_today_label" text="Label" />
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/left_arrow.png" />
+                  </image>
+               </ImageView>
           </children>
        </HBox>
        <HBox fx:id="scheduleDay0" alignment="CENTER_LEFT" spacing="5" />
@@ -122,6 +127,7 @@
             </children>
          </HBox>
          <HBox fx:id="scheduleDay6" alignment="CENTER_LEFT" spacing="5" />
+         <HBox prefHeight="10.0" prefWidth="130.0" />
          <HBox fx:id="scheduleBoxHeader" alignment="CENTER_LEFT" spacing="5">
             <children>
                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
