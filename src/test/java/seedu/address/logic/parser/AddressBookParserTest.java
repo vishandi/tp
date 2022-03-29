@@ -32,6 +32,7 @@ import seedu.address.logic.commands.person.DeleteCommand;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
 import seedu.address.logic.commands.person.ListCommand;
+import seedu.address.logic.commands.person.SetUserCommand;
 import seedu.address.logic.commands.person.ViewGroupCommand;
 import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
@@ -71,6 +72,7 @@ public class AddressBookParserTest {
     private static final String VIEW_SCHEDULE_COMMAND_UPPER = "VIEWSCHEDULE";
     private static final String EXPORT_SCHEDULE_COMMAND_UPPER = "EXPORTSCHEDULE";
     private static final String IMPORT_SCHEDULE_COMMAND_UPPER = "IMPORTSCHEDULE";
+    private static final String SET_USER_COMMAND_UPPER = "SETUSER";
 
     private final AddressBookParser parser = new AddressBookParser();
 
@@ -200,6 +202,14 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_setUser() throws Exception {
+        SetUserCommand command = (SetUserCommand) parser.parseCommand(
+                SetUserCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON
+        );
+        assertEquals(new SetUserCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
     public void parseCommand_allLowerCase_success() throws ParseException {
         // addEvent
         Event event = new EventBuilder().build();
@@ -254,6 +264,12 @@ public class AddressBookParserTest {
                         + PREFIX_FILEPATH + TYPICAL_PATH
         );
         assertEquals(new ImportScheduleCommand(INDEX_FIRST_PERSON, Paths.get(TYPICAL_PATH)), importScheduleCommand);
+
+        // setUser
+        SetUserCommand setUserCommand = (SetUserCommand) parser.parseCommand(
+                SetUserCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON
+        );
+        assertEquals(new SetUserCommand(INDEX_FIRST_PERSON), setUserCommand);
 
     }
 
@@ -353,6 +369,12 @@ public class AddressBookParserTest {
                         + PREFIX_FILEPATH + TYPICAL_PATH
         );
         assertEquals(new ImportScheduleCommand(INDEX_FIRST_PERSON, Paths.get(TYPICAL_PATH)), importScheduleCommand);
+
+        // setUser
+        SetUserCommand setUserCommand = (SetUserCommand) parser.parseCommand(
+                SET_USER_COMMAND_UPPER + " " + INDEX_FIRST_PERSON
+        );
+        assertEquals(new SetUserCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
