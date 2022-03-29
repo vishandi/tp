@@ -1,9 +1,5 @@
 package seedu.address.ui;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -14,10 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
-import seedu.address.model.schedule.Schedule;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Person} in the list version.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -52,8 +47,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox emailBox;
     @FXML
-    private HBox scheduleBox;
-    @FXML
     private FlowPane tags;
 
 
@@ -65,15 +58,12 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         ImageView addressIcon = new ImageView("/images/address_icon.png");
         ImageView emailIcon = new ImageView("/images/email_icon.png");
-        ImageView scheduleIcon = new ImageView("/images/schedule_icon.png");
         ImageView telegramIcon = new ImageView("/images/telegram_icon.png");
         ImageView githubIcon = new ImageView("/images/github_icon.png");
         addressIcon.setFitHeight(16);
         addressIcon.setFitWidth(16);
         emailIcon.setFitHeight(16);
         emailIcon.setFitWidth(16);
-        scheduleIcon.setFitHeight(16);
-        scheduleIcon.setFitWidth(16);
         telegramIcon.setFitHeight(16);
         telegramIcon.setFitWidth(16);
         githubIcon.setFitHeight(16);
@@ -103,71 +93,10 @@ public class PersonCard extends UiPart<Region> {
             Label addressLabel = new Label(person.getAddress().value);
             addressBox.getChildren().add(addressLabel);
         }
-        if (!Schedule.isEmptySchedule(person.getSchedule())) {
-            scheduleBox.getChildren().add(scheduleIcon);
-            Label scheduleLabel = new Label(person.getSchedule().toString());
-            scheduleBox.getChildren().add(scheduleLabel);
-        }
 
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-    }
-
-    @FXML
-    private void emailtoContact() {
-        if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
-            URI mailto = null;
-            try {
-                mailto = new URI(String.format("mailto:%s", person.getEmail()));
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            try {
-                desktop.mail(mailto);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
-    private void openGithub() {
-        if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
-            URI githubUri = null;
-            try {
-                githubUri = new URI("https://github.com/" + person.getGithub());
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            try {
-                desktop.browse(githubUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
-    private void changeEmailColorWhenHovered() {
-        emailBox.setStyle("-fx-background-color: #c66c6c;");
-    }
-
-    @FXML
-    private void changeEmailColorWhenLeft() {
-        emailBox.setStyle("-fx-background-color: transparent;");
-    }
-
-    @FXML
-    private void changeGithubColorWhenHovered() {
-        githubBox.setStyle("-fx-background-color: #c66c6c;");
-    }
-
-    @FXML
-    private void changeGithubColorWhenLeft() {
-        githubBox.setStyle("-fx-background-color: transparent;");
     }
 
     @Override

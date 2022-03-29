@@ -11,22 +11,24 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.SamePersonPredicate;
 
+/**
+ * Format full help instructions for every command for display.
+ */
+public class SetUserCommand extends Command {
 
-public class ViewCommand extends Command {
-    public static final String COMMAND_WORD = "view";
+    public static final String COMMAND_WORD = "setUser";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": views the person identified by the index number used in the displayed person list.\n"
+            + ": Sets the specified person in the contact list as the user and moves the contact to the top.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_VIEW_PERSON_SUCCESS = "Viewed Person: %1$s";
+    public static final String MESSAGE_SET_USER_SUCCESS = "%s set as the user!";
 
     private final Index targetIndex;
 
-    public ViewCommand(Index targetIndex) {
+    public SetUserCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -39,10 +41,17 @@ public class ViewCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToView = lastShownList.get(targetIndex.getZeroBased());
-        model.updateViewedPersonList(new SamePersonPredicate(personToView));
-        return new CommandResult(
-                String.format(MESSAGE_VIEW_PERSON_SUCCESS, personToView)
-        );
+        Person user = lastShownList.get(targetIndex.getZeroBased());
+        model.deletePerson(user);
+        model.insertPerson(user, 0);
+        return new CommandResult(String.format(MESSAGE_SET_USER_SUCCESS, user.getName()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SetUserCommand // instanceof handles nulls
+                && targetIndex.equals(((SetUserCommand) other).targetIndex)); // state check
+    }
+
 }
