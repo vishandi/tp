@@ -56,7 +56,7 @@ public class ExportCommand extends Command {
         Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
 
         Schedule toExportSchedule = targetPerson.getSchedule();
-        if (Schedule.isEmptySchedule(toExportSchedule)) {
+        if (toExportSchedule.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_SCHEDULE_EMPTY, targetPerson.getName()));
         }
 
@@ -67,7 +67,7 @@ public class ExportCommand extends Command {
             logger.info(targetPerson.getName() + "'s schedule saved at " + exportFile + ".");
         } catch (IOException e) {
             logger.warning("Unable to save " + targetPerson.getName() + "'s schedule in " + exportFile + ": " + e);
-            throw new CommandException("Something wrong has occurred. Schedule not exported");
+            throw new CommandException("An error has occurred. Schedule not exported");
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetPerson.getName()));

@@ -89,8 +89,8 @@ public class Schedule {
     /**
      * Returns true if the schedule is empty.
      */
-    public static boolean isEmptySchedule(Schedule test) {
-        return test.getEvents().isEmpty();
+    public boolean isEmpty() {
+        return getEvents().isEmpty();
     }
 
     public String getDailyScheduleFormat() {
