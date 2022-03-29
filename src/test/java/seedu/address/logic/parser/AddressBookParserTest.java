@@ -36,6 +36,7 @@ import seedu.address.logic.commands.person.SetUserCommand;
 import seedu.address.logic.commands.person.ViewGroupCommand;
 import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
+import seedu.address.logic.commands.schedule.ClearScheduleCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportScheduleCommand;
@@ -73,6 +74,7 @@ public class AddressBookParserTest {
     private static final String EXPORT_SCHEDULE_COMMAND_UPPER = "EXPORTSCHEDULE";
     private static final String IMPORT_SCHEDULE_COMMAND_UPPER = "IMPORTSCHEDULE";
     private static final String SET_USER_COMMAND_UPPER = "SETUSER";
+    private static final String CLEAR_SCHEDULE_COMMAND_UPPER = "CLEARSCHEDULE";
 
     private final AddressBookParser parser = new AddressBookParser();
 
@@ -168,6 +170,14 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_clearSchedule() throws Exception {
+        ClearScheduleCommand command = (ClearScheduleCommand) parser.parseCommand(
+                ClearScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+        );
+        assertEquals(new ClearScheduleCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
     public void parseCommand_viewGroup() throws Exception {
         String keyword = "foo";
         ViewGroupCommand command = (ViewGroupCommand) parser.parseCommand(
@@ -204,7 +214,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_setUser() throws Exception {
         SetUserCommand command = (SetUserCommand) parser.parseCommand(
-                SetUserCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON
+                SetUserCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
         );
         assertEquals(new SetUserCommand(INDEX_FIRST_PERSON), command);
     }
@@ -246,6 +256,12 @@ public class AddressBookParserTest {
         );
         assertEquals(new ViewGroupCommand(new IsTagInPersonPredicate(new Tag(keyword))), viewGroupCommand);
 
+        // clearSchedule
+        ClearScheduleCommand clearScheduleCommand = (ClearScheduleCommand) parser.parseCommand(
+                ClearScheduleCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON.getOneBased()
+        );
+        assertEquals(new ClearScheduleCommand(INDEX_FIRST_PERSON), clearScheduleCommand);
+
         // viewSchedule
         ViewScheduleCommand viewScheduleCommand = (ViewScheduleCommand) parser.parseCommand(
                 ViewScheduleCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON.getOneBased()
@@ -267,7 +283,7 @@ public class AddressBookParserTest {
 
         // setUser
         SetUserCommand setUserCommand = (SetUserCommand) parser.parseCommand(
-                SetUserCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON
+                SetUserCommand.COMMAND_WORD_LOWER + " " + INDEX_FIRST_PERSON.getOneBased()
         );
         assertEquals(new SetUserCommand(INDEX_FIRST_PERSON), setUserCommand);
 
@@ -277,7 +293,7 @@ public class AddressBookParserTest {
     public void parseCommand_allUpperCase_success() throws ParseException {
         // add
         Person person = new PersonBuilder().build();
-        AddCommand addCommand = (AddCommand) parser.parseCommand( ADD_COMMAND_UPPER
+        AddCommand addCommand = (AddCommand) parser.parseCommand(ADD_COMMAND_UPPER
                 + PersonUtil.getAddCommand(person).substring(3));
         assertEquals(new AddCommand(person), addCommand);
 
@@ -351,11 +367,17 @@ public class AddressBookParserTest {
         );
         assertEquals(new ViewGroupCommand(new IsTagInPersonPredicate(new Tag(keyword))), viewGroupCommand);
 
+        // clearSchedule
+        ClearScheduleCommand command = (ClearScheduleCommand) parser.parseCommand(
+                CLEAR_SCHEDULE_COMMAND_UPPER + " " + INDEX_FIRST_PERSON.getOneBased()
+        );
+        assertEquals(new ClearScheduleCommand(INDEX_FIRST_PERSON), command);
+
         // viewSchedule
-        ViewScheduleCommand command = (ViewScheduleCommand) parser.parseCommand(
+        ViewScheduleCommand viewScheduleCommand = (ViewScheduleCommand) parser.parseCommand(
                 VIEW_SCHEDULE_COMMAND_UPPER + " " + INDEX_FIRST_PERSON.getOneBased()
         );
-        assertEquals(new ViewScheduleCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new ViewScheduleCommand(INDEX_FIRST_PERSON), viewScheduleCommand);
 
         // exportSchedule
         ExportScheduleCommand exportScheduleCommand = (ExportScheduleCommand) parser.parseCommand(
@@ -372,9 +394,9 @@ public class AddressBookParserTest {
 
         // setUser
         SetUserCommand setUserCommand = (SetUserCommand) parser.parseCommand(
-                SET_USER_COMMAND_UPPER + " " + INDEX_FIRST_PERSON
+                SET_USER_COMMAND_UPPER + " " + INDEX_FIRST_PERSON.getOneBased()
         );
-        assertEquals(new SetUserCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new SetUserCommand(INDEX_FIRST_PERSON), setUserCommand);
     }
 
     @Test
