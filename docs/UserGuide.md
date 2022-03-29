@@ -103,7 +103,7 @@ Format: `help`
 ### Adding a person: `add`
 Adds a person to UniGenda without needing complete information about the person.
 
-Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
 
 Examples:
@@ -120,7 +120,7 @@ Format: `list`
 
 Edits an existing person in the UniGenda.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -129,6 +129,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * You can remove all the person’s tags by typing `t/` without
   specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
+* You cannot edit a person's name and/or phone number such that the person's (Name, Phone Number) combination is the same as another person's (Name, Phone Number) combination in your UniGenda.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -182,7 +183,7 @@ Examples:
 
 ### Viewing a person : `viewSchedule`
 
-Views the specified person's Schedule from UniGenda.
+Views the specified person's Schedule from UniGenda. You can see the person's upcoming schedule for the following week starting **now**, and the list of the person's schedule.
 
 Format: `viewSchedule INDEX`
 
@@ -190,6 +191,9 @@ Format: `viewSchedule INDEX`
 * The view will be displayed in the right panel of UniGenda.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* **now** refers to the time that your system is currently in. 
+* If you change your system's time, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
+* If a certain Event has passed according to your system's time, it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 
 Examples:
 * `list` followed by `viewSchedule 4` views the 4th person in UniGenda.
@@ -232,6 +236,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 Examples:
 * `addEvent 3 ed/Open House da/2022-12-20`
 * `addEvent 2 ed/CCA Meeting da/2023-11-23 ti/12:00 du/1H30M r/W`
+* `addEvent 1 ed/CS2103T Coding da/2023-10-23 ti/12:00 du/1H30M r/Daily`
 
 ### Editing a person’s schedule: `editEvent`
 Edits the schedule assigned to a person.
@@ -242,7 +247,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 * At least one of the optional fields must be provided
 * DATE should be in "YYYY-MM-DD" format
 * TIME should be in "HH:MM" format
-* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
+* DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
   * XHYM
   * XHY
   * XH

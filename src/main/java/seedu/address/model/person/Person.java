@@ -80,10 +80,10 @@ public class Person {
     }
 
     /**
-     * Returns a schedule containing upcoming events that are coming in the following 1 week.
+     * Returns a schedule containing upcoming events that are happening in the next {@code daysForward} days.
      */
-    public Schedule getUpcomingSchedule() {
-        return schedule.getUpcomingSchedule();
+    public Schedule getUpcomingSchedule(int daysForward) {
+        return schedule.getUpcomingSchedule(daysForward);
     }
 
     /**
