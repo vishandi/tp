@@ -17,13 +17,13 @@ import seedu.address.model.person.IsTagInPersonPredicate;
 import seedu.address.model.person.Tag;
 
 /**
- * Parses input arguments and creates a new ViewGroupCommand object.
+ * Parses input arguments and creates a new FindCommonTimingCommand object.
  */
 public class FindCommonTimingCommandParser implements Parser<FindCommonTimingCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ViewGroupCommand
-     * and returns a ViewGroupCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FindCommonTimingCommand
+     * and returns a FindCommonTimingCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     @Override

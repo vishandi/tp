@@ -31,7 +31,7 @@ public class FindCommonTimingCommand extends Command {
             + "who share the same tag\n"
             + "Parameters: "
             + PREFIX_TAG + "TAG"
-            + "[" + PREFIX_DATE + "DATE]\n"
+            + " [" + PREFIX_DATE + "DATE]\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_TAG + "friends "
             + PREFIX_DATE + "2022-02-14";
