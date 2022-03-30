@@ -249,7 +249,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
-* DATE should be in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
 
