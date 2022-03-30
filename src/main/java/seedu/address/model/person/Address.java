@@ -11,7 +11,7 @@ public class Address {
     //Default Address if address is not specified on add.
     public static final Address EMPTY_ADDRESS = new Address("");
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses should not exceed 40 characters and only takes"
+    public static final String MESSAGE_CONSTRAINTS = "Addresses should not exceed 80 characters and only takes"
             + " alphanumeric characters and the following punctuations: !\"#$&'()*+,-.:;<=>?@";
 
     /*
@@ -19,7 +19,7 @@ public class Address {
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX =
-            "[a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@][a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@ ]{0,39}";
+            "[a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@][a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@ ]{0,79}";
 
     public final String value;
 
