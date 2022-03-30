@@ -28,6 +28,7 @@ import seedu.address.logic.parser.person.EditCommandParser;
 import seedu.address.logic.parser.person.FindCommandParser;
 import seedu.address.logic.parser.person.ViewCommandParser;
 import seedu.address.logic.parser.person.ViewGroupCommandParser;
+import seedu.address.logic.parser.person.FindCommonTimingCommandParser;
 import seedu.address.logic.parser.schedule.AddEventCommandParser;
 import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
@@ -102,6 +103,9 @@ public class AddressBookParser {
 
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
+
+        case FindCommonTimingCommand.COMMAND_WORD:
+             return new FindCommonTimingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
