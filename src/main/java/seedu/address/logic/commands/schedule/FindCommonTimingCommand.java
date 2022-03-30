@@ -97,7 +97,6 @@ public class FindCommonTimingCommand extends Command {
         String formattedTime = "%s - %s\n";
         String freeTimeSlots = "";
         for (int i = 0; i < list.size(); i = i + 2) {
-            assert list.size() % 2 == 0 : "Error occurred";
             freeTimeSlots += String.format(formattedTime, list.get(i), list.get(i + 1));
         }
         return freeTimeSlots;
