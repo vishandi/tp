@@ -26,10 +26,8 @@ public class Event implements Comparable<Event> {
     public static final String DEFAULT_EVENT_DESCRIPTION = "CS2103T Tutorial";
     public static final String FULL_DAY_EVENT_DURATION = "24H";
     public static final String DATE_MESSAGE_CONSTRAINTS = "Event date should be in YYYY-MM-DD format";
-    public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in"
-            + " XHYM, XH, YM or X format,"
-            + " where X is an integer representing the number of hours"
-            + " and Y is an integer representing the number of minutes.";
+    public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in HhMm, Hh, Mm or H format\n"
+            + "eg. 3h30m, 2h, 30m, 3";
     public static final String TIME_MESSAGE_CONSTRAINTS = "Event time should be in HH:MM format";
     public static final String MISSING_TIME_MESSAGE = "The event start time must be specified "
             + "if the duration is specified!";
@@ -178,6 +176,16 @@ public class Event implements Comparable<Event> {
 
         Duration eventDuration = event.getDuration();
         return duration.compareTo(eventDuration);
+    }
+
+    public String getDailyScheduleFormat() {
+        String plusDays = "";
+        long numDays = ChronoUnit.DAYS.between(getDate(), getEndDate());
+        if (numDays > 0) {
+            plusDays = String.format(" (+%s)", numDays);
+        }
+        return String.format("%s-%s%s %s %s", time, getEndTime(),
+                plusDays, eventDescription, getRecurFrequency().getLabel());
     }
 
     /**

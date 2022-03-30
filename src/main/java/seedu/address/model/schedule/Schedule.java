@@ -2,6 +2,8 @@ package seedu.address.model.schedule;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,35 @@ public class Schedule {
     }
 
     /**
+     * Returns a Schedule object containing events that are happening in the next {@code daysForward} days.
+     * The events in the schedule has been updated with the respective next recurring date.
+     */
+    public Schedule getUpcomingSchedule(int daysForward) {
+        LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
+        LocalDate nextDaysForward = today.plusDays(daysForward);
+        List<Event> upcomingEvents = new ArrayList<>();
+
+        if (daysForward == 0) {
+            for (Event event : getEvents()) {
+                if (event.willDateCollide(nextDaysForward) && event.getTime().isAfter(now)) {
+                    upcomingEvents.add(event.getNextRecurringEvent());
+                }
+            }
+        } else {
+            for (Event event : getEvents()) {
+                if (event.willDateCollide(nextDaysForward)) {
+                    upcomingEvents.add(event.getNextRecurringEvent());
+                }
+            }
+        }
+
+        Collections.sort(upcomingEvents);
+
+        return new Schedule(upcomingEvents);
+    }
+
+    /**
      * Returns an Event object at specified index
      *
      * @param index of the Event object to retrieve
@@ -58,8 +89,20 @@ public class Schedule {
     /**
      * Returns true if the schedule is empty.
      */
-    public static boolean isEmptySchedule(Schedule test) {
-        return test.getEvents().isEmpty();
+    public boolean isEmpty() {
+        return getEvents().isEmpty();
+    }
+
+    public String getDailyScheduleFormat() {
+        final StringBuilder builder = new StringBuilder();
+
+        int counter = 1;
+        for (Event event : events) {
+            builder.append(String.format("%s. %s\n", counter, event.getDailyScheduleFormat()));
+            counter += 1;
+        }
+
+        return builder.toString();
     }
 
     /**

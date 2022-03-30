@@ -18,7 +18,7 @@
     </columnConstraints>
     <VBox fx:id="cardRows" alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
       <padding>
-        <Insets bottom="5" left="15" right="5" top="5" />
+        <Insets bottom="5" left="5" right="5" top="5" />
       </padding>
       <HBox alignment="CENTER_LEFT" spacing="5">
         <Label fx:id="name" styleClass="view_big_label" text="\$first" />
@@ -32,6 +32,110 @@
                   </image>
                </ImageView>
             <Label fx:id="phone" text="\$phone" />
+            </children>
+         </HBox>
+         <HBox fx:id="upcomingScheduleBoxHeader" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/upcoming_schedule_icon.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="upcomingScheduleHeader" styleClass="view_medium_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="upcomingScheduleBox" alignment="CENTER_LEFT" spacing="5" />
+       <HBox fx:id="day0HeaderBox" alignment="CENTER_LEFT" spacing="5">
+          <children>
+             <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                   <Image url="@../images/today.png" />
+                </image>
+             </ImageView>
+             <Label fx:id="headerDay0" styleClass="view_today_label" text="Label" />
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/left_arrow.png" />
+                  </image>
+               </ImageView>
+          </children>
+       </HBox>
+       <HBox fx:id="scheduleDay0" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="day1HeaderBox" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/days.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="headerDay1" styleClass="view_days_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="scheduleDay1" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="day2HeaderBox" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/days.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="headerDay2" styleClass="view_days_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="scheduleDay2" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="day3HeaderBox" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/days.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="headerDay3" styleClass="view_days_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="scheduleDay3" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="day4HeaderBox" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/days.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="headerDay4" styleClass="view_days_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="scheduleDay4" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="day5HeaderBox" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/days.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="headerDay5" styleClass="view_days_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="scheduleDay5" alignment="CENTER_LEFT" spacing="5" />
+         <HBox fx:id="day6HeaderBox" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/days.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="headerDay6" styleClass="view_days_label" text="Label" />
+            </children>
+         </HBox>
+         <HBox fx:id="scheduleDay6" alignment="CENTER_LEFT" spacing="5" />
+         <HBox prefHeight="10.0" prefWidth="130.0" />
+         <HBox fx:id="scheduleBoxHeader" alignment="CENTER_LEFT" spacing="5">
+            <children>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/schedule_icon.png" />
+                  </image>
+               </ImageView>
+               <Label fx:id="scheduleHeader" styleClass="view_medium_label" text="Label" />
             </children>
          </HBox>
          <HBox fx:id="scheduleBox" alignment="CENTER_LEFT" spacing="5" />

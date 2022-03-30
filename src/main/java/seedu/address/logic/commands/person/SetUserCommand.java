@@ -11,23 +11,25 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.SamePersonPredicate;
 
+/**
+ * Format full help instructions for every command for display.
+ */
+public class SetUserCommand extends Command {
 
-public class ViewScheduleCommand extends Command {
-    public static final String COMMAND_WORD = "viewSchedule";
-    public static final String COMMAND_WORD_LOWER = "viewschedule";
+    public static final String COMMAND_WORD = "setUser";
+    public static final String COMMAND_WORD_LOWER = "setuser";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": views the person's schedule identified by the index number used in the displayed person list.\n"
+            + ": Sets the specified person in the contact list as the user and moves the contact to the top.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_VIEW_PERSON_SUCCESS = "Viewing %1$s's Schedule...";
+    public static final String MESSAGE_SET_USER_SUCCESS = "%s set as the user!";
 
     private final Index targetIndex;
 
-    public ViewScheduleCommand(Index targetIndex) {
+    public SetUserCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -40,17 +42,17 @@ public class ViewScheduleCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToView = lastShownList.get(targetIndex.getZeroBased());
-        model.updateViewSchedulePerson(new SamePersonPredicate(personToView));
-        return new CommandResult(
-                String.format(MESSAGE_VIEW_PERSON_SUCCESS, personToView.getName().value)
-        );
+        Person user = lastShownList.get(targetIndex.getZeroBased());
+        model.deletePerson(user);
+        model.insertPerson(user, 0);
+        return new CommandResult(String.format(MESSAGE_SET_USER_SUCCESS, user.getName()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewScheduleCommand // instanceof handles nulls
-                && targetIndex.equals(((ViewScheduleCommand) other).targetIndex)); // state check
+                || (other instanceof SetUserCommand // instanceof handles nulls
+                && targetIndex.equals(((SetUserCommand) other).targetIndex)); // state check
     }
+
 }

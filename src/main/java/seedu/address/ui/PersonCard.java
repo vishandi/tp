@@ -1,9 +1,5 @@
 package seedu.address.ui;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -101,62 +97,6 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-    }
-
-    @FXML
-    private void emailtoContact() {
-        if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
-            URI mailto = null;
-            try {
-                mailto = new URI(String.format("mailto:%s", person.getEmail()));
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            try {
-                desktop.mail(mailto);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
-    private void openGithub() {
-        if (Desktop.isDesktopSupported()) {
-            Desktop desktop = Desktop.getDesktop();
-            URI githubUri = null;
-            try {
-                githubUri = new URI("https://github.com/" + person.getGithub());
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            try {
-                desktop.browse(githubUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
-    private void changeEmailColorWhenHovered() {
-        emailBox.setStyle("-fx-background-color: #c66c6c;");
-    }
-
-    @FXML
-    private void changeEmailColorWhenLeft() {
-        emailBox.setStyle("-fx-background-color: transparent;");
-    }
-
-    @FXML
-    private void changeGithubColorWhenHovered() {
-        githubBox.setStyle("-fx-background-color: #c66c6c;");
-    }
-
-    @FXML
-    private void changeGithubColorWhenLeft() {
-        githubBox.setStyle("-fx-background-color: transparent;");
     }
 
     @Override

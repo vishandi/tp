@@ -5,6 +5,8 @@ import static seedu.address.model.schedule.Event.DATE_MESSAGE_CONSTRAINTS;
 import static seedu.address.model.schedule.Event.DURATION_MESSAGE_CONSTRAINTS;
 import static seedu.address.model.schedule.Event.TIME_MESSAGE_CONSTRAINTS;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -35,9 +37,14 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    private static final String DATE_REGEX = "\\d{4}-\\d{2}-\\d{2}";
+    private static final String TIME_REGEX = "\\d{2}:\\d{2}";
     private static final String DURATION_HOURS_REGEX = "^[0-9]*H?";
     private static final String DURATION_HOURS_MINUTES_REGEX = "^[0-9]*H[0-9]*M";
     private static final String DURATION_MINUTES_REGEX = "[0-9]*M";
+
+
+    private static final String FILE_PATH_MESSAGE_CONSTRAINTS = "File path cannot be empty!";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -183,10 +190,27 @@ public class ParserUtil {
     public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        try {
-            return LocalDate.parse(trimmedDate);
-        } catch (DateTimeParseException e) {
+        if (!trimmedDate.matches(DATE_REGEX)) {
             throw new ParseException(DATE_MESSAGE_CONSTRAINTS);
+        }
+        try {
+            LocalDate localDate = LocalDate.parse(trimmedDate);
+            checkValidDate(localDate);
+            return localDate;
+        } catch (DateTimeParseException e) {
+            throw new ParseException("The provided date does not exist!");
+        }
+    }
+
+    /**
+     * A helper function to check if a date satisfies the year constraints.
+     *
+     * @throws ParseException if the year of the given {@code date} is less than 2000 or more than 2100
+     */
+    private static void checkValidDate(LocalDate date) throws ParseException {
+        int year = date.getYear();
+        if (year < 2000 || year > 2100) {
+            throw new ParseException("The date of the event must be between year 2000 to 2100 inclusive!");
         }
     }
 
@@ -199,10 +223,13 @@ public class ParserUtil {
     public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
+        if (!trimmedTime.matches(TIME_REGEX)) {
+            throw new ParseException(TIME_MESSAGE_CONSTRAINTS);
+        }
         try {
             return LocalTime.parse(trimmedTime);
         } catch (DateTimeParseException e) {
-            throw new ParseException(TIME_MESSAGE_CONSTRAINTS);
+            throw new ParseException("The provided time is invalid!");
         }
     }
 
@@ -222,16 +249,54 @@ public class ParserUtil {
                 String[] splitDuration = trimmedDuration.split("H");
                 hours = Integer.parseInt(splitDuration[0]);
                 minutes = Integer.parseInt(splitDuration[1].split("M")[0]);
+                checkValidHoursAndMinutes(hours, minutes);
             } else if (trimmedDuration.matches(DURATION_HOURS_REGEX)) {
                 hours = Integer.parseInt(trimmedDuration.split("H")[0]);
+                checkValidHours(hours);
             } else if (trimmedDuration.matches(DURATION_MINUTES_REGEX)) {
                 minutes = Integer.parseInt(trimmedDuration.split("M")[0]);
+                checkValidMinutes(minutes);
             } else {
                 throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
             }
             return Duration.ofHours(hours).plusMinutes(minutes);
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
+     * A helper function to check if the hours and minutes satisfies duration constraints.
+     *
+     * @throws ParseException if the {@code hours} and {@code minutes} combined exceeds 336 hours (2 weeks)
+     */
+    private static void checkValidHoursAndMinutes(int hours, int minutes) throws ParseException {
+        checkValidMinutes(minutes);
+        checkValidHours(hours);
+        if (hours == 336 && minutes > 0) {
+            throw new ParseException("The event's duration cannot exceed 2 weeks! (336 hours)");
+        }
+    }
+
+    /**
+     * A helper function to check if the hours satisfy duration constraints.
+     *
+     * @throws ParseException if the given {@code hours} is less than 0 or more than 336
+     */
+    private static void checkValidHours(int hours) throws ParseException {
+        if (hours < 0 || hours > 336) {
+            throw new ParseException("The event's duration cannot exceed 2 weeks! (336 hours)");
+        }
+    }
+
+    /**
+     * A helper function to check if the minutes satisfy minute constraints.
+     *
+     * @throws ParseException if the given {@code minutes} is less than 0 or larger than 59
+     */
+    private static void checkValidMinutes(int minutes) throws ParseException {
+        if (minutes < 0 || minutes > 59) {
+            throw new ParseException("Minutes should be an integer between 0 to 59 inclusive!");
         }
     }
 
@@ -244,7 +309,7 @@ public class ParserUtil {
     public static RecurFrequency parseRecurFrequency(String recurFrequency) throws ParseException {
         requireNonNull(recurFrequency);
         String trimmedRecurFrequency = recurFrequency.trim();
-        return RecurFrequency.of(trimmedRecurFrequency);
+        return RecurFrequency.of(trimmedRecurFrequency.toUpperCase());
     }
 
     /**
@@ -272,5 +337,19 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String filePath} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code filePath} is invalid.
+     */
+    public static Path parseFilePath(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        if (filePath.trim().equals("")) {
+            throw new ParseException(FILE_PATH_MESSAGE_CONSTRAINTS);
+        }
+        return Paths.get(filePath);
     }
 }
