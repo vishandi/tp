@@ -218,7 +218,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
-* DATE should be in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
 * DURATION, if provided, should be in one of the following formats (not case-sensitive):
 
