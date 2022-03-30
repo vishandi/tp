@@ -50,7 +50,7 @@ public enum RecurFrequency {
     public static RecurFrequency of(String frequency) throws ParseException {
         requireNonNull(frequency);
         Optional<RecurFrequency> recurFrequency = VALID_FREQUENCIES.stream()
-                .filter(r -> r.shortName.equals(frequency)
+                .filter(r -> r.shortName.equals(frequency.toUpperCase())
                         || r.fullName.equals(frequency.toUpperCase())).findFirst();
         if (!recurFrequency.isPresent()) {
             throw new ParseException(INVALID_RECUR_FREQUENCY_MESSAGE);

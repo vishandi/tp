@@ -95,10 +95,12 @@ public class ScheduleCard extends UiPart<Region> {
 
         if ((!person.getSchedule().isEmpty())) {
             Label scheduleLabel = new Label(person.getSchedule().toString());
+            scheduleLabel.setWrapText(true);
             scheduleBox.getChildren().add(scheduleLabel);
         } else {
             Label scheduleLabel = new Label(String.format(NO_SCHEDULE_MESSAGE,
                     person.getName().value));
+            scheduleLabel.setWrapText(true);
             scheduleBox.getChildren().add(scheduleLabel);
         }
 
@@ -108,9 +110,11 @@ public class ScheduleCard extends UiPart<Region> {
         for (int i = 0; i < 7; i++) {
             if (!person.getUpcomingSchedule(i).isEmpty()) {
                 Label upcomingScheduleLabel = new Label(person.getUpcomingSchedule(i).getDailyScheduleFormat());
+                upcomingScheduleLabel.setWrapText(true);
                 dailySchedule.get(i).getChildren().add(upcomingScheduleLabel);
             } else {
                 Label upcomingScheduleLabel = new Label("-");
+                upcomingScheduleLabel.setWrapText(true);
                 dailySchedule.get(i).getChildren().add(upcomingScheduleLabel);
             }
         }

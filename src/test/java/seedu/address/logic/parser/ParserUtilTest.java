@@ -39,7 +39,7 @@ public class ParserUtilTest {
     private static final String INVALID_TAG = "#friend";
     private static final String TOO_LONG_TAG = "O".repeat(31);
     private static final String INVALID_EVENT_DESCRIPTION = "abcde/fghij";
-    private static final String TOO_LONG_EVENT_DESCRIPTION = "O".repeat(26);
+    private static final String TOO_LONG_EVENT_DESCRIPTION = "O".repeat(61);
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String MAXIMUM_LENGTH_NAME = "O".repeat(30);
@@ -57,7 +57,7 @@ public class ParserUtilTest {
     private static final String VALID_TAG_2 = "neighbour";
     private static final String MAXIMUM_LENGTH_TAG = "O".repeat(30);
     private static final String VALID_EVENT_DESCRIPTION = "abcde";
-    private static final String MAXIMUM_LENGTH_EVENT_DESCRIPTION = "O".repeat(25);
+    private static final String MAXIMUM_LENGTH_EVENT_DESCRIPTION = "O".repeat(60);
 
     private static final String WHITESPACE = " \t\r\n";
 

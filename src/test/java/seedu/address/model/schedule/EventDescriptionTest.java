@@ -23,7 +23,7 @@ class EventDescriptionTest {
         assertFalse(EventDescription.isValidEventDescription(" ")); // spaces only
         assertFalse(EventDescription.isValidEventDescription("Meet John /at NUS")); // contains /
         assertFalse(EventDescription.isValidEventDescription("/go school")); // starts with /
-        assertFalse(EventDescription.isValidEventDescription("O".repeat(26))); // one more than maximum length;
+        assertFalse(EventDescription.isValidEventDescription("O".repeat(61))); // one more than maximum length;
 
         // valid eventDescription
         assertTrue(EventDescription.isValidEventDescription("corporation drive")); // alphabets only
@@ -33,7 +33,7 @@ class EventDescriptionTest {
         assertTrue(EventDescription.isValidEventDescription("Blk 64 Lorong 5 Toa Payoh")); //long names
         assertTrue(EventDescription.isValidEventDescription("^")); // non-alphanumeric characters
         assertTrue(EventDescription.isValidEventDescription("Jurong*")); // contains non-alphanumeric characters
-        assertTrue(EventDescription.isValidEventDescription("O".repeat(25))); // maximum length
+        assertTrue(EventDescription.isValidEventDescription("O".repeat(60))); // maximum length
     }
 
     @Test

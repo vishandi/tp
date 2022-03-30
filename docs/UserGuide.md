@@ -246,11 +246,13 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
   * X
 * RECUR_FREQUENCY, if provided, must be one of the following values:
 
-| Value           | Frequency |
-|-----------------|-----------|
-| `D`, `Daily`    | Daily     |
-| `W`, `Weekly`   | Weekly    |
-| `B`, `Biweekly` | Biweekly  |
+| Value            | Frequency |
+|------------------|-----------|
+| `D`, `DAILY`     | Daily     |
+| `W`, `WEEKLY`    | Weekly    |
+| `BW`, `BIWEEKLY` | Biweekly  |
+
+* Note that RECUR_FREQUENCY is case-insensitive. For example, `r/dAiLy` will be considered as `r/DAILY`.
 
 Examples:
 * `addEvent 3 ed/Open House da/2022-12-20`
@@ -274,11 +276,13 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
   * X
 * RECUR_FREQUENCY, if provided, must be one of the following values:
 
-| Value           | Frequency |
-|-----------------|-----------|
-| `D`, `Daily`    | Daily     |
-| `W`, `Weekly`   | Weekly    |
-| `B`, `Biweekly` | Biweekly  |
+| Value            | Frequency |
+|------------------|-----------|
+| `D`, `DAILY`     | Daily     |
+| `W`, `WEEKLY`    | Weekly    |
+| `BW`, `BIWEEKLY` | Biweekly  |
+
+* Note that RECUR_FREQUENCY is case-insensitive. For example, `r/dAiLy` will be considered as `r/DAILY`.
 
 Example:
 * `editEvent 3 3 da/2022-12-21`
