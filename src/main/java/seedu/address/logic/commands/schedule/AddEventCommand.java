@@ -26,6 +26,7 @@ import seedu.address.model.schedule.Schedule;
 public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "addEvent";
+    public static final String COMMAND_WORD_LOWER = "addevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an event to the indexed person's schedule in the address book. "

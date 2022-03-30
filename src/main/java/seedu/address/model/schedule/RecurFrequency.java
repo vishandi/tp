@@ -59,6 +59,13 @@ public enum RecurFrequency {
     }
 
     /**
+     * Gets the short name used for commands.
+     */
+    public String getShortName() {
+        return shortName;
+    }
+
+    /**
      * Returns whether the provided String maps to a valid RecurFrequency value.
      */
     public static boolean isValidRecurFrequency(String frequency) {
