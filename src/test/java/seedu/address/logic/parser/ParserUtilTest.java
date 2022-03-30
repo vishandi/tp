@@ -37,6 +37,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = "[]/\\";
     private static final String TOO_LONG_ADDRESS = "O".repeat(41);
     private static final String INVALID_TAG = "#friend";
+    private static final String TOO_LONG_TAG = "O".repeat(51);
     private static final String INVALID_EVENT_DESCRIPTION = "abcde/fghij";
     private static final String TOO_LONG_EVENT_DESCRIPTION = "O".repeat(26);
 
@@ -54,6 +55,7 @@ public class ParserUtilTest {
     private static final String MAXIMUM_LENGTH_ADDRESS = "O".repeat(40);
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String MAXIMUM_LENGTH_TAG = "O".repeat(50);
     private static final String VALID_EVENT_DESCRIPTION = "abcde";
     private static final String MAXIMUM_LENGTH_EVENT_DESCRIPTION = "O".repeat(25);
 
@@ -273,12 +275,16 @@ public class ParserUtilTest {
     @Test
     public void parseTag_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTag(TOO_LONG_TAG));
     }
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         Tag expectedTag = new Tag(VALID_TAG_1);
         assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+
+        Tag maximumLengthTag = new Tag(MAXIMUM_LENGTH_TAG);
+        assertEquals(maximumLengthTag, ParserUtil.parseTag(MAXIMUM_LENGTH_TAG));
     }
 
     @Test
@@ -286,6 +292,10 @@ public class ParserUtilTest {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
         Tag expectedTag = new Tag(VALID_TAG_1);
         assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+
+        String maximumLengthTagWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_TAG + WHITESPACE;
+        Tag maximumLengthTag = new Tag(MAXIMUM_LENGTH_TAG);
+        assertEquals(maximumLengthTag, ParserUtil.parseTag(maximumLengthTagWithWhitespace));
     }
 
     @Test
@@ -296,6 +306,7 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, TOO_LONG_TAG)));
     }
 
     @Test
