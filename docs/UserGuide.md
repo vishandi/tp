@@ -107,7 +107,7 @@ Adds a person to UniGenda without needing complete information about the person.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
-* `NAME` should only contain alphanumeric characters, not blank, and at most 36 characters.
+* `NAME` should only contain alphanumeric characters, not blank, and at most 20 characters.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `TELEGRAM` should be a **valid** Telegram username not exceeding 40 characters.
 * `GITHUB` should be a **valid** GitHub username not exceeding 39 characters.
@@ -138,7 +138,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 * You cannot edit a person's name and/or phone number such that the person's (Name, Phone Number) combination is the same as another person's (Name, Phone Number) combination in your UniGenda.
 * All leading and trailing whitespaces will be trimmed for each input to each prefix.
-* `NAME` should only contain alphanumeric characters, not blank, and at most 36 characters.
+* `NAME` should only contain alphanumeric characters, not blank, and at most 20 characters.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, 
 * `TELEGRAM` should be a **valid** Telegram username not exceeding 40 characters.
 * `GITHUB` should be a **valid** GitHub username not exceeding 39 characters.
