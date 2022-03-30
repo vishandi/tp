@@ -113,7 +113,8 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 * `GITHUB` should be a **valid** GitHub username not exceeding 39 characters.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 40 characters.
 * `EMAIL` should be a **valid** email with length not exceeding 40 characters.
-* `TAG` should only contain alphanumeric characters, not blank, and at most 50 characters long.
+* `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 50 characters long.
+* Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 
 Examples:
 * add n/John Doe p/98765432
@@ -144,7 +145,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * `GITHUB` should be a **valid** GitHub username not exceeding 39 characters.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 40 characters.
 * `EMAIL` should be a **valid** email with length not exceeding 40 characters.
-* `TAG` should only contain alphanumeric characters, not blank, and at most 50 characters long.
+* `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 50 characters long.
+* Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 
 
 Examples:
