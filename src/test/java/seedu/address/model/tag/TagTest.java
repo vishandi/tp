@@ -28,13 +28,13 @@ public class TagTest {
 
         // invalid tag names
         assertFalse(Tag.isValidTagName("/")); // punctuation
-        assertFalse(Tag.isValidTagName("O".repeat(51))); // exceeds maximum length
+        assertFalse(Tag.isValidTagName("O".repeat(31))); // exceeds maximum length
         assertFalse(Tag.isValidTagName("best friend")); // contains space
 
         // valid tag names
         assertTrue(Tag.isValidTagName("a")); // one character only
         assertTrue(Tag.isValidTagName("1")); // one numeric character
-        assertTrue(Tag.isValidTagName("O".repeat(50))); //maximum length
+        assertTrue(Tag.isValidTagName("O".repeat(30))); //maximum length
     }
 
 }
