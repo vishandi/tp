@@ -23,6 +23,7 @@ import seedu.address.model.schedule.Schedule;
 public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteEvent";
+    public static final String COMMAND_WORD_LOWER = "deleteevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an event of the person identified "
             + "by the index number used in the displayed person list.\n"

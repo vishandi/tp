@@ -33,6 +33,7 @@ import seedu.address.storage.JsonAdaptedSchedule;
 public class ImportScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "importSchedule";
+    public static final String COMMAND_WORD_LOWER = "importschedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a schedule from a json file and "
             + "replaces the indexed person's schedule with the imported schedule.\n"
