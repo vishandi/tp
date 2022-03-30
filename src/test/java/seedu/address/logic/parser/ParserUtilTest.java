@@ -25,7 +25,7 @@ import seedu.address.model.schedule.EventDescription;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String TOO_LONG_NAME = "O".repeat(21);
+    private static final String TOO_LONG_NAME = "O".repeat(31);
     private static final String INVALID_PHONE = "+651234";
     private static final String TOO_LONG_PHONE = "0".repeat(16);
     private static final String INVALID_TELEGRAM = "abcde**";
@@ -42,7 +42,7 @@ public class ParserUtilTest {
     private static final String TOO_LONG_EVENT_DESCRIPTION = "O".repeat(26);
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String MAXIMUM_LENGTH_NAME = "O".repeat(20);
+    private static final String MAXIMUM_LENGTH_NAME = "O".repeat(30);
     private static final String VALID_PHONE = "123456";
     private static final String MAXIMUM_LENGTH_PHONE = "0".repeat(15);
     private static final String VALID_TELEGRAM = "abcde";

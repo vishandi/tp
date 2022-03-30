@@ -139,7 +139,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 * You cannot edit a person's name and/or phone number such that the person's (Name, Phone Number) combination is the same as another person's (Name, Phone Number) combination in your UniGenda.
-* `NAME` should only contain alphanumeric characters, not blank, and at most 20 characters long.
+* `NAME` should only contain alphanumeric characters, not blank, and at most 30 characters long.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
 * `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
