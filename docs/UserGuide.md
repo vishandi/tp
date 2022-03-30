@@ -109,7 +109,7 @@ Adds a person to UniGenda without needing complete information about the person.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
-* `NAME` should only contain alphanumeric characters, not blank, and at most 20 characters long.
+* `NAME` should only contain alphanumeric characters, not blank, and at most 30 characters long.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
 * `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
@@ -235,7 +235,7 @@ Adds an event to the specified indexed contact.
 
 Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
-* `EVENT_DESCRIPTION` should not contain **/** and at most 25 characters.
+* `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
@@ -268,7 +268,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided.
-* `EVENT_DESCRIPTION` should not contain **/** and at most 25 characters.
+* `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * DATE should be in "YYYY-MM-DD" format.
 * TIME should be in "HH:MM" format.
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
