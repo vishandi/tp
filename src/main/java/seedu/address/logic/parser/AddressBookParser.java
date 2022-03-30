@@ -23,6 +23,7 @@ import seedu.address.logic.commands.schedule.ClearScheduleCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportScheduleCommand;
+import seedu.address.logic.commands.schedule.FindCommonTimingCommand;
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
 import seedu.address.logic.commands.schedule.ImportScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -32,13 +33,13 @@ import seedu.address.logic.parser.person.EditCommandParser;
 import seedu.address.logic.parser.person.FindCommandParser;
 import seedu.address.logic.parser.person.SetUserCommandParser;
 import seedu.address.logic.parser.person.ViewGroupCommandParser;
-import seedu.address.logic.parser.person.FindCommonTimingCommandParser;
 import seedu.address.logic.parser.person.ViewScheduleCommandParser;
 import seedu.address.logic.parser.schedule.AddEventCommandParser;
 import seedu.address.logic.parser.schedule.ClearScheduleCommandParser;
 import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
 import seedu.address.logic.parser.schedule.ExportScheduleCommandParser;
+import seedu.address.logic.parser.schedule.FindCommonTimingCommandParser;
 import seedu.address.logic.parser.schedule.FreeScheduleCommandParser;
 import seedu.address.logic.parser.schedule.ImportScheduleCommandParser;
 
@@ -125,7 +126,7 @@ public class AddressBookParser {
             return new SetUserCommandParser().parse(arguments);
 
         case FindCommonTimingCommand.COMMAND_WORD:
-             return new FindCommonTimingCommandParser().parse(arguments);
+            return new FindCommonTimingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -1,11 +1,12 @@
-package seedu.address.logic.parser.person;
+package seedu.address.logic.parser.schedule;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import seedu.address.logic.commands.person.ViewGroupCommand;
+import java.time.LocalDate;
+
 import seedu.address.logic.commands.schedule.FindCommonTimingCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -14,9 +15,6 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.IsTagInPersonPredicate;
 import seedu.address.model.person.Tag;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
  * Parses input arguments and creates a new ViewGroupCommand object.
