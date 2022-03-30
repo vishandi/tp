@@ -165,6 +165,7 @@ public class FindCommonTimingCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommonTimingCommand // instanceof handles nulls
-                && predicate.equals(((FindCommonTimingCommand) other).predicate)); // state check
+                && predicate.equals(((FindCommonTimingCommand) other).predicate))
+                && date.equals(((FindCommonTimingCommand) other).date)); // state check
     }
 }

@@ -33,7 +33,10 @@ public class FindCommonTimingCommandParser implements Parser<FindCommonTimingCom
 
         boolean hasTagPrefix = argMultimap.getValue(PREFIX_TAG).isPresent();
         boolean hasDatePrefix = argMultimap.getValue(PREFIX_DATE).isPresent();
-
+        
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommonTimingCommand.MESSAGE_USAGE));
+        }
         if (hasTagPrefix && hasDatePrefix) {
             Tag tag = new Tag(argMultimap.getValue(PREFIX_TAG).get());
             LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
