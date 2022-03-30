@@ -21,7 +21,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    9. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
-   12. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
+   12. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
    13. [Importing a person's schedule](#importing-a-persons-schedule-import)
    14. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
    15. [Clearing all entries](#clearing-all-entries--clear)
@@ -277,8 +277,8 @@ Format: `deleteEvent INDEX EVENT_INDEX`
 Example:
 * `deleteEvent 3 3`
 
-### Getting persons who are free: `freeSchedule`
-Format: `freeSchedule ti/TIME [da/ DATE]`
+### Getting persons who are free: `whoIsFree`
+Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
 * Shows the persons who are free at the time specified today
 * Shows the persons who are free at the time on the date specified
 * Contacts without a schedule are filtered out of the list
@@ -288,8 +288,8 @@ Format: `freeSchedule ti/TIME [da/ DATE]`
 * DATE should be in "YYYY-MM-DD" format
 
 Examples:
-* `freeSchedule ti/ 12:00`
-* `freeSchedule ti/ 14:00 da/2022-02-14`
+* `whoIsFree ti/ 12:00`
+* `whoIsFree ti/ 14:00 da/2022-02-14`
 
 ### Importing a person's schedule: `importSchedule`
 Imports a schedule from a file to the person at the specified index.
@@ -368,22 +368,22 @@ Example:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
-| Action                | Format, Examples                                                                                                                                                                              |
-|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
-| **Clear**             | `clear`                                                                                                                                                                                       |
-| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
-| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
-| **SetUser**           | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
-| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
-| **ViewSchedule**      | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
-| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
-| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
-| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
-| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
-| **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
-| **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
-| **ExportSchedule**    | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
-| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
-| **List**              | `list`                                                                                                                                                                                        |
-| **Help**              | `help`                                                                                                                                                                                        |
+| Action               | Format, Examples                                                                                                                                                                              |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**              | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
+| **Clear**            | `clear`                                                                                                                                                                                       |
+| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
+| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **SetUser**          | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
+| **ViewGroup**        | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
+| **ViewSchedule**     | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
+| **AddEvent**         | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
+| **EditEvent**        | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
+| **DeleteEvent**      | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
+| **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
+| **FindCommonTiming** | `findCommonTiming t/TAG`<br> e.g., `findCommonTiming t/groupmates`                                                                                                                            |
+| **ImportSchedule**   | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
+| **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
+| **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
+| **List**             | `list`                                                                                                                                                                                        |
+| **Help**             | `help`                                                                                                                                                                                        |
