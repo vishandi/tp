@@ -18,6 +18,7 @@ import seedu.address.model.person.Person;
 public class SetUserCommand extends Command {
 
     public static final String COMMAND_WORD = "setUser";
+    public static final String COMMAND_WORD_LOWER = "setuser";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sets the specified person in the contact list as the user and moves the contact to the top.\n"

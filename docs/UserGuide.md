@@ -92,6 +92,8 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 
 * All leading and trailing whitespaces will be trimmed for each input to each prefix.
 
+* All commands are case-insensitive. For example `addevent` or `AdDEvenT` works for `addEvent` commands.
+
 </div>
 
 ### Viewing help : `help`
@@ -327,14 +329,15 @@ Format: `importSchedule INDEX pa/FILE_PATH`
 Examples:
 `importSchedule 1 pa/typicalSchedule.json`
 
-### Exporting a person's schedule: `export`
-Format: `export INDEX`
-
-* Allows user to export schedule of person at specified index.
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
+### Exporting a person's schedule: `exportSchedule`
+Format: `exportSchedule INDEX`
+* Allows user to export schedule of person at specified index
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+* The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
+* The exported data will be saved in the `data` folder in the folder that you save your `UniGenda.jar`.
 
 Examples:
-* `export 1`
+* `exportSchedule 1`
 
 ### Clearing all entries : `clear`
 
@@ -408,7 +411,7 @@ Example:
 | **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
 | **FreeGroupSchedule** | `freeGroupSchedule t/TAG`<br> e.g., `freeGroupSchedule t/groupmates`                                                                                                                          |
 | **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
-| **Export**            | `export INDEX`<br> e.g., `export 1`                                                                                                                                                           |
+| **ExportSchedule**    | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**              | `list`                                                                                                                                                                                        |
 | **Help**              | `help`                                                                                                                                                                                        |
