@@ -112,7 +112,7 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 * `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
 * `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 40 characters.
-* `EMAIL` should be a **valid** email with length not exceeding 40 characters.
+* `EMAIL` should be a **valid** email with length not exceeding 60 characters.
 * `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 30 characters long.
 * Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 
@@ -144,7 +144,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
 * `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 40 characters.
-* `EMAIL` should be a **valid** email with length not exceeding 40 characters.
+* `EMAIL` should be a **valid** email with length not exceeding 60 characters.
 * `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 30 characters long.
 * Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 

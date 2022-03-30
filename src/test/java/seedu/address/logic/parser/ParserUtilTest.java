@@ -33,7 +33,7 @@ public class ParserUtilTest {
     private static final String INVALID_GITHUB = "ab--e";
     private static final String TOO_LONG_GITHUB = "O".repeat(40);
     private static final String INVALID_EMAIL = "example.com";
-    private static final String TOO_LONG_EMAIL = "abcdefghijklmnopqrstuvwxyzabc@example.com";
+    private static final String TOO_LONG_EMAIL = "a".repeat(49) + "@example.com";
     private static final String INVALID_ADDRESS = "[]/\\";
     private static final String TOO_LONG_ADDRESS = "O".repeat(41);
     private static final String INVALID_TAG = "#friend";
@@ -50,7 +50,7 @@ public class ParserUtilTest {
     private static final String VALID_GITHUB = "abcde";
     private static final String MAXIMUM_LENGTH_GITHUB = "O".repeat(39);
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String MAXIMUM_LENGTH_EMAIL = "abcdefghijklmnopqrstuvwxyzab@example.com";
+    private static final String MAXIMUM_LENGTH_EMAIL = "a".repeat(48) + "@example.com";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String MAXIMUM_LENGTH_ADDRESS = "O".repeat(40);
     private static final String VALID_TAG_1 = "friend";
