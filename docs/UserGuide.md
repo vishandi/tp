@@ -17,13 +17,13 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    5. [Locating persons by name](#locating-persons-by-name-find)
    6. [Deleting a person](#deleting-a-person--delete)
    7. [Viewing a person's schedule](#viewing-a-persons-schedule-viewschedule)
-   8. [Viewing contacts by tags](#viewing-contacts-by-tags-viewgroup)
+   8. [Viewing persons by tags](#viewing-persons-by-tags-viewgroup)
    9. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
    10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    12. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
-   13. [Importing a person's schedule](#importing-a-persons-schedule-import)
-   14. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
+   13. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
+   14. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
    15. [Clearing all entries](#clearing-all-entries--clear)
    16. [Exiting the program](#exiting-the-program--exit)
    17. [Saving the data](#saving-the-data)
@@ -203,14 +203,14 @@ Examples:
 * `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command.
 
 
-### Viewing contacts by tags: `viewGroup`
+### Viewing persons by tags: `viewGroup`
 Shows the names of friends with the same tag
 
 Format: `viewGroup t/TAG`
-* Shows contacts sharing the same tag
+* Shows a list of persons sharing the same tag
 
 Examples:
-* `viewGroup` t/groupmates
+* `viewGroup t/groupmates`
 
 ### Adding a person’s schedule: `addEvent`
 Adds an event to the specified indexed contact.
@@ -278,18 +278,20 @@ Example:
 * `deleteEvent 3 3`
 
 ### Getting persons who are free: `whoIsFree`
+Shows a list of persons who are free at specified time and date. You may also choose to additionally filter the list using tags.
+
 Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
 * Shows the persons who are free at the time specified today
 * Shows the persons who are free at the time on the date specified
-* Contacts without a schedule are filtered out of the list
 * TIME is the time at which the user want to find out if the person is free
 * DATE should not be specified if TIME is not specified
 * TIME should be in "HH:MM" format
 * DATE should be in "YYYY-MM-DD" format
 
 Examples:
-* `whoIsFree ti/ 12:00`
-* `whoIsFree ti/ 14:00 da/2022-02-14`
+* `whoIsFree ti/12:00`
+* `whoIsFree ti/14:00 da/2022-02-14`
+* `whoIsFree ti/12:00 t/friends`
 
 ### Importing a person's schedule: `importSchedule`
 Imports a schedule from a file to the person at the specified index.
