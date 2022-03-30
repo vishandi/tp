@@ -21,6 +21,7 @@ import seedu.address.model.schedule.IsPersonFreePredicate;
 public class WhoIsFreeCommand extends Command {
 
     public static final String COMMAND_WORD = "whoIsFree";
+    public static final String COMMAND_WORD_LOWER = "whoisfree";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Retrieves information of friends "

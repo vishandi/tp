@@ -22,6 +22,7 @@ import seedu.address.model.schedule.Schedule;
 public class ClearScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "clearSchedule";
+    public static final String COMMAND_WORD_LOWER = "clearschedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears the schedule of the person identified "
             + "by the index number used in the displayed person list.\n"

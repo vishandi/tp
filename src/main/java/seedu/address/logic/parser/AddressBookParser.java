@@ -67,7 +67,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -87,40 +87,40 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case ViewGroupCommand.COMMAND_WORD_LOWER:
+            return new ViewGroupCommandParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AddEventCommand.COMMAND_WORD:
+        case AddEventCommand.COMMAND_WORD_LOWER:
             return new AddEventCommandParser().parse(arguments);
 
-        case WhoIsFreeCommand.COMMAND_WORD:
-            return new WhoIsFreeCommandParser().parse(arguments);
-
-        case EditEventCommand.COMMAND_WORD:
+        case EditEventCommand.COMMAND_WORD_LOWER:
             return new EditEventCommandParser().parse(arguments);
 
-        case DeleteEventCommand.COMMAND_WORD:
+        case DeleteEventCommand.COMMAND_WORD_LOWER:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case ClearScheduleCommand.COMMAND_WORD:
+        case WhoIsFreeCommand.COMMAND_WORD_LOWER:
+            return new WhoIsFreeCommandParser().parse(arguments);
+
+        case ClearScheduleCommand.COMMAND_WORD_LOWER:
             return new ClearScheduleCommandParser().parse(arguments);
 
-        case ViewGroupCommand.COMMAND_WORD:
-            return new ViewGroupCommandParser().parse(arguments);
-
-        case ViewScheduleCommand.COMMAND_WORD:
+        case ViewScheduleCommand.COMMAND_WORD_LOWER:
             return new ViewScheduleCommandParser().parse(arguments);
 
-        case ImportScheduleCommand.COMMAND_WORD:
+        case ImportScheduleCommand.COMMAND_WORD_LOWER:
             return new ImportScheduleCommandParser().parse(arguments);
 
-        case ExportScheduleCommand.COMMAND_WORD:
+        case ExportScheduleCommand.COMMAND_WORD_LOWER:
             return new ExportScheduleCommandParser().parse(arguments);
 
-        case SetUserCommand.COMMAND_WORD:
+        case SetUserCommand.COMMAND_WORD_LOWER:
             return new SetUserCommandParser().parse(arguments);
 
         default:
