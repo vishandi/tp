@@ -68,7 +68,7 @@ public class AddEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        if (eventToAdd.isValidDurationWithRecurFrequency()) {
+        if (!eventToAdd.isValidDurationWithRecurFrequency()) {
             throw new CommandException(DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS);
         }
 
