@@ -309,7 +309,7 @@ public class ParserUtil {
     public static RecurFrequency parseRecurFrequency(String recurFrequency) throws ParseException {
         requireNonNull(recurFrequency);
         String trimmedRecurFrequency = recurFrequency.trim();
-        return RecurFrequency.of(trimmedRecurFrequency);
+        return RecurFrequency.of(trimmedRecurFrequency.toUpperCase());
     }
 
     /**

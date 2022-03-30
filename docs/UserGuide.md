@@ -229,7 +229,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 | `Mm`   | M minutes         | `20m`   |
 | `H`    | H hours           | `3`     |
 * DURATION **must be less than 336hours (2 weeks)**
-* RECUR_FREQUENCY, if provided, must be one of the following values:
+* RECUR_FREQUENCY, if provided, must be one of the following values (not case-sensitive:
 
 | Value           | Frequency |
 |-----------------|-----------|
@@ -253,7 +253,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
 
-| Value  | Duration          | Example |
+| Format | Duration          | Example |
 |--------|-------------------|---------|
 | `HhMm` | H hours M minutes | `3h30m` |
 | `Hh`   | H hours           | `2h`    |
