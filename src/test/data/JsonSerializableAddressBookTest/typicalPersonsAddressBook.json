@@ -11,44 +11,44 @@
       "events" : [ {
         "eventDescription" : "CS2106 Tutorial",
         "date" : "2022-03-14",
-        "time" : "10:00:00",
-        "duration" : "PT1H",
+        "time" : "10:00",
+        "duration" : "1H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "Alice Birthday Surprise",
         "date" : "2022-03-14",
-        "time" : "17:00:00",
-        "duration" : "PT4H",
+        "time" : "17:00",
+        "duration" : "4H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-03-16",
-        "time" : "09:00:00",
-        "duration" : "PT1H",
+        "time" : "09:00",
+        "duration" : "1H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2106 Lecture",
         "date" : "2022-03-16",
-        "time" : "10:00:00",
-        "duration" : "PT2H",
+        "time" : "10:00",
+        "duration" : "2H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2106 Lab",
         "date" : "2022-03-17",
-        "time" : "13:00:00",
-        "duration" : "PT1H",
+        "time" : "13:00",
+        "duration" : "1H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2103T Lecture",
         "date" : "2022-03-18",
-        "time" : "14:00:00",
-        "duration" : "PT2H",
+        "time" : "14:00",
+        "duration" : "2H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "National Day Party at BFF",
         "date" : "2022-08-09",
-        "time" : "20:00:00",
-        "duration" : "PT3H",
+        "time" : "20:00",
+        "duration" : "3H",
         "recurFrequency" : "WEEKLY"
       } ]
     },
@@ -64,44 +64,44 @@
       "events" : [ {
         "eventDescription" : "CS2106 Tutorial",
         "date" : "2022-03-14",
-        "time" : "10:00:00",
-        "duration" : "PT1H",
+        "time" : "10:00",
+        "duration" : "1H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "Alice Birthday Surprise",
         "date" : "2022-03-14",
-        "time" : "17:00:00",
-        "duration" : "PT4H",
+        "time" : "17:00",
+        "duration" : "4H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-03-16",
-        "time" : "09:00:00",
-        "duration" : "PT1H",
+        "time" : "09:00",
+        "duration" : "1H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2106 Lecture",
         "date" : "2022-03-16",
-        "time" : "10:00:00",
-        "duration" : "PT2H",
+        "time" : "10:00",
+        "duration" : "2H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2106 Lab",
         "date" : "2022-03-17",
-        "time" : "13:00:00",
-        "duration" : "PT1H",
+        "time" : "13:00",
+        "duration" : "1H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2103T Lecture",
         "date" : "2022-03-18",
-        "time" : "14:00:00",
-        "duration" : "PT2H",
+        "time" : "14:00",
+        "duration" : "2H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "National Day Party at BFF",
         "date" : "2022-08-09",
-        "time" : "20:00:00",
-        "duration" : "PT3H",
+        "time" : "20:00",
+        "duration" : "3H",
         "recurFrequency" : "WEEKLY"
       } ]
     },
@@ -172,8 +172,8 @@
       "events" : [ {
         "eventDescription" : "Tutorial CS2103T",
         "date" : "2022-03-16",
-        "time" : "09:00:00",
-        "duration" : "PT1H",
+        "time" : "09:00",
+        "duration" : "1H",
         "recurFrequency" : "WEEKLY"
       } ]
     },
