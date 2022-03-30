@@ -9,14 +9,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Tag;
 import seedu.address.model.schedule.IsPersonFreePredicate;
@@ -33,7 +31,7 @@ public class WhoIsFreeCommandParser implements Parser<WhoIsFreeCommand> {
         boolean hasTimePrefix = argMultimap.getValue(PREFIX_TIME).isPresent();
         boolean hasDatePrefix = argMultimap.getValue(PREFIX_DATE).isPresent();
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TIME) || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, WhoIsFreeCommand.MESSAGE_USAGE));
         }
 
@@ -53,13 +51,5 @@ public class WhoIsFreeCommandParser implements Parser<WhoIsFreeCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, WhoIsFreeCommand.MESSAGE_USAGE));
         }
 
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
