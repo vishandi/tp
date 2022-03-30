@@ -1,0 +1,8 @@
+@startuml
+start
+:User executes command;
+
+:Save schedule;
+
+stop
+@enduml

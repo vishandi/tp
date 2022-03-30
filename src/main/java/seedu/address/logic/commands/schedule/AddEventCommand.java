@@ -7,15 +7,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EditUtil.EditPersonDescriptor;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -23,9 +23,10 @@ import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
 
-public class AddEventCommand extends EditTypeCommand {
+public class AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "addEvent";
+    public static final String COMMAND_WORD_LOWER = "addevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an event to the indexed person's schedule in the address book. "
@@ -70,14 +71,22 @@ public class AddEventCommand extends EditTypeCommand {
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Schedule scheduleToEdit = personToEdit.getSchedule();
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, eventToAdd);
-
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        editPersonDescriptor.setSchedule(updatedSchedule);
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setSchedule(personToEdit, updatedSchedule);
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAdd, personToEdit.getName()));
+    }
+
+    /**
+     * Creates and returns a {@code Schedule} with the details of {@code eventToEdit}
+     * with an added {@code eventToAdd}.
+     */
+    private static Schedule createEditedSchedule(Schedule scheduleToEdit, Event eventToAdd) {
+        assert scheduleToEdit != null;
+
+        List<Event> scheduleEvents = scheduleToEdit.getEvents();
+        ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
+        updatedEvents.add(eventToAdd);
+        Collections.sort(updatedEvents);
+        return new Schedule(updatedEvents);
     }
 
     @Override

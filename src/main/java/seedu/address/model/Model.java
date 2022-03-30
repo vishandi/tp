@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.Schedule;
 
 /**
  * The API of the Model component.
@@ -73,17 +74,30 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Inserts a person at the specified {@code index}.
+     * {@code person} must not already exist in the address book.
+     */
+    void insertPerson(Person person, Integer index);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Replaces the {@code Schedule} of the given person {@code target} with {@code updatedSchedule}.
+     * {@code target} must exist in the address book.
+     * {@code updatedSchedule} must not be null.
+     */
+    void setSchedule(Person target, Schedule updatedSchedule);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of a particular person */
-    ObservableList<Person> getViewedPersonList();
+    ObservableList<Person> getViewSchedulePerson();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -92,8 +106,8 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of teh viewed person list.
+     * Updates the filter of the viewed person list.
      * @param predicate
      */
-    void updateViewedPersonList(Predicate<Person> predicate);
+    void updateViewSchedulePerson(Predicate<Person> predicate);
 }

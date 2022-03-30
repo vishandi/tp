@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.Schedule;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -107,10 +108,26 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void insertPerson(Person person, Integer index) {
+        addressBook.insertPerson(person, index);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public void setSchedule(Person target, Schedule updatedSchedule) {
+        requireAllNonNull(target, updatedSchedule);
+
+        Person updatedPerson = new Person(target.getName(), target.getPhone(), target.getTelegram(), target.getGithub(),
+                target.getEmail(), target.getAddress(), updatedSchedule, target.getTags());
+
+        addressBook.setPerson(target, updatedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -125,18 +142,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Person> getViewedPersonList() {
-        return viewedPerson;
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Viewed Person List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of currently viewed person.
+     */
+    public ObservableList<Person> getViewSchedulePerson() {
+        return viewedPerson;
+    }
+
     @Override
-    public void updateViewedPersonList(Predicate<Person> predicate) {
+    public void updateViewSchedulePerson(Predicate<Person> predicate) {
         requireNonNull(predicate);
         viewedPerson.setPredicate(predicate);
     }

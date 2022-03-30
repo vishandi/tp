@@ -8,28 +8,34 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EditUtil.EditEventDescriptor;
-import seedu.address.logic.EditUtil.EditPersonDescriptor;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditTypeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.schedule.Event;
+import seedu.address.model.schedule.EventDescription;
+import seedu.address.model.schedule.RecurFrequency;
 import seedu.address.model.schedule.Schedule;
 
 
 /**
  * Edits an event of an existing person in the schedule of address book.
  */
-public class EditEventCommand extends EditTypeCommand {
+public class EditEventCommand extends Command {
 
     public static final String COMMAND_WORD = "editEvent";
+    public static final String COMMAND_WORD_LOWER = "editevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an event of the person identified "
             + "by the index number used in the displayed person list. "
@@ -78,14 +84,44 @@ public class EditEventCommand extends EditTypeCommand {
         }
 
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, targetEventIndex, editEventDescriptor);
+        model.setSchedule(personToEdit, updatedSchedule);
         Event editedEvent = updatedSchedule.getEvent(targetEventIndex.getZeroBased());
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
-        editPersonDescriptor.setSchedule(updatedSchedule);
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
+    }
+
+    /**
+     * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit}
+     * edited with {@code editEventDescriptor} at {@code targetEventIndex}.
+     */
+    private static Schedule createEditedSchedule(
+            Schedule scheduleToEdit, Index targetEventIndex, EditEventDescriptor editEventDescriptor) {
+        assert scheduleToEdit != null;
+
+        List<Event> scheduleEvents = scheduleToEdit.getEvents();
+        ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
+
+        Event toEditEvent = updatedEvents.remove(targetEventIndex.getZeroBased());
+        Event updatedEvent = createEditedEvent(toEditEvent, editEventDescriptor);
+        updatedEvents.add(targetEventIndex.getZeroBased(), updatedEvent);
+        Collections.sort(updatedEvents);
+        return new Schedule(updatedEvents);
+    }
+
+    /**
+     * Creates and returns an {@code Event} with the details of {@code eventToEdit}
+     * edited with {@code editEventDescriptor}.
+     */
+    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
+        assert eventToEdit != null;
+
+        EventDescription updatedEventDescription =
+                editEventDescriptor.getEventDescription().orElse(eventToEdit.getEventDescription());
+        LocalDate updatedDate = editEventDescriptor.getDate().orElse(eventToEdit.getDate());
+        LocalTime updatedTime = editEventDescriptor.getTime().orElse(eventToEdit.getTime());
+        Duration updatedDuration = editEventDescriptor.getDuration().orElse(eventToEdit.getDuration());
+        RecurFrequency updatedRecurFrequency = editEventDescriptor.getRecurFrequency()
+                .orElse(eventToEdit.getRecurFrequency());
+        return new Event(updatedEventDescription, updatedDate, updatedTime, updatedDuration, updatedRecurFrequency);
     }
 
     @Override

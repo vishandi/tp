@@ -6,33 +6,41 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.person.AddCommand;
+import seedu.address.logic.commands.person.ClearCommand;
 import seedu.address.logic.commands.person.DeleteCommand;
 import seedu.address.logic.commands.person.EditCommand;
 import seedu.address.logic.commands.person.FindCommand;
 import seedu.address.logic.commands.person.ListCommand;
-import seedu.address.logic.commands.person.ViewCommand;
+import seedu.address.logic.commands.person.SetUserCommand;
 import seedu.address.logic.commands.person.ViewGroupCommand;
+import seedu.address.logic.commands.person.ViewScheduleCommand;
 import seedu.address.logic.commands.schedule.AddEventCommand;
+import seedu.address.logic.commands.schedule.ClearScheduleCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
+import seedu.address.logic.commands.schedule.ExportScheduleCommand;
 import seedu.address.logic.commands.schedule.FreeScheduleCommand;
+import seedu.address.logic.commands.schedule.ImportScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.person.AddCommandParser;
 import seedu.address.logic.parser.person.DeleteCommandParser;
 import seedu.address.logic.parser.person.EditCommandParser;
 import seedu.address.logic.parser.person.FindCommandParser;
-import seedu.address.logic.parser.person.ViewCommandParser;
+import seedu.address.logic.parser.person.SetUserCommandParser;
 import seedu.address.logic.parser.person.ViewGroupCommandParser;
 import seedu.address.logic.parser.person.FindCommonTimingCommandParser;
+import seedu.address.logic.parser.person.ViewScheduleCommandParser;
 import seedu.address.logic.parser.schedule.AddEventCommandParser;
+import seedu.address.logic.parser.schedule.ClearScheduleCommandParser;
 import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
+import seedu.address.logic.parser.schedule.ExportScheduleCommandParser;
 import seedu.address.logic.parser.schedule.FreeScheduleCommandParser;
+import seedu.address.logic.parser.schedule.ImportScheduleCommandParser;
 
 
 /**
@@ -60,7 +68,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (commandWord.toLowerCase()) {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -86,23 +94,35 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case AddEventCommand.COMMAND_WORD:
+        case AddEventCommand.COMMAND_WORD_LOWER:
             return new AddEventCommandParser().parse(arguments);
 
-        case FreeScheduleCommand.COMMAND_WORD:
-            return new FreeScheduleCommandParser().parse(arguments);
-
-        case EditEventCommand.COMMAND_WORD:
+        case EditEventCommand.COMMAND_WORD_LOWER:
             return new EditEventCommandParser().parse(arguments);
 
-        case DeleteEventCommand.COMMAND_WORD:
+        case DeleteEventCommand.COMMAND_WORD_LOWER:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case ViewGroupCommand.COMMAND_WORD:
+        case FreeScheduleCommand.COMMAND_WORD_LOWER:
+            return new FreeScheduleCommandParser().parse(arguments);
+
+        case ViewGroupCommand.COMMAND_WORD_LOWER:
             return new ViewGroupCommandParser().parse(arguments);
 
-        case ViewCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments);
+        case ClearScheduleCommand.COMMAND_WORD_LOWER:
+            return new ClearScheduleCommandParser().parse(arguments);
+
+        case ViewScheduleCommand.COMMAND_WORD_LOWER:
+            return new ViewScheduleCommandParser().parse(arguments);
+
+        case ImportScheduleCommand.COMMAND_WORD_LOWER:
+            return new ImportScheduleCommandParser().parse(arguments);
+
+        case ExportScheduleCommand.COMMAND_WORD_LOWER:
+            return new ExportScheduleCommandParser().parse(arguments);
+
+        case SetUserCommand.COMMAND_WORD_LOWER:
+            return new SetUserCommandParser().parse(arguments);
 
         case FindCommonTimingCommand.COMMAND_WORD:
              return new FindCommonTimingCommandParser().parse(arguments);
