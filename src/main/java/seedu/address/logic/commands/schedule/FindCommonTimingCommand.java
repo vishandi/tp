@@ -97,7 +97,7 @@ public class FindCommonTimingCommand extends Command {
         String formattedTime = "%s - %s\n";
         String freeTimeSlots = "";
         for (int i = 0; i < list.size(); i = i + 2) {
-            // Assuming that list.length is an even number
+            assert list.size() % 2 == 0 : "Error occurred";
             freeTimeSlots += String.format(formattedTime, list.get(i), list.get(i + 1));
         }
         return freeTimeSlots;
@@ -116,7 +116,6 @@ public class FindCommonTimingCommand extends Command {
                 }
             }
         }
-        // Assuming everything works as intended until here
 
         // This list will contain an even number of LocalTime objects
         // The even indexes (i.e. 0, 2, 4, ...) will be starting times
