@@ -334,7 +334,7 @@ Format: `exportSchedule INDEX`
 * Allows user to export schedule of person at specified index
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
-* The exported data will be saved in the `data` folder in the folder that you save your `UniGenda.jar`.
+* The exported data will be saved in the `data/export/` folder in the folder that you save your `UniGenda.jar`.
 
 Examples:
 * `exportSchedule 1`
