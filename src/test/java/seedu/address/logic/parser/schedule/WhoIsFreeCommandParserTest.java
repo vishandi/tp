@@ -47,7 +47,8 @@ class WhoIsFreeCommandParserTest {
 
         // with time and date
         WhoIsFreeCommand expectedFreeScheduleTimeAndDateCommand =
-                new WhoIsFreeCommand(new IsPersonFreePredicate(LocalTime.parse(time), LocalDate.parse(date), emptyTags));
+                new WhoIsFreeCommand(new IsPersonFreePredicate(
+                        LocalTime.parse(time), LocalDate.parse(date), emptyTags));
         assertParseSuccess(parser, " " + PREFIX_TIME + time + " " + PREFIX_DATE + date,
                 expectedFreeScheduleTimeAndDateCommand);
     }
@@ -65,8 +66,8 @@ class WhoIsFreeCommandParserTest {
     @Test
     public void parse_timeAndDateSpecified_success() {
         Set<Tag> emptyTags = new HashSet<>();
-        WhoIsFreeCommand expectedCommand = new WhoIsFreeCommand(
-                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.parse(VALID_EVENT_DATE), emptyTags));
+        WhoIsFreeCommand expectedCommand = new WhoIsFreeCommand(new IsPersonFreePredicate(
+                LocalTime.parse(VALID_EVENT_TIME), LocalDate.parse(VALID_EVENT_DATE), emptyTags));
         assertParseSuccess(parser, " " + TIME_DESC_MORNING + DATE_DESC_PI_DAY, expectedCommand);
     }
 

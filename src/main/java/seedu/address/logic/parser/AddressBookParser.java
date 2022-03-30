@@ -23,8 +23,8 @@ import seedu.address.logic.commands.schedule.ClearScheduleCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportScheduleCommand;
-import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
 import seedu.address.logic.commands.schedule.ImportScheduleCommand;
+import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.person.AddCommandParser;
 import seedu.address.logic.parser.person.DeleteCommandParser;
@@ -38,8 +38,8 @@ import seedu.address.logic.parser.schedule.ClearScheduleCommandParser;
 import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
 import seedu.address.logic.parser.schedule.ExportScheduleCommandParser;
-import seedu.address.logic.parser.schedule.WhoIsFreeCommandParser;
 import seedu.address.logic.parser.schedule.ImportScheduleCommandParser;
+import seedu.address.logic.parser.schedule.WhoIsFreeCommandParser;
 
 
 /**

@@ -93,8 +93,8 @@ public class EditEventCommand extends Command {
      * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit}
      * edited with {@code editEventDescriptor} at {@code targetEventIndex}.
      */
-    private static Schedule createEditedSchedule(
-            Schedule scheduleToEdit, Index targetEventIndex, EditEventDescriptor editEventDescriptor) throws CommandException {
+    private static Schedule createEditedSchedule(Schedule scheduleToEdit, Index targetEventIndex,
+            EditEventDescriptor editEventDescriptor) throws CommandException {
         assert scheduleToEdit != null;
 
         List<Event> scheduleEvents = scheduleToEdit.getEvents();

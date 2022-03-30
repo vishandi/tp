@@ -97,6 +97,10 @@ public class Event implements Comparable<Event> {
         return EventDescription.isValidEventDescription(event.getEventDescription().toString());
     }
 
+    /**
+     * Returns true if {@code Duration} in {@code Event} is less than its {@code RecurFrequency}
+     * @return true if duration in event is less than its recur frequency
+     */
     public boolean isValidDurationWithRecurFrequency() {
         switch (recurFrequency) {
         case DAILY:
@@ -114,6 +118,8 @@ public class Event implements Comparable<Event> {
                 return false;
             }
             break;
+        default:
+            return true;
         }
         return true;
     }

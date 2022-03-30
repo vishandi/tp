@@ -75,7 +75,8 @@ class WhoIsFreeCommandTest {
         IsPersonFreePredicate predicate =
                 new IsPersonFreePredicate(LocalTime.parse("09:00"), LocalDate.parse("2022-03-13"), emptyTags);
         expectedModel.updateFilteredPersonList(predicate);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
+        String expectedMessage =
+                String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
 
         WhoIsFreeCommand command = new WhoIsFreeCommand(predicate);
 

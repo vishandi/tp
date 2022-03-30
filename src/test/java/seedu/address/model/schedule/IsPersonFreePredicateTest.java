@@ -49,9 +49,9 @@ class IsPersonFreePredicateTest {
         Person typicalStudent = new PersonBuilder().withSchedule(getTypicalSchedule()).build();
         Set<Tag> emptyTags = new HashSet<>();
 
-        // Check no clashes
+        // Check no clashes (date used here is Sunday)
         IsPersonFreePredicate predicate =
-                new IsPersonFreePredicate(LocalTime.parse("18:00"), LocalDate.parse("2022-03-13"), emptyTags); // this is a Sunday
+                new IsPersonFreePredicate(LocalTime.parse("18:00"), LocalDate.parse("2022-03-13"), emptyTags);
         assertTrue(predicate.test(typicalStudent));
 
         // Check clash with date but not time
