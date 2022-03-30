@@ -24,7 +24,7 @@ public class EventDescription {
      * Returns true if a given string is a valid eventDescription.
      */
     public static boolean isValidEventDescription(String test) {
-        return test.trim().matches(VALIDATION_REGEX);
+        return test.trim().matches(VALIDATION_REGEX) && test.trim().length() <= 25;
     }
 
     @Override

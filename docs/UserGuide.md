@@ -90,6 +90,8 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* All leading and trailing whitespaces will be trimmed for each input to each prefix.
+
 </div>
 
 ### Viewing help : `help`
@@ -105,7 +107,6 @@ Adds a person to UniGenda without needing complete information about the person.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
-* All leading and trailing whitespaces will be trimmed for each input to each prefix.
 * `NAME` should only contain alphanumeric characters, not blank, and at most 36 characters.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `TELEGRAM` should be a **valid** Telegram username not exceeding 40 characters.
@@ -133,8 +134,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-  specifying any tags after it.
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 * You cannot edit a person's name and/or phone number such that the person's (Name, Phone Number) combination is the same as another person's (Name, Phone Number) combination in your UniGenda.
 * All leading and trailing whitespaces will be trimmed for each input to each prefix.
@@ -155,12 +155,12 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 * `find John` returns `john` and `John Doe`
@@ -175,7 +175,7 @@ Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …​.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda.
@@ -189,7 +189,7 @@ Format: `setUser INDEX`
 
 * Sets the person at the specified `INDEX` as the user.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …​.
 
 Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user.
@@ -204,7 +204,7 @@ Format: `viewSchedule INDEX`
 * Views the person's schedule at the specified `INDEX`.
 * The view will be displayed in the right panel of UniGenda.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …​.
 * **now** refers to the time that your system is currently in. 
 * If you change your system's time, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
 * If a certain Event has passed according to your system's time, it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
@@ -216,10 +216,11 @@ Examples:
 
 
 ### Viewing contacts by tags: `viewGroup`
-Shows the names of friends with the same tag
+Shows the names of friends with the same tag.
 
 Format: `viewGroup t/TAG`
-* Shows contacts sharing the same tag
+
+* Shows contacts sharing the same tag.
 
 Examples:
 * `viewGroup` t/groupmates
@@ -228,12 +229,13 @@ Examples:
 Adds an event to the specified indexed contact.
 
 Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
+* `EVENT_DESCRIPTION` should not contain **/** and at most 25 characters.
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
-* DATE should be in "YYYY-MM-DD" format
-* TIME should be in "HH:MM" format
+* DATE should be in "YYYY-MM-DD" format.
+* TIME should be in "HH:MM" format.
 * DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
   * XHYM
   * XH
@@ -258,9 +260,10 @@ Edits the schedule assigned to a person.
 Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 
 * Edits an event assigned to a person.
-* At least one of the optional fields must be provided
-* DATE should be in "YYYY-MM-DD" format
-* TIME should be in "HH:MM" format
+* At least one of the optional fields must be provided.
+* `EVENT_DESCRIPTION` should not contain **/** and at most 25 characters.
+* DATE should be in "YYYY-MM-DD" format.
+* TIME should be in "HH:MM" format.
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
   * XHYM
   * XHY
@@ -283,15 +286,16 @@ Example:
 Deletes an event from the specified indexed contact.
 
 Format: `deleteEvent INDEX EVENT_INDEX`
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
-* EVENT_NUMBER refers to the index of schedules. The schedule_number must be a positive integer 1, 2, …
+
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
+* EVENT_NUMBER refers to the index of schedules. The schedule_number must be a positive integer 1, 2, ….
 
 Example:
 * `deleteEvent 3 3`
 
 ### Getting persons who are free: `freeSchedule`
 Format: `freeSchedule ti/TIME [da/ DATE]`
-* Shows the persons who are free at the time specified today
+* Shows the persons who are free at the time specified today.
 * Shows the persons who are free at the time on the date specified
 * Contacts without a schedule are filtered out of the list
 * TIME is the time at which the user want to find out if the person is free
@@ -307,18 +311,20 @@ Examples:
 Imports a schedule from a file to the person at the specified index.
 
 Format: `importSchedule INDEX pa/FILE_PATH`
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
-* The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.)
+
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
+* The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.).
 * The imported `Schedule` **cannot be empty**.
-* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path)
+* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path).
 
 Examples:
 `importSchedule 1 pa/typicalSchedule.json`
 
 ### Exporting a person's schedule: `export`
 Format: `export INDEX`
-* Allows user to export schedule of person at specified index
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+
+* Allows user to export schedule of person at specified index.
+* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
 
 Examples:
 * `export 1`
@@ -353,9 +359,10 @@ will discard all data and start with an empty data file at the next run.
 Shows the schedule of a specified person.
 
 Format: `viewSchedule INDEX`
-* Shows the schedule of a specific person at INDEX
+
+* Shows the schedule of a specific person at INDEX.
 * The index refers to the index number shown in the displayed person list.
-* The index must be positive. Eg. 1, 2, 3…
+* The index must be positive. Eg. 1, 2, 3….
 
 Example:
 * `viewSchedule 5`
@@ -364,7 +371,8 @@ Example:
 Gets the common timings of persons who are free with the same tag.
 
 Format: `findCommonTiming t/TAG`
-* Show the overlapping timings that a group of friends with the same tags are free
+
+* Show the overlapping timings that a group of friends with the same tags are free.
 
 Example:
 * `findCommonTiming t/groupmates`

@@ -15,16 +15,17 @@ class EventDescriptionTest {
 
     @Test
     public void isValidEventDescription() {
-        // null name
+        // null eventDescription
         assertThrows(NullPointerException.class, () -> EventDescription.isValidEventDescription(null));
 
-        // invalid name
+        // invalid eventDescription
         assertFalse(EventDescription.isValidEventDescription("")); // empty string
         assertFalse(EventDescription.isValidEventDescription(" ")); // spaces only
-        assertFalse(EventDescription.isValidEventDescription("Meet John /at NUS")); //contains /
-        assertFalse(EventDescription.isValidEventDescription("/go school")); //starts with /
+        assertFalse(EventDescription.isValidEventDescription("Meet John /at NUS")); // contains /
+        assertFalse(EventDescription.isValidEventDescription("/go school")); // starts with /
+        assertFalse(EventDescription.isValidEventDescription("O".repeat(26))); // one more than maximum length;
 
-        // valid name
+        // valid eventDescription
         assertTrue(EventDescription.isValidEventDescription("corporation drive")); // alphabets only
         assertTrue(EventDescription.isValidEventDescription("12345")); // numbers only
         assertTrue(EventDescription.isValidEventDescription("hougang 1st Ave")); // alphanumeric characters
@@ -32,6 +33,7 @@ class EventDescriptionTest {
         assertTrue(EventDescription.isValidEventDescription("Blk 64 Lorong 5 Toa Payoh")); //long names
         assertTrue(EventDescription.isValidEventDescription("^")); // non-alphanumeric characters
         assertTrue(EventDescription.isValidEventDescription("Jurong*")); // contains non-alphanumeric characters
+        assertTrue(EventDescription.isValidEventDescription("O".repeat(25))); // maximum length
     }
 
     @Test

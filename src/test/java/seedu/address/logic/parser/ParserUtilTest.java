@@ -21,6 +21,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Tag;
 import seedu.address.model.person.Telegram;
+import seedu.address.model.schedule.EventDescription;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
@@ -36,6 +37,8 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = "[]/\\";
     private static final String TOO_LONG_ADDRESS = "O".repeat(41);
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_EVENT_DESCRIPTION = "abcde/fghij";
+    private static final String TOO_LONG_EVENT_DESCRIPTION = "O".repeat(26);
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String MAXIMUM_LENGTH_NAME = "O".repeat(36);
@@ -51,6 +54,8 @@ public class ParserUtilTest {
     private static final String MAXIMUM_LENGTH_ADDRESS = "O".repeat(40);
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_EVENT_DESCRIPTION = "abcde";
+    private static final String MAXIMUM_LENGTH_EVENT_DESCRIPTION = "O".repeat(25);
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -304,5 +309,37 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseEventDescription_null_throwsParseException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEventDescription((String) null));
+    }
+
+    @Test
+    public void parseEventDescription_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDescription(INVALID_EVENT_DESCRIPTION));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEventDescription(TOO_LONG_EVENT_DESCRIPTION));
+    }
+
+    @Test
+    public void parseEventDescription_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        EventDescription expectedEventDescription = new EventDescription(VALID_EVENT_DESCRIPTION);
+        assertEquals(expectedEventDescription, ParserUtil.parseEventDescription(VALID_EVENT_DESCRIPTION));
+
+        EventDescription maximumLengthEventDescription = new EventDescription(MAXIMUM_LENGTH_EVENT_DESCRIPTION);
+        assertEquals(maximumLengthEventDescription, ParserUtil.parseEventDescription(MAXIMUM_LENGTH_EVENT_DESCRIPTION));
+    }
+
+    @Test
+    public void parseEventDescription_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String eventDescriptionWithWhitespace = WHITESPACE + VALID_EVENT_DESCRIPTION + WHITESPACE;
+        EventDescription expectedEventDescription = new EventDescription(VALID_EVENT_DESCRIPTION);
+        assertEquals(expectedEventDescription, ParserUtil.parseEventDescription(eventDescriptionWithWhitespace));
+
+        String maximumLengthEventDescriptionWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_EVENT_DESCRIPTION + WHITESPACE;
+        EventDescription maximumLengthEventDescription = new EventDescription(MAXIMUM_LENGTH_EVENT_DESCRIPTION);
+        assertEquals(maximumLengthEventDescription,
+                ParserUtil.parseEventDescription(maximumLengthEventDescriptionWithWhitespace));
     }
 }
