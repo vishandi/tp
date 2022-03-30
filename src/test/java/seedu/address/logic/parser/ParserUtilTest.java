@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.address.logic.parser.ParserUtil.parseTelegram;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -25,27 +24,31 @@ import seedu.address.model.person.Telegram;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String TOO_LONG_NAME = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
+    private static final String TOO_LONG_NAME = "O".repeat(37);
     private static final String INVALID_PHONE = "+651234";
-    private static final String TOO_LONG_PHONE = "0000000000000000";
+    private static final String TOO_LONG_PHONE = "0".repeat(16);
     private static final String INVALID_TELEGRAM = "abcde**";
+    private static final String TOO_LONG_TELEGRAM = "O".repeat(41);
     private static final String INVALID_GITHUB = "ab--e";
+    private static final String TOO_LONG_GITHUB = "O".repeat(40);
     private static final String INVALID_EMAIL = "example.com";
     private static final String TOO_LONG_EMAIL = "abcdefghijklmnopqrstuvwxyzabc@example.com";
     private static final String INVALID_ADDRESS = "[]/\\";
-    private static final String TOO_LONG_ADDRESS = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
+    private static final String TOO_LONG_ADDRESS = "O".repeat(41);
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String MAXIMUM_LENGTH_NAME = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
+    private static final String MAXIMUM_LENGTH_NAME = "O".repeat(36);
     private static final String VALID_PHONE = "123456";
-    private static final String MAXIMUM_LENGTH_PHONE = "000000000000000";
+    private static final String MAXIMUM_LENGTH_PHONE = "0".repeat(15);
     private static final String VALID_TELEGRAM = "abcde";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String MAXIMUM_LENGTH_ADDRESS = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
+    private static final String MAXIMUM_LENGTH_TELEGRAM = "O".repeat(40);
     private static final String VALID_GITHUB = "abcde";
+    private static final String MAXIMUM_LENGTH_GITHUB = "O".repeat(39);
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String MAXIMUM_LENGTH_EMAIL = "abcdefghijklmnopqrstuvwxyzab@example.com";
+    private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String MAXIMUM_LENGTH_ADDRESS = "O".repeat(40);
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -141,12 +144,16 @@ public class ParserUtilTest {
     @Test
     public void parseTelegram_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseTelegram(INVALID_TELEGRAM));
+        assertThrows(ParseException.class, () -> ParserUtil.parseTelegram(TOO_LONG_TELEGRAM));
     }
 
     @Test
     public void parseTelegram_validValueWithoutWhitespace_returnsTelegram() throws Exception {
         Telegram expectedTelegram = new Telegram(VALID_TELEGRAM);
-        assertEquals(expectedTelegram, parseTelegram(VALID_TELEGRAM));
+        assertEquals(expectedTelegram, ParserUtil.parseTelegram(VALID_TELEGRAM));
+
+        Telegram maximumLengthTelegram = new Telegram(MAXIMUM_LENGTH_TELEGRAM);
+        assertEquals(maximumLengthTelegram, ParserUtil.parseTelegram(MAXIMUM_LENGTH_TELEGRAM));
     }
 
     @Test
@@ -154,6 +161,10 @@ public class ParserUtilTest {
         String telegramWithWhitespace = WHITESPACE + VALID_TELEGRAM + WHITESPACE;
         Telegram expectedTelegram = new Telegram(VALID_TELEGRAM);
         assertEquals(expectedTelegram, ParserUtil.parseTelegram(telegramWithWhitespace));
+
+        String maximumLengthTelegramWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_TELEGRAM + WHITESPACE;
+        Telegram maximumLengthTelegram = new Telegram(MAXIMUM_LENGTH_TELEGRAM);
+        assertEquals(maximumLengthTelegram, ParserUtil.parseTelegram(maximumLengthTelegramWithWhitespace));
     }
 
     @Test
@@ -164,12 +175,16 @@ public class ParserUtilTest {
     @Test
     public void parseGitHub_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseGithub(INVALID_GITHUB));
+        assertThrows(ParseException.class, () -> ParserUtil.parseGithub(TOO_LONG_GITHUB));
     }
 
     @Test
     public void parseGitHub_validValueWithoutWhitespace_returnsGitHub() throws Exception {
         GitHub expectedGithub = new GitHub(VALID_GITHUB);
         assertEquals(expectedGithub, ParserUtil.parseGithub(VALID_GITHUB));
+
+        GitHub maximumLengthGithub = new GitHub(MAXIMUM_LENGTH_GITHUB);
+        assertEquals(maximumLengthGithub, ParserUtil.parseGithub(MAXIMUM_LENGTH_GITHUB));
     }
 
     @Test
@@ -177,6 +192,10 @@ public class ParserUtilTest {
         String githubWithWhitespace = WHITESPACE + VALID_GITHUB + WHITESPACE;
         GitHub expectedGithub = new GitHub(VALID_GITHUB);
         assertEquals(expectedGithub, ParserUtil.parseGithub(githubWithWhitespace));
+
+        String maximumLengthGithubWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_GITHUB + WHITESPACE;
+        GitHub maximumLengthGithub = new GitHub(MAXIMUM_LENGTH_GITHUB);
+        assertEquals(maximumLengthGithub, ParserUtil.parseGithub(maximumLengthGithubWithWhitespace));
     }
 
     @Test
