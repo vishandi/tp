@@ -109,6 +109,7 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 * `NAME` should only contain alphanumeric characters, not blank, and less than 37 characters.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 40 characters.
+* `EMAIL` should be a valid email with length not exceeding 40 characters.
 
 Examples:
 * add n/John Doe p/98765432
@@ -138,6 +139,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * `NAME` should only contain alphanumeric characters, not blank, and less than 37 characters.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 40 characters.
+* `EMAIL` should be a valid email with length not exceeding 40 characters.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.

@@ -31,6 +31,7 @@ public class ParserUtilTest {
     private static final String INVALID_TELEGRAM = "abcde**";
     private static final String INVALID_GITHUB = "ab--e";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String TOO_LONG_EMAIL = "abcdefghijklmnopqrstuvwxyzabc@example.com";
     private static final String INVALID_ADDRESS = "[]/\\";
     private static final String TOO_LONG_ADDRESS = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String INVALID_TAG = "#friend";
@@ -44,6 +45,7 @@ public class ParserUtilTest {
     private static final String MAXIMUM_LENGTH_ADDRESS = "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO";
     private static final String VALID_GITHUB = "abcde";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String MAXIMUM_LENGTH_EMAIL = "abcdefghijklmnopqrstuvwxyzab@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -94,6 +96,10 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+
+        String maximumLengthNameWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_NAME + WHITESPACE;
+        Name maximumLengthName = new Name(MAXIMUM_LENGTH_NAME);
+        assertEquals(maximumLengthName, ParserUtil.parseName(maximumLengthNameWithWhitespace));
     }
 
     @Test
@@ -121,6 +127,10 @@ public class ParserUtilTest {
         String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
         Phone expectedPhone = new Phone(VALID_PHONE);
         assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+
+        String maximumLengthPhoneWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_PHONE + WHITESPACE;
+        Phone maximumLengthPhone = new Phone(MAXIMUM_LENGTH_PHONE);
+        assertEquals(maximumLengthPhone, ParserUtil.parsePhone(maximumLengthPhoneWithWhitespace));
     }
 
     @Test
@@ -208,12 +218,16 @@ public class ParserUtilTest {
     @Test
     public void parseEmail_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(TOO_LONG_EMAIL));
     }
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+
+        Email maximumLengthEmail = new Email(MAXIMUM_LENGTH_EMAIL);
+        assertEquals(maximumLengthEmail, ParserUtil.parseEmail(MAXIMUM_LENGTH_EMAIL));
     }
 
     @Test
@@ -221,6 +235,10 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+
+        String maximumLengthEmailWithWhitespace = WHITESPACE + MAXIMUM_LENGTH_EMAIL + WHITESPACE;
+        Email maximumLengthEmail = new Email(MAXIMUM_LENGTH_EMAIL);
+        assertEquals(maximumLengthEmail, ParserUtil.parseEmail(maximumLengthEmailWithWhitespace));
     }
 
     @Test
