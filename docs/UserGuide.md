@@ -106,7 +106,7 @@ Format: `help`
 Adds a person to UniGenda without needing complete information about the person.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-* You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name(case-insensitive) and phone number.
+* You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
 
 Examples:
 * add n/John Doe p/98765432
