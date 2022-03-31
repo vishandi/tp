@@ -189,8 +189,8 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in UniGenda.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd person in UniGenda
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command
 
 ### Setting a contact as the user : `setUser`
 
@@ -203,8 +203,8 @@ Format: `setUser INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​.
 
 Examples:
-* `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user.
-* `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user.
+* `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
+* `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user
 
 ### Viewing a person : `viewSchedule`
 
@@ -221,9 +221,9 @@ Format: `viewSchedule INDEX`
 * If a certain Event has passed according to your system's time, it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 
 Examples:
-* `list` followed by `viewSchedule 4` views the 4th person in UniGenda.
+* `list` followed by `viewSchedule 4` views the 4th person in UniGenda
   ![result for 'view 4'](images/viewResult.png)
-* `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command.
+* `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
 
 ### Viewing persons by tags: `viewGroup`
 Shows the names of friends with the same tag.
@@ -245,8 +245,8 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
-* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
-* TIME should be in "HH:MM" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
+* TIME should be in "HH:MM" format.
 * DURATION, if provided, should be in one of the following formats (not case-sensitive):
 
 | Value  | Duration          | Example |
@@ -255,7 +255,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 | `Hh`   | H hours           | `2h`    |
 | `Mm`   | M minutes         | `20m`   |
 | `H`    | H hours           | `3`     |
-* DURATION **must be less than 336hours (2 weeks)**
+* DURATION **must be less than 336hours (2 weeks)**.
 * RECUR_FREQUENCY, if provided, must be one of the following values (not case-sensitive:
 
 | Value            | Frequency |
@@ -279,8 +279,8 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided.
 * `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
-* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
-* TIME should be in "HH:MM" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
+* TIME should be in "HH:MM" format.
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
 
 | Format | Duration          | Example |
@@ -289,7 +289,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 | `Hh`   | H hours           | `2h`    |
 | `Mm`   | M minutes         | `20m`   |
 | `H`    | H hours           | `3`     |
-* DURATION **must be less than 336hours (2 weeks)**
+* DURATION **must be less than 336hours (2 weeks)**.
 * RECUR_FREQUENCY, if provided, must be one of the following values:
 
 | Value            | Frequency |
@@ -321,11 +321,11 @@ Shows a list of persons who are free at specified time and date. You may also ch
 
 Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
 
-* Shows the persons who are free at the time on the date specified
-* TIME is the time at which the user want to find out if the person is free
-* DATE should not be specified if TIME is not specified
-* TIME should be in "HH:MM" format
-* DATE should be in "YYYY-MM-DD" format
+* Shows the persons who are free at the time on the date specified.
+* TIME is the time at which the user want to find out if the person is free.
+* DATE should not be specified if TIME is not specified.
+* TIME should be in "HH:MM" format.
+* DATE should be in "YYYY-MM-DD" format.
 
 Examples:
 * `whoIsFree ti/12:00`
@@ -347,7 +347,8 @@ Examples:
 
 ### Exporting a person's schedule: `exportSchedule`
 Format: `exportSchedule INDEX`
-* Allows user to export schedule of person at specified index
+
+* Allows user to export schedule of person at specified index.
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
 * The exported data will be saved in the `data/export/` folder in the folder that you save your `UniGenda.jar`.
@@ -380,28 +381,6 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
-###*Coming Soon...* (v1.3)
-### Viewing a person’s schedule: `viewSchedule`
-Shows the schedule of a specified person.
-
-Format: `viewSchedule INDEX`
-
-* Shows the schedule of a specific person at INDEX.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be positive**. Eg. 1, 2, 3….
-
-Example:
-* `viewSchedule 5`
-
-### Getting common free timing of persons by tag: `findCommonTiming`
-Gets the common timings of persons who are free with the same tag.
-
-Format: `findCommonTiming t/TAG`
-
-* Show the overlapping timings that a group of friends with the same tags are free.
-
-Example:
-* `findCommonTiming t/groupmates`
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -431,4 +410,4 @@ Example:
 | **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
 | **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**             | `list`                                                                                                                                                                                        |
-| **Help**             | `help`     
+| **Help**             | `help`                                                                                                                                                                                        |
