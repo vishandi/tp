@@ -18,8 +18,9 @@ public enum RecurFrequency {
 
     public static final Set<RecurFrequency> VALID_FREQUENCIES =
             Arrays.stream(RecurFrequency.values()).collect(Collectors.toSet());
+    public static final String VALID_INPUTS = "[D, DAILY, W, WEEKLY, BW, BIWEEKLY, NONE]";
     public static final String INVALID_RECUR_FREQUENCY_MESSAGE =
-            String.format("Recurrence frequency must be one of the following: %s", VALID_FREQUENCIES);
+            String.format("Recurrence frequency must be one of the following: %s", VALID_INPUTS);
     public static final String MISSING_RECUR_FREQUENCY_CASE =
             "%s switch case is missing in RecurFrequency::getLabel! Returning invalid label...";
     public static final String DEFAULT_RECURRENCE = NONE.fullName;
@@ -50,7 +51,7 @@ public enum RecurFrequency {
     public static RecurFrequency of(String frequency) throws ParseException {
         requireNonNull(frequency);
         Optional<RecurFrequency> recurFrequency = VALID_FREQUENCIES.stream()
-                .filter(r -> r.shortName.equals(frequency)
+                .filter(r -> r.shortName.equals(frequency.toUpperCase())
                         || r.fullName.equals(frequency.toUpperCase())).findFirst();
         if (!recurFrequency.isPresent()) {
             throw new ParseException(INVALID_RECUR_FREQUENCY_MESSAGE);
