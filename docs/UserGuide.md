@@ -287,8 +287,8 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 <div markdown="block" class="alert alert-info">
   **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates.**
 </div>
-* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
-* TIME should be in "HH:MM" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
+* TIME should be in "HH:MM" format.
 * At least one of the optional fields must be provided.
 * `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
