@@ -232,7 +232,7 @@ public class Event implements Comparable<Event> {
 
         Event otherEvent = (Event) other;
         return otherEvent.getEventDescription().equals(getEventDescription())
-                && otherEvent.getDate().equals(getDate())
+                && (otherEvent.willDateCollide(getDate()) || willDateCollide(otherEvent.getDate()))
                 && otherEvent.getTime().equals(getTime())
                 && otherEvent.getDuration().equals(getDuration())
                 && otherEvent.getRecurFrequency().equals(getRecurFrequency());

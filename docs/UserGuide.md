@@ -107,7 +107,8 @@ Format: `help`
 Adds a person to UniGenda without needing complete information about the person.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-* Duplicates of (Name, Phone Number) contacts will be detected; you cannot have two people with the same combination of (Name, Phone Number).
+
+* You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
 * `NAME` should only contain alphanumeric characters, not blank, and at most 30 characters long.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
@@ -134,7 +135,7 @@ Format: `list`
 
 Edits an existing person in the UniGenda.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -142,7 +143,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
-* You cannot edit a person's name and/or phone number such that the person's (Name, Phone Number) combination is the same as another person's (Name, Phone Number) combination in your UniGenda.
+* You cannot edit a person's name and/or phone number such that there will be duplicate persons in UniGenda. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
 * `NAME` should only contain alphanumeric characters, not blank, and at most 30 characters long.
 * `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
 * `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
@@ -185,7 +186,7 @@ Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda
@@ -199,7 +200,7 @@ Format: `setUser INDEX`
 
 * Sets the person at the specified `INDEX` as the user.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
@@ -214,7 +215,7 @@ Format: `viewSchedule INDEX`
 * Views the person's schedule at the specified `INDEX`.
 * The view will be displayed in the right panel of UniGenda.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​.
+* The index **must be a positive integer** 1, 2, 3, …​
 * **now** refers to the time that your system is currently in. 
 * If you change your system's time, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
 * If a certain Event has passed according to your system's time, it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
@@ -239,7 +240,11 @@ Adds an event to the specified indexed contact.
 
 Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 
-* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, ….
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, …
+* You cannot add duplicate events. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
+<div markdown="block" class="alert alert-info">
+  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates.**
+</div>
 * `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
@@ -278,6 +283,13 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided.
+* You cannot edit an event's description, date, time, duration and/or recurring frequency such that there will be duplicate events in UniGenda. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
+<div markdown="block" class="alert alert-info">
+  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates.**
+</div>
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
+* TIME should be in "HH:MM" format.
+* At least one of the optional fields must be provided.
 * `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
 * TIME should be in "HH:MM" format.
@@ -311,8 +323,8 @@ Deletes an event from the specified indexed contact.
 
 Format: `deleteEvent INDEX EVENT_INDEX`
 
-* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, ….
-* EVENT_NUMBER refers to the index of schedules. The schedule_number **must be a positive integer** 1, 2, ….
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, …
+* EVENT_NUMBER refers to the index of schedules. The schedule_number **must be a positive integer** 1, 2, …
 
 Example:
 * `deleteEvent 3 3`
@@ -347,7 +359,7 @@ Imports a schedule from a file to the person at the specified index.
 
 Format: `importSchedule INDEX pa/FILE_PATH`
 
-* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, ….
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, …
 * The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.).
 * The imported `Schedule` **cannot be empty**.
 * `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path).
