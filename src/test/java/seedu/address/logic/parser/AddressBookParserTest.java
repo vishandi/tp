@@ -17,6 +17,7 @@ import static seedu.address.testutil.TypicalSchedule.TYPICAL_TIME;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,8 +41,8 @@ import seedu.address.logic.commands.schedule.ClearScheduleCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportScheduleCommand;
-import seedu.address.logic.commands.schedule.FreeScheduleCommand;
 import seedu.address.logic.commands.schedule.ImportScheduleCommand;
+import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.IsTagInPersonPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -68,7 +69,7 @@ public class AddressBookParserTest {
     private static final String ADD_EVENT_COMMAND_UPPER = "ADDEVENT";
     private static final String EDIT_EVENT_COMMAND_UPPER = "EDITEVENT";
     private static final String DELETE_EVENT_COMMAND_UPPER = "DELETEEVENT";
-    private static final String FREE_SCHEDULE_COMMAND_UPPER = "FREESCHEDULE";
+    private static final String WHO_IS_FREE_COMMAND_UPPER = "WHOISFREE";
     private static final String VIEW_GROUP_COMMAND_UPPER = "VIEWGROUP";
     private static final String VIEW_SCHEDULE_COMMAND_UPPER = "VIEWSCHEDULE";
     private static final String EXPORT_SCHEDULE_COMMAND_UPPER = "EXPORTSCHEDULE";
@@ -162,11 +163,13 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_freeSchedule() throws Exception {
-        FreeScheduleCommand command = (FreeScheduleCommand) parser.parseCommand(
-                FreeScheduleCommand.COMMAND_WORD + " " + PREFIX_TIME + TYPICAL_TIME.toString() + " "
+        WhoIsFreeCommand command = (WhoIsFreeCommand) parser.parseCommand(
+                WhoIsFreeCommand.COMMAND_WORD + " " + PREFIX_TIME + TYPICAL_TIME.toString() + " "
                         + PREFIX_DATE + TYPICAL_DATE.toString()
         );
-        assertEquals(new FreeScheduleCommand(new IsPersonFreePredicate(TYPICAL_TIME, TYPICAL_DATE)), command);
+        WhoIsFreeCommand expectedCommand =
+                new WhoIsFreeCommand(new IsPersonFreePredicate(TYPICAL_TIME, TYPICAL_DATE, new HashSet<>()));
+        assertEquals(expectedCommand, command);
     }
 
     @Test
@@ -242,11 +245,11 @@ public class AddressBookParserTest {
         assertEquals(new DeleteEventCommand(INDEX_FIRST_PERSON, INDEX_FIRST_EVENT), deleteEventCommand);
 
         // freeSchedule
-        FreeScheduleCommand freeScheduleCommand = (FreeScheduleCommand) parser.parseCommand(
-                FreeScheduleCommand.COMMAND_WORD_LOWER + " " + PREFIX_TIME + TYPICAL_TIME.toString() + " "
+        WhoIsFreeCommand freeScheduleCommand = (WhoIsFreeCommand) parser.parseCommand(
+                WhoIsFreeCommand.COMMAND_WORD_LOWER + " " + PREFIX_TIME + TYPICAL_TIME.toString() + " "
                         + PREFIX_DATE + TYPICAL_DATE.toString()
         );
-        assertEquals(new FreeScheduleCommand(new IsPersonFreePredicate(TYPICAL_TIME, TYPICAL_DATE)),
+        assertEquals(new WhoIsFreeCommand(new IsPersonFreePredicate(TYPICAL_TIME, TYPICAL_DATE, new HashSet<>())),
                 freeScheduleCommand);
 
         // viewGroup
@@ -352,12 +355,12 @@ public class AddressBookParserTest {
                         + " " + INDEX_FIRST_EVENT.getOneBased());
         assertEquals(new DeleteEventCommand(INDEX_FIRST_PERSON, INDEX_FIRST_EVENT), deleteEventCommand);
 
-        // freeSchedule
-        FreeScheduleCommand freeScheduleCommand = (FreeScheduleCommand) parser.parseCommand(
-                FREE_SCHEDULE_COMMAND_UPPER + " " + PREFIX_TIME + TYPICAL_TIME.toString() + " "
+        // whoIsFree
+        WhoIsFreeCommand freeScheduleCommand = (WhoIsFreeCommand) parser.parseCommand(
+                WHO_IS_FREE_COMMAND_UPPER + " " + PREFIX_TIME + TYPICAL_TIME.toString() + " "
                         + PREFIX_DATE + TYPICAL_DATE.toString()
         );
-        assertEquals(new FreeScheduleCommand(new IsPersonFreePredicate(TYPICAL_TIME, TYPICAL_DATE)),
+        assertEquals(new WhoIsFreeCommand(new IsPersonFreePredicate(TYPICAL_TIME, TYPICAL_DATE, new HashSet<>())),
                 freeScheduleCommand);
 
         // viewGroup
