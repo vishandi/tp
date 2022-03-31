@@ -225,7 +225,7 @@ Examples:
   ![result for 'view 4'](images/viewResult.png)
 * `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command.
 
-### Viewing contacts by tags: `viewGroup`
+### Viewing persons by tags: `viewGroup`
 Shows the names of friends with the same tag.
 
 Format: `viewGroup t/TAG`
