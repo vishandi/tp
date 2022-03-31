@@ -220,14 +220,18 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
-* DATE should be in "YYYY-MM-DD" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
-* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
-  * XHYM
-  * XH
-  * YM
-  * X
-* RECUR_FREQUENCY, if provided, must be one of the following values:
+* DURATION, if provided, should be in one of the following formats (not case-sensitive):
+
+| Value  | Duration          | Example |
+|--------|-------------------|---------|
+| `HhMm` | H hours M minutes | `3h30m` |
+| `Hh`   | H hours           | `2h`    |
+| `Mm`   | M minutes         | `20m`   |
+| `H`    | H hours           | `3`     |
+* DURATION **must be less than 336hours (2 weeks)**
+* RECUR_FREQUENCY, if provided, must be one of the following values (not case-sensitive:
 
 | Value           | Frequency |
 |-----------------|-----------|
@@ -247,13 +251,17 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
-* DATE should be in "YYYY-MM-DD" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
-  * XHYM
-  * XHY
-  * XH
-  * X
+
+| Format | Duration          | Example |
+|--------|-------------------|---------|
+| `HhMm` | H hours M minutes | `3h30m` |
+| `Hh`   | H hours           | `2h`    |
+| `Mm`   | M minutes         | `20m`   |
+| `H`    | H hours           | `3`     |
+* DURATION **must be less than 336hours (2 weeks)**
 * RECUR_FREQUENCY, if provided, must be one of the following values:
 
 | Value           | Frequency |
@@ -370,6 +378,7 @@ Example:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
+
 | Action               | Format, Examples                                                                                                                                                                              |
 |----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add**              | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
@@ -388,4 +397,4 @@ Example:
 | **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
 | **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**             | `list`                                                                                                                                                                                        |
-| **Help**             | `help`                                                                                                                                                                                        |
+| **Help**             | `help`     
