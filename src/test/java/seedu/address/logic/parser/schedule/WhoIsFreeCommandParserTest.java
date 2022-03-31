@@ -14,36 +14,41 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.schedule.FreeScheduleCommand;
+import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
+import seedu.address.model.person.Tag;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.IsPersonFreePredicate;
 
-class FreeScheduleCommandParserTest {
+class WhoIsFreeCommandParserTest {
 
-    private FreeScheduleCommandParser parser = new FreeScheduleCommandParser();
+    private WhoIsFreeCommandParser parser = new WhoIsFreeCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeScheduleCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, WhoIsFreeCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFreeScheduleCommand() {
         String time = "23:00";
         String date = "2022-03-13";
+        Set<Tag> emptyTags = new HashSet<>();
 
         // with time only
-        FreeScheduleCommand expectedFreeScheduleTimeOnlyCommand =
-                new FreeScheduleCommand(new IsPersonFreePredicate(LocalTime.parse(time), LocalDate.now()));
+        WhoIsFreeCommand expectedFreeScheduleTimeOnlyCommand =
+                new WhoIsFreeCommand(new IsPersonFreePredicate(LocalTime.parse(time), LocalDate.now(), emptyTags));
         assertParseSuccess(parser, " " + PREFIX_TIME + time, expectedFreeScheduleTimeOnlyCommand);
 
         // with time and date
-        FreeScheduleCommand expectedFreeScheduleTimeAndDateCommand =
-                new FreeScheduleCommand(new IsPersonFreePredicate(LocalTime.parse(time), LocalDate.parse(date)));
+        WhoIsFreeCommand expectedFreeScheduleTimeAndDateCommand =
+                new WhoIsFreeCommand(new IsPersonFreePredicate(
+                        LocalTime.parse(time), LocalDate.parse(date), emptyTags));
         assertParseSuccess(parser, " " + PREFIX_TIME + time + " " + PREFIX_DATE + date,
                 expectedFreeScheduleTimeAndDateCommand);
     }
@@ -60,15 +65,19 @@ class FreeScheduleCommandParserTest {
 
     @Test
     public void parse_timeAndDateSpecified_success() {
-        FreeScheduleCommand expectedCommand = new FreeScheduleCommand(
-                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.parse(VALID_EVENT_DATE)));
+        Set<Tag> emptyTags = new HashSet<>();
+        WhoIsFreeCommand expectedCommand = new WhoIsFreeCommand(new IsPersonFreePredicate(
+                LocalTime.parse(VALID_EVENT_TIME), LocalDate.parse(VALID_EVENT_DATE), emptyTags));
         assertParseSuccess(parser, " " + TIME_DESC_MORNING + DATE_DESC_PI_DAY, expectedCommand);
     }
 
     @Test
     public void parse_timeSpecified_success() {
-        FreeScheduleCommand expectedCommand = new FreeScheduleCommand(
-                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now()));
+        Set<Tag> emptyTags = new HashSet<>();
+        WhoIsFreeCommand expectedCommand = new WhoIsFreeCommand(
+                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now(), emptyTags));
         assertParseSuccess(parser, " " + TIME_DESC_MORNING, expectedCommand);
     }
+
+    // TODO: include test case to check for tags
 }
