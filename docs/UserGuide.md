@@ -16,23 +16,22 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    4. [Editing a person](#editing-a-person--edit)
    5. [Locating persons by name](#locating-persons-by-name-find)
    6. [Deleting a person](#deleting-a-person--delete)
-   7. [Viewing a person's schedule](#viewing-a-persons-schedule-viewschedule)
-   8. [Viewing persons by tags](#viewing-persons-by-tags-viewgroup)
-   9. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
-   10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
-   11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
-   12. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
-   13. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
-   14. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
-   15. [Clearing all entries](#clearing-all-entries--clear)
-   16. [Exiting the program](#exiting-the-program--exit)
-   17. [Saving the data](#saving-the-data)
-   18. [Editing the data file](#editing-the-data-file)
-3. [Coming Soon](#coming-soon-v13)
-   1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
-   2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
-4. [FAQ](#faq)
-5. [Command Summary](#command-summary)
+   7. [Setting a contact as the user](#setting-a-contact-as-the-user--setuser)
+   8. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
+   9. [Viewing contacts by tags](#viewing-contacts-by-tags-viewgroup)
+   10. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
+   11. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
+   12. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
+   13. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
+   14. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
+   15. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
+   16. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
+   17. [Clearing all entries](#clearing-all-entries--clear)
+   18. [Exiting the program](#exiting-the-program--exit)
+   19. [Saving the data](#saving-the-data)
+   20. [Editing the data file](#editing-the-data-file)
+3. [FAQ](#faq)
+4. [Command Summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -90,6 +89,8 @@ and you can type fast, UniGenda can get your contact management tasks done faste
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
+* All leading and trailing whitespaces will be trimmed for each input to each prefix.
+
 * All commands are case-insensitive. For example `addevent` or `AdDEvenT` works for `addEvent` commands.
 
 </div>
@@ -106,7 +107,19 @@ Format: `help`
 Adds a person to UniGenda without needing complete information about the person.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
 * You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
+* `NAME` should only contain alphanumeric characters, not blank, and at most 30 characters long.
+* `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
+* `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
+* `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
+* `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters.
+* `EMAIL` should be a **valid** email with length not exceeding 60 characters.
+* **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
+  * The local-part should only contain alphanumeric characters and the following special characteres: **+_.-**. It cannot start or end with any special characters.
+  * The domain part is made up of domain labels separated by periods (e.g. domain-label1.domain-label2.com). It must end with a domain label at least 2 characters long, each domain label starts and end with alphanumeric characters, and each domain label consists of only alphanumeric characters, separated only by hyphens, if any.
+* `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 30 characters long.
+* Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 
 Examples:
 * add n/John Doe p/98765432
@@ -128,10 +141,20 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing `t/` without
-  specifying any tags after it.
+* You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 * You cannot edit a person's name and/or phone number such that there will be duplicate persons in UniGenda. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
+* `NAME` should only contain alphanumeric characters, not blank, and at most 30 characters long.
+* `PHONE_NUMBER` should only contain numeric characters, at least 3 digits long, and at most 15 digits long.
+* `TELEGRAM` should only contain alphanumeric characters and underscore (_), at least 5 characters long, and not exceeding 40 characters.
+* `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
+* `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters.
+* `EMAIL` should be a **valid** email with length not exceeding 60 characters.
+* **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
+    * The local-part should only contain alphanumeric characters and the following special characteres: **+_.-**. It cannot start or end with any special characters.
+    * The domain part is made up of domain labels separated by periods (e.g. domain-label1.domain-label2.com). It must end with a domain label at least 2 characters long, each domain label starts and end with alphanumeric characters, and each domain label consists of only alphanumeric characters, separated only by hyphens, if any.
+* `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 30 characters long.
+* Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -143,12 +166,12 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`.
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 
 Examples:
 * `find John` returns `john` and `John Doe`
@@ -166,8 +189,8 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in UniGenda.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd person in UniGenda
+* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command
 
 ### Setting a contact as the user : `setUser`
 
@@ -180,10 +203,10 @@ Format: `setUser INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user.
-* `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user.
+* `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
+* `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user
 
-### Viewing a person : `viewSchedule`
+### Viewing a person's schedule : `viewSchedule`
 
 Views the specified person's Schedule from UniGenda. You can see the person's upcoming schedule for the following week starting **now**, and the list of the person's schedule.
 
@@ -198,16 +221,16 @@ Format: `viewSchedule INDEX`
 * If a certain Event has passed according to your system's time, it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 
 Examples:
-* `list` followed by `viewSchedule 4` views the 4th person in UniGenda.
+* `list` followed by `viewSchedule 4` views the 4th person in UniGenda
   ![result for 'view 4'](images/viewResult.png)
-* `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command.
-
+* `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
 
 ### Viewing persons by tags: `viewGroup`
-Shows the names of friends with the same tag
+Shows the names of friends with the same tag.
 
 Format: `viewGroup t/TAG`
-* Shows a list of persons sharing the same tag
+
+* Shows persons sharing the same tag.
 
 Examples:
 * `viewGroup t/groupmates`
@@ -216,16 +239,18 @@ Examples:
 Adds an event to the specified indexed contact.
 
 Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
+
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, …
 * You cannot add duplicate events. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
 <div markdown="block" class="alert alert-info">
   **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates**
 </div>
+* `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
-* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
-* TIME should be in "HH:MM" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
+* TIME should be in "HH:MM" format.
 * DURATION, if provided, should be in one of the following formats (not case-sensitive):
 
 | Value  | Duration          | Example |
@@ -234,14 +259,17 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 | `Hh`   | H hours           | `2h`    |
 | `Mm`   | M minutes         | `20m`   |
 | `H`    | H hours           | `3`     |
-* DURATION **must be less than 336hours (2 weeks)**
+
+* DURATION **must be less than 336hours (2 weeks) and at least 1 minute long**
 * RECUR_FREQUENCY, if provided, must be one of the following values (not case-sensitive:
 
-| Value           | Frequency |
-|-----------------|-----------|
-| `D`, `Daily`    | Daily     |
-| `W`, `Weekly`   | Weekly    |
-| `B`, `Biweekly` | Biweekly  |
+| Value            | Frequency |
+|------------------|-----------|
+| `D`, `DAILY`     | Daily     |
+| `W`, `WEEKLY`    | Weekly    |
+| `BW`, `BIWEEKLY` | Biweekly  |
+
+* Note that RECUR_FREQUENCY is case-insensitive. For example, `r/dAiLy` will be considered as `r/DAILY`.
 
 Examples:
 * `addEvent 3 ed/Open House da/2022-12-20`
@@ -261,6 +289,10 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 </div>
 * DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
+* At least one of the optional fields must be provided.
+* `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
+* TIME should be in "HH:MM" format.
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
 
 | Format | Duration          | Example |
@@ -269,14 +301,17 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 | `Hh`   | H hours           | `2h`    |
 | `Mm`   | M minutes         | `20m`   |
 | `H`    | H hours           | `3`     |
-* DURATION **must be less than 336hours (2 weeks)**
+
+* DURATION **must be less than 336hours (2 weeks) and at least 1 minute long**
 * RECUR_FREQUENCY, if provided, must be one of the following values:
 
-| Value           | Frequency |
-|-----------------|-----------|
-| `D`, `Daily`    | Daily     |
-| `W`, `Weekly`   | Weekly    |
-| `B`, `Biweekly` | Biweekly  |
+| Value            | Frequency |
+|------------------|-----------|
+| `D`, `DAILY`     | Daily     |
+| `W`, `WEEKLY`    | Weekly    |
+| `BW`, `BIWEEKLY` | Biweekly  |
+
+* Note that RECUR_FREQUENCY is case-insensitive. For example, `r/dAiLy` will be considered as `r/DAILY`.
 
 Example:
 * `editEvent 3 3 da/2022-12-21`
@@ -287,8 +322,9 @@ Example:
 Deletes an event from the specified indexed contact.
 
 Format: `deleteEvent INDEX EVENT_INDEX`
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
-* EVENT_NUMBER refers to the index of schedules. The schedule_number must be a positive integer 1, 2, …
+
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, …
+* EVENT_NUMBER refers to the index of schedules. The schedule_number **must be a positive integer** 1, 2, …
 
 Example:
 * `deleteEvent 3 3`
@@ -297,36 +333,47 @@ Example:
 Shows a list of persons who are free at specified time and date. You may also choose to additionally filter the list using tags.
 
 Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
-* Shows the persons who are free at the time specified today
-* Shows the persons who are free at the time on the date specified
-* TIME is the time at which the user want to find out if the person is free
-* DATE should not be specified if TIME is not specified
-* TIME should be in "HH:MM" format
-* DATE should be in "YYYY-MM-DD" format
+
+* Shows the persons who are free at the time on the date specified.
+* TIME is the time at which the user want to find out if the person is free.
+* DATE should not be specified if TIME is not specified.
+* TIME should be in "HH:MM" format.
+* DATE should be in "YYYY-MM-DD" format.
 
 Examples:
 * `whoIsFree ti/12:00`
 * `whoIsFree ti/14:00 da/2022-02-14`
 * `whoIsFree ti/12:00 t/friends`
 
+### Getting common free timing of persons by tag: `findCommonTiming`
+Gets the common timings of persons who are free with the same tag.
+
+Format: `findCommonTiming t/TAG da/DATE`
+* Show the overlapping timings that a group of friends with the same tags are free on a certain day.
+
+Example:
+* `findCommonTiming t/groupmates da/2022-03-04`
+
 ### Importing a person's schedule: `importSchedule`
 Imports a schedule from a file to the person at the specified index.
 
 Format: `importSchedule INDEX pa/FILE_PATH`
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
-* The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.)
+
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, …
+* The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.).
 * The imported `Schedule` **cannot be empty**.
-* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path)
+* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path).
 
 Examples:
 `importSchedule 1 pa/typicalSchedule.json`
 
 ### Exporting a person's schedule: `exportSchedule`
 Format: `exportSchedule INDEX`
-* Allows user to export schedule of person at specified index
+
+* Allows user to export schedule of person at specified index.
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
-* The exported data will be saved in the `data` folder in the folder that you save your `UniGenda.jar`.
+* The exported data will be saved in the `data/export/` folder in the folder that you save your `UniGenda.jar`.
 
 Examples:
 * `exportSchedule 1`
@@ -356,26 +403,6 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
-###*Coming Soon...* (v1.3)
-### Viewing a person’s schedule: `viewSchedule`
-Shows the schedule of a specified person.
-
-Format: `viewSchedule INDEX`
-* Shows the schedule of a specific person at INDEX
-* The index refers to the index number shown in the displayed person list.
-* The index must be positive. Eg. 1, 2, 3…
-
-Example:
-* `viewSchedule 5`
-
-### Getting common free timing of persons by tag: `findCommonTiming`
-Gets the common timings of persons who are free with the same tag.
-
-Format: `findCommonTiming t/TAG`
-* Show the overlapping timings that a group of friends with the same tags are free
-
-Example:
-* `findCommonTiming t/groupmates`
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -386,23 +413,22 @@ Example:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
-
-| Action               | Format, Examples                                                                                                                                                                              |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**              | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
-| **Clear**            | `clear`                                                                                                                                                                                       |
-| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
-| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
-| **SetUser**          | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
-| **ViewGroup**        | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
-| **ViewSchedule**     | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
-| **AddEvent**         | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
-| **EditEvent**        | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
-| **DeleteEvent**      | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
-| **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
-| **FindCommonTiming** | `findCommonTiming t/TAG`<br> e.g., `findCommonTiming t/groupmates`                                                                                                                            |
-| **ImportSchedule**   | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
-| **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
-| **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
-| **List**             | `list`                                                                                                                                                                                        |
-| **Help**             | `help`     
+| Action                | Format, Examples                                                                                                                                                                              |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
+| **Clear**             | `clear`                                                                                                                                                                                       |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **SetUser**           | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
+| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
+| **ViewSchedule**      | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
+| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
+| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
+| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
+| **WhoIsFree**         | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
+| **FindCommonTiming**  | `findCommonTiming t/TAG da/DATE`<br> e.g., `freeGroupSchedule t/groupmates da/2022-03-04`                                                                                                     |
+| **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
+| **ExportSchedule**    | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
+| **List**              | `list`                                                                                                                                                                                        |
+| **Help**              | `help`                                                                                                                                                                                        |
