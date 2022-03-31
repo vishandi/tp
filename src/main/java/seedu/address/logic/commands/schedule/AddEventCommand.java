@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.model.schedule.Schedule.MESSAGE_DUPLICATE_EVENT;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,6 +73,7 @@ public class AddEventCommand extends Command {
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Schedule scheduleToEdit = personToEdit.getSchedule();
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, eventToAdd);
+
         model.setSchedule(personToEdit, updatedSchedule);
         model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAdd, personToEdit.getName()));
@@ -81,9 +83,12 @@ public class AddEventCommand extends Command {
      * Creates and returns a {@code Schedule} with the details of {@code eventToEdit}
      * with an added {@code eventToAdd}.
      */
-    private static Schedule createEditedSchedule(Schedule scheduleToEdit, Event eventToAdd) {
+    private static Schedule createEditedSchedule(Schedule scheduleToEdit, Event eventToAdd) throws CommandException {
         assert scheduleToEdit != null;
 
+        if (scheduleToEdit.hasEvent(eventToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EVENT);
+        }
         List<Event> scheduleEvents = scheduleToEdit.getEvents();
         ArrayList<Event> updatedEvents = new ArrayList<>(scheduleEvents);
         updatedEvents.add(eventToAdd);
