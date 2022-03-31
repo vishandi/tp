@@ -15,6 +15,7 @@ public class Schedule {
     public static final String MESSAGE_CONSTRAINTS =
             "A Schedule's Events must have alphanumeric event descriptions, date formats YYYY-MM-DD, "
                     + "time formats HH:MM and duration format in hours";
+    public static final String MESSAGE_DUPLICATE_EVENT = "The event already exists in the schedule";
     public static final Schedule EMPTY_SCHEDULE = new Schedule(new ArrayList<>());
     private final List<Event> events = new ArrayList<>();
 
@@ -33,6 +34,13 @@ public class Schedule {
      */
     public List<Event> getEvents() {
         return Collections.unmodifiableList(events);
+    }
+
+    /**
+     * Returns whether the Schedule contains the given event.
+     */
+    public boolean hasEvent(Event event) {
+        return events.contains(event);
     }
 
     /**
@@ -96,10 +104,8 @@ public class Schedule {
     public String getDailyScheduleFormat() {
         final StringBuilder builder = new StringBuilder();
 
-        int counter = 1;
         for (Event event : events) {
-            builder.append(String.format("%s. %s\n", counter, event.getDailyScheduleFormat()));
-            counter += 1;
+            builder.append(String.format("%s\n", event.getDailyScheduleFormat()));
         }
 
         return builder.toString();

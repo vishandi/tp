@@ -22,8 +22,6 @@ public class ScheduleCard extends UiPart<Region> {
     private static final String SCHEDULE_HEADER = "%1$s's Full Schedule";
     private static final String UPCOMING_SCHEDULE_HEADER = "%1$s's Upcoming Schedule";
     private static final String NO_SCHEDULE_MESSAGE = "%1$s doesn't have any Schedule recorded yet.";
-    private static final String NO_UPCOMING_SCHEDULE_MESSAGE =
-            "%1$s doesn't have any Upcoming Schedule for this day.";
     private static final String DAILY_SCHEDULE_HEADER = "%1$s, %2$s";
 
     public final Person person;
@@ -97,10 +95,12 @@ public class ScheduleCard extends UiPart<Region> {
 
         if ((!person.getSchedule().isEmpty())) {
             Label scheduleLabel = new Label(person.getSchedule().toString());
+            scheduleLabel.setWrapText(true);
             scheduleBox.getChildren().add(scheduleLabel);
         } else {
             Label scheduleLabel = new Label(String.format(NO_SCHEDULE_MESSAGE,
                     person.getName().value));
+            scheduleLabel.setWrapText(true);
             scheduleBox.getChildren().add(scheduleLabel);
         }
 
@@ -110,10 +110,11 @@ public class ScheduleCard extends UiPart<Region> {
         for (int i = 0; i < 7; i++) {
             if (!person.getUpcomingSchedule(i).isEmpty()) {
                 Label upcomingScheduleLabel = new Label(person.getUpcomingSchedule(i).getDailyScheduleFormat());
+                upcomingScheduleLabel.setWrapText(true);
                 dailySchedule.get(i).getChildren().add(upcomingScheduleLabel);
             } else {
-                Label upcomingScheduleLabel = new Label(String.format(NO_UPCOMING_SCHEDULE_MESSAGE,
-                        person.getName().value));
+                Label upcomingScheduleLabel = new Label("-");
+                upcomingScheduleLabel.setWrapText(true);
                 dailySchedule.get(i).getChildren().add(upcomingScheduleLabel);
             }
         }
