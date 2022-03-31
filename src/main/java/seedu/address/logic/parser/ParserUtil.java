@@ -259,7 +259,11 @@ public class ParserUtil {
             } else {
                 throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
             }
-            return Duration.ofHours(hours).plusMinutes(minutes);
+            Duration newDuration = Duration.ofHours(hours).plusMinutes(minutes);
+            if (newDuration.isZero()) {
+                throw new ParseException("Duration cannot be 0!");
+            }
+            return newDuration;
         } catch (DateTimeParseException | NumberFormatException e) {
             throw new ParseException(DURATION_MESSAGE_CONSTRAINTS);
         }
@@ -284,8 +288,10 @@ public class ParserUtil {
      * @throws ParseException if the given {@code hours} is less than 0 or more than 336
      */
     private static void checkValidHours(int hours) throws ParseException {
-        if (hours < 0 || hours > 336) {
+        if (hours > 336) {
             throw new ParseException("The event's duration cannot exceed 2 weeks! (336 hours)");
+        } else if (hours < 0) {
+            throw new ParseException("Hours cannot be negative!");
         }
     }
 
