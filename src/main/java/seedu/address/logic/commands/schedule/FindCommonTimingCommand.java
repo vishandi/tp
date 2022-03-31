@@ -147,11 +147,7 @@ public class FindCommonTimingCommand extends Command {
                     // If the previous timeslot was not free, i.e. it is the start of a new block
                     // OR if the current timeslot is the first timeslot
                     // Add a new LocalTime into the list
-                    if (i == 0) {
-                        listOfAvailableTime.add(counter, convertIntToTime(i));
-                    } else {
-                        listOfAvailableTime.add(counter, convertIntToTime(i - 1));
-                    }
+                    listOfAvailableTime.add(counter, convertIntToTime(i));
                     counter++;
                     listOfAvailableTime.add(counter, convertIntToTime(i));
                 }
