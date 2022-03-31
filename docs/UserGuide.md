@@ -388,7 +388,7 @@ Format: `viewSchedule INDEX`
 
 * Shows the schedule of a specific person at INDEX.
 * The index refers to the index number shown in the displayed person list.
-* The index must be positive. Eg. 1, 2, 3….
+* The index **must be positive**. Eg. 1, 2, 3….
 
 Example:
 * `viewSchedule 5`
