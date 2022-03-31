@@ -16,23 +16,22 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    4. [Editing a person](#editing-a-person--edit)
    5. [Locating persons by name](#locating-persons-by-name-find)
    6. [Deleting a person](#deleting-a-person--delete)
-   7. [Viewing a person's schedule](#viewing-a-persons-schedule-viewschedule)
-   8. [Viewing persons by tags](#viewing-persons-by-tags-viewgroup)
-   9. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
-   10. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
-   11. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
-   12. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
-   13. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
-   14. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
-   15. [Clearing all entries](#clearing-all-entries--clear)
-   16. [Exiting the program](#exiting-the-program--exit)
-   17. [Saving the data](#saving-the-data)
-   18. [Editing the data file](#editing-the-data-file)
-3. [Coming Soon](#coming-soon-v13)
-   1. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
-   2. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
-4. [FAQ](#faq)
-5. [Command Summary](#command-summary)
+   7. [Setting a contact as the user](#setting-a-contact-as-the-user--setuser)
+   8. [Viewing Schedule](#viewing-a-persons-schedule-viewschedule)
+   9. [Viewing contacts by tags](#viewing-contacts-by-tags-viewgroup)
+   10. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
+   11. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
+   12. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
+   13. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
+   14. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
+   15. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
+   16. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
+   17. [Clearing all entries](#clearing-all-entries--clear)
+   18. [Exiting the program](#exiting-the-program--exit)
+   19. [Saving the data](#saving-the-data)
+   20. [Editing the data file](#editing-the-data-file)
+3. [FAQ](#faq)
+4. [Command Summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -183,7 +182,7 @@ Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user.
 * `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user.
 
-### Viewing a person : `viewSchedule`
+### Viewing a person's schedule : `viewSchedule`
 
 Views the specified person's Schedule from UniGenda. You can see the person's upcoming schedule for the following week starting **now**, and the list of the person's schedule.
 
@@ -301,6 +300,15 @@ Examples:
 * `whoIsFree ti/14:00 da/2022-02-14`
 * `whoIsFree ti/12:00 t/friends`
 
+### Getting common free timing of persons by tag: `findCommonTiming`
+Gets the common timings of persons who are free with the same tag.
+
+Format: `findCommonTiming t/TAG da/DATE`
+* Show the overlapping timings that a group of friends with the same tags are free on a certain day.
+
+Example:
+* `findCommonTiming t/groupmates da/2022-03-04`
+
 ### Importing a person's schedule: `importSchedule`
 Imports a schedule from a file to the person at the specified index.
 
@@ -348,26 +356,6 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
-###*Coming Soon...* (v1.3)
-### Viewing a person’s schedule: `viewSchedule`
-Shows the schedule of a specified person.
-
-Format: `viewSchedule INDEX`
-* Shows the schedule of a specific person at INDEX
-* The index refers to the index number shown in the displayed person list.
-* The index must be positive. Eg. 1, 2, 3…
-
-Example:
-* `viewSchedule 5`
-
-### Getting common free timing of persons by tag: `findCommonTiming`
-Gets the common timings of persons who are free with the same tag.
-
-Format: `findCommonTiming t/TAG`
-* Show the overlapping timings that a group of friends with the same tags are free
-
-Example:
-* `findCommonTiming t/groupmates`
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -378,23 +366,23 @@ Example:
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
+| Action                | Format, Examples                                                                                                                                                                              |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**               | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
+| **Clear**             | `clear`                                                                                                                                                                                       |
+| **Delete**            | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
+| **Edit**              | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
+| **SetUser**           | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
+| **ViewGroup**         | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
+| **ViewSchedule**      | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
+| **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
+| **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
+| **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
+| **WhoIsFree**         | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
+| **FindCommonTiming**  | `findCommonTiming t/TAG da/DATE`<br> e.g., `freeGroupSchedule t/groupmates da/2022-03-04`                                                                                                                          |
+| **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
+| **ExportSchedule**    | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
+| **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
+| **List**              | `list`                                                                                                                                                                                        |
+| **Help**              | `help`                                                                                                                                                                                        |
 
-| Action               | Format, Examples                                                                                                                                                                              |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**              | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
-| **Clear**            | `clear`                                                                                                                                                                                       |
-| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
-| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
-| **SetUser**          | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
-| **ViewGroup**        | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
-| **ViewSchedule**     | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
-| **AddEvent**         | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
-| **EditEvent**        | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
-| **DeleteEvent**      | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
-| **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
-| **FindCommonTiming** | `findCommonTiming t/TAG`<br> e.g., `findCommonTiming t/groupmates`                                                                                                                            |
-| **ImportSchedule**   | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
-| **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
-| **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
-| **List**             | `list`                                                                                                                                                                                        |
-| **Help**             | `help`     
