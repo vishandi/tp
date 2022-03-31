@@ -243,7 +243,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, …
 * You cannot add duplicate events. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
 <div markdown="block" class="alert alert-info">
-  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates**
+  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates.**
 </div>
 * `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
