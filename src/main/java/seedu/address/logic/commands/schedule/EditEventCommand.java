@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
-import static seedu.address.model.schedule.Schedule.MESSAGE_DUPLICATE_EVENT;
 import static seedu.address.model.schedule.Event.DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS;
+import static seedu.address.model.schedule.Schedule.MESSAGE_DUPLICATE_EVENT;
 
 import java.time.Duration;
 import java.time.LocalDate;
