@@ -193,7 +193,7 @@ Examples:
 
 ### Setting a contact as the user : `setUser`
 
-Sets the specified person as the user and shifts the contact to the top of the list.
+Shifts the contact to the top of the list.
 
 Format: `setUser INDEX`
 
