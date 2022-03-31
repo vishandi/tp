@@ -230,7 +230,7 @@ Shows the names of friends with the same tag.
 
 Format: `viewGroup t/TAG`
 
-* Shows contacts sharing the same tag.
+* Shows persons sharing the same tag.
 
 Examples:
 * `viewGroup t/groupmates`
