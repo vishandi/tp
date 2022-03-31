@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.SamePersonPredicate;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
@@ -23,6 +24,7 @@ import seedu.address.model.schedule.Schedule;
 public class DeleteEventCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteEvent";
+    public static final String COMMAND_WORD_LOWER = "deleteevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an event of the person identified "
             + "by the index number used in the displayed person list.\n"
@@ -62,6 +64,7 @@ public class DeleteEventCommand extends Command {
         Schedule updatedSchedule = createDeletedSchedule(scheduleToEdit, targetEventIndex);
 
         model.setSchedule(personToEdit, updatedSchedule);
+        model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS,
                 personToEdit.getName(),
                 targetEventIndex.getOneBased()));

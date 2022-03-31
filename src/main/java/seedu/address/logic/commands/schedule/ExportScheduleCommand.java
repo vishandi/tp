@@ -27,6 +27,7 @@ import seedu.address.storage.JsonAdaptedSchedule;
 public class ExportScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "exportSchedule";
+    public static final String COMMAND_WORD_LOWER = "exportschedule";
     public static final String MESSAGE_SUCCESS = "%1$s's schedule exported to %2$s!";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports the schedule of the person identified by the index number used in the displayed person list.\n"

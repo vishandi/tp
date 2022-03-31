@@ -2,6 +2,7 @@ package seedu.address.logic.commands.schedule;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import seedu.address.commons.core.Messages;
@@ -13,12 +14,14 @@ import seedu.address.model.schedule.IsPersonFreePredicate;
 
 /**
  * Lists all {@code Person} who are free at the given time and date.
+ * If tags are given, then only with specified tags are shown.
  * If no date is given, the command assumes today's date.
- * Persons without schedule is considered busy at all times.
+ * Persons without schedule is considered free at all times.
  */
-public class FreeScheduleCommand extends Command {
+public class WhoIsFreeCommand extends Command {
 
-    public static final String COMMAND_WORD = "freeSchedule";
+    public static final String COMMAND_WORD = "whoIsFree";
+    public static final String COMMAND_WORD_LOWER = "whoisfree";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Retrieves information of friends "
@@ -26,13 +29,14 @@ public class FreeScheduleCommand extends Command {
             + "Parameters: "
             + PREFIX_TIME + "TIME"
             + "[" + PREFIX_DATE + "DATE]\n"
+            + "[" + PREFIX_TAG + "TAG]\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_TIME + "12:00 "
             + PREFIX_DATE + "2022-02-14";
 
     private final IsPersonFreePredicate predicate;
 
-    public FreeScheduleCommand(IsPersonFreePredicate predicate) {
+    public WhoIsFreeCommand(IsPersonFreePredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -47,7 +51,7 @@ public class FreeScheduleCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FreeScheduleCommand // instanceof handles nulls
-                && predicate.equals(((FreeScheduleCommand) other).predicate)); // state check
+                || (other instanceof WhoIsFreeCommand // instanceof handles nulls
+                && predicate.equals(((WhoIsFreeCommand) other).predicate)); // state check
     }
 }

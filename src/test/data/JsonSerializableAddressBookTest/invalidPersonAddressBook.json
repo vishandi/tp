@@ -7,14 +7,14 @@
       "events" : [ {
         "eventDescription" : "CS2103T Tutorial",
         "date" : "2022-12-28",
-        "time" : "10:00:00",
-        "duration" : "PT3H",
+        "time" : "10:00",
+        "duration" : "3H",
         "recurFrequency" : "WEEKLY"
       }, {
         "eventDescription" : "CS2106 Lab",
         "date" : "2022-12-28",
-        "time" : "12:00:00",
-        "duration" : "PT3H",
+        "time" : "12:00:03",
+        "duration" : "3H",
         "recurFrequency" : "MONTHLY"
       } ]
     },

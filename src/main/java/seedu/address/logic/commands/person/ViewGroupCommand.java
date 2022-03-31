@@ -16,6 +16,7 @@ import seedu.address.model.person.IsTagInPersonPredicate;
 public class ViewGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "viewGroup";
+    public static final String COMMAND_WORD_LOWER = "viewgroup";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the contacts who share the same tag "
             + "Parameters: "
             + PREFIX_TAG + "TAG...\n"

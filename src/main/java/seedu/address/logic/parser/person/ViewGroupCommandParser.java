@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.person.ViewGroupCommand;
+import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -28,6 +29,10 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(userInput, PREFIX_TAG);
 
         boolean hasTagPrefix = argMultimap.getValue(PREFIX_TAG).isPresent();
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, WhoIsFreeCommand.MESSAGE_USAGE));
+        }
 
         if (hasTagPrefix) {
             Tag tag = new Tag(argMultimap.getValue(PREFIX_TAG).get());

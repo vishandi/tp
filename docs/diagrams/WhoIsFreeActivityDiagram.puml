@@ -2,7 +2,9 @@
 start
 :User executes command;
 
-:Save schedule;
+:Filter Model;
+
+:Display filtered Model;
 
 stop
 @enduml
