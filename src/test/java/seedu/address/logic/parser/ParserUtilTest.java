@@ -376,6 +376,7 @@ public class ParserUtilTest {
         EventDescription maximumLengthEventDescription = new EventDescription(MAXIMUM_LENGTH_EVENT_DESCRIPTION);
         assertEquals(maximumLengthEventDescription,
                 ParserUtil.parseEventDescription(maximumLengthEventDescriptionWithWhitespace));
+    }
 
     @Test
     public void parseDate_invalidValues_throwsParseException() {

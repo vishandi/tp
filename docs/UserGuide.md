@@ -115,6 +115,9 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 * `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters.
 * `EMAIL` should be a **valid** email with length not exceeding 60 characters.
+* **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
+  * The local-part should only contain alphanumeric characters and the following special characteres: **+_.-**. It cannot start or end with any special characters.
+  * The domain part is made up of domain labels separated by periods (e.g. domain-label1.domain-label2.com). It must end with a domain label at least 2 characters long, each domain label starts and end with alphanumeric characters, and each domain label consists of only alphanumeric characters, separated only by hyphens, if any.
 * `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 30 characters long.
 * Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 
@@ -147,6 +150,9 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/AD
 * `GITHUB` should only contain alphanumeric characters and hyphen (-), doesn't have multiple consecutive hyphens or begin or end with a hyphen, not blank, and at most 39 characters.
 * `ADDRESS` should only contain alphanumeric characters and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters.
 * `EMAIL` should be a **valid** email with length not exceeding 60 characters.
+* **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
+    * The local-part should only contain alphanumeric characters and the following special characteres: **+_.-**. It cannot start or end with any special characters.
+    * The domain part is made up of domain labels separated by periods (e.g. domain-label1.domain-label2.com). It must end with a domain label at least 2 characters long, each domain label starts and end with alphanumeric characters, and each domain label consists of only alphanumeric characters, separated only by hyphens, if any.
 * `TAG` should only contain alphanumeric characters, cannot contain whitespaces, not blank, and at most 30 characters long.
 * Duplicate tags (tags with same tag name) will be ignored and only one will be taken.
 
