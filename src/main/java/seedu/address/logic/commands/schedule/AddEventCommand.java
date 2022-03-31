@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR_FREQUENCY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.model.schedule.Event.DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.SamePersonPredicate;
 import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
@@ -68,10 +70,15 @@ public class AddEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        if (!eventToAdd.isValidDurationWithRecurFrequency()) {
+            throw new CommandException(DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS);
+        }
+
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Schedule scheduleToEdit = personToEdit.getSchedule();
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, eventToAdd);
         model.setSchedule(personToEdit, updatedSchedule);
+        model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAdd, personToEdit.getName()));
     }
 

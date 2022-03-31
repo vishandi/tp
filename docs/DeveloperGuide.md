@@ -178,14 +178,14 @@ To enable users to track their contacts' schedules, 2 new classes have been adde
   <img src="images/ScheduleClassDiagram.png" width="500" />
 
 To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
-The parsing of the AddEvent command is handled by the following classes:
+The parsing of the `addEvent` command is handled by the following classes:
 * `AddressBookParser`
   * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
 * `AddEventCommandParser`
   * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
   * Returns an `AddEventCommand` to be executed by the `LogicManager`
 
-A successful execution of the AddEvent command is described as follows:
+A successful execution of the `addEvent` command is described as follows:
 1. The `AddEventCommand` retrieves the currently listed `Person`s from the `Model`.
 2. The `personToEdit` is obtained from the above list using the `Index` created during the parsing of the AddEvent command.
 3. `AddEventCommand` gets the `Schedule` of the `personToEdit` and creates a new `Schedule` with the added `Event` created during the parsing of the AddEvent command.
@@ -195,7 +195,7 @@ A successful execution of the AddEvent command is described as follows:
   <img src="images/AddEventSequenceDiagram.png" width="1500" />
 
 #### Design considerations
-##### Differentiating recurring events and non-recurring events
+**Differentiating recurring events and non-recurring events**
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
   * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
@@ -203,13 +203,13 @@ A successful execution of the AddEvent command is described as follows:
   * Cons:
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
-##### Implementing event's date, time and duration attributes
+**Implementing event's date, time and duration attributes**
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
   * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
 * **Alternative 2:** Create our own Date, Time and Duration classes
   * Pros: More customisable
   * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
-##### Updating the model when an event is added
+**Updating the model when an event is added**
 * **Alterative 1 (current choice):** Create a new `Schedule` and `Person` to update the `Model`
   * Pros: More defensive
   * Cons: Troublesome to implement
@@ -217,37 +217,32 @@ A successful execution of the AddEvent command is described as follows:
   * Pros: Straightforward to implement
   * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time, causing bugs to appear
 
-### FreeSchedule feature
-This section details how the `freeSchedule` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
+### WhoIsFree feature
+This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
 
-####Implementation
-`FreeScheduleCommandParser`, `FreeScheduleCommand` and `IsPersonFreePredicate` classes are involved in the execution of the `freeSchedule` command.
+#### Implementation
+`WhoIsFreeCommandParser`, `WhoIsFreeCommand` and `IsPersonFreePredicate` classes are involved in the execution of the `whoIsFree` command.
 
-The `parse` method inside the `FreeScheduleCommandParser` receives the user input and extracts the required arguments. It then creates a new `IsPersonFreePredicate` object that will help check if the user's contacts' schedule coincides with the specified time and date.
+The `parse` method inside the `WhoIsFreeCommandParser` receives the user input and extracts the required arguments. It then creates a new `IsPersonFreePredicate` object that will help check if the user's contacts' schedule coincides with the specified time and date.
 
-Given below is one example usage scenario and explanation on how the `freeSchedule` command behaves at each step. You may also refer to the sequence diagram below.
+Given below is one example usage scenario and explanation on how the `whoIsFree` command behaves at each step. You may also refer to the sequence diagram below.
 
-Step 1. The user enters `freeSchedule ti/10:00 da/2022-03-24` to find if there are any contacts who are free at the specified time and date. The arguments `ti/10:00 da/2022-03-24` are passed to the `FreeScheduleCommandParser` through its `parse` method call.
+1. The user enters `whoIsFree ti/10:00 da/2022-03-24` to find if there are any contacts who are free at the specified time and date. The arguments `ti/10:00 da/2022-03-24` are passed to the `WhoIsFreeCommandParser` through its `parse` method call.
+2. The user input `ti/10:00 da/2022-03-24` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseTime` and `ParserUtil#parseDate` are used to check for invalid inputs.
+3. A new `IsPersonFreePredicate` object is created and encapsulated by a new `WhoIsFreeCommand` object.
+4. The `WhoIsFreeCommand` object is returned to the `LogicManager`.
+5. During the execution of the command, the `WhoIsFreeCommand` object calls `Model#updateFilteredPersonList` method with the `IsPersonFreePredicate` to update the display of the current list of contacts. If there are contacts who are free at the specified time and date, then a list of the contacts who are free will be shown. Otherwise, an empty list will be shown.
+6. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
 
-Step 2. The user input `ti/10:00 da/2022-03-24` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseTime` and `ParserUtil#parseDate` are used to check for invalid inputs.
+#### Sequence Diagram
+The following sequence diagram shows how the `whoIsFree` command works for the example above:<br>
+![WhoIsFreeSequenceDiagram](images/WhoIsFreeSequenceDiagram.png)
 
-Step 3. A new `IsPersonFreePredicate` object is created and encapsulated by a new `FreeScheduleCommand` object.
+#### Activity Diagram
+The following activity diagram summarizes what happens when the `whoIsFree` command is triggered:<br>
+![WhoIsFreeActivityDiagram](images/WhoIsFreeActivityDiagram.png)
 
-Step 4. The `FreeScheduleCommand` object is returned to the `LogicManager`.
-
-Step 5. During the execution of the command, the `FreeScheduleCommand` object calls `Model#updateFilteredPersonList` method with the `IsPersonFreePredicate` to update the display of the current list of contacts. If there are contacts who are free at the specified time and date, then a list of the contacts who are free will be shown. Otherwise, an empty list will be shown.
-
-Step 6. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
-
-####Sequence Diagram
-The following sequence diagram shows how the `freeSchedule` command works for the example above:
-![FreeScheduleSequenceDiagram](images/FreeScheduleSequenceDiagram.png)
-
-####Activity Diagram
-The following activity diagram summarizes what happens when the `freeSchedule` command is triggered:
-![FreeScheduleActivityDiagram](images/FreeScheduleActivityDiagram.png)
-
-####Design Considerations
+#### Design Considerations
 **Aspect: Should we allow dates that have already passed?**
 * **Alternative 1 (current implementation)**: Ignore dates that have passed.
   * Pro:
@@ -283,7 +278,7 @@ Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their re
 Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, 
 and we retrieve information based on the filtered list.
 
-To **view** a person, the user needs to run the **view** command.
+To **view** a person, the user needs to run the `view` command.
 The parsing of the viewSchedule command is handled by the following classes:
 * `AddressBookParser`
     * Checks that the user input contains the ViewScheduleCommand.COMMAND_WORD and calls `ViewScheduleCommand#parse()`
@@ -292,7 +287,7 @@ The parsing of the viewSchedule command is handled by the following classes:
     * Returns a `ViewScheduleCommand` to be executed by the `LogicManager`
     * In case of invalid index, it will be handled by the `ViewScheduleCommand` upon execution.
 
-A successful execution of the **view** command is described as follows:
+A successful execution of the `view` command is described as follows:
 1. The `ViewScheduleCommand` retrieves the currently listed `Person`'s from the `Model`.
 2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the viewSchedule command.
 3. `ViewScheduleCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
@@ -323,7 +318,7 @@ A successful execution of the **view** command is described as follows:
 This section details how the  'findCommonTiming' command is implemented. This command allows the user to get the common free timings of contacts who share the same tag. 
 The timings that the contacts are free at the specified date will be displayed.
 
-### Implementation
+#### Implementation
 'FindCommonTimingParser', 'FindCommonTimingCommand' and 'IsTagInPersonPredicate' classes are involved in the execution of the 'findCommonTiming' command.
 
 The 'parse' method inside the 'FindCommandTimingParser' receives the user input and extracts the required arguments.
@@ -348,7 +343,7 @@ A default timeslot will be created such that it will be assumed that the whole d
 Step 6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
-### Design Considerations
+#### Design Considerations
 **Aspect: Should we show timings that a group of contacts with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
     * Pros:
@@ -373,23 +368,15 @@ The `parse` method inside the `ExportScheduleCommandParser` receives the user in
 
 Given below is one example usage scenario and explanation on how the `exportSchedule` command behaves at each step. You may also refer to the sequence diagram below.
 
-Step 1. The user enters `exportSchedule 1` as the command to export the schedule of specified person. The argument `1` is passed to the `ExportScheduleCommandParser` through its `parse` method call.
-
-Step 2. The user input `1` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseIndex` is used to check for invalid or out of range inputs.
-
-Step 3. The `ExportScheduleCommand` object is returned to the `LogicManager`.
-
-Step 4. During the execution of the command, the `ExportScheduleCommand` object checks if the schedule that we are retrieving exists. If it exists, `JsonUtil#saveJsonFile` method will be called. We also ensure that the folder that we are trying to save to exist, if it does not exist, we will create the folder. The schedule is then immediately saved as a Json file.
-
-Step 5. A `CommandResult` object indicating that the `exportSchedule` command is successful will be created and returned to the `LogicManager`.
+1. The user enters `exportSchedule 1` as the command to export the schedule of specified person. The argument `1` is passed to the `ExportScheduleCommandParser` through its `parse` method call.
+2. The user input `1` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseIndex` is used to check for invalid or out of range inputs.
+3. The `ExportScheduleCommand` object is returned to the `LogicManager`.
+4. During the execution of the command, the `ExportScheduleCommand` object checks if the schedule that we are retrieving exists. If it exists, `JsonUtil#saveJsonFile` method will be called. We also ensure that the folder that we are trying to save to exist, if it does not exist, we will create the folder. The schedule is then immediately saved as a Json file.
+5. A `CommandResult` object indicating that the `exportSchedule` command is successful will be created and returned to the `LogicManager`.
 
 #### Sequence Diagram
 The following sequence diagram shows how the `exportSchedule` command works for the example above:
 ![ExportScheduleSequenceDiagram](images/ExportScheduleSequenceDiagram.png)
-
-#### Activity Diagram
-The following activity diagram summarizes what happens when then `exportSchedule` command is triggered:
-![ExportScheduleActivityDiagram](images/ExportScheduleActivityDiagram.png)
 
 #### Design Considerations
 **Aspect: Where should we save the file?**
@@ -679,4 +666,4 @@ _{ more test cases to be added }_
 
 1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
-1. _{ more test cases …​ }_free 
+1. _{ more test cases …​ }_

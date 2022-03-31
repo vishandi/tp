@@ -22,10 +22,10 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    10. [Adding a person's schedule](#adding-a-persons-schedule-addevent)
    11. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    12. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
-   13. [Getting persons who are free](#getting-persons-who-are-free-freeschedule)
+   13. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
    14. [Getting common free timing of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
-   15. [Importing a person's schedule](#importing-a-persons-schedule-import)
-   16. [Exporting a person's schedule](#exporting-a-persons-schedule-export)
+   15. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
+   16. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
    17. [Clearing all entries](#clearing-all-entries--clear)
    18. [Exiting the program](#exiting-the-program--exit)
    19. [Saving the data](#saving-the-data)
@@ -202,14 +202,14 @@ Examples:
 * `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command.
 
 
-### Viewing contacts by tags: `viewGroup`
+### Viewing persons by tags: `viewGroup`
 Shows the names of friends with the same tag
 
 Format: `viewGroup t/TAG`
-* Shows contacts sharing the same tag
+* Shows a list of persons sharing the same tag
 
 Examples:
-* `viewGroup` t/groupmates
+* `viewGroup t/groupmates`
 
 ### Adding a person’s schedule: `addEvent`
 Adds an event to the specified indexed contact.
@@ -219,14 +219,18 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
-* DATE should be in "YYYY-MM-DD" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
-* DURATION should be in one of the following formats, where X and Y are integer values representing the hours and minutes respectively(not case-sensitive):
-  * XHYM
-  * XH
-  * YM
-  * X
-* RECUR_FREQUENCY, if provided, must be one of the following values:
+* DURATION, if provided, should be in one of the following formats (not case-sensitive):
+
+| Value  | Duration          | Example |
+|--------|-------------------|---------|
+| `HhMm` | H hours M minutes | `3h30m` |
+| `Hh`   | H hours           | `2h`    |
+| `Mm`   | M minutes         | `20m`   |
+| `H`    | H hours           | `3`     |
+* DURATION **must be less than 336hours (2 weeks) and at least 1 minute long**
+* RECUR_FREQUENCY, if provided, must be one of the following values (not case-sensitive:
 
 | Value           | Frequency |
 |-----------------|-----------|
@@ -246,13 +250,17 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
-* DATE should be in "YYYY-MM-DD" format
+* DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
-  * XHYM
-  * XHY
-  * XH
-  * X
+
+| Format | Duration          | Example |
+|--------|-------------------|---------|
+| `HhMm` | H hours M minutes | `3h30m` |
+| `Hh`   | H hours           | `2h`    |
+| `Mm`   | M minutes         | `20m`   |
+| `H`    | H hours           | `3`     |
+* DURATION **must be less than 336hours (2 weeks) and at least 1 minute long**
 * RECUR_FREQUENCY, if provided, must be one of the following values:
 
 | Value           | Frequency |
@@ -276,19 +284,21 @@ Format: `deleteEvent INDEX EVENT_INDEX`
 Example:
 * `deleteEvent 3 3`
 
-### Getting persons who are free: `freeSchedule`
-Format: `freeSchedule ti/TIME [da/ DATE]`
+### Getting persons who are free: `whoIsFree`
+Shows a list of persons who are free at specified time and date. You may also choose to additionally filter the list using tags.
+
+Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
 * Shows the persons who are free at the time specified today
 * Shows the persons who are free at the time on the date specified
-* Contacts without a schedule are filtered out of the list
 * TIME is the time at which the user want to find out if the person is free
 * DATE should not be specified if TIME is not specified
 * TIME should be in "HH:MM" format
 * DATE should be in "YYYY-MM-DD" format
 
 Examples:
-* `freeSchedule ti/ 12:00`
-* `freeSchedule ti/ 14:00 da/2022-02-14`
+* `whoIsFree ti/12:00`
+* `whoIsFree ti/14:00 da/2022-02-14`
+* `whoIsFree ti/12:00 t/friends`
 
 ### Getting common free timing of persons by tag: `findCommonTiming`
 Gets the common timings of persons who are free with the same tag.
@@ -368,10 +378,11 @@ will discard all data and start with an empty data file at the next run.
 | **AddEvent**          | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
 | **EditEvent**         | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
 | **DeleteEvent**       | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
-| **FreeSchedule**      | `freeSchedule ti/TIME [da/DATE]`<br> e.g., `freeSchedule ti/10:00 da/2022-03-14`                                                                                                              |
+| **WhoIsFree**         | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
 | **FindCommonTiming**  | `findCommonTiming t/TAG da/DATE`<br> e.g., `freeGroupSchedule t/groupmates da/2022-03-04`                                                                                                                          |
 | **ImportSchedule**    | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
 | **ExportSchedule**    | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
 | **Find**              | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
 | **List**              | `list`                                                                                                                                                                                        |
 | **Help**              | `help`                                                                                                                                                                                        |
+
