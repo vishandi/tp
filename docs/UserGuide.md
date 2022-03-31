@@ -240,7 +240,7 @@ Adds an event to the specified indexed contact.
 
 Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, ….
 * `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
