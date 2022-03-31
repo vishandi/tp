@@ -29,7 +29,7 @@ public class JsonAdaptedEventTest {
     private static final String VALID_EVENT_DESCRIPTION = SE_TUTORIAL.getEventDescription().toString();
     private static final String VALID_DATE = SE_TUTORIAL.getDate().toString();
     private static final String VALID_TIME = SE_TUTORIAL.getTime().toString();
-    private static final String VALID_DURATION = SE_TUTORIAL.getDuration().toString();
+    private static final String VALID_DURATION = SE_TUTORIAL.getDuration().toString().substring(2);
     private static final String VALID_RECURFREQUENCY = SE_TUTORIAL.getRecurFrequency().toString();
 
     private static final String RECURFREQUENCY_DAILY = "D";
@@ -60,6 +60,7 @@ public class JsonAdaptedEventTest {
 
     @Test
     public void toModelType_nullEventDescription_throwsIllegalValueException() {
+        System.out.println(VALID_DURATION);
         JsonAdaptedEvent event = new JsonAdaptedEvent(
                 null, VALID_DATE, VALID_TIME, VALID_DURATION, VALID_RECURFREQUENCY);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, EventDescription.class.getSimpleName());
