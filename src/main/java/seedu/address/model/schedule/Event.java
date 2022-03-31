@@ -214,7 +214,7 @@ public class Event implements Comparable<Event> {
             plusDays = String.format(" (+%s)", numDays);
         }
         return String.format("%s-%s%s %s %s", time, getEndTime(),
-                plusDays, eventDescription, getRecurFrequency().getLabel());
+                plusDays, getRecurFrequency().getLabel(), eventDescription);
     }
 
     /**
@@ -245,9 +245,9 @@ public class Event implements Comparable<Event> {
         if (numDays > 0) {
             plusDays = String.format(" (+%s)", numDays);
         }
-        return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
+        return String.format("%s %s-%s%s %s %s", date.format(
                         DateTimeFormatter.ofPattern("dd-MMM-yyyy")), time, getEndTime(),
-                plusDays, getRecurFrequency().getLabel());
+                plusDays, getRecurFrequency().getLabel(), eventDescription);
     }
 
 }

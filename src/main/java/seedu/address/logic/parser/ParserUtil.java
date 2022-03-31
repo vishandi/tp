@@ -178,7 +178,7 @@ public class ParserUtil {
         if (!EventDescription.isValidEventDescription(trimmedEventDescription)) {
             throw new ParseException(EventDescription.MESSAGE_CONSTRAINTS);
         }
-        return new EventDescription(eventDescription);
+        return new EventDescription(trimmedEventDescription);
     }
 
     /**

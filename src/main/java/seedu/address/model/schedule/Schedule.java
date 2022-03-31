@@ -96,10 +96,8 @@ public class Schedule {
     public String getDailyScheduleFormat() {
         final StringBuilder builder = new StringBuilder();
 
-        int counter = 1;
         for (Event event : events) {
-            builder.append(String.format("%s. %s\n", counter, event.getDailyScheduleFormat()));
-            counter += 1;
+            builder.append(String.format("%s\n", event.getDailyScheduleFormat()));
         }
 
         return builder.toString();
