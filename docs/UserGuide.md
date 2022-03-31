@@ -218,6 +218,7 @@ Adds an event to the specified indexed contact.
 Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 * INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, …
 * You cannot add duplicate events. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
+  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates**
 * If TIME is not specified, it will be considered as a full-day event starting from 00:00.
 * If TIME is specified but not DURATION, the DURATION will be defaulted to 2 hours.
 * If DURATION is specified, TIME also needs to be specified.
@@ -253,6 +254,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 * Edits an event assigned to a person.
 * At least one of the optional fields must be provided
 * You cannot edit an event's description, date, time, duration and/or recurring frequency such that there will be duplicate events in UniGenda. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
+  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates**
 * DATE should be a valid DATE in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**
 * TIME should be in "HH:MM" format
 * DURATION should be in one of the following formats, where X and Y are positive integer values representing the hours and minutes respectively(not case-sensitive):
