@@ -310,8 +310,8 @@ Deletes an event from the specified indexed contact.
 
 Format: `deleteEvent INDEX EVENT_INDEX`
 
-* INDEX refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, ….
-* EVENT_NUMBER refers to the index of schedules. The schedule_number must be a positive integer 1, 2, ….
+* INDEX refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, ….
+* EVENT_NUMBER refers to the index of schedules. The schedule_number **must be a positive integer** 1, 2, ….
 
 Example:
 * `deleteEvent 3 3`
