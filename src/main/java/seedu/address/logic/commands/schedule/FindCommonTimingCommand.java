@@ -21,17 +21,18 @@ import seedu.address.model.schedule.Schedule;
 
 
 /**
- * Command that lists all contacts who share the same tag.
+ * Command that lists all available timings for those who share the same tag at a specified date.
  */
 public class FindCommonTimingCommand extends Command {
 
     public static final String COMMAND_WORD = "findCommonTiming";
+    public static final String COMMAND_WORD_LOWER = "findcommontiming";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Retrieves common free timings of contacts "
             + "who share the same tag\n"
             + "Parameters: "
-            + PREFIX_TAG + "TAG"
-            + " [" + PREFIX_DATE + "DATE]\n"
+            + PREFIX_TAG + "TAG "
+            + PREFIX_DATE + "DATE\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_TAG + "friends "
             + PREFIX_DATE + "2022-02-14";

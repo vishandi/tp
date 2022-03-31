@@ -125,7 +125,7 @@ public class AddressBookParser {
         case SetUserCommand.COMMAND_WORD_LOWER:
             return new SetUserCommandParser().parse(arguments);
 
-        case FindCommonTimingCommand.COMMAND_WORD:
+        case FindCommonTimingCommand.COMMAND_WORD_LOWER:
             return new FindCommonTimingCommandParser().parse(arguments);
 
         default:
