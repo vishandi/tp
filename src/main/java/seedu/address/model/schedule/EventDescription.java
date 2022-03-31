@@ -36,7 +36,7 @@ public class EventDescription {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EventDescription // instanceof handles nulls
-                && value.equals(((EventDescription) other).value)); // state check
+                && value.toLowerCase().equals(((EventDescription) other).value.toLowerCase())); // state check
     }
 
     @Override
