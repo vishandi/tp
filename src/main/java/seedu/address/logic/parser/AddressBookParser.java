@@ -23,8 +23,9 @@ import seedu.address.logic.commands.schedule.ClearScheduleCommand;
 import seedu.address.logic.commands.schedule.DeleteEventCommand;
 import seedu.address.logic.commands.schedule.EditEventCommand;
 import seedu.address.logic.commands.schedule.ExportScheduleCommand;
-import seedu.address.logic.commands.schedule.FreeScheduleCommand;
+import seedu.address.logic.commands.schedule.FindCommonTimingCommand;
 import seedu.address.logic.commands.schedule.ImportScheduleCommand;
+import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.person.AddCommandParser;
 import seedu.address.logic.parser.person.DeleteCommandParser;
@@ -38,8 +39,9 @@ import seedu.address.logic.parser.schedule.ClearScheduleCommandParser;
 import seedu.address.logic.parser.schedule.DeleteEventCommandParser;
 import seedu.address.logic.parser.schedule.EditEventCommandParser;
 import seedu.address.logic.parser.schedule.ExportScheduleCommandParser;
-import seedu.address.logic.parser.schedule.FreeScheduleCommandParser;
+import seedu.address.logic.parser.schedule.FindCommonTimingCommandParser;
 import seedu.address.logic.parser.schedule.ImportScheduleCommandParser;
+import seedu.address.logic.parser.schedule.WhoIsFreeCommandParser;
 
 
 /**
@@ -87,6 +89,9 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case ViewGroupCommand.COMMAND_WORD_LOWER:
+            return new ViewGroupCommandParser().parse(arguments);
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -102,11 +107,8 @@ public class AddressBookParser {
         case DeleteEventCommand.COMMAND_WORD_LOWER:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case FreeScheduleCommand.COMMAND_WORD_LOWER:
-            return new FreeScheduleCommandParser().parse(arguments);
-
-        case ViewGroupCommand.COMMAND_WORD_LOWER:
-            return new ViewGroupCommandParser().parse(arguments);
+        case WhoIsFreeCommand.COMMAND_WORD_LOWER:
+            return new WhoIsFreeCommandParser().parse(arguments);
 
         case ClearScheduleCommand.COMMAND_WORD_LOWER:
             return new ClearScheduleCommandParser().parse(arguments);
@@ -122,6 +124,9 @@ public class AddressBookParser {
 
         case SetUserCommand.COMMAND_WORD_LOWER:
             return new SetUserCommandParser().parse(arguments);
+
+        case FindCommonTimingCommand.COMMAND_WORD:
+            return new FindCommonTimingCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

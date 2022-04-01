@@ -33,6 +33,8 @@ public class Event implements Comparable<Event> {
             + "if the duration is specified!";
     public static final String MISSING_RECUR_FREQUENCY_CASE =
             "%s switch case is missing in Event::getNextRecurrenceDate! Returning initial date...";
+    public static final String DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS =
+            "Duration should not be longer than frequency of event!";
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private final EventDescription eventDescription;
@@ -91,6 +93,33 @@ public class Event implements Comparable<Event> {
      */
     public static boolean isValidEvent(Event event) {
         return EventDescription.isValidEventDescription(event.getEventDescription().toString());
+    }
+
+    /**
+     * Returns true if {@code Duration} in {@code Event} is less than its {@code RecurFrequency}
+     * @return true if duration in event is less than its recur frequency
+     */
+    public boolean isValidDurationWithRecurFrequency() {
+        switch (recurFrequency) {
+        case DAILY:
+            if (duration.compareTo(Duration.ofDays(1)) > 0) {
+                return false;
+            }
+            break;
+        case WEEKLY:
+            if (duration.compareTo(Duration.ofDays(7)) > 0) {
+                return false;
+            }
+            break;
+        case BIWEEKLY:
+            if (duration.compareTo(Duration.ofDays(14)) > 0) {
+                return false;
+            }
+            break;
+        default:
+            return true;
+        }
+        return true;
     }
 
     /**
@@ -185,7 +214,7 @@ public class Event implements Comparable<Event> {
             plusDays = String.format(" (+%s)", numDays);
         }
         return String.format("%s-%s%s %s %s", time, getEndTime(),
-                plusDays, eventDescription, getRecurFrequency().getLabel());
+                plusDays, getRecurFrequency().getLabel(), eventDescription);
     }
 
     /**
@@ -203,7 +232,7 @@ public class Event implements Comparable<Event> {
 
         Event otherEvent = (Event) other;
         return otherEvent.getEventDescription().equals(getEventDescription())
-                && otherEvent.getDate().equals(getDate())
+                && (otherEvent.willDateCollide(getDate()) || willDateCollide(otherEvent.getDate()))
                 && otherEvent.getTime().equals(getTime())
                 && otherEvent.getDuration().equals(getDuration())
                 && otherEvent.getRecurFrequency().equals(getRecurFrequency());
@@ -216,9 +245,9 @@ public class Event implements Comparable<Event> {
         if (numDays > 0) {
             plusDays = String.format(" (+%s)", numDays);
         }
-        return String.format("%s %s %s-%s%s %s", eventDescription, date.format(
+        return String.format("%s %s-%s%s %s %s", date.format(
                         DateTimeFormatter.ofPattern("dd-MMM-yyyy")), time, getEndTime(),
-                plusDays, getRecurFrequency().getLabel());
+                plusDays, getRecurFrequency().getLabel(), eventDescription);
     }
 
 }

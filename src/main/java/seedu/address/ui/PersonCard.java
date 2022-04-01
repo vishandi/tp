@@ -76,21 +76,25 @@ public class PersonCard extends UiPart<Region> {
         if (!person.getTelegram().isEmpty()) {
             telegramBox.getChildren().add(telegramIcon);
             Label telegramLabel = new Label(person.getTelegram().value);
+            telegramLabel.setWrapText(true);
             telegramBox.getChildren().add(telegramLabel);
         }
         if (!person.getGithub().isEmpty()) {
             githubBox.getChildren().add(githubIcon);
             Label githubLabel = new Label(person.getGithub().value);
+            githubLabel.setWrapText(true);
             githubBox.getChildren().add(githubLabel);
         }
         if (!person.getEmail().isEmpty()) {
             emailBox.getChildren().add(emailIcon);
             Label emailLabel = new Label(person.getEmail().value);
+            emailLabel.setWrapText(true);
             emailBox.getChildren().add(emailLabel);
         }
         if (!person.getAddress().isEmpty()) {
             addressBox.getChildren().add(addressIcon);
             Label addressLabel = new Label(person.getAddress().value);
+            addressLabel.setWrapText(true);
             addressBox.getChildren().add(addressLabel);
         }
 

@@ -11,8 +11,8 @@ public class Telegram {
     public static final String MESSAGE_CONSTRAINTS = "Telegram username should "
             + "adhere to the following constraints:\n"
             + "1. The username should only contain alphanumeric characters and underscore (_).\n"
-            + "2. The username must contain at least 5 characters.";
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_]{5,}$";
+            + "2. The username must contain at least 5 characters and at most 40 characters.\n";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9_]{5,40}$";
     public static final Telegram EMPTY_TELEGRAM = new Telegram("");
 
     public final String value;

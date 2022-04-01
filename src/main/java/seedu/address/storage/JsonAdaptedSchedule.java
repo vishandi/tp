@@ -13,6 +13,7 @@ import seedu.address.model.schedule.Event;
 import seedu.address.model.schedule.Schedule;
 
 public class JsonAdaptedSchedule {
+    public static final String MESSAGE_DUPLICATE_EVENT = "Someone's schedule contains duplicate event(s).";
     private final List<JsonAdaptedEvent> events = new ArrayList<>();
 
     /**
@@ -43,6 +44,10 @@ public class JsonAdaptedSchedule {
     public Schedule toModelType() throws IllegalValueException {
         final List<Event> modelEvents = new ArrayList<>();
         for (JsonAdaptedEvent event : events) {
+            Event eventToAdd = event.toModelType();
+            if (modelEvents.contains(eventToAdd)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
+            }
             modelEvents.add(event.toModelType());
         }
         Collections.sort(modelEvents);

@@ -24,7 +24,7 @@ public class EventDescription {
      * Returns true if a given string is a valid eventDescription.
      */
     public static boolean isValidEventDescription(String test) {
-        return test.trim().matches(VALIDATION_REGEX);
+        return test.trim().matches(VALIDATION_REGEX) && test.trim().length() <= 60;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class EventDescription {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EventDescription // instanceof handles nulls
-                && value.equals(((EventDescription) other).value)); // state check
+                && value.toLowerCase().equals(((EventDescription) other).value.toLowerCase())); // state check
     }
 
     @Override
