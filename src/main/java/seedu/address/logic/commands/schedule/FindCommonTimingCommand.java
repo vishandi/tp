@@ -4,7 +4,6 @@ package seedu.address.logic.commands.schedule;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -70,6 +69,7 @@ public class FindCommonTimingCommand extends Command {
         if (endMinutes > 30) {
             endSlot += 1;
         }
+        endSlot -= 1;
 
         for (int i = startSlot; i <= endSlot; i++) {
             //set as busy
@@ -78,14 +78,25 @@ public class FindCommonTimingCommand extends Command {
     }
 
     /**
-     * Helper method to convert integer to time
+     * Helper method to convert integer to starting time
      * @param n integer that represent timeslot that is blocked
      * @return time to be outputted
      */
-    public LocalTime convertIntToTime(int n) {
+    public LocalTime convertIntToStartTime(int n) {
         return n % 2 == 0
-                ? LocalTime.of(n / 2, 0)
-                : LocalTime.of(n / 2, 30);
+                ? LocalTime.of((n / 2) % 24, 0)
+                : LocalTime.of((n / 2) % 24, 30);
+    }
+
+    /**
+     * Helper method to convert integer to ending time
+     * @param n integer that represent timeslot that is blocked
+     * @return time to be outputted
+     */
+    public LocalTime convertIntToEndTime(int n) {
+        return n % 2 == 0
+                ? LocalTime.of((n / 2) % 24, 30)
+                : LocalTime.of((n / 2 + 1) % 24, 0);
     }
 
     /**
@@ -102,6 +113,39 @@ public class FindCommonTimingCommand extends Command {
         return freeTimeSlots;
     }
 
+    public List<LocalTime> getListOfAvailableTime(int[] timeSlots) {
+        List<LocalTime> listOfAvailableTime = new ArrayList<>();
+        int counter = 0;
+
+        while (counter < timeSlots.length) {
+            // get starting time
+            while (counter < timeSlots.length && timeSlots[counter] != 0) {
+                counter += 1;
+            }
+            if (counter < timeSlots.length) {
+                System.out.println(counter);
+                listOfAvailableTime.add(convertIntToStartTime(counter));
+            }
+
+            // get end time
+            while (counter < timeSlots.length && timeSlots[counter] != 1) {
+                counter += 1;
+            }
+            if (counter < timeSlots.length) {
+                System.out.println(counter);
+                listOfAvailableTime.add(convertIntToStartTime(counter));
+            } else {
+                // if there is a start time, need to end
+                if (listOfAvailableTime.size() % 2 == 1) {
+                    System.out.println(counter);
+                    listOfAvailableTime.add(convertIntToEndTime(counter - 1));
+                }
+            }
+        }
+
+        return listOfAvailableTime;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         int[] timeSlots = new int[48];
@@ -116,43 +160,7 @@ public class FindCommonTimingCommand extends Command {
             }
         }
 
-        // This list will contain an even number of LocalTime objects
-        // The even indexes (i.e. 0, 2, 4, ...) will be starting times
-        // The odd indexes will be ending times
-        List<LocalTime> listOfAvailableTime = new ArrayList<>();
-        int counter = 0;
-        for (int i = 0; i < timeSlots.length; i++) {
-            // Check if current slot is free
-            if (timeSlots[i] == 0) {
-
-                if (i != 0 && timeSlots[i - 1] == 0) {
-                    // Shor-circuits if the current timeslot is the first timeslot
-                    // If the previous timeslot was also free, i.e. the current timeslot is part of an ongoing block
-                    // Get the current LocalTime and add 30 minutes to it
-                    LocalTime currentTime = listOfAvailableTime.get(counter).plus(Duration.ofMinutes(30));
-                    listOfAvailableTime.set(counter, currentTime);
-                    if (i != timeSlots.length - 1 && timeSlots[i + 1] == 1) {
-                        // Short-circuits if the current slot is the last slot
-                        // If the next timeslot is NOT free, i.e. the block stops at the current timeslot
-                        // We will move onto the next set of LocalTime
-                        LocalTime newTime = listOfAvailableTime.get(counter).plus(Duration.ofMinutes(30));
-                        listOfAvailableTime.set(counter, newTime);
-                        counter++;
-                    }
-                    if (i == timeSlots.length - 1) {
-                        LocalTime newTime = listOfAvailableTime.get(counter).plus(Duration.ofMinutes(30));
-                        listOfAvailableTime.set(counter, newTime);
-                    }
-                } else {
-                    // If the previous timeslot was not free, i.e. it is the start of a new block
-                    // OR if the current timeslot is the first timeslot
-                    // Add a new LocalTime into the list
-                    listOfAvailableTime.add(counter, convertIntToTime(i));
-                    counter++;
-                    listOfAvailableTime.add(counter, convertIntToTime(i));
-                }
-            }
-        }
+        List<LocalTime> listOfAvailableTime = getListOfAvailableTime(timeSlots);
         return new CommandResult(convertLocalTimeArrayToString(listOfAvailableTime));
     }
 
