@@ -23,7 +23,7 @@ and you can type fast, UniGenda can get your contact management tasks done faste
    11. [Editing a person's schedule](#editing-a-persons-schedule-editevent)
    12. [Deleting a person's schedule](#deleting-a-persons-schedule-deleteevent)
    13. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
-   14. [Getting common free timings of persons by tag](#getting-common-free-timings-of-persons-by-tag-findcommontiming)
+   14. [Getting common free timings of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
    15. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
    16. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
    17. [Clearing a person's schedule](#clearing-a-persons-schedule-clearschedule)
