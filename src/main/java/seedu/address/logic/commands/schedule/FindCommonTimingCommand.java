@@ -25,13 +25,13 @@ import seedu.address.model.schedule.Schedule;
  */
 public class FindCommonTimingCommand extends Command {
 
-    public static final String COMMAND_WORD = "findCommonTiming";
+    public static final String COMMAND_WORD = "findcommontiming";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Retrieves common free timings of contacts "
             + "who share the same tag\n"
             + "Parameters: "
             + PREFIX_TAG + "TAG"
-            + " [" + PREFIX_DATE + "DATE]\n"
+            + PREFIX_DATE + "DATE\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_TAG + "friends "
             + PREFIX_DATE + "2022-02-14";
@@ -147,11 +147,7 @@ public class FindCommonTimingCommand extends Command {
                     // If the previous timeslot was not free, i.e. it is the start of a new block
                     // OR if the current timeslot is the first timeslot
                     // Add a new LocalTime into the list
-                    if (i == 0) {
-                        listOfAvailableTime.add(counter, convertIntToTime(i));
-                    } else {
-                        listOfAvailableTime.add(counter, convertIntToTime(i - 1));
-                    }
+                    listOfAvailableTime.add(counter, convertIntToTime(i));
                     counter++;
                     listOfAvailableTime.add(counter, convertIntToTime(i));
                 }

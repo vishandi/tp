@@ -332,8 +332,9 @@ Examples:
 * `whoIsFree ti/14:00 da/2022-02-14`
 * `whoIsFree ti/12:00 t/friends`
 
-### Getting common free timings of persons by tag: `findCommonTiming`
-Gets the common timings of persons who are free with the same tag.
+
+### Getting common free timing of persons by tag: `findCommonTiming`
+Gets the common timings of persons who are free with the same tag on a certain day.
 
 Format: `findCommonTiming t/TAG da/DATE`
 * Show the overlapping timings that a group of friends with the same tags are free on a certain day.
