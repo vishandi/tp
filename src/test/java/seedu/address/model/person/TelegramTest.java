@@ -37,11 +37,15 @@ public class TelegramTest {
         assertFalse(Telegram.isValidTelegram("abc")); // less than 5 characters
         assertFalse(Telegram.isValidTelegram("abcde ")); // spaces in username
         assertFalse(Telegram.isValidTelegram("abcde*")); // asterisk in username
+        assertFalse(Telegram.isValidTelegram("_abcde")); // starts with underscore
+        assertFalse(Telegram.isValidTelegram("abcde_")); // ends with underscore
+        assertFalse(Telegram.isValidTelegram("abc__de")); // contains consecutive underscores
         assertFalse(Telegram.isValidTelegram("a".repeat(41))); // exceeding 40 characters limit
 
         //valid username
-        assertTrue(Telegram.isValidTelegram("abcde_")); // contains underscore (_)
-        assertTrue(Telegram.isValidTelegram("abcde12345_")); // contains alphanumeric + underscore
+        assertTrue(Telegram.isValidTelegram("ab_cde")); // contains underscore (_)
+        assertTrue(Telegram.isValidTelegram("ab_cd_e")); // contains multiple underscores
+        assertTrue(Telegram.isValidTelegram("abcde_12345")); // contains alphanumeric + underscore
         assertTrue(Telegram.isValidTelegram("a".repeat(40))); // maximum length
     }
 }
