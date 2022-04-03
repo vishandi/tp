@@ -133,18 +133,18 @@ public class Event implements Comparable<Event> {
         case NONE:
             return date;
         case DAILY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 newDate = today;
             }
             break;
         case WEEKLY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
             }
             break;
         case BIWEEKLY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
                 if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
