@@ -84,10 +84,6 @@ public class Event implements Comparable<Event> {
         return recurFrequency;
     }
 
-    public Event getNextRecurringEvent() {
-        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
-    }
-
     /**
      * Returns true if the given event is valid.
      */
@@ -123,8 +119,17 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns the next recurring {@code LocalDate} of the {@code Event}, which can be today,
-     * if the {@code Event} is recurring. Otherwise, returns the {@code Event} date.
+     * Returns an {@code Event} with the same event description, time, duration and recur frequency,
+     * but with the next recurring date if the {@code Event} has passed its end date.
+     */
+    public Event getNextRecurringEvent() {
+        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
+    }
+
+    /**
+     * Returns the next recurring {@code LocalDate} of the {@code Event} (which can be today),
+     * if the {@code Event} is recurring and the {@code Event} has passed its end date.
+     * Otherwise, returns the {@code Event}'s current start date.
      */
     public LocalDate getNextRecurrenceDate() {
         LocalDate newDate = date;
