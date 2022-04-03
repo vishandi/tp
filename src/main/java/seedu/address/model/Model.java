@@ -99,6 +99,9 @@ public interface Model {
     /** Returns an unmodifiable view of a particular person */
     ObservableList<Person> getViewSchedulePerson();
 
+    /** Returns true if the {@code person} is currently viewed */
+    boolean isPersonViewed(Person person);
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

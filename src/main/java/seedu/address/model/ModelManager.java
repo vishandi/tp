@@ -152,6 +152,7 @@ public class ModelManager implements Model {
     /**
      * Returns an unmodifiable view of the list of currently viewed person.
      */
+    @Override
     public ObservableList<Person> getViewSchedulePerson() {
         return viewedPerson;
     }
@@ -160,6 +161,15 @@ public class ModelManager implements Model {
     public void updateViewSchedulePerson(Predicate<Person> predicate) {
         requireNonNull(predicate);
         viewedPerson.setPredicate(predicate);
+    }
+
+    @Override
+    public boolean isPersonViewed(Person person) {
+        if (viewedPerson.isEmpty()) {
+            return false;
+        } else {
+            return person.equals(viewedPerson.get(0));
+        }
     }
 
     @Override
