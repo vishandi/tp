@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -97,6 +98,7 @@ public class Event implements Comparable<Event> {
 
     /**
      * Returns true if {@code Duration} in {@code Event} is less than its {@code RecurFrequency}
+     *
      * @return true if duration in event is less than its recur frequency
      */
     public boolean isValidDurationWithRecurFrequency() {
@@ -165,22 +167,40 @@ public class Event implements Comparable<Event> {
      * @return true if date collides with {@code Event}'s date and recurrence
      */
     public boolean willDateCollide(LocalDate date) {
-        if (this.date.isAfter(date)) {
-            // if start date of event is after the date we are checking, then they will never collide
+        long dateDiff = ChronoUnit.DAYS.between(this.date, date);
+        // event has not started compared to date given.
+        if (dateDiff < 0) {
             return false;
         }
 
+        // event is what we are looking for
+        if (dateDiff == 0) {
+            return true;
+        }
+
+        // event that has past
+        LocalDate endDate = getEndDate();
+        LocalDate closestDate;
         switch (recurFrequency) {
         case DAILY:
-            return true;
+            endDate = date;
+            break;
         case WEEKLY:
-            return this.date.getDayOfWeek().equals(date.getDayOfWeek());
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 7);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
         case BIWEEKLY:
-            return (ChronoUnit.DAYS.between(this.date, date) % 14 == 0);
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 14);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
         default:
             // case NONE and INVALID falls through to reach here
-            return this.date.equals(date);
+            endDate = getEndDate();
         }
+        if (ChronoUnit.DAYS.between(date, endDate) >= 0) {
+            return true;
+        }
+        return false;
     }
 
     /**
