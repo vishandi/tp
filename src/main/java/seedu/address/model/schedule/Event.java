@@ -179,7 +179,7 @@ public class Event implements Comparable<Event> {
         }
 
         // event that has past
-        LocalDate endDate = getEndDate();
+        LocalDate endDate;
         LocalDate closestDate;
         switch (recurFrequency) {
         case DAILY:
@@ -199,6 +199,38 @@ public class Event implements Comparable<Event> {
         }
         if (ChronoUnit.DAYS.between(date, endDate) >= 0) {
             return true;
+        }
+        return false;
+    }
+
+    public boolean willDateTimeCollideEvent(LocalDate date, LocalTime time) {
+        long dateDiff = ChronoUnit.DAYS.between(this.date, date);
+        // event has not started compared to date given.
+        if (dateDiff < 0) {
+            return false;
+        }
+
+        // event that has past
+        LocalDate endDate = getEndDate();
+        LocalDate closestDate;
+        switch (recurFrequency) {
+        case WEEKLY:
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 7);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
+        case BIWEEKLY:
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 14);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
+        default:
+            // case NONE and INVALID falls through to reach here
+            endDate = getEndDate();
+        }
+        if (ChronoUnit.DAYS.between(date, endDate) >= 0) {
+            LocalDateTime startDateTime = LocalDateTime.of(this.date, this.time);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, getEndTime());
+            LocalDateTime toCheckDateTime = LocalDateTime.of(date, time);
+            return (startDateTime.isEqual(toCheckDateTime) || startDateTime.isBefore(toCheckDateTime) && endDateTime.isAfter(toCheckDateTime));
         }
         return false;
     }
