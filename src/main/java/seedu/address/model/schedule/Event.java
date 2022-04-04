@@ -97,7 +97,7 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns true if {@code Duration} in {@code Event} is less than its {@code RecurFrequency}
+     * Returns true if {@code Duration} in {@code Event} is less than its {@code RecurFrequency}.
      *
      * @return true if duration in event is less than its recur frequency
      */
@@ -161,10 +161,10 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns true if date collides with {@code Event}'s date and recurrence
+     * Returns true if date clashes with event.
      *
      * @param date used to check against {@code Event}'s date
-     * @return true if date collides with {@code Event}'s date and recurrence
+     * @return true if date clashes with {@code Event}
      */
     public boolean willDateCollide(LocalDate date) {
         long dateDiff = ChronoUnit.DAYS.between(this.date, date);
@@ -203,6 +203,13 @@ public class Event implements Comparable<Event> {
         return false;
     }
 
+    /**
+     * Returns true if date and time clashes with event.
+     *
+     * @param date used with time to check against {@code Event}'s date and time
+     * @param time used with date to check against {@code Event}'s date and time
+     * @return true if date and time clashes with {@code Event}
+     */
     public boolean willDateTimeCollideEvent(LocalDate date, LocalTime time) {
         long dateDiff = ChronoUnit.DAYS.between(this.date, date);
         // event has not started compared to date given.
@@ -211,7 +218,7 @@ public class Event implements Comparable<Event> {
         }
 
         // event that has past
-        LocalDate endDate = getEndDate();
+        LocalDate endDate;
         LocalDate closestDate;
         switch (recurFrequency) {
         case WEEKLY:
@@ -230,7 +237,9 @@ public class Event implements Comparable<Event> {
             LocalDateTime startDateTime = LocalDateTime.of(this.date, this.time);
             LocalDateTime endDateTime = LocalDateTime.of(endDate, getEndTime());
             LocalDateTime toCheckDateTime = LocalDateTime.of(date, time);
-            return (startDateTime.isEqual(toCheckDateTime) || startDateTime.isBefore(toCheckDateTime) && endDateTime.isAfter(toCheckDateTime));
+            return (startDateTime.isEqual(toCheckDateTime)
+                    || startDateTime.isBefore(toCheckDateTime)
+                    && endDateTime.isAfter(toCheckDateTime));
         }
         return false;
     }
