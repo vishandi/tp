@@ -25,12 +25,13 @@ public class WhoIsFreeCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Retrieves information of friends "
-            + "who are free at the specified time or date\n"
+            + "who are free at the specified time or date."
+            + "Tags can also be added to filter the list.\n"
             + "Parameters: "
-            + PREFIX_TIME + "TIME"
-            + "[" + PREFIX_DATE + "DATE]\n"
+            + PREFIX_TIME + "TIME "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TIME + "12:00 "
             + PREFIX_DATE + "2022-02-14";
 
