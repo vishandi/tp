@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -37,7 +36,7 @@ public class Event implements Comparable<Event> {
     public static final String DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS =
             "Duration should not be longer than frequency of event!";
 
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(Event.class);
     private final EventDescription eventDescription;
     private final LocalDate date;
     private final LocalTime time;
