@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -37,7 +36,7 @@ public class Event implements Comparable<Event> {
     public static final String DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS =
             "Duration should not be longer than frequency of event!";
 
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(Event.class);
     private final EventDescription eventDescription;
     private final LocalDate date;
     private final LocalTime time;
@@ -85,10 +84,6 @@ public class Event implements Comparable<Event> {
         return recurFrequency;
     }
 
-    public Event getNextRecurringEvent() {
-        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
-    }
-
     /**
      * Returns true if the given event is valid.
      */
@@ -125,8 +120,17 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns the next recurring {@code LocalDate} of the {@code Event}, which can be today,
-     * if the {@code Event} is recurring. Otherwise, returns the {@code Event} date.
+     * Returns an {@code Event} with the same event description, time, duration and recur frequency,
+     * but with the next recurring date if the {@code Event} has passed its end date.
+     */
+    public Event getNextRecurringEvent() {
+        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
+    }
+
+    /**
+     * Returns the next recurring {@code LocalDate} of the {@code Event} (which can be today),
+     * if the {@code Event} is recurring and the {@code Event} has passed its end date.
+     * Otherwise, returns the {@code Event}'s current start date.
      */
     public LocalDate getNextRecurrenceDate() {
         LocalDate newDate = date;
@@ -135,18 +139,18 @@ public class Event implements Comparable<Event> {
         case NONE:
             return date;
         case DAILY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 newDate = today;
             }
             break;
         case WEEKLY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
             }
             break;
         case BIWEEKLY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
                 if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
