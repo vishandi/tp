@@ -66,7 +66,7 @@ public class FindCommonTimingCommand extends Command {
         if (minutes >= 30) {
             startSlot += 1;
         }
-        LocalTime endTime = eventAtCurrentDate.getTime();
+        LocalTime endTime = eventAtCurrentDate.getEndTime();
         int endHours = endTime.getHour();
         int endMinutes = endTime.getMinute();
         int endSlot = endHours * 2;
