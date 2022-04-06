@@ -123,7 +123,6 @@ public class FindCommonTimingCommand extends Command {
                 sb.append(String.format("-%s\n", LocalTime.of(0, 0)));
             }
         }
-        
         Set<Integer> distinct = Arrays.stream(timeSlots).boxed().collect(Collectors.toSet());
         boolean allEqual = distinct.size() == 1;
         if (timeSlots[0] == 0 && allEqual) {
