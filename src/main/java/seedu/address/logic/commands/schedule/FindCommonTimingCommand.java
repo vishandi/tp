@@ -7,10 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
