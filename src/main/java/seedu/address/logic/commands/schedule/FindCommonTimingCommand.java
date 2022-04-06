@@ -72,7 +72,7 @@ public class FindCommonTimingCommand extends Command {
         int endSlot = endHours * 2;
         if (endMinutes > 30) {
             endSlot += 2;
-        } else if (minutes > 0) {
+        } else if (endMinutes > 0) {
             endSlot += 1;
         }
 
@@ -86,7 +86,7 @@ public class FindCommonTimingCommand extends Command {
             timeSlots[48] = 1;
         }
 
-        for (int i = startSlot; i <= endSlot; i++) {
+        for (int i = startSlot; i < endSlot; i++) {
             //set as busy
             timeSlots[i] = 1;
         }
