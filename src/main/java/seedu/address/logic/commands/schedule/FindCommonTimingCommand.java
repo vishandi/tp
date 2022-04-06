@@ -71,12 +71,19 @@ public class FindCommonTimingCommand extends Command {
         int endMinutes = endTime.getMinute();
         int endSlot = endHours * 2;
         if (endMinutes > 30) {
+            endSlot += 2;
+        } else if (minutes > 0) {
             endSlot += 1;
         }
 
-        if (endTime == LocalTime.of(0, 0)) {
+        Duration duration = eventAtCurrentDate.getDuration();
+        if (duration == Duration.ofDays(1)) {
             //set as busy
             Arrays.fill(timeSlots, 1);
+        }
+
+        if (endTime.equals(LocalTime.of(0, 0))) {
+            timeSlots[48] = 1;
         }
 
         for (int i = startSlot; i <= endSlot; i++) {
@@ -98,7 +105,7 @@ public class FindCommonTimingCommand extends Command {
                 }
             }
         }
-        int toggle = 0;
+        int toggle = timeSlots[0];
         LocalTime startTime = LocalTime.of(0, 0);
         Duration duration = Duration.ofMinutes(0);
         StringBuilder sb = new StringBuilder();
