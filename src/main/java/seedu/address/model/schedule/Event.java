@@ -20,10 +20,8 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class Event implements Comparable<Event> {
 
-    public static final String DEFAULT_DATE = "2022-12-20";
     public static final String DEFAULT_TIME = "00:00";
     public static final String DEFAULT_DURATION = "2H";
-    public static final String DEFAULT_EVENT_DESCRIPTION = "CS2103T Tutorial";
     public static final String FULL_DAY_EVENT_DURATION = "24H";
     public static final String DATE_MESSAGE_CONSTRAINTS = "Event date should be in YYYY-MM-DD format";
     public static final String DURATION_MESSAGE_CONSTRAINTS = "Event duration should be in HhMm, Hh, Mm or H format\n"
@@ -82,13 +80,6 @@ public class Event implements Comparable<Event> {
 
     public RecurFrequency getRecurFrequency() {
         return recurFrequency;
-    }
-
-    /**
-     * Returns true if the given event is valid.
-     */
-    public static boolean isValidEvent(Event event) {
-        return EventDescription.isValidEventDescription(event.getEventDescription().toString());
     }
 
     /**
@@ -249,6 +240,32 @@ public class Event implements Comparable<Event> {
     }
 
     /**
+     * Returns an Event that happen at {@code date}.
+     *
+     * @param date used to check.
+     * @return an Event for that particular date.
+     */
+    public Event getEventAtDate(LocalDate date) {
+        Event nextEvent = getNextRecurringEvent();
+        if (nextEvent.willDateCollide(date)) {
+            if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isAfter(date)) {
+                return new Event(nextEvent.eventDescription, date, LocalTime.MIDNIGHT,
+                        Duration.ofHours(24), recurFrequency);
+            } else if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isEqual(date)) {
+                Duration duration = Duration.between(LocalTime.MIDNIGHT, nextEvent.getEndTime());
+                return new Event(nextEvent.eventDescription, date, LocalTime.MIDNIGHT, duration, recurFrequency);
+            } else if (nextEvent.getDate().isEqual(date) && nextEvent.getEndDate().isAfter(date)) {
+                Duration duration = Duration.between(nextEvent.getTime(), LocalTime.MIDNIGHT).plusDays(1);
+                return new Event(nextEvent.eventDescription, date, nextEvent.getTime(), duration, recurFrequency);
+            } else {
+                return nextEvent;
+            }
+        } else {
+            return nextEvent;
+        }
+    }
+
+    /**
      * Compares 2 {@code Event} based on date and time. Returns a positive integer if {@code event}
      * occurs after the caller, a negative integer if {@code event} occurs before the caller, and 0
      * if both {@code Event} have occurs on the same date and time.
@@ -278,7 +295,7 @@ public class Event implements Comparable<Event> {
         if (numDays > 0) {
             plusDays = String.format(" (+%s)", numDays);
         }
-        return String.format("%s-%s%s %s %s", time, getEndTime(),
+        return String.format("%s-%s%s%s %s", time, getEndTime(),
                 plusDays, getRecurFrequency().getLabel(), eventDescription);
     }
 
@@ -310,7 +327,7 @@ public class Event implements Comparable<Event> {
         if (numDays > 0) {
             plusDays = String.format(" (+%s)", numDays);
         }
-        return String.format("%s %s-%s%s %s %s", date.format(
+        return String.format("%s %s-%s%s%s %s", date.format(
                         DateTimeFormatter.ofPattern("dd-MMM-yyyy")), time, getEndTime(),
                 plusDays, getRecurFrequency().getLabel(), eventDescription);
     }

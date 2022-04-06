@@ -23,10 +23,10 @@ public enum RecurFrequency {
     public static final String MISSING_RECUR_FREQUENCY_CASE =
             "%s switch case is missing in RecurFrequency::getLabel! Returning invalid label...";
     public static final String DEFAULT_RECURRENCE = NONE.fullName;
-    private static final String DAILY_LABEL = "(Daily)";
-    private static final String WEEKLY_LABEL = "(Weekly)";
-    private static final String BIWEEKLY_LABEL = "(Biweekly)";
-    private static final String INVALID_LABEL = "(Invalid)";
+    private static final String DAILY_LABEL = " (Daily)";
+    private static final String WEEKLY_LABEL = " (Weekly)";
+    private static final String BIWEEKLY_LABEL = " (Biweekly)";
+    private static final String INVALID_LABEL = " (Invalid)";
     private static final String NO_LABEL = "";
     private static final Logger logger = LogsCenter.getLogger(RecurFrequency.class);
 

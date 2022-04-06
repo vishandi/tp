@@ -3,7 +3,6 @@ package seedu.address.model.schedule;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Objects;
 
 public class Schedule {
 
-    public static final String EMPTY_SCHEDULE_MESSAGE = "No schedule recorded yet.";
     public static final String MESSAGE_CONSTRAINTS =
             "A Schedule's Events must have alphanumeric event descriptions, date formats YYYY-MM-DD, "
                     + "time formats HH:MM and duration format in hours";
@@ -49,21 +47,16 @@ public class Schedule {
      */
     public Schedule getUpcomingSchedule(int daysForward) {
         LocalDate today = LocalDate.now();
-        LocalTime now = LocalTime.now();
         LocalDate nextDaysForward = today.plusDays(daysForward);
         List<Event> upcomingEvents = new ArrayList<>();
 
-        if (daysForward == 0) {
-            for (Event event : getEvents()) {
-                if (event.willDateCollide(nextDaysForward) && event.getTime().isAfter(now)) {
-                    upcomingEvents.add(event.getNextRecurringEvent());
+        for (Event event : getEvents()) {
+            if (event.willDateCollide(nextDaysForward)) {
+                Event eventAtDate = event.getEventAtDate(nextDaysForward);
+                if (eventAtDate.getDuration().isZero()) {
+                    continue;
                 }
-            }
-        } else {
-            for (Event event : getEvents()) {
-                if (event.willDateCollide(nextDaysForward)) {
-                    upcomingEvents.add(event.getNextRecurringEvent());
-                }
+                upcomingEvents.add(event.getEventAtDate(nextDaysForward));
             }
         }
 
@@ -80,18 +73,6 @@ public class Schedule {
      */
     public Event getEvent(int index) {
         return events.get(index);
-    }
-
-    /**
-     * Returns true if the given schedule is valid.
-     */
-    public static boolean isValidSchedule(Schedule schedule) {
-        for (Event event : schedule.getEvents()) {
-            if (!Event.isValidEvent(event)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
