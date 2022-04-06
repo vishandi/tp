@@ -44,14 +44,7 @@ public class IsPersonFreePredicate implements Predicate<Person> {
             return true;
         }
         Stream<Event> eventsStream = events.stream();
-        return eventsStream
-                .filter(event -> event.willDateCollide(date))
-                .allMatch(event -> {
-                    LocalTime start = event.getTime();
-                    LocalTime end = event.getEndTime();
-
-                    return !(start.equals(time) || start.isBefore(time) && end.isAfter(time));
-                });
+        return eventsStream.allMatch(event -> !event.willDateTimeCollideEvent(date, time));
     }
 
     @Override

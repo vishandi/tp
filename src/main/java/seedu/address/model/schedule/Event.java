@@ -6,12 +6,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Logger;
 
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 
 /**
@@ -36,7 +36,7 @@ public class Event implements Comparable<Event> {
     public static final String DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS =
             "Duration should not be longer than frequency of event!";
 
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(Event.class);
     private final EventDescription eventDescription;
     private final LocalDate date;
     private final LocalTime time;
@@ -84,10 +84,6 @@ public class Event implements Comparable<Event> {
         return recurFrequency;
     }
 
-    public Event getNextRecurringEvent() {
-        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
-    }
-
     /**
      * Returns true if the given event is valid.
      */
@@ -96,7 +92,8 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns true if {@code Duration} in {@code Event} is less than its {@code RecurFrequency}
+     * Returns true if {@code Duration} in {@code Event} is less than its {@code RecurFrequency}.
+     *
      * @return true if duration in event is less than its recur frequency
      */
     public boolean isValidDurationWithRecurFrequency() {
@@ -123,8 +120,17 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns the next recurring {@code LocalDate} of the {@code Event}, which can be today,
-     * if the {@code Event} is recurring. Otherwise, returns the {@code Event} date.
+     * Returns an {@code Event} with the same event description, time, duration and recur frequency,
+     * but with the next recurring date if the {@code Event} has passed its end date.
+     */
+    public Event getNextRecurringEvent() {
+        return new Event(getEventDescription(), getNextRecurrenceDate(), getTime(), getDuration(), getRecurFrequency());
+    }
+
+    /**
+     * Returns the next recurring {@code LocalDate} of the {@code Event} (which can be today),
+     * if the {@code Event} is recurring and the {@code Event} has passed its end date.
+     * Otherwise, returns the {@code Event}'s current start date.
      */
     public LocalDate getNextRecurrenceDate() {
         LocalDate newDate = date;
@@ -133,18 +139,18 @@ public class Event implements Comparable<Event> {
         case NONE:
             return date;
         case DAILY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 newDate = today;
             }
             break;
         case WEEKLY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
             }
             break;
         case BIWEEKLY:
-            if (today.isAfter(date)) {
+            if (today.isAfter(getEndDate())) {
                 DayOfWeek dayOfWeek = date.getDayOfWeek();
                 newDate = today.with(next(dayOfWeek));
                 if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
@@ -159,28 +165,87 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns true if date collides with {@code Event}'s date and recurrence
+     * Returns true if date clashes with event.
      *
      * @param date used to check against {@code Event}'s date
-     * @return true if date collides with {@code Event}'s date and recurrence
+     * @return true if date clashes with {@code Event}
      */
     public boolean willDateCollide(LocalDate date) {
-        if (this.date.isAfter(date)) {
-            // if start date of event is after the date we are checking, then they will never collide
+        long dateDiff = ChronoUnit.DAYS.between(this.date, date);
+        // event has not started compared to date given.
+        if (dateDiff < 0) {
             return false;
         }
 
+        // event is what we are looking for
+        if (dateDiff == 0) {
+            return true;
+        }
+
+        // event that has past
+        LocalDate endDate;
+        LocalDate closestDate;
         switch (recurFrequency) {
         case DAILY:
-            return true;
+            endDate = date;
+            break;
         case WEEKLY:
-            return this.date.getDayOfWeek().equals(date.getDayOfWeek());
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 7);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
         case BIWEEKLY:
-            return (ChronoUnit.DAYS.between(this.date, date) % 14 == 0);
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 14);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
         default:
             // case NONE and INVALID falls through to reach here
-            return this.date.equals(date);
+            endDate = getEndDate();
         }
+        if (ChronoUnit.DAYS.between(date, endDate) >= 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if date and time clashes with event.
+     *
+     * @param date used with time to check against {@code Event}'s date and time
+     * @param time used with date to check against {@code Event}'s date and time
+     * @return true if date and time clashes with {@code Event}
+     */
+    public boolean willDateTimeCollideEvent(LocalDate date, LocalTime time) {
+        long dateDiff = ChronoUnit.DAYS.between(this.date, date);
+        // event has not started compared to date given.
+        if (dateDiff < 0) {
+            return false;
+        }
+
+        // event that has past
+        LocalDate endDate;
+        LocalDate closestDate;
+        switch (recurFrequency) {
+        case WEEKLY:
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 7);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
+        case BIWEEKLY:
+            closestDate = this.date.plusDays(dateDiff - dateDiff % 14);
+            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
+            break;
+        default:
+            // case NONE and INVALID falls through to reach here
+            endDate = getEndDate();
+        }
+        if (ChronoUnit.DAYS.between(date, endDate) >= 0) {
+            LocalDateTime startDateTime = LocalDateTime.of(this.date, this.time);
+            LocalDateTime endDateTime = LocalDateTime.of(endDate, getEndTime());
+            LocalDateTime toCheckDateTime = LocalDateTime.of(date, time);
+            return (startDateTime.isEqual(toCheckDateTime)
+                    || startDateTime.isBefore(toCheckDateTime)
+                    && endDateTime.isAfter(toCheckDateTime));
+        }
+        return false;
     }
 
     /**
