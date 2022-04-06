@@ -26,6 +26,7 @@ import seedu.address.model.person.GitHub;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.SamePersonPredicate;
 import seedu.address.model.person.Tag;
 import seedu.address.model.person.Telegram;
 import seedu.address.model.schedule.Schedule;
@@ -87,6 +88,9 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        if (model.isPersonViewed(personToEdit)) {
+            model.updateViewSchedulePerson(new SamePersonPredicate(editedPerson));
+        }
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));

@@ -166,6 +166,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean isPersonViewed(Person person) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void updateViewSchedulePerson(Predicate<Person> predicate) {
         }
     }

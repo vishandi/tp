@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class EventDescription {
     public static final String MESSAGE_CONSTRAINTS =
-            "Event descriptions cannot contain \"/\"";
+            "Event descriptions cannot contain \"/\", cannot be blank, and contains at most 60 characters";
     public static final String VALIDATION_REGEX = "^(?!.*\\/).+$";
     public final String value;
 

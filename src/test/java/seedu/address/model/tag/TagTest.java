@@ -37,4 +37,13 @@ public class TagTest {
         assertTrue(Tag.isValidTagName("O".repeat(30))); //maximum length
     }
 
+    @Test
+    public void equals() {
+        assertFalse(new Tag("abc").equals(null)); // null
+        assertFalse(new Tag("aBC").equals(new Tag("Def"))); // different tag
+
+        assertTrue(new Tag("abc").equals(new Tag("abc"))); // same tag
+        assertTrue(new Tag("abC").equals(new Tag("ABc"))); // same lower case form
+    }
+
 }

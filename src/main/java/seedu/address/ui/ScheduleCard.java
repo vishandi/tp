@@ -33,8 +33,6 @@ public class ScheduleCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label phone;
-    @FXML
     private Label scheduleHeader;
     @FXML
     private HBox scheduleBox;
@@ -81,7 +79,6 @@ public class ScheduleCard extends UiPart<Region> {
 
         this.person = person;
         name.setText(person.getName().value);
-        phone.setText(person.getPhone().value);
         scheduleHeader.setText(String.format(SCHEDULE_HEADER, person.getName().value));
         upcomingScheduleHeader.setText(String.format(UPCOMING_SCHEDULE_HEADER, person.getName().value));
 
