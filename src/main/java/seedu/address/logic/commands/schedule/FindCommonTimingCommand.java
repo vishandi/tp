@@ -7,7 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -71,6 +74,11 @@ public class FindCommonTimingCommand extends Command {
             endSlot += 1;
         }
 
+        if (endTime == LocalTime.parse("00:00")) {
+            //set as busy
+            Arrays.fill(timeSlots, 1);
+        }
+
         for (int i = startSlot; i <= endSlot; i++) {
             //set as busy
             timeSlots[i] = 1;
@@ -114,6 +122,14 @@ public class FindCommonTimingCommand extends Command {
                 sb.append(startTime);
                 sb.append(String.format("-%s\n", LocalTime.of(0, 0)));
             }
+        }
+        
+        Set<Integer> distinct = Arrays.stream(timeSlots).boxed().collect(Collectors.toSet());
+        boolean allEqual = distinct.size() == 1;
+        if (timeSlots[0] == 0 && allEqual) {
+            sb.replace(0, 25, "The whole day is free for these contacts!");
+        } else if (allEqual) {
+            sb.replace(0, 25, "There are no free timings available!");
         }
         return new CommandResult(sb.toString());
     }
