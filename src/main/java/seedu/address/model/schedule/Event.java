@@ -220,6 +220,11 @@ public class Event implements Comparable<Event> {
         return false;
     }
 
+    /**
+     * Returns true if the event is happening sometime in {@param date}.
+     * @param date
+     * @return true if the event is happening sometime in {@param date}
+     */
     public boolean isCollidingAtDate(LocalDate date) {
         return (getDate().isBefore(date) && getEndDate().isAfter(date))
                 || getDate().isEqual(date) || getEndDate().isEqual(date);
