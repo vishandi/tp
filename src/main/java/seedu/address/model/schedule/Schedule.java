@@ -52,6 +52,10 @@ public class Schedule {
 
         for (Event event : getEvents()) {
             if (event.willDateCollide(nextDaysForward)) {
+                Event eventAtDate = event.getEventAtDate(nextDaysForward);
+                if (eventAtDate.getDuration().isZero()) {
+                    continue;
+                }
                 upcomingEvents.add(event.getEventAtDate(nextDaysForward));
             }
         }
