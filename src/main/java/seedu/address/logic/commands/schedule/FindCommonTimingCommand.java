@@ -75,7 +75,7 @@ public class FindCommonTimingCommand extends Command {
             endSlot += 1;
         }
 
-        if (endTime == LocalTime.parse("00:00")) {
+        if (endTime == LocalTime.of(0,0) {
             //set as busy
             Arrays.fill(timeSlots, 1);
         }
