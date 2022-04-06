@@ -153,6 +153,7 @@ public class FindCommonTimingCommand extends Command {
                 }
             }
         }
+        model.updateViewSchedulePerson(Model.PREDICATE_SHOW_NO_PERSONS);
         return new CommandResult(convertLocalTimeArrayToString(listOfAvailableTime));
     }
 
