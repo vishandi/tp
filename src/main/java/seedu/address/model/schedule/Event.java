@@ -97,17 +97,34 @@ public class Event implements Comparable<Event> {
         }
 
         // event that has past
-        LocalDateTime eventEndDateTime;
         LocalDate startDate;
         switch (recurFrequency) {
         case DAILY:
-            startDate = relativeDate;
+            // Unique case: if daily event happens before midnight and ends after midnight,
+            // we get the "ongoing" date instead
+            if (getTime().isBefore(LocalTime.MIDNIGHT) && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
+                startDate = relativeDate.minusDays(1);
+            } else {
+                startDate = relativeDate;
+            }
             break;
         case WEEKLY:
-            startDate = date.plusDays(dateDiff - dateDiff % 7);
+            // Unique case: if weekly event occurs for more than 6 days and ends on relative date,
+            // we get the "ongoing" date instead
+            if (duration.compareTo(Duration.ofDays(6)) > 0 && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
+                startDate = date.plusDays(dateDiff - dateDiff % 7 - 7);
+            } else {
+                startDate = date.plusDays(dateDiff - dateDiff % 7);
+            }
             break;
         case BIWEEKLY:
-            startDate = date.plusDays(dateDiff - dateDiff % 14);
+            // Unique case: if weekly event occurs for more than 6 days and ends on relative date,
+            // we get the "ongoing" date instead
+            if (duration.compareTo(Duration.ofDays(13)) > 0 && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
+                startDate = date.plusDays(dateDiff - dateDiff % 14 - 14);
+            } else {
+                startDate = date.plusDays(dateDiff - dateDiff % 14);
+            }
             break;
         default:
             // case NONE and INVALID falls through to reach here
