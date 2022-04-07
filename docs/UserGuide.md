@@ -241,9 +241,9 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * Adds an event to the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * You cannot add duplicate events. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
 <div markdown="block" class="alert alert-info">
-  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates.**
+  :information_source: **NOTE:** CS2103T Tutorial 2022-01-01 10:00-11:00 (Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00 (Weekly) because they eventually recur on the same dates.
 </div>
-* If `TIME` is not specified, it will be considered as a full-day event starting from 00:00.
+* If `TIME` is not specified, the added event will have a duration of 24 hours and start from 00:00.
 * If `TIME` is specified but not `DURATION`, the duration will be defaulted to 2 hours.
 * If `DURATION` is specified, `TIME` also needs to be specified.
 * `EVENT_DESCRIPTION` should not contain **/** and should be at most 60 characters.
@@ -258,7 +258,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 | `Mm`   | M minutes         | `20m`   |
 | `H`    | H hours           | `3`     |
 
-* Duration **must be less than 336hours (2 weeks) and at least 1 minute long**
+* Duration **must be at least 1 minute long and less than or equal to 336hours (2 weeks)**
 * `RECUR_FREQUENCY`, if provided, must be one of the following values (case-insensitive):
 
 | Value            | Frequency |
@@ -282,7 +282,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 * At least one of the optional fields must be provided.
 * You cannot edit an event's description, date, time, duration and/or recurring frequency such that there will be duplicate events in UniGenda. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
 <div markdown="block" class="alert alert-info">
-  **:information_source: CS2103T Tutorial 2022-01-01 10:00-11:00(Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00(Weekly) because they eventually recur on the same dates.**
+  :information_source: **NOTE:** CS2103T Tutorial 2022-01-01 10:00-11:00 (Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00 (Weekly) because they eventually recur on the same dates.
 </div>
 * `EVENT_DESCRIPTION` should not contain **/** and at most 60 characters.
 * `DATE` should be a valid date in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
@@ -296,7 +296,7 @@ Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] 
 | `Mm`   | M minutes         | `20m`   |
 | `H`    | H hours           | `3`     |
 
-* Duration **must be less than 336hours (2 weeks) and at least 1 minute long**
+* Duration **must be at least 1 minute long and less than or equal to 336hours (2 weeks)**
 * RECUR_FREQUENCY, if provided, must be one of the following values (case-insensitive) :
 
 | Value            | Frequency |
@@ -347,14 +347,18 @@ Example:
 
 ### Importing a person's schedule: `importSchedule`
 
-Imports a schedule from a file to the specified person.
+Imports a schedule from a file to the specified person. The specified person's schedule will be overwritten.
 
 Format: `importSchedule INDEX pa/FILE_PATH`
 
 * Imports a schedule to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.).
 * The imported `Schedule` **cannot be empty**.
-* `FILE_PATH` may be absolute or relative to the folder storing the UniGenda.jar file. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path).
+* `FILE_PATH` may be absolute or relative to the folder where the application was opened. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path).
+<div markdown="span" class="alert alert-warning">
+  :exclamation: **Caution:** The person's schedule will be **overwritten** with the imported schedule.
+</div>
+
 
 Examples:
 `importSchedule 1 pa/typicalSchedule.json`
@@ -365,7 +369,7 @@ Format: `exportSchedule INDEX`
 
 * Allows user to export schedule of person at specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
-* The exported data will be saved in the `data/export/` folder in the folder that you save your `UniGenda.jar`.
+* The exported data will be saved in the `data/export/` folder relative to the folder where the application was opened.
 
 Examples:
 * `exportSchedule 1`
