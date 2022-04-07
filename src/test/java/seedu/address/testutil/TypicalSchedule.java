@@ -16,23 +16,23 @@ public class TypicalSchedule {
 
     public static final Event SE_TUTORIAL = new EventBuilder().withEventDescription("CS2103T Tutorial")
             .withDate("2022-03-16").withTime("09:00").withDuration("1H")
-            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent();
+            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent(LocalDate.now());
     public static final Event SE_LECTURE = new EventBuilder().withEventDescription("CS2103T Lecture")
             .withDate("2022-03-18").withTime("14:00").withDuration("2H")
-            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent();
+            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent(LocalDate.now());
     public static final Event OS_TUTORIAL = new EventBuilder().withEventDescription("CS2106 Tutorial")
             .withDate("2022-03-14").withTime("10:00").withDuration("1H")
-            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent();
+            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent(LocalDate.now());
     public static final Event OS_LECTURE = new EventBuilder().withEventDescription("CS2106 Lecture")
             .withDate("2022-03-16").withTime("10:00").withDuration("2H")
-            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent();
+            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent(LocalDate.now());
     public static final Event OS_LAB = new EventBuilder().withEventDescription("CS2106 Lab")
             .withDate("2022-03-17").withTime("13:00").withDuration("1H")
-            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent();
+            .withRecurFrequency("WEEKLY").build().getNextRecurringEvent(LocalDate.now());
     public static final Event NATIONAL_DAY_PARTY = new EventBuilder().withEventDescription("National Day Party at BFF")
-            .withDate("2022-08-09").withTime("20:00").withDuration("3H").build().getNextRecurringEvent();
+            .withDate("2022-08-09").withTime("20:00").withDuration("3H").build().getNextRecurringEvent(LocalDate.now());
     public static final Event ALICE_BIRTHDAY = new EventBuilder().withEventDescription("Alice Birthday Surprise")
-            .withDate("2022-03-14").withTime("17:00").withDuration("4H").build().getNextRecurringEvent();
+            .withDate("2022-03-14").withTime("17:00").withDuration("4H").build().getNextRecurringEvent(LocalDate.now());
     public static final LocalTime TYPICAL_TIME = LocalTime.parse("10:00");
     public static final LocalDate TYPICAL_DATE = LocalDate.parse("2022-02-14");
     public static final String TYPICAL_PATH = "typicalSchedule.json";
