@@ -137,8 +137,8 @@ public class Event implements Comparable<Event> {
             newDate = today.with(previous(dayOfWeek));
             LocalDateTime newEndDateTime = LocalDateTime.of(newDate, getTime()).plus(getDuration());
             LocalDate newEndDate = newEndDateTime.toLocalDate();
-            if (newEndDateTime.toLocalTime().equals(LocalTime.of(0, 0))) {  //event ends at midnight
-                newEndDate = newEndDate.minusDays(1);   //should reset 1 day earlier
+            if (newEndDateTime.toLocalTime().equals(LocalTime.of(0, 0))) { //event ends at midnight
+                newEndDate = newEndDate.minusDays(1); //should reset 1 day earlier
             }
             if (today.isAfter(newEndDate)) {
                 newDate = newDate.plusDays(7);
@@ -152,8 +152,8 @@ public class Event implements Comparable<Event> {
             }
             newEndDateTime = LocalDateTime.of(newDate, getTime()).plus(getDuration());
             newEndDate = newEndDateTime.toLocalDate();
-            if (newEndDateTime.toLocalTime().equals(LocalTime.of(0, 0))) {  //event ends at midnight
-                newEndDate = newEndDate.minusDays(1);   //should reset 1 day earlier
+            if (newEndDateTime.toLocalTime().equals(LocalTime.of(0, 0))) { //event ends at midnight
+                newEndDate = newEndDate.minusDays(1); //should reset 1 day earlier
             }
             if (today.isAfter(newEndDate)) {
                 newDate = newDate.plusDays(14);
