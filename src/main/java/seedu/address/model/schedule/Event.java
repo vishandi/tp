@@ -1,6 +1,6 @@
 package seedu.address.model.schedule;
 
-import static java.time.temporal.TemporalAdjusters.next;
+import static java.time.temporal.TemporalAdjusters.previous;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DayOfWeek;
@@ -130,23 +130,33 @@ public class Event implements Comparable<Event> {
         case NONE:
             return date;
         case DAILY:
-            if (today.isAfter(getEndDate())) {
-                newDate = today;
-            }
+            newDate = today;
             break;
         case WEEKLY:
-            if (today.isAfter(getEndDate())) {
-                DayOfWeek dayOfWeek = date.getDayOfWeek();
-                newDate = today.with(next(dayOfWeek));
+            DayOfWeek dayOfWeek = date.getDayOfWeek();
+            newDate = today.with(previous(dayOfWeek));
+            LocalDateTime newEndDateTime = LocalDateTime.of(newDate, getTime()).plus(getDuration());
+            LocalDate newEndDate = newEndDateTime.toLocalDate();
+            if (newEndDateTime.toLocalTime().equals(LocalTime.of(0, 0))) { //event ends at midnight
+                newEndDate = newEndDate.minusDays(1); //should reset 1 day earlier
+            }
+            if (today.isAfter(newEndDate)) {
+                newDate = newDate.plusDays(7);
             }
             break;
         case BIWEEKLY:
-            if (today.isAfter(getEndDate())) {
-                DayOfWeek dayOfWeek = date.getDayOfWeek();
-                newDate = today.with(next(dayOfWeek));
-                if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
-                    newDate = newDate.with(next(dayOfWeek));
-                }
+            dayOfWeek = date.getDayOfWeek();
+            newDate = today.with(previous(dayOfWeek));
+            if (ChronoUnit.DAYS.between(date, newDate) % 14 != 0) {
+                newDate = newDate.minusDays(7);
+            }
+            newEndDateTime = LocalDateTime.of(newDate, getTime()).plus(getDuration());
+            newEndDate = newEndDateTime.toLocalDate();
+            if (newEndDateTime.toLocalTime().equals(LocalTime.of(0, 0))) { //event ends at midnight
+                newEndDate = newEndDate.minusDays(1); //should reset 1 day earlier
+            }
+            if (today.isAfter(newEndDate)) {
+                newDate = newDate.plusDays(14);
             }
             break;
         default:
