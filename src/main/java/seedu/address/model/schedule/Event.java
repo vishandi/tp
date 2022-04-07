@@ -1,9 +1,7 @@
 package seedu.address.model.schedule;
 
-import static java.time.temporal.TemporalAdjusters.previous;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -200,7 +198,8 @@ public class Event implements Comparable<Event> {
      * but with the next recurring date if the {@code Event} has passed its end date and time.
      */
     public Event getNextRecurringEvent(LocalDate relativeDate) {
-        return new Event(getEventDescription(), getNextRecurrenceDate(relativeDate), getTime(), getDuration(), getRecurFrequency());
+        return new Event(getEventDescription(), getNextRecurrenceDate(relativeDate), getTime(), getDuration(),
+                getRecurFrequency());
     }
 
     /**
