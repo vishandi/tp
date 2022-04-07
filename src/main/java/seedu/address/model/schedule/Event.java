@@ -210,6 +210,7 @@ public class Event implements Comparable<Event> {
     public LocalDate getNextRecurrenceDate(LocalDate relativeDate) {
         LocalDate closestStartDate = getClosestStartDate(relativeDate);
         LocalDateTime eventEndDateTime = LocalDateTime.of(closestStartDate, time).plus(duration);
+        LocalDate eventEndDate = eventEndDateTime.toLocalDate();
 
         LocalDate nextDate;
         switch (recurFrequency) {
@@ -217,24 +218,24 @@ public class Event implements Comparable<Event> {
             nextDate = closestStartDate;
             break;
         case DAILY:
-            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time).plus(duration))) {
-                nextDate = closestStartDate.plusDays(1);
-            } else {
+            if (eventEndDate.isEqual(relativeDate)) {
                 nextDate = closestStartDate;
+            } else {
+                nextDate = relativeDate;
             }
             break;
         case WEEKLY:
-            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time).plus(duration))) {
-                nextDate = closestStartDate.plusDays(7);
-            } else {
+            if (eventEndDate.isEqual(relativeDate) || eventEndDate.isAfter(relativeDate)) {
                 nextDate = closestStartDate;
+            } else {
+                nextDate = closestStartDate.plusDays(7);
             }
             break;
         case BIWEEKLY:
-            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time).plus(duration))) {
-                nextDate = closestStartDate.plusDays(14);
-            } else {
+            if (eventEndDate.isEqual(relativeDate) || eventEndDate.isAfter(relativeDate)) {
                 nextDate = closestStartDate;
+            } else {
+                nextDate = closestStartDate.plusDays(14);
             }
             break;
         default:
