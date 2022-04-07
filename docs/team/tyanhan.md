@@ -26,19 +26,15 @@ Given below are my contributions to the project.
   * Justification: This feature allows for a quick and easy way for users to clear their contacts' schedule, rather than delete events 1 by 1.
 * **New Feature**: Added the ability to set a contact as the user.
   * What it does: Shifts the specified contact to the top of the list for the user to reference more easily if he/she wants to view his/her own schedule.
-
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=tyanhan&breakdown=true)
-
 * **Project management**:
   * Set up the team's organisation and repository.
   * Wrote the full `v1.3 Demo` documentation.
   * Aided project teammate with the `FindCommonTiming` command's logic.
-
 * **Enhancements to existing features**:
   * Fixed the GUI size and removed the resizable icon on mouse hover bug. [#121](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/121)
   * Wrote tests for `AddEventCommand`, `ClearScheduleCommand`, `SetUserCommand` and their related parsers. [#84](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/84/files) [#119](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/119) [#113](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/113)
-  * Wrote tests for `JsonAdaptedEvent` and `JsonAdaptedSchedule` [#77](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/77/files) 
-
+  * Wrote tests for `JsonAdaptedEvent` and `JsonAdaptedSchedule` [#77](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/77/files)
 * **Documentation**:
   * User Guide:
     * Added documentation for the `AddEvent`, `ImportScheudle`, `ClearSchedule` and `SetUser` features.
