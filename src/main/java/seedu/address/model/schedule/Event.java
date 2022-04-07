@@ -118,7 +118,7 @@ public class Event implements Comparable<Event> {
             }
             break;
         case BIWEEKLY:
-            // Unique case: if weekly event occurs for more than 6 days and ends on relative date,
+            // Unique case: if weekly event occurs for more than 13 days and ends on relative date,
             // we get the "ongoing" date instead
             if (duration.compareTo(Duration.ofDays(13)) > 0 && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
                 startDate = date.plusDays(dateDiff - dateDiff % 14 - 14);
