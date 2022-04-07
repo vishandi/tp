@@ -114,6 +114,6 @@ class JsonAdaptedEvent {
         }
 
         Event event = new Event(modelEventDescription, modelDate, modelTime, modelDuration, modelRecurFrequency);
-        return event.getNextRecurringEvent();
+        return event.getNextRecurringEvent(LocalDate.now());
     }
 }
