@@ -9,6 +9,7 @@ import seedu.address.logic.commands.schedule.WhoIsFreeCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.IsTagInPersonPredicate;
 import seedu.address.model.person.Tag;
@@ -35,7 +36,7 @@ public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
         }
 
         if (hasTagPrefix) {
-            Tag tag = new Tag(argMultimap.getValue(PREFIX_TAG).get());
+            Tag tag = ParserUtil.parseTag((argMultimap.getValue(PREFIX_TAG).get()));
 
             return new ViewGroupCommand(new IsTagInPersonPredicate(tag));
         } else {

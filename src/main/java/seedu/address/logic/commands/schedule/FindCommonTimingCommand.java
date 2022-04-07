@@ -7,8 +7,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -25,14 +27,15 @@ import seedu.address.model.schedule.Schedule;
  */
 public class FindCommonTimingCommand extends Command {
 
-    public static final String COMMAND_WORD = "findcommontiming";
+    public static final String COMMAND_WORD = "findCommonTiming";
+    public static final String COMMAND_WORD_LOWER = "findcommontiming";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Retrieves common free timings of contacts "
             + "who share the same tag\n"
             + "Parameters: "
-            + PREFIX_TAG + "TAG"
+            + PREFIX_TAG + "TAG "
             + PREFIX_DATE + "DATE\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TAG + "friends "
             + PREFIX_DATE + "2022-02-14";
 
@@ -55,51 +58,32 @@ public class FindCommonTimingCommand extends Command {
      * @param event event that needs to be accounted for
      */
     public void blockTimeSlots(int[] timeSlots, Event event) {
-        LocalTime startTime = event.getTime();
+        Event eventAtCurrentDate = event.getEventAtDate(date);
+        LocalTime startTime = eventAtCurrentDate.getTime();
         int hours = startTime.getHour();
         int minutes = startTime.getMinute();
         int startSlot = hours * 2;
         if (minutes >= 30) {
             startSlot += 1;
         }
-
-        LocalTime endTime = event.getEndTime();
+        LocalTime endTime = eventAtCurrentDate.getEndTime();
         int endHours = endTime.getHour();
         int endMinutes = endTime.getMinute();
         int endSlot = endHours * 2;
         if (endMinutes > 30) {
+            endSlot += 2;
+        } else if (endMinutes > 0) {
             endSlot += 1;
         }
 
-        for (int i = startSlot; i <= endSlot; i++) {
+        if (endTime.equals(LocalTime.of(0, 0))) {
+            endSlot = 48;
+        }
+
+        for (int i = startSlot; i < endSlot; i++) {
             //set as busy
             timeSlots[i] = 1;
         }
-    }
-
-    /**
-     * Helper method to convert integer to time
-     * @param n integer that represent timeslot that is blocked
-     * @return time to be outputted
-     */
-    public LocalTime convertIntToTime(int n) {
-        return n % 2 == 0
-                ? LocalTime.of(n / 2, 0)
-                : LocalTime.of(n / 2, 30);
-    }
-
-    /**
-     * Helper method to convert array to strings that represent common timings shared.
-     * @param list of LocalTime objects to be outputted
-     * @return a string representing common free timings
-     */
-    public String convertLocalTimeArrayToString(List<LocalTime> list) {
-        String formattedTime = "%s - %s\n";
-        String freeTimeSlots = "";
-        for (int i = 0; i < list.size(); i = i + 2) {
-            freeTimeSlots += String.format(formattedTime, list.get(i), list.get(i + 1));
-        }
-        return freeTimeSlots;
     }
 
     @Override
@@ -115,45 +99,39 @@ public class FindCommonTimingCommand extends Command {
                 }
             }
         }
-
-        // This list will contain an even number of LocalTime objects
-        // The even indexes (i.e. 0, 2, 4, ...) will be starting times
-        // The odd indexes will be ending times
-        List<LocalTime> listOfAvailableTime = new ArrayList<>();
-        int counter = 0;
+        int toggle = timeSlots[0];
+        LocalTime startTime = LocalTime.of(0, 0);
+        Duration duration = Duration.ofMinutes(0);
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < timeSlots.length; i++) {
             // Check if current slot is free
-            if (timeSlots[i] == 0) {
-
-                if (i != 0 && timeSlots[i - 1] == 0) {
-                    // Shor-circuits if the current timeslot is the first timeslot
-                    // If the previous timeslot was also free, i.e. the current timeslot is part of an ongoing block
-                    // Get the current LocalTime and add 30 minutes to it
-                    LocalTime currentTime = listOfAvailableTime.get(counter).plus(Duration.ofMinutes(30));
-                    listOfAvailableTime.set(counter, currentTime);
-                    if (i != timeSlots.length - 1 && timeSlots[i + 1] == 1) {
-                        // Short-circuits if the current slot is the last slot
-                        // If the next timeslot is NOT free, i.e. the block stops at the current timeslot
-                        // We will move onto the next set of LocalTime
-                        LocalTime newTime = listOfAvailableTime.get(counter).plus(Duration.ofMinutes(30));
-                        listOfAvailableTime.set(counter, newTime);
-                        counter++;
-                    }
-                    if (i == timeSlots.length - 1) {
-                        LocalTime newTime = listOfAvailableTime.get(counter).plus(Duration.ofMinutes(30));
-                        listOfAvailableTime.set(counter, newTime);
-                    }
+            if (timeSlots[i] == toggle) {
+                duration = duration.plusMinutes(30);
+            } else {
+                if (toggle == 0) { // startTime - endTime(startTime + duration)
+                    toggle = 1;
+                    sb.append(startTime);
+                    startTime = startTime.plus(duration);
+                    sb.append(String.format("-%s\n", startTime));
                 } else {
-                    // If the previous timeslot was not free, i.e. it is the start of a new block
-                    // OR if the current timeslot is the first timeslot
-                    // Add a new LocalTime into the list
-                    listOfAvailableTime.add(counter, convertIntToTime(i));
-                    counter++;
-                    listOfAvailableTime.add(counter, convertIntToTime(i));
+                    toggle = 0;
+                    startTime = startTime.plus(duration);
                 }
+                duration = duration.ofMinutes(30);
+            }
+            if (i == timeSlots.length - 1) {
+                sb.append(startTime);
+                sb.append(String.format("-%s\n", LocalTime.of(0, 0)));
             }
         }
-        return new CommandResult(convertLocalTimeArrayToString(listOfAvailableTime));
+        Set<Integer> distinct = Arrays.stream(timeSlots).boxed().collect(Collectors.toSet());
+        boolean allEqual = distinct.size() == 1;
+        if (timeSlots[0] == 0 && allEqual) {
+            sb.replace(0, 25, "The whole day is free for these contacts!");
+        } else if (allEqual) {
+            sb.replace(0, 25, "There are no free timings available!");
+        }
+        return new CommandResult(sb.toString());
     }
 
     @Override

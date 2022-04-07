@@ -39,7 +39,7 @@ public class FindCommonTimingCommandParser implements Parser<FindCommonTimingCom
         }
 
         if (hasTagPrefix && hasDatePrefix) {
-            Tag tag = new Tag(argMultimap.getValue(PREFIX_TAG).get());
+            Tag tag = ParserUtil.parseTag((argMultimap.getValue(PREFIX_TAG).get()));
             LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
             return new FindCommonTimingCommand(new IsTagInPersonPredicate(tag), date);
