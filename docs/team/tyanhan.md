@@ -37,6 +37,6 @@ Given below are my contributions to the project.
   * Wrote tests for `JsonAdaptedEvent` and `JsonAdaptedSchedule` [#77](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/77/files)
 * **Documentation**:
   * User Guide:
-    * Added documentation for the `AddEvent`, `ImportScheudle`, `ClearSchedule` and `SetUser` features.
+    * Added documentation for the `AddEvent`, `ImportSchedule`, `ClearSchedule` and `SetUser` features.
   * Developer Guide:
     * Added documentation for the `AddEvent` feature.
