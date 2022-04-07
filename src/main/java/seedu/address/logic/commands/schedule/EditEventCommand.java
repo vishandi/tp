@@ -58,6 +58,7 @@ public class EditEventCommand extends Command {
     private final Index targetIndex;
     private final Index targetEventIndex;
     private final EditEventDescriptor editEventDescriptor;
+    private Event editedEvent; // this is to retrieve the correct edited event for display message
 
     /**
      * @param targetIndex of the person in the filtered person list to edit
@@ -90,7 +91,6 @@ public class EditEventCommand extends Command {
         model.setSchedule(personToEdit, updatedSchedule);
         model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
 
-        Event editedEvent = updatedSchedule.getEvent(targetEventIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
@@ -98,7 +98,7 @@ public class EditEventCommand extends Command {
      * Creates and returns a {@code Schedule} with the details of {@code scheduleToEdit}
      * edited with {@code editEventDescriptor} at {@code targetEventIndex}.
      */
-    private static Schedule createEditedSchedule(Schedule scheduleToEdit, Index targetEventIndex,
+    private Schedule createEditedSchedule(Schedule scheduleToEdit, Index targetEventIndex,
             EditEventDescriptor editEventDescriptor) throws CommandException {
         assert scheduleToEdit != null;
 
@@ -115,6 +115,7 @@ public class EditEventCommand extends Command {
             throw new CommandException(DURATION_RECUR_FREQ_MESSAGE_CONSTRAINTS);
         }
 
+        editedEvent = updatedEvent;
         updatedEvents.add(targetEventIndex.getZeroBased(), updatedEvent);
         Collections.sort(updatedEvents);
         return new Schedule(updatedEvents);
@@ -124,7 +125,7 @@ public class EditEventCommand extends Command {
      * Creates and returns an {@code Event} with the details of {@code eventToEdit}
      * edited with {@code editEventDescriptor}.
      */
-    private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
+    private Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
 
         EventDescription updatedEventDescription =
