@@ -206,19 +206,10 @@ public class Event implements Comparable<Event> {
         return true;
     }
 
-    public Event getNextEvent() {
-        return new Event(getEventDescription(), getNextDate(), getTime(), getDuration(), getRecurFrequency());
-    }
-
     /**
-     * Returns an {@code Event} with the same event description, time, duration and recur frequency,
-     * but with the next recurring date if the {@code Event} has passed its end date and time.
+     * Returns the date this event will occur next, if it is a recurring event.
+     * Otherwise, returns the date the event will happen.
      */
-    public Event getNextRecurringEvent(LocalDate relativeDate) {
-        return new Event(getEventDescription(), getClosestStartDate(relativeDate), getTime(), getDuration(),
-                getRecurFrequency());
-    }
-
     public LocalDate getNextDate() {
         switch (recurFrequency) {
         case NONE:
@@ -233,6 +224,22 @@ public class Event implements Comparable<Event> {
             logger.warning(String.format(MISSING_RECUR_FREQUENCY_CASE, recurFrequency));
         }
         return date;
+    }
+
+    /**
+     * Returns the next Event of the next time this event will occur, if it is a recurring event.
+     */
+    public Event getNextEvent() {
+        return new Event(getEventDescription(), getNextDate(), getTime(), getDuration(), getRecurFrequency());
+    }
+
+    /**
+     * Returns an {@code Event} with the same event description, time, duration and recur frequency,
+     * but with the next recurring date if the {@code Event} has passed its end date and time.
+     */
+    public Event getNextRecurringEvent(LocalDate relativeDate) {
+        return new Event(getEventDescription(), getClosestStartDate(relativeDate), getTime(), getDuration(),
+                getRecurFrequency());
     }
 
     /**
@@ -293,10 +300,6 @@ public class Event implements Comparable<Event> {
 
         if (date.isBefore(getDate()) || !willDateCollide(date)) {
             return eventsAtDate;
-        }
-
-        while (!nextEvent.isCollidingAtDate(date)) {
-            nextEvent = nextEvent.getNextEvent();
         }
 
         if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isAfter(date)) {
