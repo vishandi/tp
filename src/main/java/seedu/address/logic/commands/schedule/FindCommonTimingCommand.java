@@ -76,14 +76,8 @@ public class FindCommonTimingCommand extends Command {
             endSlot += 1;
         }
 
-        Duration duration = eventAtCurrentDate.getDuration();
-        if (duration == Duration.ofDays(1)) {
-            //set as busy
-            Arrays.fill(timeSlots, 1);
-        }
-
         if (endTime.equals(LocalTime.of(0, 0))) {
-            timeSlots[48] = 1;
+            endSlot = 48;
         }
 
         for (int i = startSlot; i < endSlot; i++) {
