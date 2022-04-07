@@ -25,6 +25,8 @@ public class EventTest {
         Event dailyEvent = new EventBuilder().withDate("2021-01-01").withRecurFrequency("DAILY").build();
         Event weeklyEvent = new EventBuilder().withDate("2021-01-01").withRecurFrequency("WEEKLY").build();
         Event biweeklyEvent = new EventBuilder().withDate("2021-01-01").withRecurFrequency("BIWEEKLY").build();
+        Event todayEvent = new EventBuilder().withDate(LocalDate.now().toString()).withRecurFrequency("DAILY")
+                .withDuration("24H").withTime("00:00").build();
 
         assertEquals(new EventBuilder().withDate("2021-01-01").withRecurFrequency("NONE").build(),
                 noneEvent.getNextEvent());
@@ -34,6 +36,32 @@ public class EventTest {
                 weeklyEvent.getNextEvent());
         assertEquals(new EventBuilder().withDate("2021-01-15").withRecurFrequency("BIWEEKLY").build(),
                 biweeklyEvent.getNextEvent());
+        assertEquals(new EventBuilder().withDate(LocalDate.now().plusDays(1).toString()).withRecurFrequency("DAILY")
+                .withDuration("24H").withTime("00:00").build(), todayEvent.getNextEvent());
+    }
+
+    @Test
+    public void getNextRecurrenceDate() {
+        Event noneEvent = new EventBuilder().withDate(pastDate).withRecurFrequency("NONE").withTime("23:00")
+                .withDuration("2H").build();
+
+        assertEquals(LocalDate.parse(pastDate), noneEvent.getNextRecurrenceDate(LocalDate.now()));
+
+        Event dailyEvent = new EventBuilder().withDate(pastDate).withRecurFrequency("DAILY").withTime("23:00")
+                .withDuration("2H").build();
+
+        assertEquals(LocalDate.now().minusDays(1), dailyEvent.getNextRecurrenceDate(LocalDate.now()));
+
+        // future events
+        Event noneFutureEvent = new EventBuilder().withDate(futureDate).withRecurFrequency("NONE").build();
+        Event dailyFutureEvent = new EventBuilder().withDate(futureDate).withRecurFrequency("DAILY").build();
+        Event weeklyFutureEvent = new EventBuilder().withDate(futureDate).withRecurFrequency("WEEKLY").build();
+        Event biweeklyFutureEvent = new EventBuilder().withDate(futureDate).withRecurFrequency("BIWEEKLY").build();
+
+        assertEquals(LocalDate.parse(futureDate), noneFutureEvent.getNextRecurrenceDate(LocalDate.now()));
+        assertEquals(LocalDate.parse(futureDate), dailyFutureEvent.getNextRecurrenceDate(LocalDate.now()));
+        assertEquals(LocalDate.parse(futureDate), weeklyFutureEvent.getNextRecurrenceDate(LocalDate.now()));
+        assertEquals(LocalDate.parse(futureDate), biweeklyFutureEvent.getNextRecurrenceDate(LocalDate.now()));
     }
 
     @Test
@@ -56,65 +84,65 @@ public class EventTest {
                 .withRecurFrequency("NONE").build();
 
         // not colliding with the date
-        assertEquals(noneEvent.getEventsAtDate(LocalDate.parse("2020-12-31")), new ArrayList<>());
-        assertEquals(noneEvent.getEventsAtDate(LocalDate.parse("2021-01-03")), new ArrayList<>());
+        assertEquals(new ArrayList<>(), noneEvent.getEventsAtDate(LocalDate.parse("2020-12-31")));
+        assertEquals(new ArrayList<>(), noneEvent.getEventsAtDate(LocalDate.parse("2021-01-03")));
 
         // colliding
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate("2021-01-01").withDuration("1H").withTime("23:00")
                 .withRecurFrequency("NONE").build());
-        assertEquals(noneEvent.getEventsAtDate(LocalDate.parse("2021-01-01")), expectedEventList);
+        assertEquals(expectedEventList, noneEvent.getEventsAtDate(LocalDate.parse("2021-01-01")));
 
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate("2021-01-02").withDuration("1H").withTime("00:00")
                 .withRecurFrequency("NONE").build());
-        assertEquals(noneEvent.getEventsAtDate(LocalDate.parse("2021-01-02")), expectedEventList);
+        assertEquals(expectedEventList, noneEvent.getEventsAtDate(LocalDate.parse("2021-01-02")));
 
         // daily event
         Event dailyEvent = new EventBuilder().withDate(futureDate).withDuration("2H").withTime("23:00")
                 .withRecurFrequency("DAILY").build();
 
         // not colliding with the date
-        assertEquals(dailyEvent.getEventsAtDate(LocalDate.parse(pastDate)), new ArrayList<>());
+        assertEquals(new ArrayList<>(), dailyEvent.getEventsAtDate(LocalDate.parse(pastDate)));
 
         // colliding
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(futureDate).withDuration("1H").withTime("23:00")
                 .withRecurFrequency("DAILY").build());
-        assertEquals(dailyEvent.getEventsAtDate(LocalDate.parse(futureDate)), expectedEventList);
+        assertEquals(expectedEventList, dailyEvent.getEventsAtDate(LocalDate.parse(futureDate)));
 
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(oneDayAfterFutureDate).withDuration("1H").withTime("00:00")
                 .withRecurFrequency("DAILY").build());
         expectedEventList.add(new EventBuilder().withDate(oneDayAfterFutureDate).withDuration("1H").withTime("23:00")
                 .withRecurFrequency("DAILY").build());
-        assertEquals(dailyEvent.getEventsAtDate(LocalDate.parse(oneDayAfterFutureDate)), expectedEventList);
+        assertEquals(expectedEventList, dailyEvent.getEventsAtDate(LocalDate.parse(oneDayAfterFutureDate)));
 
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(oneWeekAfterFutureDate).withDuration("1H").withTime("00:00")
                 .withRecurFrequency("DAILY").build());
         expectedEventList.add(new EventBuilder().withDate(oneWeekAfterFutureDate).withDuration("1H").withTime("23:00")
                 .withRecurFrequency("DAILY").build());
-        assertEquals(dailyEvent.getEventsAtDate(LocalDate.parse(oneWeekAfterFutureDate)), expectedEventList);
+        assertEquals(expectedEventList, dailyEvent.getEventsAtDate(LocalDate.parse(oneWeekAfterFutureDate)));
 
         // weekly event
         Event weeklyEvent = new EventBuilder().withDate(futureDate).withDuration("166H").withTime("10:00")
                 .withRecurFrequency("WEEKLY").build();
 
         // not colliding with the date
-        assertEquals(weeklyEvent.getEventsAtDate(LocalDate.parse(pastDate)), new ArrayList<>());
+        assertEquals(new ArrayList<>(), weeklyEvent.getEventsAtDate(LocalDate.parse(pastDate)));
 
         // colliding on the day itself
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(futureDate).withDuration("14H").withTime("10:00")
                 .withRecurFrequency("WEEKLY").build());
-        assertEquals(weeklyEvent.getEventsAtDate(LocalDate.parse(futureDate)), expectedEventList);
+        assertEquals(expectedEventList, weeklyEvent.getEventsAtDate(LocalDate.parse(futureDate)));
 
         // colliding not on the day
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(nineDaysAfterFutureDate).withDuration("24H").withTime("00:00")
                 .withRecurFrequency("WEEKLY").build());
-        assertEquals(weeklyEvent.getEventsAtDate(LocalDate.parse(nineDaysAfterFutureDate)), expectedEventList);
+        assertEquals(expectedEventList, weeklyEvent.getEventsAtDate(LocalDate.parse(nineDaysAfterFutureDate)));
 
         // colliding on day next week
         expectedEventList = new ArrayList<>();
@@ -122,26 +150,26 @@ public class EventTest {
                 .withRecurFrequency("WEEKLY").build());
         expectedEventList.add(new EventBuilder().withDate(oneWeekAfterFutureDate).withDuration("14H").withTime("10:00")
                 .withRecurFrequency("WEEKLY").build());
-        assertEquals(weeklyEvent.getEventsAtDate(LocalDate.parse(oneWeekAfterFutureDate)), expectedEventList);
+        assertEquals(expectedEventList, weeklyEvent.getEventsAtDate(LocalDate.parse(oneWeekAfterFutureDate)));
 
         // biweekly event
         Event biweeklyEvent = new EventBuilder().withDate(futureDate).withDuration("334H").withTime("10:00")
                 .withRecurFrequency("BIWEEKLY").build();
 
         // not colliding with the date
-        assertEquals(biweeklyEvent.getEventsAtDate(LocalDate.parse(pastDate)), new ArrayList<>());
+        assertEquals(new ArrayList<>(), biweeklyEvent.getEventsAtDate(LocalDate.parse(pastDate)));
 
         // colliding on the day itself
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(futureDate).withDuration("14H").withTime("10:00")
                 .withRecurFrequency("BIWEEKLY").build());
-        assertEquals(biweeklyEvent.getEventsAtDate(LocalDate.parse(futureDate)), expectedEventList);
+        assertEquals(expectedEventList, biweeklyEvent.getEventsAtDate(LocalDate.parse(futureDate)));
 
         // colliding not on the day
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(nineDaysAfterFutureDate).withDuration("24H").withTime("00:00")
                 .withRecurFrequency("BIWEEKLY").build());
-        assertEquals(biweeklyEvent.getEventsAtDate(LocalDate.parse(nineDaysAfterFutureDate)), expectedEventList);
+        assertEquals(expectedEventList, biweeklyEvent.getEventsAtDate(LocalDate.parse(nineDaysAfterFutureDate)));
 
         // colliding on the same day the following two weeks
         expectedEventList = new ArrayList<>();
@@ -149,19 +177,19 @@ public class EventTest {
                 .withRecurFrequency("BIWEEKLY").build());
         expectedEventList.add(new EventBuilder().withDate(twoWeeksAfterFutureDate).withDuration("14H").withTime("10:00")
                 .withRecurFrequency("BIWEEKLY").build());
-        assertEquals(biweeklyEvent.getEventsAtDate(LocalDate.parse(twoWeeksAfterFutureDate)), expectedEventList);
+        assertEquals(expectedEventList, biweeklyEvent.getEventsAtDate(LocalDate.parse(twoWeeksAfterFutureDate)));
 
         // biweekly event
         biweeklyEvent = new EventBuilder().withDate(futureDate).withDuration("166H").withTime("10:00")
                 .withRecurFrequency("BIWEEKLY").build();
 
         // not colliding with the date
-        assertEquals(biweeklyEvent.getEventsAtDate(LocalDate.parse(nineDaysAfterFutureDate)), new ArrayList<>());
+        assertEquals(new ArrayList<>(), biweeklyEvent.getEventsAtDate(LocalDate.parse(nineDaysAfterFutureDate)));
 
         // the following week
         expectedEventList = new ArrayList<>();
         expectedEventList.add(new EventBuilder().withDate(oneWeekAfterFutureDate).withDuration("8H").withTime("00:00")
                 .withRecurFrequency("BIWEEKLY").build());
-        assertEquals(biweeklyEvent.getEventsAtDate(LocalDate.parse(oneWeekAfterFutureDate)), expectedEventList);
+        assertEquals(expectedEventList, biweeklyEvent.getEventsAtDate(LocalDate.parse(oneWeekAfterFutureDate)));
     }
 }
