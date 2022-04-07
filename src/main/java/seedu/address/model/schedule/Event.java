@@ -100,7 +100,7 @@ public class Event implements Comparable<Event> {
         case DAILY:
             // Unique case: if daily event happens before midnight and ends after midnight,
             // we get the "ongoing" date instead
-            if (getTime().isBefore(LocalTime.MIDNIGHT) && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
+            if (getTime().isBefore(LocalTime.MIDNIGHT.minusSeconds(1)) && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
                 startDate = relativeDate.minusDays(1);
             } else {
                 startDate = relativeDate;
@@ -110,7 +110,7 @@ public class Event implements Comparable<Event> {
             // Unique case: if weekly event occurs for more than 6 days and ends on relative date,
             // we get the "ongoing" date instead
             if (duration.compareTo(Duration.ofDays(6)) > 0 && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
-                startDate = date.plusDays(dateDiff - dateDiff % 7 - 7);
+                startDate = relativeDate.minusDays(dateDiff % 7);
             } else {
                 startDate = date.plusDays(dateDiff - dateDiff % 7);
             }
@@ -119,7 +119,7 @@ public class Event implements Comparable<Event> {
             // Unique case: if weekly event occurs for more than 13 days and ends on relative date,
             // we get the "ongoing" date instead
             if (duration.compareTo(Duration.ofDays(13)) > 0 && getEndTime().isAfter(LocalTime.MIDNIGHT)) {
-                startDate = date.plusDays(dateDiff - dateDiff % 14 - 14);
+                startDate = relativeDate.minusDays(dateDiff % 14);
             } else {
                 startDate = date.plusDays(dateDiff - dateDiff % 14);
             }
@@ -217,21 +217,21 @@ public class Event implements Comparable<Event> {
             nextDate = closestStartDate;
             break;
         case DAILY:
-            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time))) {
+            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time).plus(duration))) {
                 nextDate = closestStartDate.plusDays(1);
             } else {
                 nextDate = closestStartDate;
             }
             break;
         case WEEKLY:
-            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time))) {
+            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time).plus(duration))) {
                 nextDate = closestStartDate.plusDays(7);
             } else {
                 nextDate = closestStartDate;
             }
             break;
         case BIWEEKLY:
-            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time))) {
+            if (eventEndDateTime.isBefore(LocalDateTime.of(relativeDate, time).plus(duration))) {
                 nextDate = closestStartDate.plusDays(14);
             } else {
                 nextDate = closestStartDate;
