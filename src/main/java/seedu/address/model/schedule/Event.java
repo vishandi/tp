@@ -96,7 +96,6 @@ public class Event implements Comparable<Event> {
         if (dateDiff <= 0) {
             return date;
         }
-
         // event that has past
         LocalDate startDate;
         LocalDateTime endDateTime;
@@ -112,24 +111,21 @@ public class Event implements Comparable<Event> {
             }
             break;
         case WEEKLY:
+            startDate = date.plusDays(dateDiff - dateDiff % 7);
             if (dateDiff % 7 == 0) {
                 startDate = relativeDate.minusDays(7);
-                break;
             }
-
-            startDate = date.plusDays(dateDiff - dateDiff % 7);
             endDateTime = LocalDateTime.of(startDate, time).plus(duration);
             if (!endDateTime.isAfter(LocalDateTime.of(relativeDate, LocalTime.MIDNIGHT))) {
                 startDate = startDate.plusDays(7);
             }
+            System.out.println(startDate);
             break;
         case BIWEEKLY:
+            startDate = date.plusDays(dateDiff - dateDiff % 14);
             if (dateDiff % 14 == 0) {
                 startDate = relativeDate.minusDays(14);
-                break;
             }
-
-            startDate = date.plusDays(dateDiff - dateDiff % 14);
             endDateTime = LocalDateTime.of(startDate, time).plus(duration);
             if (!endDateTime.isAfter(LocalDateTime.of(relativeDate, LocalTime.MIDNIGHT))) {
                 startDate = startDate.plusDays(14);
@@ -250,16 +246,11 @@ public class Event implements Comparable<Event> {
      */
     public boolean willDateCollide(LocalDate date) {
         LocalDate closestEndDate = getClosestEndDate(date);
-        if (ChronoUnit.DAYS.between(date, closestEndDate) >= 0) {
-            return true;
-        }
-        return false;
+        return ChronoUnit.DAYS.between(date, closestEndDate) >= 0 && !date.isBefore(getDate());
     }
 
     /**
      * Returns true if the event is happening sometime in {@param date}.
-     * @param date
-     * @return true if the event is happening sometime in {@param date}
      */
     public boolean isCollidingAtDate(LocalDate date) {
         return (getDate().isBefore(date) && getEndDate().isAfter(date))
@@ -289,15 +280,16 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns an Event that happen at {@code date}.
+     * Returns a list of Events of this particular {@code Event} that happen at {@code date}.
+     * Every Event returned is occurring within the {@code date}.
      *
      * @param date used to check.
-     * @return an Event for that particular date.
+     * @return a list of Events for that particular date.
      */
     public List<Event> getEventsAtDate(LocalDate date) {
         ArrayList<Event> eventsAtDate = new ArrayList<>();
         Event nextEvent = getNextRecurringEvent(date);
-
+        System.out.println(nextEvent);
         if (date.isBefore(getDate()) || !willDateCollide(date)) {
             return eventsAtDate;
         }
