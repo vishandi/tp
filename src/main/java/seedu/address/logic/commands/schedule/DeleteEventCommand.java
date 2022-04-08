@@ -64,6 +64,7 @@ public class DeleteEventCommand extends Command {
         Schedule updatedSchedule = createDeletedSchedule(scheduleToEdit, targetEventIndex);
 
         model.setSchedule(personToEdit, updatedSchedule);
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS,
                 personToEdit.getName(),

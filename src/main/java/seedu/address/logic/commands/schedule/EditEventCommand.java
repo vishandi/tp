@@ -88,6 +88,7 @@ public class EditEventCommand extends Command {
 
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, targetEventIndex, editEventDescriptor);
         model.setSchedule(personToEdit, updatedSchedule);
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
 
         Event editedEvent = updatedSchedule.getEvent(targetEventIndex.getZeroBased());
