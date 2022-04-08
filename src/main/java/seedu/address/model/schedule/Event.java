@@ -279,8 +279,8 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns a list of Events of this particular {@code Event} that happen at {@code date}.
-     * Every Event returned is occurring within the {@code date}.
+     * Splits the Event into multiple Events by date of occurrence and returns a list of the split Events
+     * that occur during the specified {@code date}
      *
      * @param date used to check.
      * @return a list of Events for that particular date.
