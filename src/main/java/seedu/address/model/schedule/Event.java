@@ -119,7 +119,6 @@ public class Event implements Comparable<Event> {
             if (!endDateTime.isAfter(LocalDateTime.of(relativeDate, LocalTime.MIDNIGHT))) {
                 startDate = startDate.plusDays(7);
             }
-            System.out.println(startDate);
             break;
         case BIWEEKLY:
             startDate = date.plusDays(dateDiff - dateDiff % 14);
@@ -289,7 +288,6 @@ public class Event implements Comparable<Event> {
     public List<Event> getEventsAtDate(LocalDate date) {
         ArrayList<Event> eventsAtDate = new ArrayList<>();
         Event nextEvent = getNextRecurringEvent(date);
-        System.out.println(nextEvent);
         if (date.isBefore(getDate()) || !willDateCollide(date)) {
             return eventsAtDate;
         }
