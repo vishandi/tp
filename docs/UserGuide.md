@@ -416,6 +416,14 @@ will discard all data and start with an empty data file at the next run.
 
 ## Command Summary
 
+### General Commands
+
+| Action    | Format  |
+|-----------|---------|
+| **Help**  | `help`  |
+| **Clear** | `clear` |
+| **List**  | `list`  |
+
 ### Contact Management Commands
 
 | Action        | Format, Examples                                                                                                                                                                                                          |
@@ -440,11 +448,3 @@ will discard all data and start with an empty data file at the next run.
 | **ViewSchedule**     | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                 |
 | **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                     |
 | **FindCommonTiming** | `findCommonTiming t/TAG da/DATE`<br> e.g., `findCommonTiming t/groupmates da/2022-03-04`                                                                                                       |
-
-### Other Commands
-
-| Action    | Format  |
-|-----------|---------|
-| **Clear** | `clear` |
-| **List**  | `list`  |
-| **Help**  | `help`  |
