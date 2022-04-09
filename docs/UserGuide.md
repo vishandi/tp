@@ -206,23 +206,6 @@ Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
 * `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user
 
-### Viewing a person's schedule : `viewSchedule`
-
-Views the specified person's schedule.
-
-Format: `viewSchedule INDEX`
-
-* Views the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* The person's schedule for the next 7 days (from system's date, including the current date) will be shown, along with the person's full list of events.
-* The schedule will be displayed in the right panel of UniGenda.
-* If you change your system's date, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
-* If your system's date changes (for example after it passes midnight), it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
-
-Examples:
-* `list` followed by `viewSchedule 4` views the 4th person in UniGenda
-  ![result for 'view 4'](images/viewResult.png)
-* `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
-
 ### Viewing persons by tags: `viewGroup`
 
 Shows a list of all persons with the specified tag.
@@ -320,6 +303,28 @@ Format: `deleteEvent INDEX EVENT_INDEX`
 
 Example:
 * `deleteEvent 3 3`
+
+### Viewing a person's schedule : `viewSchedule`
+
+Views the specified person's schedule.
+
+Format: `viewSchedule INDEX`
+
+* Views the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* The person's schedule for the next 7 days (from system's date, including the current date) will be shown, along with the person's full list of events.
+* The schedule will be displayed in the right panel of UniGenda.
+* If you change your system's date, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
+* If your system's date changes (for example after it passes midnight), it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
+* The events displayed will be in the following format: <br>
+  `[Starting date] [Starting time]-[Ending time] [Optional: (+x)] [Optional: (Frequency)] [Event description]` <br>
+  `(+x)` means the event ends at `Ending time`, x days after the `Starting date`. <br>
+  `(Frequency)` only displayed if the event is occurring Daily, Weekly, or Biweekly. <br>
+  For example, `28-Apr-2022 23:00-10:00 (+2) Sleepover at Grandma's` means Sleepover at Grandma's will occur from 23:00 of 28-Apr-2022 to 10:00 of 30-April-2022.
+
+Examples:
+* `list` followed by `viewSchedule 4` views the 4th person in UniGenda
+  ![result for 'view 4'](images/viewScheduleResult.png)
+* `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
 
 ### Getting persons who are free: `whoIsFree`
 
