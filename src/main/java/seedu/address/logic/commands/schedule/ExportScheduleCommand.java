@@ -68,7 +68,7 @@ public class ExportScheduleCommand extends Command {
             logger.info(targetPerson.getName() + "'s schedule saved at " + exportFile + ".");
         } catch (IOException e) {
             logger.warning("Unable to save " + targetPerson.getName() + "'s schedule in " + exportFile + ": " + e);
-            throw new CommandException("An error has occurred. Schedule not exported");
+            throw new CommandException("An error has occurred. Schedule not exported!");
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetPerson.getName(), exportFile));
