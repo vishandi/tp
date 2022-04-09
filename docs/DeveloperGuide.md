@@ -416,35 +416,46 @@ The following sequence diagram shows how the `exportSchedule` command works for 
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* University students who have trouble keeping track of their own schedules
+* Has university friends and/or project group mates with similarly packed schedules
+* Find it difficult to synchronise their schedules with their friends to meet
+* Need to plan project meetings often, but face difficulty scheduling a common time to meet
 * prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
+* can type fast and prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
-* has friends with busy schedules
-* wants to meet up with friends often
 
+**Value proposition**: 
 
-**Value proposition**: improve ease of finding common meeting times with contacts compared to mouse/GUI driven apps
+Problem:
+With COVID causing home based learning to become the norm, meeting up with friends or project group mates in person has become a rarity for university students. It has also increased the need to schedule online meetings. But with everyone's tightly packed schedules, it is difficult to find that common time to meet or find friends who are free at particular dates and times!
 
+How UniGenda solves the problem:
+UniGenda improves the ease of finding common meeting times with contacts by allowing users to keep track of not only their own, but also their friends or project group mates' schedules!
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                       | I want to …​                                     | So that I can…​                                                        |
-|----------|-------------------------------|--------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                      | see usage instructions                           | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                          | add a new person                                 |                                                                        |
-| `* * *`  | user                          | delete a person                                  | remove entries that I no longer need                                   |
-| `* * *`  | user                          | find a person by name                            | locate details of persons without having to go through the entire list |
-| `* * *`  | user                          | add an event to my contact                       | refer to the contact's schedule on a later date                        |
-| `* * *`  | user                          | edit an event on a person's schedule             | amend changes to my contact's schedule                                 |
-| `* * *`  | user                          | delete an event on a person's schedule           | remove events that are no longer in my contact's schedule              |
-| `* * *`  | user                          | view a person's schedule                         |                                                                        |
-| `* *`    | user                          | set a person to be myself                        | see my information easily                                              |
-| `* *`    | student with a lot of friends | see who are available at a particular time       | easily plan a meetup                                                   |
-| `* *`    | student with a lot of friends | see which timings friends with same tag are free | plan a meetup with friends from the same group                         |
+| Priority | As a …​                                     | I want to be able to…​                                                | So that I can…​                                                        |
+|----------|---------------------------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                    | see usage instructions                                                | I can learn how to use the app                                         |
+| `* * *`  | user                                        | add a new person into my contacts                                     |                                                                        |
+| `* * *`  | user                                        | edit a person's details                                               | update my contacts' information                                        |
+| `* * *`  | user                                        | delete a person in my contacts                                        | remove entries that I no longer need                                   |
+| `* * *`  | user                                        | add an event to my contact's schedule                                 | refer to the contact's schedule on a later date                        |
+| `* * *`  | user                                        | edit an event on a person's schedule                                  | amend changes to my contact's schedule                                 |
+| `* * *`  | user                                        | delete an event on a person's schedule                                | remove events that are no longer in my contact's schedule              |
+| `* * *`  | user                                        | view my contact's schedule                                            |                                                                        |
+| `* * *`  | university student                          | add recurring events such as weekly tutorials and labs to my schedule | avoid having to add a new event every week                             |
+| `* *`    | user looking for friends to hang out with   | see who are available at a particular date and time                   | easily find a friend to meet up with                                   |
+| `* *`    | university student planning a group meeting | see which timings all my project group mates are free                 | plan the meeting more efficiently                                      |
+| `* *`    | user                                        | import my friends' schedules                                          | view their schedules without needing to add their events 1 by 1        |
+| `* *`    | university student                          | filter my contacts by modules they are taking with me                 | so that I can discuss module assignments with them                     |
+| `* *`    | user                                        | view my schedule easily                                               |                                                                        |
+| `* *`    | user                                        | clear a contact's schedule easily                                     |
+| `* *`    | user                                        | clear my application data easily                                      |
+| `*`      | user                                        | find a person by name                                                 | locate details of persons without having to go through the entire list |
+
 
 ### Use cases
 
