@@ -186,7 +186,7 @@ The start date of recurring events are updated upon the start-up of the applicat
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
   * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
 * **Alternative 2:** Create our own Date, Time and Duration classes
-  * Pros: More customisable
+  * Pros: More customisable.
   * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
 ### WhoIsFree feature
