@@ -246,13 +246,13 @@ A successful execution of the `whoIsFree` command is described as follows:
     * Does not make sense to check dates have already passed.
 
 **Aspect: What to do with contacts who do not have a schedule?**
-* **Alternative 1 (current implementation)**: Contacts without schedule are always free
+* **Alternative 1 (current implementation)**: Contacts without schedule are always free.
   * Pro:
-    * Easy implementation
+    * Easy implementation.
   * Cons:
     * Contacts without schedule may not be free at the specified date and time.
     * We will have to check all contacts for their schedule and display all contacts.
-* **Alternative 2**: Contacts without schedule are always busy
+* **Alternative 2**: Contacts without schedule are always busy.
   * Pros:
     * Higher certainty that contacts shown will be free.
     * Less information to process as we ignore contacts without schedule.
@@ -354,36 +354,55 @@ These timeslots will then be displayed to the user.
 This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of contacts in UniGenda.
 
 #### Implementation
-`ImportScheduleCommandParser` and `ImportScheduleCommand` classes are involved in the execution of the `importSchedule` command. While `ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command.
+`ImportScheduleCommandParser` and `ImportScheduleCommand` classes are involved in the execution of the `importSchedule` command. While `ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command. The `JsonUtil` and `JsonAdaptedSchedule` classes were also used to read and save the files during import and export.
 
-The `parse` method inside the `ExportScheduleCommandParser` receives the user input and extracts the required arguments. It will then get the `Schedule` of specified `Person` corresponding to the user input and save the schedule in Json format.
+The `parse` method of `ImportScheduleCommandParser` and `ExportScheduleCommandParser` receive the user input and extracts the required arguments.
 
-Given below is one example usage scenario and explanation on how the `exportSchedule` command behaves at each step. You may also refer to the sequence diagram below.
+A success execution of the `importSchedule` command is described as follows:
 
-1. The user enters `exportSchedule 1` as the command to export the schedule of specified person. The argument `1` is passed to the `ExportScheduleCommandParser` through its `parse` method call.
-2. The user input `1` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseIndex` is used to check for invalid or out of range inputs.
-3. The `ExportScheduleCommand` object is returned to the `LogicManager`.
-4. During the execution of the command, the `ExportScheduleCommand` object checks if the schedule that we are retrieving exists. If it exists, `JsonUtil#saveJsonFile` method will be called. We also ensure that the folder that we are trying to save to exist, if it does not exist, we will create the folder. The schedule is then immediately saved as a Json file.
-5. A `CommandResult` object indicating that the `exportSchedule` command is successful will be created and returned to the `LogicManager`.
+1. `ImportScheduleCommand` retrieves the `Person` from the `Model`, then reads using the `JsonUtil#readJsonFile` method.
+2. `JsonAdaptedSchedule` is used to convert the information in the file into a `Schedule`.
+3. The imported `Schedule` replaces the existing `Schedule` the `Person` had.
+4. A `CommandResult` object indicating that the `importSchedule` command is successful will be created.
+   
+![ImportScheduleSequenceDiagram](images/ImportScheduleSequenceDiagram.png)
 
-#### Sequence Diagram
-The following sequence diagram shows how the `exportSchedule` command works for the example above:
+A success execution of the `exportSchedule` command is described as follows:
+
+1. `ExportScheduleCommand` retrieves the `Person` form the `Model`.
+2. `Schedule` of the `Person` is retrieved from the `Person`.
+3. The `Schedule` is then saved on local memory using the `JsonUtil#saveJsonFile` method.
+4. A `CommandResult` object indicating that the `exportSchedule` command is successful will be created.
+
 ![ExportScheduleSequenceDiagram](images/ExportScheduleSequenceDiagram.png)
 
 #### Design Considerations
-**Aspect: Where should we save the file?**
-* **Alternative 1**: Users specify where they want the file to be saved.
+**Aspect: What should we do existing schedules when importing?**
+* **Alternative 1 (current implemenation)**: We replace the existing schedule with the one that we imported.
+  * Pro:
+    * Easy implementation.
+  * Con:
+    * User will lose existing schedule.
+* **Alternative 2**: We merge existing schedule with the schedule we imported.
+  * Pro:
+    * User get to keep all old and new schedules.
+  * Cons:
+    * Harder to implement, requires a lot of checks like whether the imported schedule contains events that were already in the existing schedule.
+    * Implementation might incur some wait time if there are many events that are being checked and added.
+
+**Aspect: Where should we save the exported files?**
+* **Alternative 1**: Users specify where they want files to be saved.
     * Pro:
         * Users will be able to save wherever they like.
     * Con:
         * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
 
-* **Alternative 2 (current implementation)**: We save the file to the data folder.
+* **Alternative 2 (current implementation)**: We save the files in the data folder.
     * Pros:
-        * Location for exported file will not change.
+        * Location for exported files will not change.
         * Do not have to check if the file path is an absolute path or a relative path.
     * Con:
-        * Users will not be able to save the file where they like.
+        * Users will not be able to save the files where they like.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
