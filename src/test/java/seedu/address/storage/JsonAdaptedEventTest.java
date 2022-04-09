@@ -71,7 +71,7 @@ public class JsonAdaptedEventTest {
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
-                VALID_EVENT_DESCRIPTION, INVALID_DATE, VALID_TIME, VALID_DURATION, VALID_RECURFREQUENCY);;
+                VALID_EVENT_DESCRIPTION, INVALID_DATE, VALID_TIME, VALID_DURATION, VALID_RECURFREQUENCY);
         String expectedMessage = Event.DATE_MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, event::toModelType);
     }
