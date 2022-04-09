@@ -423,7 +423,6 @@ will discard all data and start with an empty data file at the next run.
 | **Add**       | `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 tg/jdoe123 gh/jdoe123 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
 | **Delete**    | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                       |
 | **Edit**      | `edit INDEX [n/NAME] [tg/TELEGRAM] [gh/GITHUB] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                     |
-| **Clear**     | `clear`                                                                                                                                                                                                                   |
 | **SetUser**   | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                                                     |
 | **Find**      | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                |
 | **ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                                                       |
@@ -444,7 +443,8 @@ will discard all data and start with an empty data file at the next run.
 
 ### Other Commands
 
-| Action   | Format  |
-|----------|---------|
-| **List** | `list`  |
-| **Help** | `help`  |
+| Action    | Format  |
+|-----------|---------|
+| **Clear** | `clear` |
+| **List**  | `list`  |
+| **Help**  | `help`  |
