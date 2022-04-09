@@ -226,9 +226,9 @@ public class Event implements Comparable<Event> {
 
     /**
      * Returns true if date clashes with event.
-     *
-     * @param date used to check against {@code Event}'s date
-     * @return true if date clashes with {@code Event}
+            *
+            * @param date used to check against {@code Event}'s date
+            * @return true if date clashes with {@code Event}
      */
     public boolean willDateCollide(LocalDate date) {
         LocalDate closestStartDate = getClosestStartDate(date);
