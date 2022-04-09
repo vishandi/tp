@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ImportScheduleCommandParser" as ImportScheduleCommandParser LOGIC_COLOR
+participant ":ImportScheduleCommand" as ImportScheduleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":JsonUtil" as JsonUtil STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("importSchedule 1 pa/example.json")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("importSchedule 1 pa/example.json")
+activate AddressBookParser
+
+create ImportScheduleCommandParser
+AddressBookParser -> ImportScheduleCommandParser
+activate ImportScheduleCommandParser
+
+ImportScheduleCommandParser --> AddressBookParser
+deactivate ImportScheduleCommandParser
+
+AddressBookParser -> ImportScheduleCommandParser : parse("1 pa/example.json")
+activate ImportScheduleCommandParser
+
+create ImportScheduleCommand
+ImportScheduleCommandParser -> ImportScheduleCommand
+activate ImportScheduleCommand
+
+ImportScheduleCommand --> ImportScheduleCommandParser
+deactivate ImportScheduleCommand
+
+ImportScheduleCommandParser --> AddressBookParser
+deactivate ImportScheduleCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ImportScheduleCommandParser -[hidden]-> AddressBookParser
+destroy ImportScheduleCommandParser
+
+AddressBookParser --> LogicManager
+deactivate AddressBookParser
+
+LogicManager -> ImportScheduleCommand : execute()
+activate ImportScheduleCommand
+
+ImportScheduleCommand -> Model : getPerson(1)
+activate Model
+
+Model --> ImportScheduleCommand
+deactivate Model
+
+ImportScheduleCommand -> JsonUtil : readJsonFile("example.json")
+activate JsonUtil
+
+JsonUtil --> ImportScheduleCommand
+deactivate JsonUtil
+
+ImportScheduleCommand -> Model : setSchedule(1, importedSchedule)
+activate Model
+
+Model --> ImportScheduleCommand
+deactivate Model
+
+create CommandResult
+ImportScheduleCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ImportScheduleCommand
+deactivate CommandResult
+
+ImportScheduleCommand --> LogicManager : result
+deactivate ImportScheduleCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
