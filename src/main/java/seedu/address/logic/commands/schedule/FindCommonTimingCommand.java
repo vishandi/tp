@@ -59,8 +59,7 @@ public class FindCommonTimingCommand extends Command {
      */
     public void blockTimeSlots(int[] timeSlots, Event event) {
         List<Event> listOfSameDayEvents = event.getEventsAtDate(date);
-        for (int i = 0; i < listOfSameDayEvents.size(); i++) {
-            Event eventAtCurrentDate = listOfSameDayEvents.get(i);
+        for (Event eventAtCurrentDate : listOfSameDayEvents) {
             System.out.println(eventAtCurrentDate);
             LocalTime startTime = eventAtCurrentDate.getTime();
 
@@ -127,9 +126,9 @@ public class FindCommonTimingCommand extends Command {
                 }
                 duration = duration.ofMinutes(30);
             }
-            if (i == timeSlots.length - 1) {
+            if (i == timeSlots.length - 1 && toggle == 0) {
                 sb.append(startTime);
-                sb.append(String.format("-%s\n", LocalTime.of(0, 0)));
+                sb.append(String.format("-%s\n", LocalTime.of(23, 59)));
             }
         }
         Set<Integer> distinct = Arrays.stream(timeSlots).boxed().collect(Collectors.toSet());
