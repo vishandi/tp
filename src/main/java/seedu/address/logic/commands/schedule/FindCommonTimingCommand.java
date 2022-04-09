@@ -3,6 +3,7 @@ package seedu.address.logic.commands.schedule;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -38,7 +39,8 @@ public class FindCommonTimingCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TAG + "friends "
             + PREFIX_DATE + "2022-02-14";
-
+    public static final String TAG_NOT_PRESENT_ERROR_MESSAGE =
+            "Please ensure there is at least one contact with this tag!";
     private final IsTagInPersonPredicate predicate;
     private final LocalDate date;
 
@@ -137,6 +139,10 @@ public class FindCommonTimingCommand extends Command {
             sb.replace(0, 25, "The whole day is free for these contacts!");
         } else if (allEqual) {
             sb.replace(0, 25, "There are no free timings available!");
+        }
+        if (listOfPersons.isEmpty()) {
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            throw new CommandException(TAG_NOT_PRESENT_ERROR_MESSAGE);
         }
         return new CommandResult(sb.toString());
     }

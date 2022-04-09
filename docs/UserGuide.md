@@ -228,6 +228,8 @@ Shows a list of all persons with the specified tag.
 
 Format: `viewGroup t/TAG`
 
+* Ensure that the tag is present for at least one person in the list of contacts!
+
 Examples:
 * `viewGroup t/groupmates`
 
@@ -394,7 +396,8 @@ Examples:
 Gets the common timings of persons who are free with the same tag on a certain day.
 
 Format: `findCommonTiming t/TAG da/DATE`
-* Show the overlapping timings that a group of friends with the same tags are free on a certain day.
+
+* Ensure that the tag is present for at least one person in the list of contacts!
 
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
