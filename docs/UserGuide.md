@@ -10,29 +10,29 @@ With features such as the ability to import your friends' schedules, find friend
 # Table of Contents
 1. [Quick Start](#quick-start)
 2. [General Commands](#general-commands)
-   1. [Help](#help)
+   1. [Help](#viewing-help--help)
    2. [Clearing all entries](#clearing-all-entries--clear)
    3. [Listing all persons](#listing-all-persons--list)
    4. [Exiting the program](#exiting-the-program--exit)
-2. [Contact Management Commands](#contact-management-commands)
-   1. [Adding a person](#adding-a-person--add)
+3. [Contact Management Commands](#contact-management-commands)
+   1. [Adding a person](#adding-a-person-add)
    2. [Deleting a person](#deleting-a-person--delete)
    3. [Editing a person](#editing-a-person--edit)
    4. [Setting a contact as the user](#setting-a-contact-as-the-user--setuser)
-   5. [Locating persons by name](#locating-persons-by-name--find)
+   5. [Locating persons by name](#locating-persons-by-name-find)
    6. [Viewing persons by tags](#viewing-persons-by-tags-viewgroup)
-3. [Schedule Management Commands](#schedule-management-commands)
-   1. [Adding an event to a person's schedule](#adding-an-event-to-a-persons-schedule--addevent)
-   2. [Deleting an event in a person's schedule](#deleting-an-event-in-a-persons-schedule--deleteevent)
-   3. [Editing an event in a person's schedule](#editing-an-event-in-a-persons-schedule--editevent)
+4. [Schedule Management Commands](#schedule-management-commands)
+   1. [Adding an event to a person's schedule](#adding-an-event-to-a-persons-schedule-addevent)
+   2. [Deleting an event in a person's schedule](#deleting-an-event-from-a-persons-schedule-deleteevent)
+   3. [Editing an event in a person's schedule](#editing-an-event-in-a-persons-schedule-editevent)
    4. [Clearing a person's schedule](#clearing-a-persons-schedule-clearschedule)
    5. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
    6. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
    7. [Viewing a person's schedule](#viewing-a-persons-schedule--viewschedule)
    8. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
    9. [Getting common free timings of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
-3. [FAQ](#faq)
-4. [Command Summary](#command-summary)
+5. [FAQ](#faq)
+6. [Command Summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -96,7 +96,6 @@ With features such as the ability to import your friends' schedules, find friend
 
 
 ## General Commands
-
 
 ### Viewing help : `help`
 
@@ -345,7 +344,6 @@ Format: `importSchedule INDEX pa/FILE_PATH`
   :exclamation: **Caution:** The person's schedule will be **overwritten** with the imported schedule.
 </div>
 
-
 Examples:
 `importSchedule 1 pa/typicalSchedule.json`
 
@@ -402,8 +400,6 @@ Format: `findCommonTiming t/TAG da/DATE`
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
 
-</div>
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -434,7 +430,7 @@ will discard all data and start with an empty data file at the next run.
 
 ## Command Summary
 
-### General Commands
+### General Commands <a name="commandsummary-generalcommands"></a>
 
 | Action    | Format  |
 |-----------|---------|
@@ -443,7 +439,7 @@ will discard all data and start with an empty data file at the next run.
 | **List**  | `list`  |
 | **Exit**  | 'exit'  |
 
-### Contact Management Commands
+### Contact Management Commands <a name="commandsummary-contactmanagementcommands"></a>
 
 | Action        | Format, Examples                                                                                                                                                                                                          |
 |---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -454,7 +450,7 @@ will discard all data and start with an empty data file at the next run.
 | **Find**      | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                |
 | **ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                                                       |
 
-### Schedule Management Commands
+### Schedule Management Commands <a name="commandsummary-schedulemanagementcommands"></a>
 
 | Action               | Format, Examples                                                                                                                                                                               |
 |----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
