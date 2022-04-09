@@ -231,8 +231,10 @@ public class Event implements Comparable<Event> {
      * @return true if date clashes with {@code Event}
      */
     public boolean willDateCollide(LocalDate date) {
+        LocalDate closestStartDate = getClosestStartDate(date);
         LocalDate closestEndDate = getClosestEndDate(date);
-        return ChronoUnit.DAYS.between(date, closestEndDate) >= 0 && !date.isBefore(getDate());
+        return (closestStartDate.isBefore(date) || closestStartDate.isEqual(date))
+                && (closestEndDate.isAfter(date) || closestEndDate.isEqual(date));
     }
 
     /**
