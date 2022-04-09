@@ -105,7 +105,7 @@ public class FindCommonTimingCommand extends Command {
                 }
             }
         }
-        System.out.println(Arrays.toString(timeSlots));
+
         int toggle = timeSlots[0];
         LocalTime startTime = LocalTime.of(0, 0);
         Duration duration = Duration.ofMinutes(0);
