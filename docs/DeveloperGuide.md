@@ -174,19 +174,24 @@ The start date of recurring events are updated upon the start-up of the applicat
 #### Design considerations
 **Aspect: How should we differentiate recurring events and non-recurring events?**
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
-  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
+  * Pros:
+    * Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
-  * Pros: Slightly more OOP.
+  * Pros: 
+    * Slightly more OOP.
   * Cons:
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
 
 **Aspect: How should we implement event's date, time and duration attributes?**
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
-  * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
+  * Pros:
+    * Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
 * **Alternative 2:** Create our own Date, Time and Duration classes
-  * Pros: More customisable.
-  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
+  * Pros: 
+    * More customisable.
+  * Cons:
+    * Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
 ### WhoIsFree feature
 This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
@@ -240,13 +245,11 @@ The following activity diagram summarizes what happens when the `whoIsFree` comm
 
 ### View Schedule Feature
 
-Views a person's schedule that will be displayed in the right panel.
+Displays the specified person's schedule.
 
 #### Implementation
 
-To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution.
-
-Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files so it will be easier to maintain or develop the GUI in the future.
+To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution. Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files.
 
 Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, and we retrieve information based on the filtered list.
 
@@ -273,19 +276,27 @@ A successful execution of the `viewSchedule` command is described as follows:
 ##### viewedPerson as FilteredList or a Person.
 **Aspect: Should viewedPerson be a FilteredList of a Person?**
 * **Alternative 1 (current choice):** viewedPerson as a FilteredList
-    * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
-    * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
+  * Pros:
+    * Easier to implement, easier to develop if in the future we want to display more than one Person.
+  * Cons:
+    * Not intuitive since now the viewSchedule command only support viewing one Person.
 * **Alternative 2:** viewedPerson as a Person
-    * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
-    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
+  * Pros:
+    * More intuitive because it **is** the displayed Person's Schedule we are interested in.
+  * Cons:
+    * Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
 
 **Aspect: What attributes should be displayed in the right panel upon calling viewSchedule?**
 * **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List
-    * Pros: Cleaner look of Person List, can display more detailed version of Events.
-    * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
+  * Pros:
+    * Cleaner look of Person List, can display more detailed version of Events.
+  * Cons:
+    * User doesn't know if a particular Person in the Person List has any Schedule or not.
 * **Alternative 2:** All attributes of a Person both on Schedule and Person List
-    * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
-    * Cons: Person List display only fits a few Persons at a time.
+  * Pros:
+    * More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
+  * Cons:
+    * Person List display only fits a few Persons at a time.
 
 ### Find Common Timing Feature
 Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.

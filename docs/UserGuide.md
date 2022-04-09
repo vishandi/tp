@@ -170,7 +170,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed i.e., adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 * `NAME` should only contain alphanumeric characters and be at most 30 characters long. It should not be blank.
@@ -369,12 +369,17 @@ Format: `viewSchedule INDEX`
 * Views the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The person's schedule for the next 7 days (from system's date, including the current date) will be shown, along with the person's full list of events.
 * The schedule will be displayed in the right panel of UniGenda.
-* If you change your system's time, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
-* If a certain Event has passed according to your system's time, it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
+* If you change your system's date, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
+* If your system's date changes (for example after it passes midnight), it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
+* The events displayed will be in the following format: <br>
+  `STARTING_DATE STARTING_TIME-ENDING_TIME [(+x)] [(Frequency)] EVENT_DESCRIPTION` <br>
+  `(+x)` means the event ends at `ENDING_TIME`, x days after the `STARTING_DATE`. <br>
+  `(Frequency)` only displayed if the event is occurring Daily, Weekly, or Biweekly. <br>
+  For example, `28-Apr-2022 23:00-10:00 (+2) Sleepover at Grandma's` means Sleepover at Grandma's will occur from 23:00 of 28-Apr-2022 to 10:00 of 30-April-2022.
 
 Examples:
 * `list` followed by `viewSchedule 4` views the 4th person in UniGenda
-  ![result for 'view 4'](images/viewResult.png)
+  ![result for 'view 4'](images/viewScheduleResult.png)
 * `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
 
 ### Getting persons who are free: `whoIsFree`
@@ -402,8 +407,6 @@ Format: `findCommonTiming t/TAG da/DATE`
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
 
-</div>
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -417,9 +420,13 @@ Example:
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
+</div>
 
 **Q**: Why does `UniGenda` have sample data when it is first launched?
 **A**: Sample data is pre-loaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.
+
+**Q**: Why do some starting dates of the Events change when I launch UniGenda on different days?
+**A**: `UniGenda` will update the date of the recurring event once it passes the ending date of the event so that it reflects the next occurrence of that event.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data folder with the folder that contains the data of your previous `UniGenda` home folder.
