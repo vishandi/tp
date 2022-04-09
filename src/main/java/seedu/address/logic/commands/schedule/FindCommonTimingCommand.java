@@ -58,7 +58,7 @@ public class FindCommonTimingCommand extends Command {
      * @param event event that needs to be accounted for
      */
     public void blockTimeSlots(int[] timeSlots, Event event) {
-        Event eventAtCurrentDate = event.getEventAtDate(date);
+        Event eventAtCurrentDate = event.getEventsAtDate(date).get(0);
         LocalTime startTime = eventAtCurrentDate.getTime();
         int hours = startTime.getHour();
         int minutes = startTime.getMinute();

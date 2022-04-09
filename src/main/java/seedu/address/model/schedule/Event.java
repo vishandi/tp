@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -84,6 +86,8 @@ public class Event implements Comparable<Event> {
      * Returns the date that is closest to the given date that is either
      * a. still ongoing, or
      * b. going to happen.
+     * (a) will be prioritized over (b) if there is an event to happen twice at {@code relativeDate}.
+     * The event will happen sometime in {@code relativeDate} in either cases.
      *
      * @param relativeDate is the relative date that we are comparing to
      * @return the closest start date of event that is still ongoing or has already occurred
@@ -94,7 +98,6 @@ public class Event implements Comparable<Event> {
         if (dateDiff <= 0) {
             return date;
         }
-
         // event that has past
         LocalDate startDate;
         LocalDateTime endDateTime;
@@ -110,24 +113,20 @@ public class Event implements Comparable<Event> {
             }
             break;
         case WEEKLY:
+            startDate = date.plusDays(dateDiff - dateDiff % 7);
             if (dateDiff % 7 == 0) {
                 startDate = relativeDate.minusDays(7);
-                break;
             }
-
-            startDate = date.plusDays(dateDiff - dateDiff % 7);
             endDateTime = LocalDateTime.of(startDate, time).plus(duration);
             if (!endDateTime.isAfter(LocalDateTime.of(relativeDate, LocalTime.MIDNIGHT))) {
                 startDate = startDate.plusDays(7);
             }
             break;
         case BIWEEKLY:
+            startDate = date.plusDays(dateDiff - dateDiff % 14);
             if (dateDiff % 14 == 0) {
                 startDate = relativeDate.minusDays(14);
-                break;
             }
-
-            startDate = date.plusDays(dateDiff - dateDiff % 14);
             endDateTime = LocalDateTime.of(startDate, time).plus(duration);
             if (!endDateTime.isAfter(LocalDateTime.of(relativeDate, LocalTime.MIDNIGHT))) {
                 startDate = startDate.plusDays(14);
@@ -205,6 +204,33 @@ public class Event implements Comparable<Event> {
     }
 
     /**
+     * Returns the date this event will occur next, if it is a recurring event.
+     * Otherwise, returns the date the event will happen.
+     */
+    public LocalDate getNextDate() {
+        switch (recurFrequency) {
+        case NONE:
+            return date;
+        case DAILY:
+            return date.plusDays(1);
+        case WEEKLY:
+            return date.plusDays(7);
+        case BIWEEKLY:
+            return date.plusDays(14);
+        default:
+            logger.warning(String.format(MISSING_RECUR_FREQUENCY_CASE, recurFrequency));
+        }
+        return date;
+    }
+
+    /**
+     * Returns the next Event of the next time this event will occur, if it is a recurring event.
+     */
+    public Event getNextEvent() {
+        return new Event(getEventDescription(), getNextDate(), getTime(), getDuration(), getRecurFrequency());
+    }
+
+    /**
      * Returns an {@code Event} with the same event description, time, duration and recur frequency,
      * but with the next recurring date if the {@code Event} has passed its end date and time.
      */
@@ -221,10 +247,15 @@ public class Event implements Comparable<Event> {
      */
     public boolean willDateCollide(LocalDate date) {
         LocalDate closestEndDate = getClosestEndDate(date);
-        if (ChronoUnit.DAYS.between(date, closestEndDate) >= 0) {
-            return true;
-        }
-        return false;
+        return ChronoUnit.DAYS.between(date, closestEndDate) >= 0 && !date.isBefore(getDate());
+    }
+
+    /**
+     * Returns true if the event is happening sometime in {@param date}.
+     */
+    public boolean isCollidingAtDate(LocalDate date) {
+        return (getDate().isBefore(date) && getEndDate().isAfter(date))
+                || getDate().isEqual(date) || getEndDate().isEqual(date);
     }
 
     /**
@@ -250,29 +281,55 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Returns an Event that happen at {@code date}.
+     * Splits the Event into multiple Events by date of occurrence and returns a list of the split Events
+     * that occur during the specified {@code date}
      *
      * @param date used to check.
-     * @return an Event for that particular date.
+     * @return a list of Events for that particular date.
      */
-    public Event getEventAtDate(LocalDate date) {
+    public List<Event> getEventsAtDate(LocalDate date) {
+        ArrayList<Event> eventsAtDate = new ArrayList<>();
+
+        // nextEvent will occur sometime at date.
         Event nextEvent = getNextRecurringEvent(date);
-        if (nextEvent.willDateCollide(date)) {
-            if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isAfter(date)) {
-                return new Event(nextEvent.eventDescription, date, LocalTime.MIDNIGHT,
-                        Duration.ofHours(24), recurFrequency);
-            } else if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isEqual(date)) {
-                Duration duration = Duration.between(LocalTime.MIDNIGHT, nextEvent.getEndTime());
-                return new Event(nextEvent.eventDescription, date, LocalTime.MIDNIGHT, duration, recurFrequency);
-            } else if (nextEvent.getDate().isEqual(date) && nextEvent.getEndDate().isAfter(date)) {
-                Duration duration = Duration.between(nextEvent.getTime(), LocalTime.MIDNIGHT).plusDays(1);
-                return new Event(nextEvent.eventDescription, date, nextEvent.getTime(), duration, recurFrequency);
-            } else {
-                return nextEvent;
-            }
-        } else {
-            return nextEvent;
+
+        if (date.isBefore(getDate()) || !willDateCollide(date)) {
+            return eventsAtDate;
         }
+
+        /*
+        Cases:
+        1. If the event starts before date and ends after date: full day event at date.
+        2. If the event starts before date and ends at date: starts from 00:00 until the end time at date.
+        3. If the event starts at date and ends after date: starts from start time until 00:00 (the next day) at date.
+        4. If none of the above is true, it means the event starts and ends at date: the whole event is at date.
+         */
+        if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isAfter(date)) {
+            eventsAtDate.add(new Event(nextEvent.eventDescription, date, LocalTime.MIDNIGHT,
+                    Duration.ofHours(24), recurFrequency));
+        } else if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isEqual(date)) {
+            Duration duration = Duration.between(LocalTime.MIDNIGHT, nextEvent.getEndTime());
+            if (!duration.isZero()) {
+                eventsAtDate.add(new Event(nextEvent.eventDescription, date,
+                        LocalTime.MIDNIGHT, duration, recurFrequency));
+            }
+        } else if (nextEvent.getDate().isEqual(date) && nextEvent.getEndDate().isAfter(date)) {
+            Duration duration = Duration.between(nextEvent.getTime(), LocalTime.MIDNIGHT).plusDays(1);
+            eventsAtDate.add(new Event(nextEvent.eventDescription, date,
+                    nextEvent.getTime(), duration, recurFrequency));
+        } else {
+            eventsAtDate.add(nextEvent);
+        }
+
+        Event nextNextEvent = nextEvent.getNextEvent();
+
+        if (nextNextEvent.isCollidingAtDate(date) && !getRecurFrequency().equals(RecurFrequency.NONE)) {
+            Duration duration = Duration.between(nextNextEvent.getTime(), LocalTime.MIDNIGHT).plusDays(1);
+            eventsAtDate.add(new Event(nextNextEvent.eventDescription, date,
+                    nextNextEvent.getTime(), duration, recurFrequency));
+        }
+
+        return eventsAtDate;
     }
 
     /**
