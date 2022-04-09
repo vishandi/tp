@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static java.time.temporal.TemporalAdjusters.next;
+import static java.time.temporal.TemporalAdjusters.previous;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -143,7 +144,7 @@ public class JsonAdaptedEventTest {
     public void toModelType_updateWeekly_success() throws Exception {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
                 VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_WEEKLY);
-        LocalDate expectedDate = LocalDate.now().with(next(PAST_RESET_DATE_ODD_DAYOFWEEK));
+        LocalDate expectedDate = LocalDate.now().with(previous(PAST_RESET_DATE_ODD_DAYOFWEEK));
         assertEquals(expectedDate, event.toModelType().getDate());
     }
 
@@ -152,9 +153,9 @@ public class JsonAdaptedEventTest {
         JsonAdaptedEvent event = new JsonAdaptedEvent(
                 VALID_EVENT_DESCRIPTION, PAST_RESET_DATE_ODD, VALID_TIME, VALID_DURATION, RECURFREQUENCY_BIWEEKLY);
         LocalDate today = LocalDate.now();
-        LocalDate expectedDate = today.with(next(PAST_RESET_DATE_ODD_DAYOFWEEK));
+        LocalDate expectedDate = today.with(previous(PAST_RESET_DATE_ODD_DAYOFWEEK));
         if (ChronoUnit.DAYS.between(PAST_RESET_DATE_ODD_LOCALDATE, expectedDate) % 14 != 0) {
-            expectedDate = expectedDate.with(next(PAST_RESET_DATE_ODD_DAYOFWEEK));
+            expectedDate = expectedDate.with(previous(PAST_RESET_DATE_ODD_DAYOFWEEK));
         }
         assertEquals(expectedDate, event.toModelType().getDate());
     }
