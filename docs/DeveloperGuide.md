@@ -129,20 +129,12 @@ How the parsing works:
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
-
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the address book data i.e., all `Person` objects along with their `Schedule` and other attributes (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
 
 ### Storage component
 
@@ -165,37 +157,24 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-###  Add Event Feature
+### 
+
+###  Schedule Feature
+This subsection details how `Schedule` and `Event` classes were implemented.
 
 #### Implementation
-
 To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
 * Each `Person` has a `Schedule` attribute.
 * A `Schedule` contains a list of `Event`s.
-* An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`
+* An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`.
   * Here, the `RecurFrequency` indicates how often the `Event` occurs, which can be daily, weekly, biweekly or none.
 
-  <img src="images/ScheduleClassDiagram.png" width="500" />
+<img src="images/ScheduleClassDiagram.png" width="500" />
 
-To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
-The parsing of the `addEvent` command is handled by the following classes:
-* `AddressBookParser`
-  * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
-* `AddEventCommandParser`
-  * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
-  * Returns an `AddEventCommand` to be executed by the `LogicManager`
-
-A successful execution of the `addEvent` command is described as follows:
-1. The `AddEventCommand` retrieves the currently listed `Person`s from the `Model`.
-2. The `personToEdit` is obtained from the above list using the `Index` created during the parsing of the AddEvent command.
-3. `AddEventCommand` gets the `Schedule` of the `personToEdit` and creates a new `Schedule` with the added `Event` created during the parsing of the AddEvent command.
-4. `AddEventCommand` creates a new `Person` with the updated `Schedule` and uses `Model#setPerson()` to replace the `personToEdit` with the `Person` with the updated `Schedule`.
-5. `AddEventCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
-
-  <img src="images/AddEventSequenceDiagram.png" width="1500" />
+The start date of recurring events are updated upon the start-up of the application, to reflect the next occurrence of the event, if the event has already passed.
 
 #### Design considerations
-**Differentiating recurring events and non-recurring events**
+**Aspect: How should we differentiate recurring events and non-recurring events?**
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
   * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
@@ -203,19 +182,13 @@ A successful execution of the `addEvent` command is described as follows:
   * Cons:
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
-**Implementing event's date, time and duration attributes**
+
+**Aspect: How should we implement event's date, time and duration attributes?**
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
   * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
 * **Alternative 2:** Create our own Date, Time and Duration classes
   * Pros: More customisable
   * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
-**Updating the model when an event is added**
-* **Alterative 1 (current choice):** Create a new `Schedule` and `Person` to update the `Model`
-  * Pros: More defensive
-  * Cons: Troublesome to implement
-* **Alternative 2:** Add an addEvent() function to `Schedule`, allows us to update the `Person` without creating objects
-  * Pros: Straightforward to implement
-  * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time, causing bugs to appear
 
 ### WhoIsFree feature
 This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.

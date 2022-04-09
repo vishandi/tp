@@ -1,0 +1,16 @@
+To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
+The parsing of the `addEvent` command is handled by the following classes:
+* `AddressBookParser`
+  * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
+* `AddEventCommandParser`
+  * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
+  * Returns an `AddEventCommand` to be executed by the `LogicManager`
+
+A successful execution of the `addEvent` command is described as follows:
+1. The `AddEventCommand` retrieves the currently listed `Person`s from the `Model`.
+2. The `personToEdit` is obtained from the above list using the `Index` created by the `AddEventCommandParser`.
+3. The `Schedule` of the `personToEdit` is obtained using `Person#getSchedule()` and a new `Schedule` is created with the added `Event` created by the `AddEventCommandParser`.
+4. `AddEventCommand` uses `Model#setSchedule()` to replace the `personToEdit`'s `Schedule` with the updated schedule.
+5. `AddEventCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
+
+  <img src="images/AddEventSequenceDiagram.png" width="1500" />
