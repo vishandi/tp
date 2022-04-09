@@ -278,6 +278,46 @@ A successful execution of the `viewSchedule` command is described as follows:
 * **Alternative 2:** All attributes of a Person both on Schedule and Person List
     * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
     * Cons: Person List display only fits a few Persons at a time.
+    
+### View Group Feature
+View Group feature allows the user to be able to view a list of contacts who share the same tag.
+
+#### Implementation
+`ViewGroupParser`, `ViewGroupCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `ViewGroup` command.
+
+The parsing of viewGroup command is handled by the following classes:
+* 'AddressBookParser'
+    * Checks that the user input contains the ViewGroupCommand.COMMAND_WORD  and calls `ViewGroupParser#parse()`
+* `ViewGroupParser`
+    * Parses the user input to extract the required arguments.
+    * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
+    * Returns a `ViewGroupCommand` to be executed by the `LogicManager`.
+
+Given below is an example usage scenario and explanation on how the 'viewGroup' command behaves at each step.
+
+1. The user enters 'viewGroup t/friends' to find the contacts who share the same tag.
+The argument 't/friends' is passed to the 'viewGroupParser' through its 'parse' method call.
+
+2. The user input 't/friends' will be checked to ensure that empty input is not given.
+
+3. A new 'IsTagInPersonPredicate' object is created and encapsulated by a new 'ViewGroup'
+object.
+
+4. The 'ViewGroup' object is returned to the 'LogicManager'.
+
+5. During the execution of the command, the 'ViewGroup' object calls 'Model#updateFilteredPersonList' method with the 'IsTagInPersonPredicate' to get the list of contacts that share the same tag. 
+
+6. A `CommandResult` with the number of contacts free is returned. A list of contacts who share the same tag will also be displayed to the user.
+
+####Design Considerations
+
+**Aspect: What is an attribute of a person that a user would want to filter contacts by?**
+* **Alternative 1 (current choice):** Filter by tag
+    * Pros: People who share the same tag are likely to be from the same group of friends, hence a user would be able to view the details or schedule of those contacts more easily using such a command.
+    * Cons: Not able to filter by another attribute of a person such as whether person has schedule or not.
+* **Alternative 2:** Filter by whether person has schedule or not.
+    * Pros: It allows the user to view the contacts whom they have added their schedule to. These contacts can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
+    * Cons: Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
 
 ### Find Common Timing Feature
 Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.
