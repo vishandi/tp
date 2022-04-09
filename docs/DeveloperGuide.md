@@ -152,7 +152,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## **Implementation Highlights**
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -336,7 +336,6 @@ These timeslots will then be displayed to the user.
         * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
     * Cons:
         * Efficiency of implementation would be compromised to cater to a smaller target group.
-
 
 ### ImportSchedule and ExportSchedule features
 This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of contacts in UniGenda.
@@ -556,13 +555,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Should be able to hold up to 100 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should be able to hold up to 1000 events across all persons without noticeable lag.
-
-*{More to be added}*
+5. Should be optimal for single user.
+6. Data should be stored locally and not use any database management system.
+7. The GUI should be simple and clear enough so users can see a person's information easily.
+8. The application should work with a single JAR file, and should work without requiring an installer.
+9. The application size should not exceed `100MB`.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Event**: Something that happens
 * **Schedule**: A list of Events
 * **Main Success Scenario (MSS)**: Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong
@@ -586,16 +587,42 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts.
 
-1. Saving window preferences
+### Adding a person
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+1. Adding a person to `UniGenda`
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+    1. Prerequisites: No person named John Doe or Jane Doe in `UniGenda`.
+   
+    2. Test case: `add n/John Doe p/98765432` <br>
+       Expected: A new person with name John Doe and phone number 98765432 is added to `UniGenda`. Detail of the newly added person is shown in the status message.
 
-1. _{ more test cases …​ }_
+    3. Test case: `add n/Jane Doe p/12345678 e/janed@example.com tg/JaneDoe gh/DoeJane` <br>
+       Expected: A new person with name Jane Doe, phone number 12345678, email janed@example.com, telegram JaneDoe, github DoeJane is added to `UniGenda`. Detail of the newly added person is shown in the status message.
+
+    4. Test case: `add n/John` <br>
+       Expected: No person is added. Error detail is shown in the status message.
+
+    5. Other incorrect add commands to try: `add`, `add 1`.
+
+### Editing a person
+
+1. Editing an existing person in `UniGenda` while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    2. Test case: `edit 1 p/91234567 e/johndoe@example.com` <br>
+       Expected: The first person in the list will have phone number 91234567 and email johndoe@example.com. Detail of the edited person is shown in the status message.
+
+    3. Test case: `edit 1 a/ e/ tg/ gh/` <br>
+       Expected: The first person in the list will no longer have address, email, telegram, or github recorded. Detail of the edited person is shown in the status message.
+
+    4. Test case: `edit 1` <br>
+       Expected: Nothing edited. Error detail is shown in the status message.
+    
+    5. Other incorrect edit commands to try: `edit`, `edit 0` <br>
+       Expected: Similar to previous.
 
 ### Deleting a person
 
@@ -603,62 +630,151 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `delete 1`<br>
+      Expected: First person is deleted from the list. Detail of the deleted person is shown in the status message.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   3. Test case: `delete 0`<br>
+      Expected: No person is deleted. Error detail is shown in the status message.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Setting a person as the user
+
+1. Setting a person on `UniGenda` as the user while all persons are being shown
+
+    1. Prerequisities: List all persons using the `list` command. More than one persons in the list.
+
+    2. Test case: `setUser 2` <br>
+       Expected: The second person in the list "becomes" the user and that person's card moves to the top of the list. Name of the new user is shown in the status message.
+    
+    3. Test case: `setUser 0` <br>
+       Expected: No changes in the list. Error detail is shown in the status message.
+
+    4. Other incorrect setUser commands to try: `setUser`, `setUser x` (where x is larger than the list size) <br>
+       Expected: Similar to previous.
+
+### Viewing persons that share the same tag
+
+### Adding an event
+
+1. Adding an event to a person while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule.
+
+    2. Test case: `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
+       Expected: The first person's schedule (with the inputted event included) will be displayed in the right panel. The newly added event detail is shown in the status message. 
+
+    3. Test case: `addEvent 0 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect addEvent commands to try: `addEvent`, `addEvent 0` <br>
+       Expected: Similar to previous.
+
+### Editing an event
+
+1. Editing an existing person's event while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule initially. Type in this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`. The first person's schedule will be displayed on the right panel.
+
+    2. Test case: `editEvent 1 1 ti/11:00` <br>
+       Expected: The event in the person's schedule will be edited so that it starts at 11:00 instead of 10:00. The edited event detail is shown in the status message.
+
+    3. Test case: `editEvent 1 1 ed/CS2102 Tutorial` <br>
+       Expected: The event in the person's schedule will be edited so that its event description is CS2102 Tutorial instead of CS2103T Tutorial. The edited event detail is shown in the status message.
+    
+    4. Test case: `editEvent 1 1 da/2022-12-30 du/2H` <br>
+       Expected: The event in the person's schedule will be edited so that its starting date is 2022-12-30, and the event lasts for 2 hours, instead of starting at 2022-12-28 and lasts for 3 hours and 30 minutes. The edited event detail is shown in the status message.
+
+    5. Test case: `editEvent 1 1 da/2022-12-30 du/2H` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    6. Other incorrect editEvent commands to try: `editEvent`, `editEvent 1 1` <br>
+       Expected: Similar to previous.
+
+### Deleting an event
+
+1. Deleting a person's event while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person in the list should have a non-empty. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
+
+    2. Test case: `deleteEvent 1 1` <br>
+       Expected: The first person's schedule will be displayed in the right panel. The first event in the person's schedule will be deleted. The name of the person whose event deleted and the index of the event are shown in the status message.
+
+    3. Test case: `deleteEvent 1 0` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect deleteEvent commands to try: `deleteEvent`, `deleteEvent 1` <br>
+       Expected: Similar to previous.
+
+### Clearing a person's schedule
+
+1. Clearing a person's schedule and deleting every event recorded to that person
+
+    1. Some person in the list. The first person in the list should have a non-empty schedule. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
+
+    2. Test case: `clearSchedule 1` <br>
+       Expected: The first person's schedule will be displayed (now empty) in the right panel. The name of the person whose schedule cleared is shown in the status message.
+
+    3. Test case: `clearSchedule 0` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect clearSchedule commands to try: `clearSchedule`, `clearSchedule x` (where x is larger than the list size) <br>
+       Expected: Similar to previous.
+
+### Importing a person's schedule from a JSON file
+
+### Exporting a person's schedule to a JSON file
+
+### Displaying a person's schedule
+
+1. Viewing a person's upcoming schedule and full schedule while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    2. Test case: `viewSchedule 1`<br>
+       Expected: First person's schedule is shown in the right panel. The name of the first person is shown in the status message.
+
+    3. Test case: `viewSchedule 0`<br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect viewSchedule commands to try: `viewSchedule`, `viewSchedule x` (where x is larger than the list size) <br>
+       Expected: Similar to previous.
 
 ### Getting contacts who are free at specified time and date
-1. Assuming that all contacts do not have a schedule.
-   1. Test case: `freeSchedule ti/10:00 da/2022-05-01`<br>
-      Expected: No contacts displayed.
+1. Assuming that all contacts do not have a schedule
+   1. Test case: `whoIsFree ti/10:00 da/2022-05-01`<br>
+      Expected: Displays all persons.
    
-   2. Test case: `freeSchedule ti/10:00`
+   2. Test case: `whoIsFree ti/10:00`
       Expected: Same result as previous.
 
-2. Assuming that some contacts have a schedule.
+2. Assuming that some contacts have a schedule <br>
    Situation 1: All contacts are free today at 10am.
-   1. Test case: `freeSchedule ti/10:00`<br>
-      Expected: Displays all contacts with a schedule.
+   1. Test case: `whoIsFree ti/10:00`<br>
+      Expected: Displays all persons.
    
-   Situation 2: All contacts are not free today at specified time.
-   1. Test case: `freeSchedule ti/10:00`<br>
+   Situation 2: All contacts are not free today at 10am.
+   1. Test case: `whoIsFree ti/10:00`<br>
       Expected: No contacts displayed.
    
    Situation 3: Some contacts are free today at specified time.
-   1. Test case: `freeSchedule ti/10:00`<br>
-      Expected: Contacts who are free today at 10am displayed.
-   2. Test case: `freeSchedule ti/08:00 ti/10:00`<br>
+   1. Test case: `whoIsFree ti/10:00`<br>
       Expected: Contacts who are free today at 10am will be displayed.
-   3. Test case: `freeSchedule ti/200:00 ti/10:00`<br>
-      Expected: Same result as previous.
-
-   Situation 4. Giving a date that is in the past.
-   1. Test case: `freeSchedule ti/10:00 da/2000-01-01`<br>
-      Expected: No contacts displayed.
-
-3. Assuming that some contacts have recurring events.
-   Situation 1: Contacts have daily events.
-   1. Test case: 
-
-4. Wrong inputs
-   1. Test case: `freeSchedule ti/1000`
-      Expected: Nothing happens. Error message written in result box.
-   2. Test case: `freeSchedule ti/10:00 da/01 Dec 2022`
+   2. Test case: `whoIsFree ti/08:00 ti/10:00`<br>
+      Expected: Contacts who are free today at 10am will be displayed.
+   3. Test case: `whoIsFree ti/200:00 ti/10:00`<br>
       Expected: Same result as previous.
    
-_{ more test cases to be added }_
+3. Wrong inputs
+   1. Test case: `whoIsFree ti/1000` <br>
+      Expected: Nothing happens. Error detail is shown in the status message.
+   2. Test case: `whoIsFree ti/10:00 da/01 Dec 2022` <br>
+      Expected: Same result as previous.
+
+### Finding common timing that everyone who shares the specified tag available at a particular date
 
 #### Saving data
 
 1. Dealing with missing/corrupted data files
-
-1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+    1. If the data files are corrupted, `UniGenda` will start with an empty data file, and the corrupted files will be overlapped with the blank file.
