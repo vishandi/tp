@@ -513,8 +513,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to delete a specific event on a specific person's schedule
-2. UniGenda deletes the event
+1. User requests to delete a specific event on a specific person's schedule.
+2. UniGenda deletes the event.
 
    Use case ends.
 
@@ -526,7 +526,82 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+**Use case: Find who is free**
 
+**MSS**
+
+1. User inputs time and date to find who, user's contacts, is free.
+2. Filter model list.
+3. Display filtered model list.
+
+    Use case ends.
+
+Extensions
+* 1a. The specified date or time is invalid.
+
+    * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
+**Use case: Import schedule**
+
+**MSS**
+
+1. User imports schedule for a specific person.
+2. UniGenda retrieves information for the file.
+3. UniGenda replaces the schedule.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The specified contact index or event index is invalid.
+
+    * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 1b. The specified file path in invalid or unreachable.
+
+    * 1b1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 2a. The file information is in the wrong format.
+
+    * 2a1. UniGenda shows an error message.
+    * 2a2. If app can save file, UniGenda creates an example file for user reference.
+    * 2a3. If app cannot save the file, UniGenda shows an example in the display box.
+
+  Use case ends.
+
+**Use case: Export schedule**
+
+**MSS**
+
+1. User chooses a person's schedule to export.
+2. UniGenda retrieves the schedule of the person.
+3. UniGenda saves it to local storage.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The specified contact index or event index is invalid.
+
+    * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 2a. The specified contact does not have a schedule.
+
+    * 2a1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 3a. UniGenda is unable to save the file to local storage.
+
+    * 3a1. UniGenda shows an error message.
+
+  Use case ends.
 
 *{More to be added}*
 
