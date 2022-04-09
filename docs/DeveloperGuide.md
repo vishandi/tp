@@ -175,7 +175,7 @@ The start date of recurring events are updated upon the start-up of the applicat
 #### Design considerations
 **Aspect: How should we differentiate recurring events and non-recurring events?**
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
-  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
+  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
   * Pros: Slightly more OOP.
   * Cons:
