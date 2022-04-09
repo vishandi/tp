@@ -65,7 +65,7 @@ public class ParserUtil {
      * @throws ParseException if any specified index is invalid (not non-zero unsigned integer).
      */
     public static List<Index> parseIndices (String oneBasedIndices) throws ParseException {
-        String[] indices = oneBasedIndices.split(" ");
+        String[] indices = oneBasedIndices.split("\\s+");
         ArrayList<Index> trimmedIndices = new ArrayList<>();
         for (String index : indices) {
             if (!StringUtil.isNonZeroUnsignedInteger(index.trim())) {

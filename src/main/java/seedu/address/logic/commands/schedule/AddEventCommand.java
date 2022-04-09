@@ -80,6 +80,7 @@ public class AddEventCommand extends Command {
         Schedule updatedSchedule = createEditedSchedule(scheduleToEdit, eventToAdd);
 
         model.setSchedule(personToEdit, updatedSchedule);
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         model.updateViewSchedulePerson(new SamePersonPredicate(personToEdit));
         return new CommandResult(String.format(MESSAGE_SUCCESS, eventToAdd, personToEdit.getName()));
     }
