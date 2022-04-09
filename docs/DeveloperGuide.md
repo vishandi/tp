@@ -1,6 +1,6 @@
 ---
 layout: page
-title: UniGenda - Developer Guide
+title: Developer Guide
 ---
 
 # Table of Contents
@@ -468,9 +468,12 @@ A success execution of the `exportSchedule` command is described as follows:
 * **Alternative 2 (current implementation)**: We save the files in the data folder.
   * Pros:
     * Location for exported files will not change.
+    * Location for exported files will not change.
     * Do not have to check if the file path is an absolute path or a relative path.
   * Cons:
     * Users will not be able to save the files where they like.
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
