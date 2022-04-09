@@ -40,14 +40,14 @@ With features such as the ability to import your friends' schedules, find friend
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `UniGenda.jar` from [here](https://github.com/AY2122S2-CS2103T-W09-1/tp/releases)*.
+2. Download the latest `UniGenda.jar` from [here](https://github.com/AY2122S2-CS2103T-W09-1/tp/releases)*.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your UniGenda.
+3. Copy the file to the folder you want to use as the _home folder_ for your UniGenda.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * **`list`** : Lists all contacts.
@@ -59,10 +59,8 @@ With features such as the ability to import your friends' schedules, find friend
    * **`addEvent`**`1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` : Adds a CS2103T Tutorial event to the first contact.
 
    * **`exit`** : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
-
-\* Will be released soon! Stay tuned!
+   
+Refer below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -372,7 +370,7 @@ Format: `viewSchedule INDEX`
 
 Examples:
 * `list` followed by `viewSchedule 4` views the 4th person in UniGenda
-  ![result for 'view 4'](images/viewResult.png)
+  ![result for 'view 4'](images/viewScheduleResult.png)
 * `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
 
 ### Getting persons who are free: `whoIsFree`
@@ -413,6 +411,7 @@ Example:
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
+</div>
 
 **Q**: Why does `UniGenda` have sample data when it is first launched?
 **A**: Sample data is pre-loaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.
