@@ -435,7 +435,7 @@ will discard all data and start with an empty data file at the next run.
 | **Find**      | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                |
 | **ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                                                       |
 
-#### Schedule Management Commands
+### Schedule Management Commands
 
 | Action               | Format, Examples                                                                                                                                                                               |
 |----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
