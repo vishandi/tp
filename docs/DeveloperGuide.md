@@ -269,7 +269,7 @@ A successful execution of the `viewSchedule` command is described as follows:
 
 <img src="images/ViewScheduleSequenceDiagram.png" />
 
-##### Design Considerations
+#### Design Considerations
 ##### viewedPerson as FilteredList or a Person.
 **Aspect: Should viewedPerson be a FilteredList of a Person?**
 * **Alternative 1 (current choice):** viewedPerson as a FilteredList
