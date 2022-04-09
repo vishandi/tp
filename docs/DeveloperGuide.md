@@ -177,7 +177,7 @@ The start date of recurring events are updated upon the start-up of the applicat
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
   * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
-  * Pros: Slightly more OOP
+  * Pros: Slightly more OOP.
   * Cons:
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
