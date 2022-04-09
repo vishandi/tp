@@ -5,49 +5,49 @@ title: User Guide
 
 UniGenda is a **desktop app for managing contacts and schedules**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a university student having a hard time organising your timetable, or commonly find difficulty scheduling a suitable time to meet up with your project group mates or friends, UniGenda is the app just for you!
 
-With features such as the ability to import your friends' schedules, find friends who are free at a certain date and time, and find common timings to meet with your project teammates, UniGenda makes your university life easier by helping you keep track of not only your own, but also your friends' schedules!
+With features such as the ability to import your friends' schedules, find friends who are free at a certain date and time, and find common timings to meet with your project teammates, UniGenda makes your university life easier by helping you **keep track of not only your own, but also your friends' schedules!**
 
 # Table of Contents
-1. [Quick Start](#quick-start)
-2. [General Commands](#general-commands)
-   1. [Help](#help)
-   2. [Clearing all entries](#clearing-all-entries--clear)
-   3. [Listing all persons](#listing-all-persons--list)
-   4. [Exiting the program](#exiting-the-program--exit)
-2. [Contact Management Commands](#contact-management-commands)
-   1. [Adding a person](#adding-a-person--add)
-   2. [Deleting a person](#deleting-a-person--delete)
-   3. [Editing a person](#editing-a-person--edit)
-   4. [Setting a contact as the user](#setting-a-contact-as-the-user--setuser)
-   5. [Locating persons by name](#locating-persons-by-name--find)
-   6. [Viewing persons by tags](#viewing-persons-by-tags-viewgroup)
-3. [Schedule Management Commands](#schedule-management-commands)
-   1. [Adding an event to a person's schedule](#adding-an-event-to-a-persons-schedule--addevent)
-   2. [Deleting an event in a person's schedule](#deleting-an-event-in-a-persons-schedule--deleteevent)
-   3. [Editing an event in a person's schedule](#editing-an-event-in-a-persons-schedule--editevent)
-   4. [Clearing a person's schedule](#clearing-a-persons-schedule-clearschedule)
-   5. [Importing a person's schedule](#importing-a-persons-schedule-importschedule)
-   6. [Exporting a person's schedule](#exporting-a-persons-schedule-exportschedule)
-   7. [Viewing a person's schedule](#viewing-a-persons-schedule--viewschedule)
-   8. [Getting persons who are free](#getting-persons-who-are-free-whoisfree)
-   9. [Getting common free timings of persons by tag](#getting-common-free-timing-of-persons-by-tag-findcommontiming)
-3. [FAQ](#faq)
-4. [Command Summary](#command-summary)
+1. [Quick Start](#1-quick-start)
+2. [General Commands](#2-general-commands)
+   1. [Help](#21-viewing-help--help)
+   2. [Clearing all entries](#22-clearing-all-entries--clear)
+   3. [Listing all persons](#23-listing-all-persons--list)
+   4. [Exiting the program](#24-exiting-the-program--exit)
+3. [Contact Management Commands](#3-contact-management-commands)
+   1. [Adding a person](#31-adding-a-person-add)
+   2. [Deleting a person](#32-deleting-a-person--delete)
+   3. [Editing a person](#33-editing-a-person--edit)
+   4. [Setting a contact as the user](#34-setting-a-contact-as-the-user--setuser)
+   5. [Locating persons by name](#35-locating-persons-by-name-find)
+   6. [Viewing persons by tags](#36-viewing-persons-by-tags-viewgroup)
+4. [Schedule Management Commands](#4-schedule-management-commands)
+   1. [Adding an event to a person's schedule](#41-adding-an-event-to-a-persons-schedule-addevent)
+   2. [Deleting an event in a person's schedule](#42-deleting-an-event-from-a-persons-schedule-deleteevent)
+   3. [Editing an event in a person's schedule](#43-editing-an-event-in-a-persons-schedule-editevent)
+   4. [Clearing a person's schedule](#44-clearing-a-persons-schedule-clearschedule)
+   5. [Importing a person's schedule](#45-importing-a-persons-schedule-importschedule)
+   6. [Exporting a person's schedule](#46-exporting-a-persons-schedule-exportschedule)
+   7. [Viewing a person's schedule](#47-viewing-a-persons-schedule--viewschedule)
+   8. [Getting persons who are free](#48-getting-persons-who-are-free-whoisfree)
+   9. [Getting common free timings of persons by tag](#49-getting-common-free-timing-of-persons-by-tag-findcommontiming)
+5. [FAQ](#5-faq)
+6. [Command Summary](#6-command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick Start
+## 1. Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `UniGenda.jar` from [here](https://github.com/AY2122S2-CS2103T-W09-1/tp/releases)*.
+2. Download the latest `UniGenda.jar` from [here](https://github.com/AY2122S2-CS2103T-W09-1/tp/releases)*.
 
-1. Copy the file to the folder you want to use as the _home folder_ for your UniGenda.
+3. Copy the file to the folder you want to use as the _home folder_ for your UniGenda.
 
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * **`list`** : Lists all contacts.
@@ -59,10 +59,8 @@ With features such as the ability to import your friends' schedules, find friend
    * **`addEvent`**`1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` : Adds a CS2103T Tutorial event to the first contact.
 
    * **`exit`** : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
-
-\* Will be released soon! Stay tuned!
+   
+Refer below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -95,10 +93,9 @@ With features such as the ability to import your friends' schedules, find friend
 </div>
 
 
-## General Commands
+## 2. General Commands
 
-
-### Viewing help : `help`
+### 2.1 Viewing help : `help`
 
 Shows a message explaining how to access the help page.
 
@@ -106,27 +103,27 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
-### Clearing all entries : `clear`
+### 2.2 Clearing all entries : `clear`
 
 Clears all entries from UniGenda.
 
 Format: `clear`
 
-### Listing all persons : 'list'
+### 2.3 Listing all persons : 'list'
 
 Lists all persons in UniGenda.
 
 Format: 'list'
 
-### Exiting the program : `exit`
+### 2.4 Exiting the program : `exit`
 
 Exits UniGenda.
 
 Format: `exit`
 
-## Contact Management Commands
+## 3. Contact Management Commands
 
-### Adding a person: `add`
+### 3.1 Adding a person: `add`
 
 Adds a person to UniGenda.
 
@@ -149,7 +146,7 @@ Examples:
 * add n/John Doe p/98765432
 * add n/Betsy Crow t/friend p/1234567 a/Newgate Prison t/Criminal
 
-### Deleting a person : `delete`
+### 3.2 Deleting a person : `delete`
 
 Deletes the specified person from UniGenda.
 
@@ -161,7 +158,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command
 
-### Editing a person : `edit`
+### 3.3 Editing a person : `edit`
 
 Edits an existing person in the UniGenda.
 
@@ -192,7 +189,7 @@ Examples:
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit 1 p/91234567 e/` Removes the 1st person's email address, if it exists previously.
 
-### Setting a contact as the user : `setUser`
+### 3.4 Setting a contact as the user : `setUser`
 
 Shifts the contact to the top of the list.
 
@@ -204,7 +201,7 @@ Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
 * `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user
 
-### Locating persons by name: `find`
+### 3.5 Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords.
 
@@ -222,7 +219,7 @@ Examples:
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
-### Viewing persons by tags: `viewGroup`
+### 3.6 Viewing persons by tags: `viewGroup`
 
 Shows a list of all persons with the specified tag.
 
@@ -233,9 +230,9 @@ Format: `viewGroup t/TAG`
 Examples:
 * `viewGroup t/groupmates`
 
-## Schedule Management Commands
+## 4. Schedule Management Commands
 
-### Adding an event to a person’s schedule: `addEvent`
+### 4.1 Adding an event to a person’s schedule: `addEvent`
 
 Adds an event to the schedule of the specified person.
 
@@ -275,7 +272,7 @@ Examples:
 * `addEvent 2 ed/CCA Meeting da/2023-11-23 ti/12:00 du/1H30M r/W`
 * `addEvent 1 ed/CS2103T Coding da/2023-10-23 ti/12:00 du/1H30M r/Daily`
 
-### Deleting an event from a person's schedule: `deleteEvent`
+### 4.2 Deleting an event from a person's schedule: `deleteEvent`
 
 Deletes an event from the schedule of the specified person.
 
@@ -286,7 +283,7 @@ Format: `deleteEvent INDEX EVENT_NUMBER`
 Example:
 * `deleteEvent 3 3`
 
-### Editing an event in a person’s schedule: `editEvent`
+### 4.3 Editing an event in a person’s schedule: `editEvent`
 
 Edits the specified event in the schedule of the specified person.
 
@@ -324,14 +321,14 @@ Example:
 * `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`
 * `editEvent 3 1 ed/CS2103T lecture`
 
-### Clearing a person's schedule: `clearSchedule`
+### 4.4 Clearing a person's schedule: `clearSchedule`
 
 Format: `clearSchedule INDEX`
 
 * Clears the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 
 
-### Importing a person's schedule: `importSchedule`
+### 4.5 Importing a person's schedule: `importSchedule`
 
 Imports a schedule from a file to the specified person. The specified person's schedule will be overwritten.
 
@@ -345,11 +342,10 @@ Format: `importSchedule INDEX pa/FILE_PATH`
   :exclamation: **Caution:** The person's schedule will be **overwritten** with the imported schedule.
 </div>
 
-
 Examples:
 `importSchedule 1 pa/typicalSchedule.json`
 
-### Exporting a person's schedule: `exportSchedule`
+### 4.6 Exporting a person's schedule: `exportSchedule`
 
 Format: `exportSchedule INDEX`
 
@@ -360,7 +356,7 @@ Format: `exportSchedule INDEX`
 Examples:
 * `exportSchedule 1`
 
-### Viewing a person's schedule : `viewSchedule`
+### 4.7 Viewing a person's schedule : `viewSchedule`
 
 Views the specified person's schedule. 
 
@@ -374,10 +370,10 @@ Format: `viewSchedule INDEX`
 
 Examples:
 * `list` followed by `viewSchedule 4` views the 4th person in UniGenda
-  ![result for 'view 4'](images/viewResult.png)
+  ![result for 'view 4'](images/viewScheduleResult.png)
 * `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
 
-### Getting persons who are free: `whoIsFree`
+### 4.8 Getting persons who are free: `whoIsFree`
 
 Shows a list of persons who are free at specified time and date. You may also choose to additionally filter the list using tags.
 
@@ -392,7 +388,7 @@ Examples:
 * `whoIsFree ti/14:00 da/2022-02-14`
 * `whoIsFree ti/12:00 t/friends`
 
-### Getting common free timing of persons by tag: `findCommonTiming`
+### 4.9 Getting common free timing of persons by tag: `findCommonTiming`
 Gets the common timings of persons who are free with the same tag on a certain day.
 
 Format: `findCommonTiming t/TAG da/DATE`
@@ -402,11 +398,9 @@ Format: `findCommonTiming t/TAG da/DATE`
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
 
-</div>
-
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## 5. FAQ
 
 **Q**: How do I save the data file?<br>
 **A**: UniGenda's data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -433,9 +427,9 @@ will discard all data and start with an empty data file at the next run.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command Summary
+## 6. Command Summary
 
-### General Commands
+### General Commands <a name="commandsummary-generalcommands"></a>
 
 | Action    | Format  |
 |-----------|---------|
@@ -444,7 +438,7 @@ will discard all data and start with an empty data file at the next run.
 | **List**  | `list`  |
 | **Exit**  | 'exit'  |
 
-### Contact Management Commands
+### Contact Management Commands <a name="commandsummary-contactmanagementcommands"></a>
 
 | Action        | Format, Examples                                                                                                                                                                                                          |
 |---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -455,7 +449,7 @@ will discard all data and start with an empty data file at the next run.
 | **Find**      | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                |
 | **ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                                                       |
 
-### Schedule Management Commands
+### Schedule Management Commands <a name="commandsummary-schedulemanagementcommands"></a>
 
 | Action               | Format, Examples                                                                                                                                                                               |
 |----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
