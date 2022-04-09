@@ -20,7 +20,6 @@ title: Developer Guide
     * schedule_icon.png : <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Freepik - Flaticon</a>
     * upcoming_schedule_icon.png : <a href="https://www.flaticon.com/free-icons/upcoming" title="upcoming icons">Upcoming icons created by Freepik - Flaticon</a>
     * days.png : <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Creaticca Creative Agency - Flaticon</a>
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -129,20 +128,12 @@ How the parsing works:
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
-
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
+* stores the address book data i.e., all `Person` objects along with their `Schedule` and other attributes (which are contained in a `UniquePersonList` object).
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
 
 ### Storage component
 
@@ -165,57 +156,37 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-###  Add Event Feature
+
+###  Schedule Feature
+This subsection details how `Schedule` and `Event` classes were implemented.
 
 #### Implementation
-
 To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
 * Each `Person` has a `Schedule` attribute.
 * A `Schedule` contains a list of `Event`s.
-* An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`
+* An `Event` has an `EventDescription`, a `LocalDate`, a `LocalTime`, a `Duration` and a `RecurFrequency`.
   * Here, the `RecurFrequency` indicates how often the `Event` occurs, which can be daily, weekly, biweekly or none.
 
-  <img src="images/ScheduleClassDiagram.png" width="500" />
+<img src="images/ScheduleClassDiagram.png" width="500" />
 
-To add an `Event` to a contact's `Schedule`, the user needs to run the AddEvent command.
-The parsing of the `addEvent` command is handled by the following classes:
-* `AddressBookParser`
-  * Checks that the user input contains the AddEventCommand.COMMAND_WORD and calls `AddEventCommandParser#parse()`
-* `AddEventCommandParser`
-  * Parses the user input to create an `Index` of the contact whose `Schedule` should be edited, along with an `Event` to add to the `Person`'s `Schedule`
-  * Returns an `AddEventCommand` to be executed by the `LogicManager`
-
-A successful execution of the `addEvent` command is described as follows:
-1. The `AddEventCommand` retrieves the currently listed `Person`s from the `Model`.
-2. The `personToEdit` is obtained from the above list using the `Index` created during the parsing of the AddEvent command.
-3. `AddEventCommand` gets the `Schedule` of the `personToEdit` and creates a new `Schedule` with the added `Event` created during the parsing of the AddEvent command.
-4. `AddEventCommand` creates a new `Person` with the updated `Schedule` and uses `Model#setPerson()` to replace the `personToEdit` with the `Person` with the updated `Schedule`.
-5. `AddEventCommand` constructs the `CommandResult` and returns it to the `LogicManager`.
-
-  <img src="images/AddEventSequenceDiagram.png" width="1500" />
+The start date of recurring events are updated upon the start-up of the application, to reflect the next occurrence of the event, if the event has already passed.
 
 #### Design considerations
-**Differentiating recurring events and non-recurring events**
+**Aspect: How should we differentiate recurring events and non-recurring events?**
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
-  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type
+  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
-  * Pros: Slightly more OOP
+  * Pros: Slightly more OOP.
   * Cons:
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
-**Implementing event's date, time and duration attributes**
+
+**Aspect: How should we implement event's date, time and duration attributes?**
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
   * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
 * **Alternative 2:** Create our own Date, Time and Duration classes
-  * Pros: More customisable
-  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
-**Updating the model when an event is added**
-* **Alterative 1 (current choice):** Create a new `Schedule` and `Person` to update the `Model`
-  * Pros: More defensive
-  * Cons: Troublesome to implement
-* **Alternative 2:** Add an addEvent() function to `Schedule`, allows us to update the `Person` without creating objects
-  * Pros: Straightforward to implement
-  * Cons: In case a `Schedule` becomes unintentionally shared between 2 or more `Person`s, the editing of 1 `Person`'s `Schedule` when updating the `Model` may result in multiple `Person`s' `Schedule`s being edited at the same time, causing bugs to appear
+  * Pros: More customisable.
+  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
 ### WhoIsFree feature
 This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
@@ -269,25 +240,26 @@ The following activity diagram summarizes what happens when the `whoIsFree` comm
 
 ### View Schedule Feature
 
+Views a person's schedule that will be displayed in the right panel.
+
 #### Implementation
 
 To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution.
 
 Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files so it will be easier to maintain or develop the GUI in the future.
 
-Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, 
-and we retrieve information based on the filtered list.
+Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, and we retrieve information based on the filtered list.
 
-To **view** a person, the user needs to run the `view` command.
+To **view** a person's schedule, the user needs to run the `viewSchedule` command.
 The parsing of the viewSchedule command is handled by the following classes:
 * `AddressBookParser`
-    * Checks that the user input contains the ViewScheduleCommand.COMMAND_WORD and calls `ViewScheduleCommand#parse()`
+    * Checks that the user input contains the ViewScheduleCommand.COMMAND_WORD and calls `ViewScheduleCommandParser#parse()`.
 * `ViewScheduleCommandParser`
     * Parses the user input to create an `Index` of the person to view.
-    * Returns a `ViewScheduleCommand` to be executed by the `LogicManager`
+    * Returns a `ViewScheduleCommand` to be executed by the `LogicManager`.
     * In case of invalid index, it will be handled by the `ViewScheduleCommand` upon execution.
 
-A successful execution of the `view` command is described as follows:
+A successful execution of the `viewSchedule` command is described as follows:
 1. The `ViewScheduleCommand` retrieves the currently listed `Person`'s from the `Model`.
 2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the viewSchedule command.
 3. `ViewScheduleCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
@@ -299,30 +271,36 @@ A successful execution of the `view` command is described as follows:
 
 #### Design Considerations
 ##### viewedPerson as FilteredList or a Person.
+**Aspect: Should viewedPerson be a FilteredList of a Person?**
 * **Alternative 1 (current choice):** viewedPerson as a FilteredList
     * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
     * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
 * **Alternative 2:** viewedPerson as a Person
     * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
-    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
-  display more than one Person.
-##### Displayed Attributes upon calling viewSchedule
-* **Alternative 1 (current choice):** Display required attributes like Name, Phone, and Schedule; No Schedule on Person List
+    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
+
+**Aspect: What attributes should be displayed in the right panel upon calling viewSchedule?**
+* **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List
     * Pros: Cleaner look of Person List, can display more detailed version of Events.
     * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
 * **Alternative 2:** All attributes of a Person both on Schedule and Person List
     * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
     * Cons: Person List display only fits a few Persons at a time.
 
-### FindCommonTiming feature
-This section details how the  'findCommonTiming' command is implemented. This command allows the user to get the common free timings of contacts who share the same tag. 
+### Find Common Timing Feature
+Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.
 The timings that the contacts are free at the specified date will be displayed.
 
 #### Implementation
-'FindCommonTimingParser', 'FindCommonTimingCommand' and 'IsTagInPersonPredicate' classes are involved in the execution of the 'findCommonTiming' command.
+`FindCommonTimingParser`, `FindCommonTimingCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `findCommonTiming` command.
 
-The 'parse' method inside the 'FindCommandTimingParser' receives the user input and extracts the required arguments.
-It then creates a new 'IsTagInPersonPredicate' object that will help check if contacts in the address book have the tag that the user has inputted.
+The parsing of findCommonTiming command is handled by the following classes:
+* `AddressBookParser`
+    * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`
+* `FindCommonTimingParser`
+    * Parses the user input to extract the required arguments.
+    * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
+    * Returns a `FindCommonTimingCommand` to be executed by the `LogicManager`.
 
 Given below is an example usage scenario and explanation on how the 'findCommonTiming' command behaves at each step.
 
@@ -340,7 +318,7 @@ object.
 The schedules of all the contacts will be consolidated and events will be checked if they occur on the date inputted by the user.
 A default timeslot will be created such that it will be assumed that the whole day is free, after which 30-minute timeslots will be blocked out according to events that are determined to occur on that particular date.
 
-Step 6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
+6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
 #### Design Considerations
@@ -356,7 +334,7 @@ These timeslots will then be displayed to the user.
         * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
     * Con:
         * Efficiency of implementation would be compromised to cater to a smaller target group.
-=======
+
 
 ### ExportSchedule feature
 This section details how the `exportSchedule` command is implemented. This command allows the user to export the schedule of contacts in UniGenda.
@@ -426,22 +404,19 @@ The following sequence diagram shows how the `exportSchedule` command works for 
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                         | I want to …​                                     | So that I can…​                                                        |
-|----------|-------------------------------------------------|--------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                        | see usage instructions                           | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                            | add a new person                                 |                                                                        |
-| `* * *`  | user                                            | delete a person                                  | remove entries that I no longer need                                   |
-| `* * *`  | user                                            | find a person by name                            | locate details of persons without having to go through the entire list |
-| `* * *`  | user                                            | add an event to my contact                       | refer to the contact's schedule on a later date                        |
-| `* * *`  | user                                            | edit an event on a person's schedule             | amend changes to my contact's schedule                                 |
-| `* * *`  | user                                            | delete an event on a person's schedule           | remove events that are no longer in my contact's schedule              |
-| `* *`    | student with a few friends I contact with often | bookmark their contacts                          | I can access them easily                                               |
-| `* *`    | user                                            | hide private contact details                     | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book      | sort persons by name                             | locate a person easily                                                 |
-| `*`      | student who wants to see when a friend is free  | view their schedule                              | easily plan a meetup                                                   |
-| `*`      | student with a lot of friends                   | see which timings friends with same tag are free | plan a meetup with friends from the same group                         |
-
-*{More to be added}*
+| Priority | As a …​                       | I want to …​                                     | So that I can…​                                                        |
+|----------|-------------------------------|--------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                      | see usage instructions                           | refer to instructions when I forget how to use the App                 |
+| `* * *`  | user                          | add a new person                                 |                                                                        |
+| `* * *`  | user                          | delete a person                                  | remove entries that I no longer need                                   |
+| `* * *`  | user                          | find a person by name                            | locate details of persons without having to go through the entire list |
+| `* * *`  | user                          | add an event to my contact                       | refer to the contact's schedule on a later date                        |
+| `* * *`  | user                          | edit an event on a person's schedule             | amend changes to my contact's schedule                                 |
+| `* * *`  | user                          | delete an event on a person's schedule           | remove events that are no longer in my contact's schedule              |
+| `* * *`  | user                          | view a person's schedule                         |                                                                        |
+| `* *`    | user                          | set a person to be myself                        | see my information easily                                              |
+| `* *`    | student with a lot of friends | see who are available at a particular time       | easily plan a meetup                                                   |
+| `* *`    | student with a lot of friends | see which timings friends with same tag are free | plan a meetup with friends from the same group                         |
 
 ### Use cases
 
@@ -522,7 +497,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-* 1b. The user edits an event's duration without specifying a start time(if the event does not already have one).
+* 1b. The user edits an event's duration without specifying a start time (if the event does not already have one).
 
     * 1b1. UniGenda shows an error message.
 
@@ -558,9 +533,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2. Should be able to hold up to 100 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. Should be able to hold up to 100 events per person without noticeable lag.
+4. Should be able to hold up to 1000 events across all persons without noticeable lag.
 
 *{More to be added}*
 
