@@ -156,7 +156,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-
 ###  Schedule Feature
 This subsection details how `Schedule` and `Event` classes were implemented.
 
@@ -173,10 +172,10 @@ The start date of recurring events are updated upon the start-up of the applicat
 
 #### Design considerations
 **Aspect: How should we differentiate recurring events and non-recurring events?**
-* **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
+* **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks.
   * Pros:
     * Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
-* **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
+* **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute.
   * Pros: 
     * Slightly more OOP.
   * Cons:
@@ -184,10 +183,10 @@ The start date of recurring events are updated upon the start-up of the applicat
     * More awkward type checking and casting when checking for recurrence.
 
 **Aspect: How should we implement event's date, time and duration attributes?**
-* **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
+* **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes.
   * Pros:
     * Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
-* **Alternative 2:** Create our own Date, Time and Duration classes
+* **Alternative 2:** Create our own Date, Time and Duration classes.
   * Pros: 
     * More customisable.
   * Cons:
@@ -211,19 +210,19 @@ A successful execution of the `whoIsFree` command is described as follows:
 #### Design Considerations
 **Aspect: Should we allow dates that have already passed?**
 * **Alternative 1 (current implementation)**: Ignore dates that have passed.
-  * Pro:
+  * Pros:
     * Prevents users from expecting the wrong results when recurring events are involved.
   * Cons:
     * Harder implementation as we would have to consider all events with respect to today.
 * **Alternative 2**: Treat the past dates as a normal dates.
   * Pros:
     * Easy implementation as there is nothing special to take note.
-  * Con:
+  * Cons:
     * Does not make sense to check dates have already passed.
 
 **Aspect: What to do with contacts who do not have a schedule?**
 * **Alternative 1 (current implementation)**: Contacts without schedule are always free.
-  * Pro:
+  * Pros:
     * Easy implementation.
   * Cons:
     * Contacts without schedule may not be free at the specified date and time.
@@ -232,7 +231,7 @@ A successful execution of the `whoIsFree` command is described as follows:
   * Pros:
     * Higher certainty that contacts shown will be free.
     * Less information to process as we ignore contacts without schedule.
-  * Con:
+  * Cons:
     * Contacts without schedule may be free at the specified date and time.
 
 ### View Schedule Feature
@@ -267,24 +266,24 @@ A successful execution of the `viewSchedule` command is described as follows:
 #### Design Considerations
 ##### viewedPerson as FilteredList or a Person.
 **Aspect: Should viewedPerson be a FilteredList of a Person?**
-* **Alternative 1 (current choice):** viewedPerson as a FilteredList
+* **Alternative 1 (current choice):** viewedPerson as a FilteredList.
   * Pros:
     * Easier to implement, easier to develop if in the future we want to display more than one Person.
   * Cons:
     * Not intuitive since now the viewSchedule command only support viewing one Person.
-* **Alternative 2:** viewedPerson as a Person
+* **Alternative 2:** viewedPerson as a Person.
   * Pros:
     * More intuitive because it **is** the displayed Person's Schedule we are interested in.
   * Cons:
     * Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
 
 **Aspect: What attributes should be displayed in the right panel upon calling viewSchedule?**
-* **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List
+* **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List.
   * Pros:
     * Cleaner look of Person List, can display more detailed version of Events.
   * Cons:
     * User doesn't know if a particular Person in the Person List has any Schedule or not.
-* **Alternative 2:** All attributes of a Person both on Schedule and Person List
+* **Alternative 2:** All attributes of a Person both on Schedule and Person List.
   * Pros:
     * More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
   * Cons:
@@ -299,7 +298,7 @@ The timings that the contacts are free at the specified date will be displayed.
 
 The parsing of findCommonTiming command is handled by the following classes:
 * `AddressBookParser`
-    * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`
+    * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`.
 * `FindCommonTimingParser`
     * Parses the user input to extract the required arguments.
     * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
@@ -330,12 +329,12 @@ These timeslots will then be displayed to the user.
     * Pros:
         * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
         * More easily understood by users who are likely to plan meetings in 30-minute intervals
-    * Con:
+    * Cons:
         * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
 * **Alternative 2**: Show common free timings accurate to the minute
     * Pros:
         * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
-    * Con:
+    * Cons:
         * Efficiency of implementation would be compromised to cater to a smaller target group.
 
 
@@ -368,12 +367,12 @@ A success execution of the `exportSchedule` command is described as follows:
 #### Design Considerations
 **Aspect: What should we do existing schedules when importing?**
 * **Alternative 1 (current implementation)**: We replace the existing schedule with the one that we imported.
-  * Pro:
+  * Pros:
     * Easy implementation.
-  * Con:
+  * Cons:
     * User will lose existing schedule.
 * **Alternative 2**: We merge existing schedule with the schedule we imported.
-  * Pro:
+  * Pros:
     * User get to keep all old and new schedules.
   * Cons:
     * Harder to implement, requires a lot of checks like whether the imported schedule contains events that were already in the existing schedule.
@@ -381,16 +380,15 @@ A success execution of the `exportSchedule` command is described as follows:
 
 **Aspect: Where should we save the exported files?**
 * **Alternative 1**: Users specify where they want files to be saved.
-    * Pro:
+    * Pros:
         * Users will be able to save wherever they like.
-    * Con:
+    * Cons:
         * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
-
 * **Alternative 2 (current implementation)**: We save the files in the data folder.
     * Pros:
         * Location for exported files will not change.
         * Do not have to check if the file path is an absolute path or a relative path.
-    * Con:
+    * Cons:
         * Users will not be able to save the files where they like.
 --------------------------------------------------------------------------------------------------------------------
 
