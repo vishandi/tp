@@ -154,24 +154,9 @@ public class Event implements Comparable<Event> {
         }
 
         // event that has past
-        LocalDate endDate;
-        LocalDate closestDate;
-        switch (recurFrequency) {
-        case DAILY:
-            endDate = LocalDateTime.of(relativeDate, time).plus(duration).toLocalDate();
-            break;
-        case WEEKLY:
-            closestDate = date.plusDays(dateDiff - dateDiff % 7);
-            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
-            break;
-        case BIWEEKLY:
-            closestDate = date.plusDays(dateDiff - dateDiff % 14);
-            endDate = LocalDateTime.of(closestDate, time).plus(duration).toLocalDate();
-            break;
-        default:
-            // case NONE and INVALID falls through to reach here
-            endDate = getEndDate();
-        }
+        LocalDate closestStartDate = getClosestStartDate(relativeDate);
+        LocalDate endDate = LocalDateTime.of(closestStartDate, time).plus(duration).toLocalDate();
+
         return endDate;
     }
 
@@ -266,10 +251,11 @@ public class Event implements Comparable<Event> {
      * @return true if date and time clashes with {@code Event}
      */
     public boolean willDateTimeCollideEvent(LocalDate date, LocalTime time) {
+        LocalDate closestStartDate = getClosestStartDate(date);
         LocalDate closestEndDate = getClosestEndDate(date);
 
         if (ChronoUnit.DAYS.between(date, closestEndDate) >= 0) {
-            LocalDateTime startDateTime = LocalDateTime.of(this.date, this.time);
+            LocalDateTime startDateTime = LocalDateTime.of(closestStartDate, this.time);
             LocalDateTime endDateTime = LocalDateTime.of(closestEndDate, getEndTime());
             LocalDateTime toCheckDateTime = LocalDateTime.of(date, time);
 
