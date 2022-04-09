@@ -90,6 +90,8 @@ Refer below for details of each command.
 
 * All commands are case-insensitive. For example `addevent` or `AdDEvenT` works for `addEvent` commands.
 
+* The indexes are integer based. Hence, the maximum value of an index is 2147483647.
+
 </div>
 
 
