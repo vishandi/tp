@@ -64,6 +64,12 @@ activate JsonUtil
 JsonUtil --> ImportScheduleCommand
 deactivate JsonUtil
 
+ImportScheduleCommand -> Model : setSchedule(1, importedSchedule)
+activate Model
+
+Model --> ImportScheduleCommand
+deactivate Model
+
 create CommandResult
 ImportScheduleCommand -> CommandResult
 activate CommandResult

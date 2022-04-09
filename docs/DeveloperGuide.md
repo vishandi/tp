@@ -378,7 +378,7 @@ A success execution of the `exportSchedule` command is described as follows:
 
 #### Design Considerations
 **Aspect: What should we do existing schedules when importing?**
-* **Alternative 1 (current implemenation)**: We replace the existing schedule with the one that we imported.
+* **Alternative 1 (current implementation)**: We replace the existing schedule with the one that we imported.
   * Pro:
     * Easy implementation.
   * Con:
