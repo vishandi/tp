@@ -28,7 +28,7 @@ public class DeleteEventCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an event of the person identified "
             + "by the index number used in the displayed person list.\n"
-            + "Parameters: PERSON_INDEX EVENT_INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX EVENT_NUMBER (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 2";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "%s's No.%d event deleted successfully";

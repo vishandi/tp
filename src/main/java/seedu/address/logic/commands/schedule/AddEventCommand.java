@@ -32,7 +32,7 @@ public class AddEventCommand extends Command {
     public static final String COMMAND_WORD_LOWER = "addevent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds an event to the indexed person's schedule in the address book. "
+            + ": Adds an event to the indexed person's schedule in the address book.\n"
             + "Parameters: "
             + "INDEX (must be a positive integer) "
             + PREFIX_EVENT_DESCRIPTION + "EVENT_DESCRIPTION "

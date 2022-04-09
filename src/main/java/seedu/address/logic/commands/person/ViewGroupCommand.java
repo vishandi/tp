@@ -17,7 +17,7 @@ public class ViewGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "viewGroup";
     public static final String COMMAND_WORD_LOWER = "viewgroup";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the contacts who share the same tag "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists the contacts who share the same tag.\n"
             + "Parameters: "
             + PREFIX_TAG + "TAG...\n"
             + "Example: " + COMMAND_WORD + " "

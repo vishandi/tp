@@ -276,9 +276,9 @@ Examples:
 
 Edits the specified event in the schedule of the specified person.
 
-Format: `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
+Format: `editEvent INDEX EVENT_NUMBER [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]`
 
-* `INDEX` refers to the index number shown in the displayed person list, whereas `EVENT_INDEX` refers to the index number shown in the person's full schedule. Both indices **must be positive integers** 1, 2, 3, …​
+* `INDEX` refers to the index number shown in the displayed person list, whereas `EVENT_NUMBER` refers to the event's index shown in the person's full schedule. Both indices **must be positive integers** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * You cannot edit an event's description, date, time, duration and/or recurring frequency such that there will be duplicate events in UniGenda. Events are considered to be duplicates if they share the same event description, time, duration, recur frequency and recur on the same dates.
 <div markdown="block" class="alert alert-info">
@@ -314,9 +314,9 @@ Example:
 
 Deletes an event from the schedule of the specified person.
 
-Format: `deleteEvent INDEX EVENT_INDEX`
+Format: `deleteEvent INDEX EVENT_NUMBER`
 
-* `INDEX` refers to the index number shown in the displayed person list, whereas `EVENT_INDEX` refers to the index number shown in the person's full schedule. Both indices **must be positive integers** 1, 2, 3, …​
+* `INDEX` refers to the index number shown in the displayed person list, whereas `EVENT_NUMBER` refers to the event's index shown in the person's full schedule. Both indices **must be positive integers** 1, 2, 3, …​
 
 Example:
 * `deleteEvent 3 3`
@@ -415,23 +415,36 @@ will discard all data and start with an empty data file at the next run.
 --------------------------------------------------------------------------------------------------------------------
 
 ## Command Summary
-| Action               | Format, Examples                                                                                                                                                                              |
-|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**              | `add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`                     |
-| **Clear**            | `clear`                                                                                                                                                                                       |
-| **Delete**           | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                           |
-| **Edit**             | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                   |
-| **SetUser**          | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                         |
-| **ViewGroup**        | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                           |
-| **ViewSchedule**     | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                |
-| **AddEvent**         | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1 r/WEEKLY`                             |
-| **EditEvent**        | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
-| **DeleteEvent**      | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
-| **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
-| **FindCommonTiming** | `findCommonTiming t/TAG da/DATE`<br> e.g., `findCommonTiming t/groupmates da/2022-03-04`                                                                                                      |
-| **ImportSchedule**   | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
-| **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
-| **ClearSchedule**    | `clearSchedule`                                                                                                                                                                               |
-| **Find**             | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
-| **List**             | `list`                                                                                                                                                                                        |
-| **Help**             | `help`                                                                                                                                                                                        |
+
+### Contact Management Commands
+
+| Action        | Format, Examples                                                                                                                                                                                                          |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**       | `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 tg/jdoe123 gh/jdoe123 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Delete**    | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                                                                       |
+| **Edit**      | `edit INDEX [n/NAME] [tg/TELEGRAM] [gh/GITHUB] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                                     |
+| **Clear**     | `clear`                                                                                                                                                                                                                   |
+| **SetUser**   | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                                                     |
+| **Find**      | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                |
+| **ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                                                       |
+
+#### Schedule Management Commands
+
+| Action               | Format, Examples                                                                                                                                                                               |
+|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **AddEvent**         | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `addEvent 1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1H30M r/WEEKLY`                 |
+| **DeleteEvent**      | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                  |
+| **EditEvent**        | `editEvent INDEX EVENT_NUMBER [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
+| **ClearSchedule**    | `clearSchedule`                                                                                                                                                                                |
+| **ImportSchedule**   | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                           |
+| **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                            |
+| **ViewSchedule**     | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                 |
+| **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                     |
+| **FindCommonTiming** | `findCommonTiming t/TAG da/DATE`<br> e.g., `findCommonTiming t/groupmates da/2022-03-04`                                                                                                       |
+
+### Other Commands
+
+| Action   | Format  |
+|----------|---------|
+| **List** | `list`  |
+| **Help** | `help`  |
