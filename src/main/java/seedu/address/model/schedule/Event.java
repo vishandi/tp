@@ -86,6 +86,8 @@ public class Event implements Comparable<Event> {
      * Returns the date that is closest to the given date that is either
      * a. still ongoing, or
      * b. going to happen.
+     * (a) will be prioritized over (b) if there is an event to happen twice at {@code relativeDate}.
+     * The event will happen sometime in {@code relativeDate} in either cases.
      *
      * @param relativeDate is the relative date that we are comparing to
      * @return the closest start date of event that is still ongoing or has already occurred
@@ -287,11 +289,21 @@ public class Event implements Comparable<Event> {
      */
     public List<Event> getEventsAtDate(LocalDate date) {
         ArrayList<Event> eventsAtDate = new ArrayList<>();
+
+        // nextEvent will occur sometime at date.
         Event nextEvent = getNextRecurringEvent(date);
+
         if (date.isBefore(getDate()) || !willDateCollide(date)) {
             return eventsAtDate;
         }
 
+        /*
+        Cases:
+        1. If the event starts before date and ends after date: full day event at date.
+        2. If the event starts before date and ends at date: starts from 00:00 until the end time at date.
+        3. If the event starts at date and ends after date: starts from start time until 00:00 (the next day) at date.
+        4. If none of the above is true, it means the event starts and ends at date: the whole event is at date.
+         */
         if (nextEvent.getDate().isBefore(date) && nextEvent.getEndDate().isAfter(date)) {
             eventsAtDate.add(new Event(nextEvent.eventDescription, date, LocalTime.MIDNIGHT,
                     Duration.ofHours(24), recurFrequency));
