@@ -316,7 +316,7 @@ Format: `viewSchedule INDEX`
 * If you change your system's date, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
 * If your system's date changes (for example after it passes midnight), it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 * The events displayed will be in the following format: <br>
-  `STARTING_DATE STARTING_TIME-ENDING_TIME [Optional: (+x)] [Optional: (Frequency)] EVENT_DESCRIPTION` <br>
+  `STARTING_DATE STARTING_TIME-ENDING_TIME [(+x)] [(Frequency)] EVENT_DESCRIPTION` <br>
   `(+x)` means the event ends at `ENDING_TIME`, x days after the `STARTING_DATE`. <br>
   `(Frequency)` only displayed if the event is occurring Daily, Weekly, or Biweekly. <br>
   For example, `28-Apr-2022 23:00-10:00 (+2) Sleepover at Grandma's` means Sleepover at Grandma's will occur from 23:00 of 28-Apr-2022 to 10:00 of 30-April-2022.
