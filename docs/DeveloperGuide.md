@@ -221,26 +221,16 @@ A successful execution of the `addEvent` command is described as follows:
 This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
 
 #### Implementation
-`WhoIsFreeCommandParser`, `WhoIsFreeCommand` and `IsPersonFreePredicate` classes are involved in the execution of the `whoIsFree` command.
+`WhoIsFreeCommandParser` and `WhoIsFreeCommand` classes are involved in the execution of the `whoIsFree` command.
 
-The `parse` method inside the `WhoIsFreeCommandParser` receives the user input and extracts the required arguments. It then creates a new `IsPersonFreePredicate` object that will help check if the user's contacts' schedule coincides with the specified time and date.
+The `parse` method of `WhoIsFreeCommandParser` receives the user input and extracts the required arguments. It then creates a predicate object that will help check if the user's contacts' schedule coincides with the specified time and date.
 
-Given below is one example usage scenario and explanation on how the `whoIsFree` command behaves at each step. You may also refer to the sequence diagram below.
+A successful execution of the `whoIsFree` command is described as follows:
 
-1. The user enters `whoIsFree ti/10:00 da/2022-03-24` to find if there are any contacts who are free at the specified time and date. The arguments `ti/10:00 da/2022-03-24` are passed to the `WhoIsFreeCommandParser` through its `parse` method call.
-2. The user input `ti/10:00 da/2022-03-24` will be checked to ensure that empty input is not given. At the same time, `ParserUtil#parseTime` and `ParserUtil#parseDate` are used to check for invalid inputs.
-3. A new `IsPersonFreePredicate` object is created and encapsulated by a new `WhoIsFreeCommand` object.
-4. The `WhoIsFreeCommand` object is returned to the `LogicManager`.
-5. During the execution of the command, the `WhoIsFreeCommand` object calls `Model#updateFilteredPersonList` method with the `IsPersonFreePredicate` to update the display of the current list of contacts. If there are contacts who are free at the specified time and date, then a list of the contacts who are free will be shown. Otherwise, an empty list will be shown.
-6. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
+1. `WhoIsFreeCommand` uses the predicate prepared during parsing to filter the list of persons in `Model`.
+2. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
 
-#### Sequence Diagram
-The following sequence diagram shows how the `whoIsFree` command works for the example above:<br>
 ![WhoIsFreeSequenceDiagram](images/WhoIsFreeSequenceDiagram.png)
-
-#### Activity Diagram
-The following activity diagram summarizes what happens when the `whoIsFree` command is triggered:<br>
-![WhoIsFreeActivityDiagram](images/WhoIsFreeActivityDiagram.png)
 
 #### Design Considerations
 **Aspect: Should we allow dates that have already passed?**
@@ -256,11 +246,13 @@ The following activity diagram summarizes what happens when the `whoIsFree` comm
     * Does not make sense to check dates have already passed.
 
 **Aspect: What to do with contacts who do not have a schedule?**
-* **Alternative 1**: Contacts without schedule are always free
+* **Alternative 1 (current implementation)**: Contacts without schedule are always free
+  * Pro:
+    * Easy implementation
   * Cons:
     * Contacts without schedule may not be free at the specified date and time.
     * We will have to check all contacts for their schedule and display all contacts.
-* **Alternative 2 (current implementation)**: Contacts without schedule are always busy
+* **Alternative 2**: Contacts without schedule are always busy
   * Pros:
     * Higher certainty that contacts shown will be free.
     * Less information to process as we ignore contacts without schedule.
@@ -358,11 +350,11 @@ These timeslots will then be displayed to the user.
         * Efficiency of implementation would be compromised to cater to a smaller target group.
 =======
 
-### ExportSchedule feature
-This section details how the `exportSchedule` command is implemented. This command allows the user to export the schedule of contacts in UniGenda.
+### ImportSchedule and ExportSchedule features
+This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of contacts in UniGenda.
 
 #### Implementation
-`ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command.
+`ImportScheduleCommandParser` and `ImportScheduleCommand` classes are involved in the execution of the `importSchedule` command. While `ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command.
 
 The `parse` method inside the `ExportScheduleCommandParser` receives the user input and extracts the required arguments. It will then get the `Schedule` of specified `Person` corresponding to the user input and save the schedule in Json format.
 
