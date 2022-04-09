@@ -12,12 +12,13 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.EventBuilder;
 
 public class EventTest {
-    private static String pastDate = LocalDate.now().minusDays(365).toString();
-    private static String futureDate = LocalDate.now().plusDays(365).toString();
-    private static String oneDayAfterFutureDate = LocalDate.now().plusDays(366).toString();
-    private static String oneWeekAfterFutureDate = LocalDate.now().plusDays(372).toString();
-    private static String nineDaysAfterFutureDate = LocalDate.now().plusDays(374).toString();
-    private static String twoWeeksAfterFutureDate = LocalDate.now().plusDays(379).toString();
+    private static final int ONE_YEAR = 365;
+    private static String pastDate = LocalDate.now().minusDays(ONE_YEAR).toString();
+    private static String futureDate = LocalDate.now().plusDays(ONE_YEAR).toString();
+    private static String oneDayAfterFutureDate = LocalDate.now().plusDays(ONE_YEAR + 1).toString();
+    private static String oneWeekAfterFutureDate = LocalDate.now().plusDays(ONE_YEAR + 7).toString();
+    private static String nineDaysAfterFutureDate = LocalDate.now().plusDays(ONE_YEAR + 9).toString();
+    private static String twoWeeksAfterFutureDate = LocalDate.now().plusDays(ONE_YEAR + 14).toString();
     private static String threeDaysBeforeToday = LocalDate.now().minusDays(3).toString();
     private static String oneWeekBeforeToday = LocalDate.now().minusDays(7).toString();
     private static String twoWeeksBeforeToday = LocalDate.now().minusDays(14).toString();
@@ -83,7 +84,7 @@ public class EventTest {
         Event dailyEvent = new EventBuilder().withDate(pastDate).withRecurFrequency("DAILY").withTime("23:00")
                 .withDuration("2H").build();
 
-        assertEquals(LocalDate.now().plusDays(1), dailyEvent.getClosestEndDate(LocalDate.now()));
+        assertEquals(LocalDate.now(), dailyEvent.getClosestEndDate(LocalDate.now()));
 
         Event weeklyEvent = new EventBuilder().withDate(oneWeekBeforeToday).withRecurFrequency("WEEKLY")
                 .withTime("10:00").withDuration("3H").build();
