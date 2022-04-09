@@ -52,11 +52,12 @@ public class Schedule {
 
         for (Event event : getEvents()) {
             if (event.willDateCollide(nextDaysForward)) {
-                Event eventAtDate = event.getEventAtDate(nextDaysForward);
-                if (eventAtDate.getDuration().isZero()) {
-                    continue;
+                List<Event> eventsAtDate = event.getEventsAtDate(nextDaysForward);
+                for (Event e : eventsAtDate) {
+                    if (!event.getDuration().isZero()) {
+                        upcomingEvents.add(e);
+                    }
                 }
-                upcomingEvents.add(event.getEventAtDate(nextDaysForward));
             }
         }
 
