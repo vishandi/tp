@@ -7,7 +7,7 @@ title: Developer Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
+# **Acknowledgements**
 
 * Code base: [addressbook-level3](https://github.com/se-edu/addressbook-level3)
 * These are the sources of the images that we used in this project (all images referred in this section is available on `/src/main/resources/images`):
@@ -23,20 +23,20 @@ title: Developer Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Setting up, getting started**
+# **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Design**
+# **Design**
 
 <div markdown="span" class="alert alert-primary">
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S2-CS2103T-W09-1/tp/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
-### Architecture
+## Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
@@ -77,7 +77,7 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 The sections below give more details of each component.
 
-### UI component
+## UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
@@ -94,7 +94,7 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
-### Logic component
+## Logic component
 
 **API** : [`Logic.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
@@ -123,7 +123,7 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
-### Model component
+## Model component
 **API** : [`Model.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
@@ -135,7 +135,7 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-### Storage component
+## Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
@@ -146,20 +146,20 @@ The `Storage` component,
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
-### Common classes
+## Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation Highlights**
+# **Implementation Highlights**
 
 This section describes some noteworthy details on how certain features are implemented.
 
-###  Schedule Feature
+##  Schedule Feature
 This subsection details how `Schedule` and `Event` classes were implemented.
 
-#### Implementation
+### Implementation
 To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
 * Each `Person` has a `Schedule` attribute.
 * A `Schedule` contains a list of `Event`s.
@@ -170,7 +170,7 @@ To enable users to track their contacts' schedules, 2 new classes have been adde
 
 The start date of recurring events are updated upon the start-up of the application, to reflect the next occurrence of the event, if the event has already passed.
 
-#### Design considerations
+### Design considerations
 **Aspect: How should we differentiate recurring events and non-recurring events?**
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks.
   * Pros:
@@ -192,10 +192,10 @@ The start date of recurring events are updated upon the start-up of the applicat
   * Cons:
     * Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
-### WhoIsFree feature
+## WhoIsFree feature
 This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
 
-#### Implementation
+### Implementation
 `WhoIsFreeCommandParser` and `WhoIsFreeCommand` classes are involved in the execution of the `whoIsFree` command.
 
 The `parse` method of `WhoIsFreeCommandParser` receives the user input and extracts the required arguments. It then creates a predicate object that will help check if the user's contacts' schedule coincides with the specified time and date.
@@ -207,7 +207,7 @@ A successful execution of the `whoIsFree` command is described as follows:
 
 ![WhoIsFreeSequenceDiagram](images/WhoIsFreeSequenceDiagram.png)
 
-#### Design Considerations
+### Design Considerations
 **Aspect: Should we allow dates that have already passed?**
 * **Alternative 1 (current implementation)**: Ignore dates that have passed.
   * Pros:
@@ -234,11 +234,11 @@ A successful execution of the `whoIsFree` command is described as follows:
   * Cons:
     * Contacts without schedule may be free at the specified date and time.
 
-### View Schedule Feature
+## View Schedule Feature
 
 Displays the specified person's schedule.
 
-#### Implementation
+### Implementation
 
 To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution. Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files.
 
@@ -263,7 +263,7 @@ A successful execution of the `viewSchedule` command is described as follows:
 
 <img src="images/ViewScheduleSequenceDiagram.png" />
 
-#### Design Considerations
+### Design Considerations
 **Aspect: Should viewedPerson be a FilteredList or a Person?**
 * **Alternative 1 (current choice):** viewedPerson as a FilteredList.
   * Pros:
@@ -288,10 +288,10 @@ A successful execution of the `viewSchedule` command is described as follows:
   * Cons:
     * Person List display only fits a few Persons at a time.
     
-### View Group Feature
+## View Group Feature
 View Group feature allows the user to be able to view a list of contacts who share the same tag.
 
-#### Implementation
+### Implementation
 `ViewGroupParser`, `ViewGroupCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `ViewGroup` command.
 
 The parsing of viewGroup command is handled by the following classes:
@@ -317,7 +317,7 @@ The argument `t/friends` is passed to the `viewGroupParser` through its `parse` 
 
 6. A `CommandResult` with the number of contacts free is returned. A list of contacts who share the same tag will also be displayed to the user.
 
-####Design Considerations
+###Design Considerations
 
 **Aspect: What is an attribute of a person that a user would want to filter contacts by?**
 * **Alternative 1 (current choice):** Filter by tag
@@ -331,11 +331,11 @@ The argument `t/friends` is passed to the `viewGroupParser` through its `parse` 
   * Cons: 
     * Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
 
-### Find Common Timing Feature
+## Find Common Timing Feature
 Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.
 The timings that the contacts are free at the specified date will be displayed.
 
-#### Implementation
+### Implementation
 `FindCommonTimingParser`, `FindCommonTimingCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `findCommonTiming` command.
 
 The parsing of findCommonTiming command is handled by the following classes:
@@ -365,7 +365,7 @@ A default timeslot will be created such that it will be assumed that the whole d
 6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
-#### Design Considerations
+### Design Considerations
 **Aspect: Should we show timings that a group of contacts with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
   * Pros:
@@ -379,10 +379,10 @@ These timeslots will then be displayed to the user.
   * Cons:
     * Efficiency of implementation would be compromised to cater to a smaller target group.
 
-### ImportSchedule and ExportSchedule features
+## ImportSchedule and ExportSchedule features
 This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of contacts in UniGenda.
 
-#### Implementation
+### Implementation
 `ImportScheduleCommandParser` and `ImportScheduleCommand` classes are involved in the execution of the `importSchedule` command. While `ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command. The `JsonUtil` and `JsonAdaptedSchedule` classes were also used to read and save the files during import and export.
 
 The `parse` method of `ImportScheduleCommandParser` and `ExportScheduleCommandParser` receive the user input and extracts the required arguments.
@@ -405,7 +405,7 @@ A success execution of the `exportSchedule` command is described as follows:
 
 ![ExportScheduleSequenceDiagram](images/ExportScheduleSequenceDiagram.png)
 
-#### Design Considerations
+### Design Considerations
 **Aspect: What should we do existing schedules when importing?**
 * **Alternative 1 (current implementation)**: We replace the existing schedule with the one that we imported.
   * Pros:
@@ -433,7 +433,7 @@ A success execution of the `exportSchedule` command is described as follows:
     * Users will not be able to save the files where they like.
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+# **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -443,9 +443,9 @@ A success execution of the `exportSchedule` command is described as follows:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+# **Appendix: Requirements**
 
-### Product scope
+## Product scope
 
 **Target user profile**:
 
@@ -465,7 +465,7 @@ With COVID causing home based learning to become the norm, meeting up with frien
 How UniGenda solves the problem:
 UniGenda improves the ease of finding common meeting times with contacts by allowing users to keep track of not only their own, but also their friends or project group mates' schedules!
 
-### User stories
+## User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
@@ -490,7 +490,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | user                                        | find a person by name                                                 | locate details of persons without having to go through the entire list |
 
 
-### Use cases
+## Use cases
 
 (For all use cases below, the **System** is the `UniGenda` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -675,7 +675,7 @@ Extensions
 
   Use case ends.
 
-### Non-Functional Requirements
+## Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 100 persons without a noticeable sluggishness in performance for typical usage.
@@ -687,7 +687,7 @@ Extensions
 8. The application should work with a single JAR file, and should work without requiring an installer.
 9. The application size should not exceed `100MB`.
 
-### Glossary
+## Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Event**: Something that happens
@@ -698,7 +698,7 @@ Extensions
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+# **Appendix: Instructions for manual testing**
 
 Given below are instructions to test the app manually.
 
@@ -707,7 +707,7 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
-### Launch and shutdown
+## Launch and shutdown
 
 1. Initial launch
 
@@ -715,7 +715,7 @@ testers are expected to do more *exploratory* testing.
 
    2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts.
 
-### Adding a person
+## Adding a person
 
 1. Adding a person to `UniGenda`
 
@@ -732,7 +732,7 @@ testers are expected to do more *exploratory* testing.
 
     5. Other incorrect add commands to try: `add`, `add 1`.
 
-### Editing a person
+## Editing a person
 
 1. Editing an existing person in `UniGenda` while all persons are being shown
 
@@ -750,7 +750,7 @@ testers are expected to do more *exploratory* testing.
     5. Other incorrect edit commands to try: `edit`, `edit 0` <br>
        Expected: Similar to previous.
 
-### Deleting a person
+## Deleting a person
 
 1. Deleting a person while all persons are being shown
 
@@ -765,7 +765,7 @@ testers are expected to do more *exploratory* testing.
    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-### Setting a person as the user
+## Setting a person as the user
 
 1. Setting a person on `UniGenda` as the user while all persons are being shown
 
@@ -780,9 +780,9 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect setUser commands to try: `setUser`, `setUser x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
 
-### Viewing persons that share the same tag
+## Viewing persons that share the same tag
 
-### Adding an event
+## Adding an event
 
 1. Adding an event to a person while all persons are being shown
 
@@ -797,7 +797,7 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect addEvent commands to try: `addEvent`, `addEvent 0` <br>
        Expected: Similar to previous.
 
-### Editing an event
+## Editing an event
 
 1. Editing an existing person's event while all persons are being shown
 
@@ -818,7 +818,7 @@ testers are expected to do more *exploratory* testing.
     6. Other incorrect editEvent commands to try: `editEvent`, `editEvent 1 1` <br>
        Expected: Similar to previous.
 
-### Deleting an event
+## Deleting an event
 
 1. Deleting a person's event while all persons are being shown
 
@@ -833,7 +833,7 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect deleteEvent commands to try: `deleteEvent`, `deleteEvent 1` <br>
        Expected: Similar to previous.
 
-### Clearing a person's schedule
+## Clearing a person's schedule
 
 1. Clearing a person's schedule and deleting every event recorded to that person
 
@@ -848,11 +848,11 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect clearSchedule commands to try: `clearSchedule`, `clearSchedule x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
 
-### Importing a person's schedule from a JSON file
+## Importing a person's schedule from a JSON file
 
-### Exporting a person's schedule to a JSON file
+## Exporting a person's schedule to a JSON file
 
-### Displaying a person's schedule
+## Displaying a person's schedule
 
 1. Viewing a person's upcoming schedule and full schedule while all persons are being shown
 
@@ -867,7 +867,7 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect viewSchedule commands to try: `viewSchedule`, `viewSchedule x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
 
-### Getting contacts who are free at specified time and date
+## Getting contacts who are free at specified time and date
 1. Assuming that all contacts do not have a schedule
    1. Test case: `whoIsFree ti/10:00 da/2022-05-01`<br>
       Expected: Displays all persons.
@@ -898,9 +898,9 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `whoIsFree ti/10:00 da/01 Dec 2022` <br>
       Expected: Same result as previous.
 
-### Finding common timing that everyone who shares the specified tag available at a particular date
+## Finding common timing that everyone who shares the specified tag available at a particular date
 
-#### Saving data
+### Saving data
 
 1. Dealing with missing/corrupted data files
     1. If the data files are corrupted, `UniGenda` will start with an empty data file, and the corrupted files will be overlapped with the blank file.
