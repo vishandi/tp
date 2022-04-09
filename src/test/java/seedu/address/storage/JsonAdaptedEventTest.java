@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import static java.time.temporal.TemporalAdjusters.next;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.storage.JsonAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSchedule.SE_TUTORIAL;
@@ -11,7 +10,6 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
