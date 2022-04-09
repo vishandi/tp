@@ -3,9 +3,9 @@ layout: page
 title: User Guide
 ---
 
-UniGenda is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI)
-while still having the benefits of a Graphical User Interface (GUI). If you are an NUS student,
-and you can type fast, UniGenda can get your contact management tasks done faster than traditional GUI apps.
+UniGenda is a **desktop app for managing contacts and schedules**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a university student having a hard time organising your timetable, or commonly find difficulty scheduling a suitable time to meet up with your project group mates or friends, UniGenda is the app just for you!
+
+With features such as the ability to import your friends' schedules, find friends who are free at a certain date and time, and find common timings to meet with your project teammates, UniGenda makes your university life easier by helping you keep track of not only your own, but also your friends' schedules!
 
 # Table of Contents
 1. [Quick Start](#quick-start)
@@ -428,7 +428,7 @@ will discard all data and start with an empty data file at the next run.
 | **EditEvent**        | `editEvent INDEX EVENT_INDEX [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
 | **DeleteEvent**      | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                 |
 | **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                    |
-| **FindCommonTiming** | `findCommonTiming t/TAG da/DATE`<br> e.g., `findCommonTiming t/groupmates da/2022-03-04`                                                                                                     |
+| **FindCommonTiming** | `findCommonTiming t/TAG da/DATE`<br> e.g., `findCommonTiming t/groupmates da/2022-03-04`                                                                                                      |
 | **ImportSchedule**   | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                          |
 | **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                           |
 | **ClearSchedule**    | `clearSchedule`                                                                                                                                                                               |
