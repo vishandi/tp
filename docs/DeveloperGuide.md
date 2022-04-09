@@ -20,7 +20,6 @@ title: Developer Guide
     * schedule_icon.png : <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Freepik - Flaticon</a>
     * upcoming_schedule_icon.png : <a href="https://www.flaticon.com/free-icons/upcoming" title="upcoming icons">Upcoming icons created by Freepik - Flaticon</a>
     * days.png : <a href="https://www.flaticon.com/free-icons/calendar" title="calendar icons">Calendar icons created by Creaticca Creative Agency - Flaticon</a>
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -269,25 +268,26 @@ The following activity diagram summarizes what happens when the `whoIsFree` comm
 
 ### View Schedule Feature
 
+Views a person's schedule that will be displayed in the right panel.
+
 #### Implementation
 
 To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution.
 
 Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files so it will be easier to maintain or develop the GUI in the future.
 
-Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, 
-and we retrieve information based on the filtered list.
+Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, and we retrieve information based on the filtered list.
 
-To **view** a person, the user needs to run the `viewSchedule` command.
+To **view** a person's schedule, the user needs to run the `viewSchedule` command.
 The parsing of the viewSchedule command is handled by the following classes:
 * `AddressBookParser`
-    * Checks that the user input contains the ViewScheduleCommand.COMMAND_WORD and calls `ViewScheduleCommand#parse()`
+    * Checks that the user input contains the ViewScheduleCommand.COMMAND_WORD and calls `ViewScheduleCommandParser#parse()`.
 * `ViewScheduleCommandParser`
     * Parses the user input to create an `Index` of the person to view.
-    * Returns a `ViewScheduleCommand` to be executed by the `LogicManager`
+    * Returns a `ViewScheduleCommand` to be executed by the `LogicManager`.
     * In case of invalid index, it will be handled by the `ViewScheduleCommand` upon execution.
 
-A successful execution of the `view` command is described as follows:
+A successful execution of the `viewSchedule` command is described as follows:
 1. The `ViewScheduleCommand` retrieves the currently listed `Person`'s from the `Model`.
 2. The `personToView` is obtained from the above list using the `Index` created during the parsing of the viewSchedule command.
 3. `ViewScheduleCommand` creates a new `SamePersonPredicate` that returns `True` only if the tested `Person` equals to `personToView`.
@@ -299,30 +299,36 @@ A successful execution of the `view` command is described as follows:
 
 #### Design Considerations
 ##### viewedPerson as FilteredList or a Person.
+**Aspect: Should viewedPerson be a FilteredList of a Person?**
 * **Alternative 1 (current choice):** viewedPerson as a FilteredList
     * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
     * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
 * **Alternative 2:** viewedPerson as a Person
     * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
-    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to
-  display more than one Person.
-##### Displayed Attributes upon calling viewSchedule
-* **Alternative 1 (current choice):** Display required attributes like Name, Phone, and Schedule; No Schedule on Person List
+    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
+
+**Aspect: What attributes should be displayed in the right panel upon calling viewSchedule?**
+* **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List
     * Pros: Cleaner look of Person List, can display more detailed version of Events.
     * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
 * **Alternative 2:** All attributes of a Person both on Schedule and Person List
     * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
     * Cons: Person List display only fits a few Persons at a time.
 
-### FindCommonTiming feature
-This section details how the  'findCommonTiming' command is implemented. This command allows the user to get the common free timings of contacts who share the same tag. 
+### Find Common Timing Feature
+Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.
 The timings that the contacts are free at the specified date will be displayed.
 
 #### Implementation
-'FindCommonTimingParser', 'FindCommonTimingCommand' and 'IsTagInPersonPredicate' classes are involved in the execution of the 'findCommonTiming' command.
+`FindCommonTimingParser`, `FindCommonTimingCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `findCommonTiming` command.
 
-The 'parse' method inside the 'FindCommandTimingParser' receives the user input and extracts the required arguments.
-It then creates a new 'IsTagInPersonPredicate' object that will help check if contacts in the address book have the tag that the user has inputted.
+The parsing of findCommonTiming command is handled by the following classes:
+* `AddressBookParser`
+    * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`
+* `FindCommonTimingParser`
+    * Parses the user input to extract the required arguments.
+    * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
+    * Returns a `FindCommonTimingCommand` to be executed by the `LogicManager`.
 
 Given below is an example usage scenario and explanation on how the 'findCommonTiming' command behaves at each step.
 
@@ -340,7 +346,7 @@ object.
 The schedules of all the contacts will be consolidated and events will be checked if they occur on the date inputted by the user.
 A default timeslot will be created such that it will be assumed that the whole day is free, after which 30-minute timeslots will be blocked out according to events that are determined to occur on that particular date.
 
-Step 6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
+6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
 #### Design Considerations
@@ -356,7 +362,7 @@ These timeslots will then be displayed to the user.
         * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
     * Con:
         * Efficiency of implementation would be compromised to cater to a smaller target group.
-=======
+
 
 ### ExportSchedule feature
 This section details how the `exportSchedule` command is implemented. This command allows the user to export the schedule of contacts in UniGenda.
