@@ -187,7 +187,7 @@ The start date of recurring events are updated upon the start-up of the applicat
   * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
 * **Alternative 2:** Create our own Date, Time and Duration classes
   * Pros: More customisable
-  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement
+  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
 ### WhoIsFree feature
 This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
