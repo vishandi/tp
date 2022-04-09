@@ -72,7 +72,7 @@ Refer below for details of each command.
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -169,7 +169,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e., adding of tags is not cumulative.
+* When editing tags, the existing tags of the person will be removed, i.e., adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 * `NAME` should only contain alphanumeric characters and be at most 30 characters long. It should not be blank.
@@ -209,7 +209,7 @@ Finds persons whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`.
@@ -420,8 +420,17 @@ If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
 </div>
 
+**Q**: Why do some starting dates of the Events change when I launch UniGenda on different days?<br>
+**A**: `UniGenda` will update the date of the recurring event once it passes the ending date of the event so that it reflects the next occurrence of that event.
+
+**Q**: Can I check if my contacts were free last week?<br>
+**A**: Yes, however, the results might not be what you expect. This is because the events' dates are might change when you restart the application.
+
+**Q**: Why I can check if my contacts were free last week?<br>
+**A**: There can exist non-recurring events in a contact's schedule. Therefore, we allow the ability to search the availabilities of your contacts' past events if you wish to.
+
 **Q**: Why does `UniGenda` have sample data when it is first launched?<br>
-**A**: Sample data is pre-loaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.
+**A**: Sample data is preloaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.
 
 **Q**: Why do some starting dates of the Events change when I launch UniGenda on different days?
 **A**: `UniGenda` will update the date of the recurring event once it passes the ending date of the event so that it reflects the next occurrence of that event.
@@ -441,12 +450,12 @@ will discard all data and start with an empty data file at the next run.
 
 ### General Commands <a name="commandsummary-generalcommands"></a>
 
-| Action    | Format  |
-|-----------|---------|
-| **Help**  | `help`  |
-| **Clear** | `clear` |
-| **List**  | `list`  |
-| **Exit**  | 'exit'  |
+| Action    | Format   |
+|-----------|----------|
+| **Help**  | `help`   |
+| **Clear** | `clear`  |
+| **List**  | `list`   |
+| **Exit**  | `exit`   |
 
 ### Contact Management Commands <a name="commandsummary-contactmanagementcommands"></a>
 
@@ -466,8 +475,8 @@ will discard all data and start with an empty data file at the next run.
 | **AddEvent**         | `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `addEvent 1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1H30M r/WEEKLY`                 |
 | **DeleteEvent**      | `deleteEvent INDEX EVENT_NUMBER` <br> e.g., `deleteEvent 3 3`                                                                                                                                  |
 | **EditEvent**        | `editEvent INDEX EVENT_NUMBER [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME] [du/DURATION] [r/RECUR_FREQUENCY]` <br> e.g., `editEvent 3 1 ed/CS2103T tutorial da/18-12-2022 ti/1400 du/2 r/WEEKLY` |
-| **ClearSchedule**    | `clearSchedule`                                                                                                                                                                                |
-| **ImportSchedule**   | `importSchedule 1 pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                           |
+| **ClearSchedule**    | `clearSchedule INDEX`<br> e.g., `clearSchedule 1`                                                                                                                                              |
+| **ImportSchedule**   | `importSchedule INDEX pa/FILE_PATH`<br> e.g., `importSchedule 1 pa/typicalSchedule.json`                                                                                                       |
 | **ExportSchedule**   | `exportSchedule INDEX`<br> e.g., `exportSchedule 1`                                                                                                                                            |
 | **ViewSchedule**     | `viewSchedule INDEX`<br>e.g., `viewSchedule 1`                                                                                                                                                 |
 | **WhoIsFree**        | `whoIsFree ti/TIME [da/DATE]`<br> e.g., `whoIsFree ti/10:00 da/2022-03-14`                                                                                                                     |

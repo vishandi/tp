@@ -264,8 +264,7 @@ A successful execution of the `viewSchedule` command is described as follows:
 <img src="images/ViewScheduleSequenceDiagram.png" />
 
 #### Design Considerations
-##### viewedPerson as FilteredList or a Person.
-**Aspect: Should viewedPerson be a FilteredList of a Person?**
+**Aspect: Should viewedPerson be a FilteredList or a Person?**
 * **Alternative 1 (current choice):** viewedPerson as a FilteredList.
   * Pros:
     * Easier to implement, easier to develop if in the future we want to display more than one Person.
@@ -288,6 +287,49 @@ A successful execution of the `viewSchedule` command is described as follows:
     * More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
   * Cons:
     * Person List display only fits a few Persons at a time.
+    
+### View Group Feature
+View Group feature allows the user to be able to view a list of contacts who share the same tag.
+
+#### Implementation
+`ViewGroupParser`, `ViewGroupCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `ViewGroup` command.
+
+The parsing of viewGroup command is handled by the following classes:
+* 'AddressBookParser'
+    * Checks that the user input contains the ViewGroupCommand.COMMAND_WORD  and calls `ViewGroupParser#parse()`
+* `ViewGroupParser`
+    * Parses the user input to extract the required arguments.
+    * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
+    * Returns a `ViewGroupCommand` to be executed by the `LogicManager`.
+
+Given below is an example usage scenario and explanation on how the `viewGroup` command behaves at each step.
+
+1. The user enters `viewGroup t/friends` to find the contacts who share the same tag.
+The argument `t/friends` is passed to the `viewGroupParser` through its `parse` method call.
+
+2. The user input `t/friends` will be checked to ensure that empty input is not given.
+
+3. A new `IsTagInPersonPredicate` object is created and encapsulated by a new `ViewGroupCommand` object.
+
+4. The `ViewGroupCommand` object is returned to the `LogicManager`.
+
+5. During the execution of the command, the `ViewGroupCommand` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of contacts that share the same tag. 
+
+6. A `CommandResult` with the number of contacts free is returned. A list of contacts who share the same tag will also be displayed to the user.
+
+####Design Considerations
+
+**Aspect: What is an attribute of a person that a user would want to filter contacts by?**
+* **Alternative 1 (current choice):** Filter by tag
+  * Pros: 
+    * People who share the same tag are likely to be from the same group of friends, hence a user would be able to view the details or schedule of those contacts more easily using such a command.
+  * Cons:
+    * Not able to filter by another attribute of a person such as whether person has schedule or not.
+* **Alternative 2:** Filter by whether person has schedule or not.
+  * Pros: 
+    * It allows the user to view the contacts whom they have added their schedule to. These contacts can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
+  * Cons: 
+    * Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
 
 ### Find Common Timing Feature
 Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.
@@ -326,16 +368,16 @@ These timeslots will then be displayed to the user.
 #### Design Considerations
 **Aspect: Should we show timings that a group of contacts with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
-    * Pros:
-        * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
-        * More easily understood by users who are likely to plan meetings in 30-minute intervals
-    * Cons:
-        * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
+  * Pros:
+    * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
+    * More easily understood by users who are likely to plan meetings in 30-minute intervals
+  * Cons:
+    * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
 * **Alternative 2**: Show common free timings accurate to the minute
-    * Pros:
-        * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
-    * Cons:
-        * Efficiency of implementation would be compromised to cater to a smaller target group.
+  * Pros:
+    * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
+  * Cons:
+    * Efficiency of implementation would be compromised to cater to a smaller target group.
 
 ### ImportSchedule and ExportSchedule features
 This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of contacts in UniGenda.
@@ -379,16 +421,16 @@ A success execution of the `exportSchedule` command is described as follows:
 
 **Aspect: Where should we save the exported files?**
 * **Alternative 1**: Users specify where they want files to be saved.
-    * Pros:
-        * Users will be able to save wherever they like.
-    * Cons:
-        * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
+  * Pros:
+    * Users will be able to save wherever they like.
+  * Cons:
+    * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
 * **Alternative 2 (current implementation)**: We save the files in the data folder.
-    * Pros:
-        * Location for exported files will not change.
-        * Do not have to check if the file path is an absolute path or a relative path.
-    * Cons:
-        * Users will not be able to save the files where they like.
+  * Pros:
+    * Location for exported files will not change.
+    * Do not have to check if the file path is an absolute path or a relative path.
+  * Cons:
+    * Users will not be able to save the files where they like.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -407,35 +449,46 @@ A success execution of the `exportSchedule` command is described as follows:
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* University students who have trouble keeping track of their own schedules
+* Has university friends and/or project group mates with similarly packed schedules
+* Find it difficult to synchronise their schedules with their friends to meet
+* Need to plan project meetings often, but face difficulty scheduling a common time to meet
 * prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
+* can type fast and prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
-* has friends with busy schedules
-* wants to meet up with friends often
 
+**Value proposition**: 
 
-**Value proposition**: improve ease of finding common meeting times with contacts compared to mouse/GUI driven apps
+Problem:
+With COVID causing home based learning to become the norm, meeting up with friends or project group mates in person has become a rarity for university students. It has also increased the need to schedule online meetings. But with everyone's tightly packed schedules, it is difficult to find that common time to meet or find friends who are free at particular dates and times!
 
+How UniGenda solves the problem:
+UniGenda improves the ease of finding common meeting times with contacts by allowing users to keep track of not only their own, but also their friends or project group mates' schedules!
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                       | I want to …​                                     | So that I can…​                                                        |
-|----------|-------------------------------|--------------------------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                      | see usage instructions                           | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                          | add a new person                                 |                                                                        |
-| `* * *`  | user                          | delete a person                                  | remove entries that I no longer need                                   |
-| `* * *`  | user                          | find a person by name                            | locate details of persons without having to go through the entire list |
-| `* * *`  | user                          | add an event to my contact                       | refer to the contact's schedule on a later date                        |
-| `* * *`  | user                          | edit an event on a person's schedule             | amend changes to my contact's schedule                                 |
-| `* * *`  | user                          | delete an event on a person's schedule           | remove events that are no longer in my contact's schedule              |
-| `* * *`  | user                          | view a person's schedule                         |                                                                        |
-| `* *`    | user                          | set a person to be myself                        | see my information easily                                              |
-| `* *`    | student with a lot of friends | see who are available at a particular time       | easily plan a meetup                                                   |
-| `* *`    | student with a lot of friends | see which timings friends with same tag are free | plan a meetup with friends from the same group                         |
+| Priority | As a …​                                     | I want to be able to…​                                                | So that I can…​                                                        |
+|----------|---------------------------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------|
+| `* * *`  | new user                                    | see usage instructions                                                | I can learn how to use the app                                         |
+| `* * *`  | user                                        | add a new person into my contacts                                     |                                                                        |
+| `* * *`  | user                                        | edit a person's details                                               | update my contacts' information                                        |
+| `* * *`  | user                                        | delete a person in my contacts                                        | remove entries that I no longer need                                   |
+| `* * *`  | user                                        | add an event to my contact's schedule                                 | refer to the contact's schedule on a later date                        |
+| `* * *`  | user                                        | edit an event on a person's schedule                                  | amend changes to my contact's schedule                                 |
+| `* * *`  | user                                        | delete an event on a person's schedule                                | remove events that are no longer in my contact's schedule              |
+| `* * *`  | user                                        | view my contact's schedule                                            |                                                                        |
+| `* * *`  | university student                          | add recurring events such as weekly tutorials and labs to my schedule | avoid having to add a new event every week                             |
+| `* *`    | user looking for friends to hang out with   | see who are available at a particular date and time                   | easily find a friend to meet up with                                   |
+| `* *`    | university student planning a group meeting | see which timings all my project group mates are free                 | plan the meeting more efficiently                                      |
+| `* *`    | user                                        | import my friends' schedules                                          | view their schedules without needing to add their events 1 by 1        |
+| `* *`    | university student                          | filter my contacts by modules they are taking with me                 | so that I can discuss module assignments with them                     |
+| `* *`    | user                                        | view my schedule easily                                               |                                                                        |
+| `* *`    | user                                        | clear a contact's schedule easily                                     |
+| `* *`    | user                                        | clear my application data easily                                      |
+| `*`      | user                                        | find a person by name                                                 | locate details of persons without having to go through the entire list |
+
 
 ### Use cases
 
@@ -532,8 +585,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to delete a specific event on a specific person's schedule
-2. UniGenda deletes the event
+1. User requests to delete a specific event on a specific person's schedule.
+2. UniGenda deletes the event.
 
    Use case ends.
 
@@ -545,9 +598,82 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+**Use case: Find who is free**
 
+**MSS**
 
-*{More to be added}*
+1. User inputs time and date to find who, user's contacts, is free.
+2. Filter model list.
+3. Display filtered model list.
+
+    Use case ends.
+
+Extensions
+* 1a. The specified date or time is invalid.
+
+    * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
+**Use case: Import schedule**
+
+**MSS**
+
+1. User imports schedule for a specific person.
+2. UniGenda retrieves information for the file.
+3. UniGenda replaces the schedule.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The specified contact index or event index is invalid.
+
+    * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 1b. The specified file path in invalid or unreachable.
+
+    * 1b1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 2a. The file information is in the wrong format.
+
+    * 2a1. UniGenda shows an error message.
+    * 2a2. If app can save file, UniGenda creates an example file for user reference.
+    * 2a3. If app cannot save the file, UniGenda shows an example in the display box.
+
+  Use case ends.
+
+**Use case: Export schedule**
+
+**MSS**
+
+1. User chooses a person's schedule to export.
+2. UniGenda retrieves the schedule of the person.
+3. UniGenda saves it to local storage.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The specified contact index or event index is invalid.
+
+    * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 2a. The specified contact does not have a schedule.
+
+    * 2a1. UniGenda shows an error message.
+
+  Use case ends.
+
+* 3a. UniGenda is unable to save the file to local storage.
+
+    * 3a1. UniGenda shows an error message.
+
+  Use case ends.
 
 ### Non-Functional Requirements
 
