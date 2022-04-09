@@ -28,6 +28,10 @@ Given below are my contributions to the project.
   * Highlights: Due to the changing nature of our project, old features have to be updated to accommodate the new features. While testing a new feature, it was discovered by Vishandi (Github username: vishandi) that the recurring event was not working as intended, which caused the application to hang. I was tasked to modify the existing code to fix the problem it had with the new feature since I had experienced with this issue when implementing the code for the second feature listed here. Despite the experience, it still was a challenging as the calculation for the dates were really complicated, especially when dealing with dates that are from the past. With the help of Vishandi as tester, I was able to complete the fix within 6 hours.
   * Credits: This feature was created by Yan Han (Github username: tyanhan).
     
+* **Tests added:**
+  * Created `EventBuilder`, `TypicalSchedule`, `EditEventDescriptorBuilder`
+  * Wrote tests for `WhoIsFreeCommand`, `WhoIsFreeCommandParser`, `EditEventCommand` and `EditEventCommandParser`.
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=hanqinilnix&breakdown=true)
 
 * **Project management**:
