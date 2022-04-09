@@ -1,6 +1,6 @@
 ---
 layout: page
-title: User Guide
+title: UniGenda - User Guide
 ---
 
 UniGenda is a **desktop app for managing contacts and schedules**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a university student having a hard time organising your timetable, or commonly find difficulty scheduling a suitable time to meet up with your project group mates or friends, UniGenda is the app just for you!
