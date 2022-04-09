@@ -413,7 +413,7 @@ will discard all data and start with an empty data file at the next run.
 **A**: The purpose of the sample data is to allow new users to try out and be familiar with `UniGenda`. You may start `UniGenda` fresh by using the `clear` command to clear existing sample data.
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous `UniGenda` home folder.
+**A**: Install the app in the other computer and overwrite the empty data folder it creates with the file that contains the data of your previous `UniGenda` home folder.
 
 **Q**: Where do I locate my export files?<br>
 **A**: <br>
