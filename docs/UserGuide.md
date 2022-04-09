@@ -408,17 +408,18 @@ Example:
 
 ## FAQ
 
-**Q**: How do I save the data file?
+**Q**: How do I save the data file?<br>
 **A**: UniGenda's data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-**Q**: Is there any way for me to edit the data file?
+**Q**: Is there any way for me to edit the data file?<br>
 **A**: UniGenda data are saved as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing it.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, UniGenda
 will discard all data and start with an empty data file at the next run.
+</div>
 
-**Q**: Why does `UniGenda` have sample data when it is first launched?
+**Q**: Why does `UniGenda` have sample data when it is first launched?<br>
 **A**: Sample data is pre-loaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.
 
 **Q**: How do I transfer my data to another Computer?<br>
