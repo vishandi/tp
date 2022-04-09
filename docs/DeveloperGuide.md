@@ -1,13 +1,53 @@
 ---
 layout: page
-title: Developer Guide
+title: UniGenda - Developer Guide
 ---
-* Table of Contents
-{:toc}
+
+# Table of Contents
+1. [Acknowledgements](#1-acknowledgements)
+2. [Setting up, getting started](#2-setting-up-getting-started)
+3. [Design](#3-design)
+   1. [Architecture](#31-architecture)
+   2. [UI component](#32-ui-component)
+   3. [Logic component](#33-logic-component)
+   4. [Model component](#34-model-component)
+   5. [Storage component](#35-storage-component)
+   6. [Common classes](#36-common-classes)
+4. [Implementation Highlights](#4-implementation-highlights)
+   1. [Schedule Feature](#41-schedule-feature)
+   2. [WhoIsFree Feature](#42-whoisfree-feature)
+   3. [ViewSchedule Feature](#43-viewschedule-feature)
+   4. [ViewGroup Feature](#44-viewgroup-feature)
+   5. [FindCommonTiming Feature](#45-findcommontiming-feature)
+   6. [ImportSchedule and ExportSchedule Features](#46-importschedule-and-exportschedule-features)
+5. [Documentation, logging, testing, configuration, dev-ops](#5-documentation-logging-testing-configuration-dev-ops)
+6. [Appendix A: Requirements](#6-appendix-a-requirements)
+   1. [Product scope](#61-product-scope)
+   2. [User stories](#62-user-stories)
+   3. [Use cases](#63-use-cases)
+   4. [Non-Functional Requirements](#64-non-functional-requirements)
+   5. [Glossary](#65-glossary)
+7. [Appendix B: Instructions for Manual Testing](#7-appendix-b-instructions-for-manual-testing)
+   1. [Launch and shutdown](#71-launch-and-shutdown)
+   2. [Adding a person](#72-adding-a-person)
+   3. [Editing a person](#73-editing-a-person)
+   4. [Deleting a person](#74-deleting-a-person)
+   5. [Setting a person as the user](#75-setting-a-person-as-the-user)
+   6. [Viewing persons that share the same tag](#76-viewing-persons-that-share-the-same-tag)
+   7. [Adding an event](#77-adding-an-event)
+   8. [Editing an event](#78-editing-an-event)
+   9. [Deleting an event](#79-deleting-an-event)
+   10. [Clearing a person's schedule](#710-clearing-a-persons-schedule)
+   11. [Importing a person's schedule from a JSON file](#711-importing-a-persons-schedule-from-a-json-file)
+   12. [Exporting a person's schedule to a JSON file](#712-exporting-a-persons-schedule-to-a-json-file)
+   13. [Displaying a person's schedule](#713-displaying-a-persons-schedule)
+   14. [Getting contacts who are free at specified time and date](#714-getting-contacts-who-are-free-at-specified-time-and-date)
+   15. [Finding common timing that everyone who shares the specified tag available at a particular date](#715-finding-common-timing-that-everyone-who-shares-the-specified-tag-available-at-a-particular-date)
+   16. [Saving data](#716-saving-data)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
+# 1. **Acknowledgements**
 
 * Code base: [addressbook-level3](https://github.com/se-edu/addressbook-level3)
 * These are the sources of the images that we used in this project (all images referred in this section is available on `/src/main/resources/images`):
@@ -23,20 +63,20 @@ title: Developer Guide
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Setting up, getting started**
+# 2. **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Design**
+# 3. **Design**
 
 <div markdown="span" class="alert alert-primary">
 
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S2-CS2103T-W09-1/tp/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
-### Architecture
+## 3.1 Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
 
@@ -77,7 +117,7 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 The sections below give more details of each component.
 
-### UI component
+## 3.2 UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
@@ -94,7 +134,7 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
-### Logic component
+## 3.3 Logic component
 
 **API** : [`Logic.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
@@ -123,7 +163,7 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
-### Model component
+## 3.4 Model component
 **API** : [`Model.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
@@ -135,7 +175,7 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-### Storage component
+## 3.5 Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
@@ -146,21 +186,20 @@ The `Storage` component,
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
-### Common classes
+## 3.6 Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+# 4. **Implementation Highlights**
 
 This section describes some noteworthy details on how certain features are implemented.
 
-
-###  Schedule Feature
+## 4.1 Schedule Feature
 This subsection details how `Schedule` and `Event` classes were implemented.
 
-#### Implementation
+### Implementation
 To enable users to track their contacts' schedules, 2 new classes have been added: `Schedule` and `Event`
 * Each `Person` has a `Schedule` attribute.
 * A `Schedule` contains a list of `Event`s.
@@ -171,27 +210,32 @@ To enable users to track their contacts' schedules, 2 new classes have been adde
 
 The start date of recurring events are updated upon the start-up of the application, to reflect the next occurrence of the event, if the event has already passed.
 
-#### Design considerations
+### Design considerations
 **Aspect: How should we differentiate recurring events and non-recurring events?**
-* **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks
-  * Pros: Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
-* **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute
-  * Pros: Slightly more OOP.
+* **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks.
+  * Pros:
+    * Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
+* **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute.
+  * Pros: 
+    * Slightly more OOP.
   * Cons:
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
 
 **Aspect: How should we implement event's date, time and duration attributes?**
-* **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes
-  * Pros: Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
-* **Alternative 2:** Create our own Date, Time and Duration classes
-  * Pros: More customisable.
-  * Cons: Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
+* **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes.
+  * Pros:
+    * Easier to implement, no need to account for leap years, number of days in a month, formatting etc. Also has inbuilt support to calculate time.
+* **Alternative 2:** Create our own Date, Time and Duration classes.
+  * Pros: 
+    * More customisable.
+  * Cons:
+    * Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
-### WhoIsFree feature
+## 4.2 WhoIsFree feature
 This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
 
-#### Implementation
+### Implementation
 `WhoIsFreeCommandParser` and `WhoIsFreeCommand` classes are involved in the execution of the `whoIsFree` command.
 
 The `parse` method of `WhoIsFreeCommandParser` receives the user input and extracts the required arguments. It then creates a predicate object that will help check if the user's contacts' schedule coincides with the specified time and date.
@@ -203,22 +247,22 @@ A successful execution of the `whoIsFree` command is described as follows:
 
 ![WhoIsFreeSequenceDiagram](images/WhoIsFreeSequenceDiagram.png)
 
-#### Design Considerations
+### Design Considerations
 **Aspect: Should we allow dates that have already passed?**
 * **Alternative 1 (current implementation)**: Ignore dates that have passed.
-  * Pro:
+  * Pros:
     * Prevents users from expecting the wrong results when recurring events are involved.
   * Cons:
     * Harder implementation as we would have to consider all events with respect to today.
 * **Alternative 2**: Treat the past dates as a normal dates.
   * Pros:
     * Easy implementation as there is nothing special to take note.
-  * Con:
+  * Cons:
     * Does not make sense to check dates have already passed.
 
 **Aspect: What to do with contacts who do not have a schedule?**
 * **Alternative 1 (current implementation)**: Contacts without schedule are always free.
-  * Pro:
+  * Pros:
     * Easy implementation.
   * Cons:
     * Contacts without schedule may not be free at the specified date and time.
@@ -227,18 +271,16 @@ A successful execution of the `whoIsFree` command is described as follows:
   * Pros:
     * Higher certainty that contacts shown will be free.
     * Less information to process as we ignore contacts without schedule.
-  * Con:
+  * Cons:
     * Contacts without schedule may be free at the specified date and time.
 
-### View Schedule Feature
+## 4.3 ViewSchedule Feature
 
-Views a person's schedule that will be displayed in the right panel.
+Displays the specified person's schedule.
 
-#### Implementation
+### Implementation
 
-To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution.
-
-Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files so it will be easier to maintain or develop the GUI in the future.
+To allow users to view their contact's schedules, we implemented a `ViewScheduleCommand`, and added a `FilteredList<Person>` object in `ModelManager` to facilitate its execution. Moreover, we created `ScheduleCard.java`, `ScheduleCardPanel.java`, and their respective `.fxml` files.
 
 Overall, how this command works is similar to a combination of `delete` and `find`, in which we only take an index as input, and we retrieve information based on the filtered list.
 
@@ -261,28 +303,35 @@ A successful execution of the `viewSchedule` command is described as follows:
 
 <img src="images/ViewScheduleSequenceDiagram.png" />
 
-#### Design Considerations
-##### viewedPerson as FilteredList or a Person.
-**Aspect: Should viewedPerson be a FilteredList of a Person?**
-* **Alternative 1 (current choice):** viewedPerson as a FilteredList
-    * Pros: Easier to implement, easier to develop if in the future we want to display more than one Person.
-    * Cons: Not intuitive since now the viewSchedule command only support viewing one Person.
-* **Alternative 2:** viewedPerson as a Person
-    * Pros: More intuitive because it **is** the displayed Person's Schedule we are interested in.
-    * Cons: Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
+### Design Considerations
+**Aspect: Should viewedPerson be a FilteredList or a Person?**
+* **Alternative 1 (current choice):** viewedPerson as a FilteredList.
+  * Pros:
+    * Easier to implement, easier to develop if in the future we want to display more than one Person.
+  * Cons:
+    * Not intuitive since now the viewSchedule command only support viewing one Person.
+* **Alternative 2:** viewedPerson as a Person.
+  * Pros:
+    * More intuitive because it **is** the displayed Person's Schedule we are interested in.
+  * Cons:
+    * Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
 
 **Aspect: What attributes should be displayed in the right panel upon calling viewSchedule?**
-* **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List
-    * Pros: Cleaner look of Person List, can display more detailed version of Events.
-    * Cons: User doesn't know if a particular Person in the Person List has any Schedule or not.
-* **Alternative 2:** All attributes of a Person both on Schedule and Person List
-    * Pros: More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
-    * Cons: Person List display only fits a few Persons at a time.
+* **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List.
+  * Pros:
+    * Cleaner look of Person List, can display more detailed version of Events.
+  * Cons:
+    * User doesn't know if a particular Person in the Person List has any Schedule or not.
+* **Alternative 2:** All attributes of a Person both on Schedule and Person List.
+  * Pros:
+    * More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
+  * Cons:
+    * Person List display only fits a few Persons at a time.
     
-### View Group Feature
+## 4.4 ViewGroup Feature
 View Group feature allows the user to be able to view a list of contacts who share the same tag.
 
-#### Implementation
+### Implementation
 `ViewGroupParser`, `ViewGroupCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `ViewGroup` command.
 
 The parsing of viewGroup command is handled by the following classes:
@@ -293,42 +342,45 @@ The parsing of viewGroup command is handled by the following classes:
     * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
     * Returns a `ViewGroupCommand` to be executed by the `LogicManager`.
 
-Given below is an example usage scenario and explanation on how the 'viewGroup' command behaves at each step.
+Given below is an example usage scenario and explanation on how the `viewGroup` command behaves at each step.
 
-1. The user enters 'viewGroup t/friends' to find the contacts who share the same tag.
-The argument 't/friends' is passed to the 'viewGroupParser' through its 'parse' method call.
+1. The user enters `viewGroup t/friends` to find the contacts who share the same tag.
+The argument `t/friends` is passed to the `viewGroupParser` through its `parse` method call.
 
-2. The user input 't/friends' will be checked to ensure that empty input is not given.
+2. The user input `t/friends` will be checked to ensure that empty input is not given.
 
-3. A new 'IsTagInPersonPredicate' object is created and encapsulated by a new 'ViewGroup'
-object.
+3. A new `IsTagInPersonPredicate` object is created and encapsulated by a new `ViewGroupCommand` object.
 
-4. The 'ViewGroup' object is returned to the 'LogicManager'.
+4. The `ViewGroupCommand` object is returned to the `LogicManager`.
 
-5. During the execution of the command, the 'ViewGroup' object calls 'Model#updateFilteredPersonList' method with the 'IsTagInPersonPredicate' to get the list of contacts that share the same tag. 
+5. During the execution of the command, the `ViewGroupCommand` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of contacts that share the same tag. 
 
 6. A `CommandResult` with the number of contacts free is returned. A list of contacts who share the same tag will also be displayed to the user.
 
-####Design Considerations
+###Design Considerations
 
 **Aspect: What is an attribute of a person that a user would want to filter contacts by?**
 * **Alternative 1 (current choice):** Filter by tag
-    * Pros: People who share the same tag are likely to be from the same group of friends, hence a user would be able to view the details or schedule of those contacts more easily using such a command.
-    * Cons: Not able to filter by another attribute of a person such as whether person has schedule or not.
+  * Pros: 
+    * People who share the same tag are likely to be from the same group of friends, hence a user would be able to view the details or schedule of those contacts more easily using such a command.
+  * Cons:
+    * Not able to filter by another attribute of a person such as whether person has schedule or not.
 * **Alternative 2:** Filter by whether person has schedule or not.
-    * Pros: It allows the user to view the contacts whom they have added their schedule to. These contacts can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
-    * Cons: Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
+  * Pros: 
+    * It allows the user to view the contacts whom they have added their schedule to. These contacts can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
+  * Cons: 
+    * Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
 
-### Find Common Timing Feature
+## 4.5 FindCommonTiming Feature
 Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.
 The timings that the contacts are free at the specified date will be displayed.
 
-#### Implementation
+### Implementation
 `FindCommonTimingParser`, `FindCommonTimingCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `findCommonTiming` command.
 
 The parsing of findCommonTiming command is handled by the following classes:
 * `AddressBookParser`
-    * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`
+    * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`.
 * `FindCommonTimingParser`
     * Parses the user input to extract the required arguments.
     * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
@@ -353,25 +405,24 @@ A default timeslot will be created such that it will be assumed that the whole d
 6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
-#### Design Considerations
+### Design Considerations
 **Aspect: Should we show timings that a group of contacts with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
-    * Pros:
-        * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
-        * More easily understood by users who are likely to plan meetings in 30-minute intervals
-    * Con:
-        * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
+  * Pros:
+    * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
+    * More easily understood by users who are likely to plan meetings in 30-minute intervals
+  * Cons:
+    * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
 * **Alternative 2**: Show common free timings accurate to the minute
-    * Pros:
-        * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
-    * Con:
-        * Efficiency of implementation would be compromised to cater to a smaller target group.
+  * Pros:
+    * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
+  * Cons:
+    * Efficiency of implementation would be compromised to cater to a smaller target group.
 
-
-### ImportSchedule and ExportSchedule features
+## 4.6 ImportSchedule and ExportSchedule Features
 This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of contacts in UniGenda.
 
-#### Implementation
+### Implementation
 `ImportScheduleCommandParser` and `ImportScheduleCommand` classes are involved in the execution of the `importSchedule` command. While `ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command. The `JsonUtil` and `JsonAdaptedSchedule` classes were also used to read and save the files during import and export.
 
 The `parse` method of `ImportScheduleCommandParser` and `ExportScheduleCommandParser` receive the user input and extracts the required arguments.
@@ -394,15 +445,15 @@ A success execution of the `exportSchedule` command is described as follows:
 
 ![ExportScheduleSequenceDiagram](images/ExportScheduleSequenceDiagram.png)
 
-#### Design Considerations
+### Design Considerations
 **Aspect: What should we do existing schedules when importing?**
 * **Alternative 1 (current implementation)**: We replace the existing schedule with the one that we imported.
-  * Pro:
+  * Pros:
     * Easy implementation.
-  * Con:
+  * Cons:
     * User will lose existing schedule.
 * **Alternative 2**: We merge existing schedule with the schedule we imported.
-  * Pro:
+  * Pros:
     * User get to keep all old and new schedules.
   * Cons:
     * Harder to implement, requires a lot of checks like whether the imported schedule contains events that were already in the existing schedule.
@@ -410,20 +461,19 @@ A success execution of the `exportSchedule` command is described as follows:
 
 **Aspect: Where should we save the exported files?**
 * **Alternative 1**: Users specify where they want files to be saved.
-    * Pro:
-        * Users will be able to save wherever they like.
-    * Con:
-        * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
-
+  * Pros:
+    * Users will be able to save wherever they like.
+  * Cons:
+    * Harder to implement as we would have to check if the file path given is an absolute path or a relative path.
 * **Alternative 2 (current implementation)**: We save the files in the data folder.
-    * Pros:
-        * Location for exported files will not change.
-        * Do not have to check if the file path is an absolute path or a relative path.
-    * Con:
-        * Users will not be able to save the files where they like.
+  * Pros:
+    * Location for exported files will not change.
+    * Do not have to check if the file path is an absolute path or a relative path.
+  * Cons:
+    * Users will not be able to save the files where they like.
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+# 5. **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
 * [Testing guide](Testing.md)
@@ -433,9 +483,9 @@ A success execution of the `exportSchedule` command is described as follows:
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+# 6. **Appendix A: Requirements**
 
-### Product scope
+## 6.1 Product scope
 
 **Target user profile**:
 
@@ -455,7 +505,7 @@ With COVID causing home based learning to become the norm, meeting up with frien
 How UniGenda solves the problem:
 UniGenda improves the ease of finding common meeting times with contacts by allowing users to keep track of not only their own, but also their friends or project group mates' schedules!
 
-### User stories
+## 6.2 User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
@@ -479,8 +529,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                                        | clear my application data easily                                      |
 | `*`      | user                                        | find a person by name                                                 | locate details of persons without having to go through the entire list |
 
-
-### Use cases
+## 6.3 Use cases
 
 (For all use cases below, the **System** is the `UniGenda` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -588,6 +637,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+**Use case: View a person's schedule**
+
+**MSS**
+
+1. User requests to view a specific person's schedule.
+2. UniGenda displays the person's schedule.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified contact index or event index is invalid.
+
+  * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
 **Use case: Find who is free**
 
 **MSS**
@@ -665,21 +731,21 @@ Extensions
 
   Use case ends.
 
-*{More to be added}*
-
-### Non-Functional Requirements
+## 6.4 Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 100 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should be able to hold up to 1000 events across all persons without noticeable lag.
+5. Should be optimal for single user.
+6. Data should be stored locally and not use any database management system.
+7. The GUI should be simple and clear enough so users can see a person's information easily.
+8. The application should work with a single JAR file, and should work without requiring an installer.
+9. The application size should not exceed `100MB`.
 
-*{More to be added}*
-
-### Glossary
+## 6.5 Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Event**: Something that happens
 * **Schedule**: A list of Events
 * **Main Success Scenario (MSS)**: Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong
@@ -688,7 +754,7 @@ Extensions
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+# 7. **Appendix B: Instructions for Manual Testing**
 
 Given below are instructions to test the app manually.
 
@@ -697,85 +763,200 @@ testers are expected to do more *exploratory* testing.
 
 </div>
 
-### Launch and shutdown
+## 7.1 Launch and shutdown
 
 1. Initial launch
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts.
 
-1. Saving window preferences
+## 7.2 Adding a person
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+1. Adding a person to `UniGenda`
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+    1. Prerequisites: No person named John Doe or Jane Doe in `UniGenda`.
+   
+    2. Test case: `add n/John Doe p/98765432` <br>
+       Expected: A new person with name John Doe and phone number 98765432 is added to `UniGenda`. Detail of the newly added person is shown in the status message.
 
-1. _{ more test cases …​ }_
+    3. Test case: `add n/Jane Doe p/12345678 e/janed@example.com tg/JaneDoe gh/DoeJane` <br>
+       Expected: A new person with name Jane Doe, phone number 12345678, email janed@example.com, telegram JaneDoe, github DoeJane is added to `UniGenda`. Detail of the newly added person is shown in the status message.
 
-### Deleting a person
+    4. Test case: `add n/John` <br>
+       Expected: No person is added. Error detail is shown in the status message.
+
+    5. Other incorrect add commands to try: `add`, `add 1`.
+
+## 7.3 Editing a person
+
+1. Editing an existing person in `UniGenda` while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    2. Test case: `edit 1 p/91234567 e/johndoe@example.com` <br>
+       Expected: The first person in the list will have phone number 91234567 and email johndoe@example.com. Detail of the edited person is shown in the status message.
+
+    3. Test case: `edit 1 a/ e/ tg/ gh/` <br>
+       Expected: The first person in the list will no longer have address, email, telegram, or github recorded. Detail of the edited person is shown in the status message.
+
+    4. Test case: `edit 1` <br>
+       Expected: Nothing edited. Error detail is shown in the status message.
+    
+    5. Other incorrect edit commands to try: `edit`, `edit 0` <br>
+       Expected: Similar to previous.
+
+## 7.4 Deleting a person
 
 1. Deleting a person while all persons are being shown
 
    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   2. Test case: `delete 1`<br>
+      Expected: First person is deleted from the list. Detail of the deleted person is shown in the status message.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   3. Test case: `delete 0`<br>
+      Expected: No person is deleted. Error detail is shown in the status message.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+## 7.5 Setting a person as the user
 
-### Getting contacts who are free at specified time and date
-1. Assuming that all contacts do not have a schedule.
-   1. Test case: `freeSchedule ti/10:00 da/2022-05-01`<br>
-      Expected: No contacts displayed.
+1. Setting a person on `UniGenda` as the user while all persons are being shown
+
+    1. Prerequisities: List all persons using the `list` command. More than one persons in the list.
+
+    2. Test case: `setUser 2` <br>
+       Expected: The second person in the list "becomes" the user and that person's card moves to the top of the list. Name of the new user is shown in the status message.
+    
+    3. Test case: `setUser 0` <br>
+       Expected: No changes in the list. Error detail is shown in the status message.
+
+    4. Other incorrect setUser commands to try: `setUser`, `setUser x` (where x is larger than the list size) <br>
+       Expected: Similar to previous.
+
+## 7.6 Viewing persons that share the same tag
+
+## 7.7 Adding an event
+
+1. Adding an event to a person while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule.
+
+    2. Test case: `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
+       Expected: The first person's schedule (with the inputted event included) will be displayed in the right panel. The newly added event detail is shown in the status message. 
+
+    3. Test case: `addEvent 0 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect addEvent commands to try: `addEvent`, `addEvent 0` <br>
+       Expected: Similar to previous.
+
+## 7.8 Editing an event
+
+1. Editing an existing person's event while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule initially. Type in this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`. The first person's schedule will be displayed on the right panel.
+
+    2. Test case: `editEvent 1 1 ti/11:00` <br>
+       Expected: The event in the person's schedule will be edited so that it starts at 11:00 instead of 10:00. The edited event detail is shown in the status message.
+
+    3. Test case: `editEvent 1 1 ed/CS2102 Tutorial` <br>
+       Expected: The event in the person's schedule will be edited so that its event description is CS2102 Tutorial instead of CS2103T Tutorial. The edited event detail is shown in the status message.
+    
+    4. Test case: `editEvent 1 1 da/2022-12-30 du/2H` <br>
+       Expected: The event in the person's schedule will be edited so that its starting date is 2022-12-30, and the event lasts for 2 hours, instead of starting at 2022-12-28 and lasts for 3 hours and 30 minutes. The edited event detail is shown in the status message.
+
+    5. Test case: `editEvent 1 1 da/2022-12-30 du/2H` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    6. Other incorrect editEvent commands to try: `editEvent`, `editEvent 1 1` <br>
+       Expected: Similar to previous.
+
+## 7.9 Deleting an event
+
+1. Deleting a person's event while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person in the list should have a non-empty. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
+
+    2. Test case: `deleteEvent 1 1` <br>
+       Expected: The first person's schedule will be displayed in the right panel. The first event in the person's schedule will be deleted. The name of the person whose event deleted and the index of the event are shown in the status message.
+
+    3. Test case: `deleteEvent 1 0` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect deleteEvent commands to try: `deleteEvent`, `deleteEvent 1` <br>
+       Expected: Similar to previous.
+
+## 7.10 Clearing a person's schedule
+
+1. Clearing a person's schedule and deleting every event recorded to that person
+
+    1. Some person in the list. The first person in the list should have a non-empty schedule. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
+
+    2. Test case: `clearSchedule 1` <br>
+       Expected: The first person's schedule will be displayed (now empty) in the right panel. The name of the person whose schedule cleared is shown in the status message.
+
+    3. Test case: `clearSchedule 0` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect clearSchedule commands to try: `clearSchedule`, `clearSchedule x` (where x is larger than the list size) <br>
+       Expected: Similar to previous.
+
+## 7.11 Importing a person's schedule from a JSON file
+
+## 7.12 Exporting a person's schedule to a JSON file
+
+## 7.13 Displaying a person's schedule
+
+1. Viewing a person's upcoming schedule and full schedule while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    2. Test case: `viewSchedule 1`<br>
+       Expected: First person's schedule is shown in the right panel. The name of the first person is shown in the status message.
+
+    3. Test case: `viewSchedule 0`<br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect viewSchedule commands to try: `viewSchedule`, `viewSchedule x` (where x is larger than the list size) <br>
+       Expected: Similar to previous.
+
+## 7.14 Getting contacts who are free at specified time and date
+1. Assuming that all contacts do not have a schedule
+   1. Test case: `whoIsFree ti/10:00 da/2022-05-01`<br>
+      Expected: Displays all persons.
    
-   2. Test case: `freeSchedule ti/10:00`
+   2. Test case: `whoIsFree ti/10:00`
       Expected: Same result as previous.
 
-2. Assuming that some contacts have a schedule.
+2. Assuming that some contacts have a schedule <br>
    Situation 1: All contacts are free today at 10am.
-   1. Test case: `freeSchedule ti/10:00`<br>
-      Expected: Displays all contacts with a schedule.
+   1. Test case: `whoIsFree ti/10:00`<br>
+      Expected: Displays all persons.
    
-   Situation 2: All contacts are not free today at specified time.
-   1. Test case: `freeSchedule ti/10:00`<br>
+   Situation 2: All contacts are not free today at 10am.
+   1. Test case: `whoIsFree ti/10:00`<br>
       Expected: No contacts displayed.
    
    Situation 3: Some contacts are free today at specified time.
-   1. Test case: `freeSchedule ti/10:00`<br>
-      Expected: Contacts who are free today at 10am displayed.
-   2. Test case: `freeSchedule ti/08:00 ti/10:00`<br>
+   1. Test case: `whoIsFree ti/10:00`<br>
       Expected: Contacts who are free today at 10am will be displayed.
-   3. Test case: `freeSchedule ti/200:00 ti/10:00`<br>
-      Expected: Same result as previous.
-
-   Situation 4. Giving a date that is in the past.
-   1. Test case: `freeSchedule ti/10:00 da/2000-01-01`<br>
-      Expected: No contacts displayed.
-
-3. Assuming that some contacts have recurring events.
-   Situation 1: Contacts have daily events.
-   1. Test case: 
-
-4. Wrong inputs
-   1. Test case: `freeSchedule ti/1000`
-      Expected: Nothing happens. Error message written in result box.
-   2. Test case: `freeSchedule ti/10:00 da/01 Dec 2022`
+   2. Test case: `whoIsFree ti/08:00 ti/10:00`<br>
+      Expected: Contacts who are free today at 10am will be displayed.
+   3. Test case: `whoIsFree ti/200:00 ti/10:00`<br>
       Expected: Same result as previous.
    
-_{ more test cases to be added }_
+3. Wrong inputs
+   1. Test case: `whoIsFree ti/1000` <br>
+      Expected: Nothing happens. Error detail is shown in the status message.
+   2. Test case: `whoIsFree ti/10:00 da/01 Dec 2022` <br>
+      Expected: Same result as previous.
 
-#### Saving data
+## 7.15 Finding common timing that everyone who shares the specified tag available at a particular date
+
+## 7.16 Saving data
 
 1. Dealing with missing/corrupted data files
-
-1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
+    1. If the data files are corrupted, `UniGenda` will start with an empty data file, and the corrupted files will be overlapped with the blank file.

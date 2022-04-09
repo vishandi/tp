@@ -58,18 +58,6 @@ class WhoIsFreeCommandTest {
         assertFalse(whoIsFreePiCommandCopy.equals(whoIsFreeTodayCommand));
     }
 
-    // To do manual testing
-    //    @Test
-    //    public void execute_clashInTimeAndDate_noPersonFound() {
-    //        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-    //        IsPersonFreePredicate predicate =
-    //                new IsPersonFreePredicate(LocalTime.parse("09:00"), LocalDate.parse("2022-03-16"));
-    //        FreeScheduleCommand command = new FreeScheduleCommand(predicate);
-    //        expectedModel.updateFilteredPersonList(predicate);
-    //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-    //        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
-    //    }
-
     @Test
     public void execute_noClashInTimeAndDate_multiplePersonsFound() {
         IsPersonFreePredicate predicate =
