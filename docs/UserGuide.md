@@ -329,6 +329,7 @@ Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
 
 * `TIME` should be a valid time in "HH:MM" format.
 * `DATE` should be a valid date in "YYYY-MM-DD" format.
+* If the date is not given, today's date will be the default date used for checking.
 
 Examples:
 * `whoIsFree ti/12:00`
@@ -409,8 +410,17 @@ will discard all data and start with an empty data file at the next run.
 
 ## FAQ
 
+**Q**: Why does `UniGenda` have sample data when it is first launched?
+**A**: Sample data is pre-loaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.
+
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous UniGenda home folder.
+**A**: Install the app in the other computer and overwrite the empty data folder with the folder that contains the data of your previous `UniGenda` home folder.
+
+**Q**: Where do I locate my export files?<br>
+**A**: <br>
+**Case 1**: If steps in the Quick Start guide were followed, a folder named `data` should appear in the same folder as your `UniGenda` application. The exported file would be in `data/export/` folder.<br>
+
+**Case 2**: If the application is opened with terminal or command prompt, **ensure** that you are in the correct directory that the `UniGenda` application is in before entering the command: `java -jar UniGenda.jar`. A folder named `data` should appear in the same folder as your UniGenda application. The exported file would be in `data/export/`.
 
 --------------------------------------------------------------------------------------------------------------------
 
