@@ -598,6 +598,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+**Use case: View a person's schedule**
+
+**MSS**
+
+1. User requests to view a specific person's schedule.
+2. UniGenda displays the person's schedule.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified contact index or event index is invalid.
+
+  * 1a1. UniGenda shows an error message.
+
+  Use case ends.
+
 **Use case: Find who is free**
 
 **MSS**
