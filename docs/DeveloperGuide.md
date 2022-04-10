@@ -556,9 +556,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. UniGenda shows an error message.
+  * 3a1. UniGenda shows an error message.
 
-      Use case resumes at step 2.
+    Use case resumes at step 2.
 
 **Use case: Add an event**
 
@@ -573,25 +573,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified date, time or duration of the event is invalid.
 
-    * 1a1. UniGenda shows an error message.
+  * 1a1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1b. The user does not specify an event description or date.
 
-    * 1b1. UniGenda shows an error message.
+  * 1b1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1c. The user specifies a duration for the event without specifying the start time.
 
-    * 1c1. UniGenda shows an error message.
+  * 1c1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1d. The given index is invalid.
 
-    * 1d1. UniGenda shows an error message.
+  * 1d1. UniGenda shows an error message.
 
     Use case ends.
 
@@ -608,19 +608,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified date, time or duration of the event, if any, is invalid.
 
-    * 1a1. UniGenda shows an error message.
+  * 1a1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1b. The user edits an event's duration without specifying a start time (if the event does not already have one).
 
-    * 1b1. UniGenda shows an error message.
+  * 1b1. UniGenda shows an error message.
 
     Use case ends.
 
 * 1c. The specified contact index or event index is invalid.
 
-    * 1c1. UniGenda shows an error message.
+  * 1c1. UniGenda shows an error message.
 
     Use case ends.
 
@@ -631,15 +631,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to delete a specific event on a specific person's schedule.
 2. UniGenda deletes the event.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
 * 1a. The specified contact index or event index is invalid.
 
-    * 1a1. UniGenda shows an error message.
+  * 1a1. UniGenda shows an error message.
 
     Use case ends.
+
+**Use case: Clear a person's schedule**
+
+**MSS**
+
+1. User requests to clear a specified person's schedule.
+2. UniGenda clears the person's schedule.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The specified contact index is invalid.
+
+    * 1a1. UniGenda shows an error message.
+
+      Use case ends.
 
 **Use case: View a person's schedule**
 
@@ -648,63 +665,61 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to view a specific person's schedule.
 2. UniGenda displays the person's schedule.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
 
-* 1a. The specified contact index or event index is invalid.
+* 1a. The specified contact index is invalid.
 
   * 1a1. UniGenda shows an error message.
 
-  Use case ends.
+    Use case ends.
 
 **Use case: Find who is free**
 
 **MSS**
 
-1. User inputs time and date to find who, user's contacts, is free.
-2. Filter model list.
-3. Display filtered model list.
+1. User inputs time and date to find who is free.
+2. UniGenda displays contacts who are free at the date and time.
 
     Use case ends.
 
 Extensions
 * 1a. The specified date or time is invalid.
 
-    * 1a1. UniGenda shows an error message.
+  * 1a1. UniGenda shows an error message.
 
-  Use case ends.
+    Use case ends.
 
 **Use case: Import schedule**
 
 **MSS**
 
 1. User imports schedule for a specific person.
-2. UniGenda retrieves information for the file.
-3. UniGenda replaces the schedule.
+3. UniGenda replaces the schedule with the imported schedule.
 
    Use case ends.
 
 **Extensions**
-* 1a. The specified contact index or event index is invalid.
+* 1a. The specified contact index is invalid.
 
-    * 1a1. UniGenda shows an error message.
+  * 1a1. UniGenda shows an error message.
 
-  Use case ends.
+    Use case ends.
 
 * 1b. The specified file path in invalid or unreachable.
 
-    * 1b1. UniGenda shows an error message.
+  * 1b1. UniGenda shows an error message.
 
-  Use case ends.
+    Use case ends.
 
 * 2a. The file information is in the wrong format.
 
-    * 2a1. UniGenda shows an error message.
-    * 2a2. If app can save file, UniGenda creates an example file for user reference.
-    * 2a3. If app cannot save the file, UniGenda shows an example in the display box.
+  * 2a1. UniGenda shows an error message.
+  * 2a2. If app can save file, UniGenda creates a template file for user reference.
+  * 2a3. If app cannot save the file, UniGenda shows an example in the display box.
 
-  Use case ends.
+    Use case ends.
 
 **Use case: Export schedule**
 
@@ -714,26 +729,42 @@ Extensions
 2. UniGenda retrieves the schedule of the person.
 3. UniGenda saves it to local storage.
 
-   Use case ends.
+    Use case ends.
 
 **Extensions**
-* 1a. The specified contact index or event index is invalid.
+* 1a. The specified contact index is invalid.
 
-    * 1a1. UniGenda shows an error message.
+  * 1a1. UniGenda shows an error message.
 
-  Use case ends.
+    Use case ends.
 
 * 2a. The specified contact does not have a schedule.
 
-    * 2a1. UniGenda shows an error message.
+  * 2a1. UniGenda shows an error message.
 
-  Use case ends.
+    Use case ends.
 
 * 3a. UniGenda is unable to save the file to local storage.
 
-    * 3a1. UniGenda shows an error message.
+  * 3a1. UniGenda shows an error message.
 
-  Use case ends.
+    Use case ends.
+
+**Use case: View contacts by tag**
+
+**MSS**
+
+1. User requests to view only contacts who have the specified tag.
+2. UniGenda shows the list of contacts who have the specified tag.
+
+   Use case ends.
+
+**Extensions**
+* 1a. There are no users with the specified tag.
+
+  * 1a1. UniGenda shows an error messaage.
+
+    Use case ends.
 
 ## 6.4 Non-Functional Requirements
 
@@ -909,6 +940,21 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
 
 ## 7.11 Importing a person's schedule from a JSON file
+
+1. Importing a schedule from an accessible, readable json file
+
+   1. Prerequisites: There should be at least 1 person currently listed in the contact list.
+   
+   2. Test case: `importSchedule 1 pa/<filepath>`<br>
+      Expected: The first person shown in the contact list will have his/her schedule replaced with the schedule data specified in the file in <filepath>.
+   
+2. Importing a schedule from an invalid file path, or file path is not accessible or not readable
+   1. Test case: `importSchedule 1 pa/<invalid_filepath>`<br>
+      Expected: First person's schedule is unchanged. An error message detailing the issue will be displayed to the tester.
+
+3. Importing a schedule with invalid data and/or headers
+   1. Test case: `importSchedule 1 pa/<filepath_invalid_data>`
+      Expected:  First person's schedule is unchanged. An error message detailing the issue will be displayed to the tester.
 
 ## 7.12 Exporting a person's schedule to a JSON file
 
