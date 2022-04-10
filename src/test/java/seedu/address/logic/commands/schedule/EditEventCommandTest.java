@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS2101;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_RECUR_FREQUENCY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
@@ -59,7 +61,7 @@ class EditEventCommandTest {
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }
 
-    /* Not sure why this test method pass on computer but not with gradlew. Need more time to look into the problem.
+    // Not sure why this test method pass on computer but not with gradlew. Need more time to look into the problem.
     @Test
     public void execute_someFieldsSpecified_success() {
         Person firstPerson = model.getFilteredPersonList().get(0);
@@ -68,13 +70,13 @@ class EditEventCommandTest {
 
         Event toEditEvent = toEditEvents.remove(lastEventIndex.getZeroBased());
         Event editedEvent = new EventBuilder(toEditEvent)
-                .withDate(VALID_EVENT_DATE).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
+                .withEventDescription(VALID_EVENT_DESCRIPTION).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
         toEditEvents.add(lastEventIndex.getZeroBased(), editedEvent);
         Schedule schedule = new Schedule(toEditEvents);
         Person editedPerson = new PersonBuilder(firstPerson).withSchedule(schedule).build();
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder()
-                .withDate(VALID_EVENT_DATE).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
+                .withEventDescription(VALID_EVENT_DESCRIPTION).withRecurFrequency(VALID_RECUR_FREQUENCY).build();
         EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_PERSON, lastEventIndex, descriptor);
 
         String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent);
@@ -84,7 +86,6 @@ class EditEventCommandTest {
 
         assertCommandSuccess(editEventCommand, model, expectedMessage, expectedModel);
     }
-    */
 
     @Test
     public void execute_invalidPersonIndex_failure() {
