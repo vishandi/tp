@@ -751,7 +751,7 @@ Extensions
 
   * 3a1. UniGenda shows an error message.
 
-    Use case ends.
+  Use case ends.
 
 **Use case: View contacts by tag**
 
@@ -766,6 +766,33 @@ Extensions
 * 1a. There are no users with the specified tag.
 
   * 1a1. UniGenda shows an error messaage.
+
+    Use case ends.
+    
+**Use case: Find a common timing that contacts who share a similar day are free on a particular day**
+
+**MSS**
+
+1. User requests to list persons.
+2. User chooses to view the free timings of a group of contacts who share a similar tag, on a particular day.
+3. UniGenda shows the timings the contacts with that particular tag is available on the particular day.
+
+**Extensions**
+* 1a. The given tag is not attached to any contact in UniGenda.
+    
+    * 1a1. UniGenda shows an error message.
+  
+    Use case ends.
+
+* 2a. The contacts which share the given tag do not have any events scheduled on the given date.
+
+    * 2a1. UniGenda shows the user a message which indicates that the whole day is free for contacts who share the inputted tag.
+    
+    Use case ends.
+    
+* 3a. The given date is invalid.
+  
+    * 3a1. UniGenda shows an error message.
 
     Use case ends.
 
