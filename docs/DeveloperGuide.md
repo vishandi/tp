@@ -696,7 +696,7 @@ Extensions
 **MSS**
 
 1. User imports schedule for a specific person.
-3. UniGenda replaces the schedule with the imported schedule.
+2. UniGenda replaces the schedule with the imported schedule.
 
    Use case ends.
 
@@ -726,8 +726,7 @@ Extensions
 **MSS**
 
 1. User chooses a person's schedule to export.
-2. UniGenda retrieves the schedule of the person.
-3. UniGenda saves it to local storage.
+2. UniGenda exports the person's schedule.
 
     Use case ends.
 

@@ -46,7 +46,7 @@ Given below are my contributions to the project.
 * **Documentation**:
   * User Guide:
     * Added documentation for the `AddEvent`, `ImportSchedule`, `ClearSchedule` and `SetUser` features.
-    * Wrote a brief description of the product and organised the command summary.
+    * Refined the product description and organised the command summary.
   * Developer Guide:
     * Added documentation for the `Schedule` feature.
     * Wrote parts of use case scenarios, user stories and product scope.
