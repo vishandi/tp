@@ -1004,6 +1004,28 @@ testers are expected to do more *exploratory* testing.
 
 ## 7.12 Exporting a person's schedule to a JSON file
 
+1. Exporting a person's schedule
+
+   1. Prerequisites: There is at least 1 person in the list. 
+        The person has at least 1 event in schedule.
+
+   2. Test case: `exportSchedule 1`<br>
+      Expected: The schedule of the first person will be exported to `data/export/` with `<name>.json` as the file name.
+
+2. Attempting to export a person with empty schedule
+
+   1. Prerequisites: There is at least 1 person in the list.
+        The person does not have any event in schedule.
+   
+   2. Test case: `exportSchedule 1`<br>
+      Expected: An empty schedule message error will be displayed.
+
+3. Exporting with invalid index
+
+   1. Prerequisite: There are no more than 10 person in the list.
+   
+   2. Test case: `exportSchedule 11`
+
 ## 7.13 Displaying a person's schedule
 
 1. Viewing a person's upcoming schedule and full schedule while all persons are being shown
@@ -1020,35 +1042,47 @@ testers are expected to do more *exploratory* testing.
        Expected: Similar to previous.
 
 ## 7.14 Getting persons who are free at specified time and date
-1. Assuming that all persons do not have a schedule
-   1. Test case: `whoIsFree ti/10:00 da/2022-05-01`<br>
-      Expected: Displays all persons.
+
+1. Finding persons who are free at specified time
+
+   1. Prerequisite: All persons do not have a schedule
    
    2. Test case: `whoIsFree ti/10:00`
-      Expected: Same result as previous.
+       Expected: Same result as previous.
 
-2. Assuming that some persons have a schedule <br>
-   Situation 1: All contacts are free today at 10am.
-   1. Test case: `whoIsFree ti/10:00`<br>
+2. Find person who are free at specified time and date
+
+   1. Prerequisites: All contacts are free at 10am on 2022-04-10.
+        Some contacts are free at 12pm on 2022-04-20.
+        No contacts are free at 8am on 2022-05-10.
+   
+   2. Test case: `whoIsFree ti/10:00 da/2022-04-10`<br>
       Expected: Displays all persons.
    
-   Situation 2: All persons are not free today at 10am.
-   1. Test case: `whoIsFree ti/10:00`<br>
+   3. Test case: `whoIsFree ti/12:00 da/2022-04-20`<br>
+      Expected: Contacts who free at 12pm on 2022-04-20 are displayed.
+
+   4. Test case: `whoIsFree ti/10:00`<br>
       Expected: No contacts displayed.
+
+3. Find person who are free at specified time and date with tag filter
+
+   1. Prerequisites: There is at least 1 person with `friend` as one of their tags.
+        Persons with `friend` tag are free at 8pm everyday.
    
-   Situation 3: Some persons are free today at specified time.
-   1. Test case: `whoIsFree ti/10:00`<br>
-      Expected: Persons who are free today at 10am will be displayed.
-   2. Test case: `whoIsFree ti/08:00 ti/10:00`<br>
-      Expected: Persons who are free today at 10am will be displayed.
-   3. Test case: `whoIsFree ti/200:00 ti/10:00`<br>
-      Expected: Same result as previous.
+   2. Test case: `whoIsFree ti/20:00 t/friend`<br>
+      Expected: All persons with `friend` tag will be displayed.
    
-3. Wrong inputs
+4. Incorrect input given by user
+
    1. Test case: `whoIsFree ti/1000` <br>
       Expected: Nothing happens. Error detail is shown in the status message.
+   
    2. Test case: `whoIsFree ti/10:00 da/01 Dec 2022` <br>
       Expected: Same result as previous.
+   
+   3. Test case: `whoIsFree ti/10:00 da/2022-12-01 t/`<br>
+      Expected: Nothing happens. Error regarding empty tag is displayed.
 
 ## 7.15 Getting common timing that everyone who shares the specified tag available at a particular date
 
@@ -1056,7 +1090,7 @@ testers are expected to do more *exploratory* testing.
     
     1. Prerequisites: List all persons using the 'list' command. Multiple persons in the list. 
         Ensure that there are at least two contacts that share a similar tag called "friends". 
-        Ensure that at least two contacts sharing the tag "friends" have an event occuring on 2022-12-28. 
+        Ensure that at least two contacts sharing the tag "friends" have an event occurring on 2022-12-28. 
         Ensure that no event is scheduled to occur on 2022-12-29 for the contacts sharing the tag "friends".
         Ensure there is no contact with the tag "mates".
     

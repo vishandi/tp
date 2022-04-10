@@ -19,7 +19,7 @@ Given below are my contributions to the project.
 * **New Feature**: Added the feature to find who is free with given date and time
   * What it does: Allows user to find who, in user's address book, is free given the user's date and time input.
   * Justification: This is a main feature of our application. This feature provides convenience and better planning for the user.
-  * Highlights: We did not realise this during planning, but dealing with dates and times were a great hassle. For instance, the initial implementation of date and time collisions were separated to checking dates and checking times. However, as the development of the project continued, I realised that the collision cannot be separated and must be considered together at all times. This is because an event can span across multiple days, and it would be hard to implement a solution if I were to consider dates and times separately.
+  * Highlights: We did not realise during planning that dealing with dates and times were a great hassle. For instance, the initial implementation of date and time collisions were separated to checking dates and checking times. However, as the development of the project continued, I realised that the collision cannot be separated and must be considered together at all times. This is because an event can span across multiple days, and it would be hard to implement a solution if I were to consider dates and times separately. Also, this feature's command name was `freeSchedule` instead of `whoIsFree` which is the current name. It was changed later during the project as we thought the latter made more sense for users.
 
 * **New Feature**: Added the ability to export schedule
   * What it does: Allows user to share schedules.
@@ -27,16 +27,16 @@ Given below are my contributions to the project.
 
 * **Feature Contributed**: Next recurring event functionality
   * What it does: If the event does not occur on the day that we are checking (aka today), we get it's next recurring date else we get the date that is closest to and before today.
-  * Highlights: Due to the changing nature of our project, old features have to be updated to accommodate the new features. While testing a new feature, it was discovered by Vishandi (Github username: vishandi) that the recurring event was not working as intended, which caused the application to hang. I was tasked to modify the existing code to fix the problem it had with the new feature since I had experienced with this issue when implementing the code for the second feature listed here. Despite the experience, it still was a challenging as the calculation for the dates were really complicated, especially when dealing with dates that are from the past. With the help of Vishandi as tester, I was able to complete the fix within 6 hours.
-  * Credits: This feature was created by Yan Han (Github username: tyanhan).
+  * Highlights: Due to the changing nature of our project, old features have to be updated to accommodate the new features. While testing a new feature, it was discovered by Vishandi (GitHub username: vishandi) that the recurring event was not working as intended, which caused the application to hang. I was tasked to modify the existing code to fix the problem it had with the new feature since I had experienced with this issue when implementing the code for the second feature listed here. Despite the experience, it still was a challenging as the calculation for the dates were really complicated, especially when dealing with dates that are from the past. With the help of Vishandi as tester, I was able to complete the fix within 6 hours.
+  * Credits: This feature was created by Yan Han (GitHub username: tyanhan).
 
 * **Feature Contributed**: Displaying of common timings feature
   * Highlights: I assisted with the implementation of displaying the common timings of the `findCommonTiming`.
-  * Credits: This feature was created by Mark (Github username: markbiju).
+  * Credits: This feature was created by Mark (GitHub username: markbiju).
     
 * **Tests added:**
-  * Created utility classes like `EventBuilder`, `TypicalSchedule`, `EditEventDescriptorBuilder` to make testing easier.
-  * Wrote tests for `WhoIsFreeCommand`, `WhoIsFreeCommandParser`, `EditEventCommand` and `EditEventCommandParser`.
+  * Created utility classes like `EventBuilder`, `TypicalSchedule`, `EditEventDescriptorBuilder` to make testing easier. [\#70](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/70/)
+  * Wrote tests for `WhoIsFreeCommand`, `WhoIsFreeCommandParser`, `EditEventCommand` and `EditEventCommandParser`. [\#70](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/70/) and [\#75](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/75/)
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=hanqinilnix&breakdown=true)
 
@@ -47,7 +47,8 @@ Given below are my contributions to the project.
   * UserGuide:
     * Added documentation for the features `editEvent`, `whoIsFree` and `exportSchedule`.
   * Developer Guide:
-    * Added documentation for `whoIsFree`, `importSchedule` and `exportSchedule` features.
+    * Added implementation documentation for `whoIsFree`[\#109](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/109), `importSchedule` and `exportSchedule` features [\#211](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/211).
+    * Added manual testing for `whoIsFree` and `exportSchedule` features [\#229](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/229/)
       
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [\#35](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/35/), [\#59](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/59/), [\#77](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/77/), [\#104](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/104/), [\#108](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/108/), [\#125](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/125/), [\#184](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/184/)
