@@ -977,6 +977,28 @@ testers are expected to do more *exploratory* testing.
 
 ## 7.12 Exporting a person's schedule to a JSON file
 
+1. Exporting a person's schedule
+
+   1. Prerequisites: There is at least 1 person in the list. 
+        The person has at least 1 event in schedule.
+
+   2. Test case: `exportSchedule 1`<br>
+      Expected: The schedule of the first person will be exported to `data/export/` with `<name>.json` as the file name.
+
+2. Attempting to export a person with empty schedule
+
+   1. Prerequisites: There is at least 1 person in the list.
+        The person does not have any event in schedule.
+   
+   2. Test case: `exportSchedule 1`<br>
+      Expected: An empty schedule message error will be displayed.
+
+3. Exporting with invalid index
+
+   1. Prerequisite: There are no more than 10 person in the list.
+   
+   2. Test case: `exportSchedule 11`
+
 ## 7.13 Displaying a person's schedule
 
 1. Viewing a person's upcoming schedule and full schedule while all persons are being shown
