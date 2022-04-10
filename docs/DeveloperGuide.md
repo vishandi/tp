@@ -755,9 +755,13 @@ Extensions
 
     * 2a1. UniGenda shows the user a message which indicates that the whole day is free for contacts who share the inputted tag.
     
+  Use case ends.
+    
 * 3a. The given date is invalid.
   
     * 3a1. UniGenda shows an error message.
+
+  Use case ends. 
 
 ## 6.4 Non-Functional Requirements
 
