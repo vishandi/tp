@@ -68,7 +68,8 @@ class WhoIsFreeCommandParserTest {
                 Event.DATE_MESSAGE_CONSTRAINTS);
 
         // valid time and date but empty tag
-        assertParseFailure(parser, " " + TIME_DESC_MORNING + DATE_DESC_PI_DAY + " " + PREFIX_TAG, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " " + TIME_DESC_MORNING + DATE_DESC_PI_DAY + " " + PREFIX_TAG,
+                Tag.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -94,12 +95,14 @@ class WhoIsFreeCommandParserTest {
         Set<Tag> tags = new HashSet<>(Arrays.asList(friendTag));
 
         // one tag
-        WhoIsFreeCommand expectedCommand = new WhoIsFreeCommand(new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now(), tags));
+        WhoIsFreeCommand expectedCommand = new WhoIsFreeCommand(
+                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now(), tags));
         assertParseSuccess(parser, " " + TIME_DESC_MORNING + TAG_DESC_FRIEND, expectedCommand);
 
         // multiple tags
         tags = new HashSet<>(Arrays.asList(friendTag, husbandTag));
-        expectedCommand = new WhoIsFreeCommand(new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now(), tags));
+        expectedCommand = new WhoIsFreeCommand(
+                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now(), tags));
         assertParseSuccess(parser, " " + TIME_DESC_MORNING + TAG_DESC_FRIEND, expectedCommand);
 
     }
