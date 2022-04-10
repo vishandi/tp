@@ -46,8 +46,10 @@ Given below are my contributions to the project.
 * **Documentation**:
   * User Guide:
     * Added and edited documentation for the `add`, `edit`, `deleteEvent`, and `viewSchedule` features.
+    * Updated screenshots used in the User Guide.
   * Developer Guide:
     * Added documentation for the `viewSchedule` feature.
+    * Added manual testings for some new and enhanced features. [#221](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/221)
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments):
