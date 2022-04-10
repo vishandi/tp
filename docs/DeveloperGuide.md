@@ -984,10 +984,10 @@ testers are expected to do more *exploratory* testing.
         Ensure there is no contact with the tag "mates".
     
     2. Test case: findCommonTiming t/friends da/2022-12-28
-       Expected: Timings that these contacts are free will be shown in 30-minute blocks(i.e the timings that the contacts do not have any event scheduled)
+       Expected: Timings that these contacts are free will be shown in 30-minute blocks.(i.e the timings that the contacts do not have any event scheduled)
        
     3. Test case: findCommonTiming t/ da/2022-12-28
-       Expected: Error message is shown informing user that tag cannot be empty, along with other restrictions on tag name
+       Expected: Error message is shown informing user that tag cannot be empty, along with other restrictions on tag name.
     
     4. Test case: findCommonTiming t/friends da/2022-12-29
        Expected: A message that the whole day is free for contacts who share that particular tag is displayed to the user.
