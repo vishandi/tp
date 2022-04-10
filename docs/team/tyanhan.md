@@ -19,6 +19,7 @@ Given below are my contributions to the project.
   * What it does: Allows the user to add daily, weekly or biweekly events to their contacts' schedule instead of just 1 time events.
   * Justification: This feature is necessary for users to add events like classes that occur weekly/biweekly to their contacts' schedules.
   * Highlights: Ensuring that the events recurred correctly was the challenging part. I also had to read up on how to make use of `LocalDate`, `LocalTime`, `ChronoUnit` etc. to get the correct recurring dates. Thankfully, my teammates Vishandi and Han Qin were ready to help me test for bugs in my code. Also, since dates and times were prone to bugs, I spent some time ensuring that intentional misuse of our application (by supplying nonsensical dates) would not break the app, but rather show logical feedback to the user.
+    * Credits: Han Qin (GitHub username: hanqinilnix) and Vishandi (GitHub username: vishandi)
 
 * **New Feature**: Added the ability to import schedules.
   * What it does: Allows users to import a schedule from a JSON file.
@@ -31,12 +32,16 @@ Given below are my contributions to the project.
 * **New Feature**: Added the ability to set a contact as the user.
   * What it does: Shifts the specified contact to the top of the list for the user to reference more easily if he/she wants to view his/her own schedule.
 
+* **Feature Contributed**: Displaying of common timings feature
+  * Highlights: Assisted with the basic logic of the command.
+    * Credits: This feature was created by Mark (GitHub username: markbiju).
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s2.github.io/tp-dashboard/?search=tyanhan&breakdown=true)
 
 * **Project management**:
   * Set up the team's organisation and repository.
   * Wrote the full `v1.3 Demo` documentation.
-  * Aided project teammate with the `FindCommonTiming` command's logic.
+  * Evaluated the feasibility of incorporating NUSMods into our app, and decided against it.
 
 * **Enhancements to existing features**:
   * Fixed the GUI size and removed the resizable icon on mouse hover bug. [#121](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/121)
@@ -48,5 +53,13 @@ Given below are my contributions to the project.
     * Added documentation for the `AddEvent`, `ImportSchedule`, `ClearSchedule` and `SetUser` features.
     * Refined the product description and organised the command summary.
   * Developer Guide:
-    * Added documentation for the `Schedule` feature.
+    * Added documentation for the implementation of `Schedule` feature.
     * Wrote parts of use case scenarios, user stories and product scope.
+
+* **Community**:
+  * PRs reviewed (with non-trivial review comments):
+    * [#25](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/25)
+    * [#102](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/102)
+    * [#108](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/108)
+    * [#109](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/109)
+    * [#124](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/124)
