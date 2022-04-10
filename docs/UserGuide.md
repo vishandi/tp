@@ -18,7 +18,7 @@ With features such as the ability to import your friends' schedules, find friend
    1. [Adding a person](#31-adding-a-person-add)
    2. [Deleting a person](#32-deleting-a-person--delete)
    3. [Editing a person](#33-editing-a-person--edit)
-   4. [Setting a contact as the user](#34-setting-a-contact-as-the-user--setuser)
+   4. [Setting a person as the user](#34-setting-a-person-as-the-user--setuser)
    5. [Locating persons by name](#35-locating-persons-by-name-find)
    6. [Viewing persons by tags](#36-viewing-persons-by-tags-viewgroup)
 4. [Schedule Management Commands](#4-schedule-management-commands)
@@ -50,13 +50,13 @@ With features such as the ability to import your friends' schedules, find friend
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * **`list`** : Lists all persons in `UniGenda`.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to UniGenda.
+   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to UniGenda.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * **`delete`**`3` : Deletes the 3rd person shown in the current person list.
 
-   * **`addEvent`**`1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` : Adds a CS2103T Tutorial event to the first contact.
+   * **`addEvent`**`1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` : Adds a CS2103T Tutorial event to the first person.
 
    * **`exit`** : Exits the app.
    
@@ -191,9 +191,9 @@ Examples:
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit 1 p/91234567 e/` Removes the 1st person's email address, if it exists previously.
 
-### 3.4 Setting a contact as the user : `setUser`
+### 3.4 Setting a person as the user : `setUser`
 
-Shifts the contact to the top of the list.
+Shifts the person to the top of the list.
 
 Format: `setUser INDEX`
 
@@ -227,7 +227,7 @@ Shows a list of all persons with the specified tag.
 
 Format: `viewGroup t/TAG`
 
-* Ensure that the tag is present for at least one person in the list of contacts!
+* Ensure that the tag is present for at least one person in the person list!
 
 Examples:
 * `viewGroup t/groupmates`
@@ -400,7 +400,7 @@ Gets the common timings of persons who are free with the same tag on a certain d
 
 Format: `findCommonTiming t/TAG da/DATE`
 
-* Ensure that the tag is present for at least one person in the list of contacts!
+* Ensure that the tag is present for at least one person in the person list!
 
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
@@ -427,7 +427,7 @@ will discard all data and start with an empty data file at the next run.
 **A**: Yes, however, the results might not be what you expect. This is because the events' dates are might change when you restart the application.
 
 **Q**: Why I can check if my contacts were free last week?<br>
-**A**: There can exist non-recurring events in a contact's schedule. Therefore, we allow the ability to search the availabilities of your contacts' past events if you wish to.
+**A**: There can exist non-recurring events in a person's schedule. Therefore, we allow the ability to search the availabilities of your contacts' past events if you wish to.
 
 **Q**: Why does `UniGenda` have sample data when it is first launched?<br>
 **A**: Sample data is preloaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.
