@@ -30,19 +30,19 @@ title: Developer Guide
 7. [Appendix B: Instructions for Manual Testing](#7-appendix-b-instructions-for-manual-testing)
    1. [Launch and shutdown](#71-launch-and-shutdown)
    2. [Adding a person](#72-adding-a-person)
-   3. [Editing a person](#73-editing-a-person)
-   4. [Deleting a person](#74-deleting-a-person)
+   3. [Deleting a person](#73-deleting-a-person)
+   4. [Editing a person](#74-editing-a-person)
    5. [Setting a person as the user](#75-setting-a-person-as-the-user)
    6. [Viewing persons that share the same tag](#76-viewing-persons-that-share-the-same-tag)
    7. [Adding an event](#77-adding-an-event)
-   8. [Editing an event](#78-editing-an-event)
-   9. [Deleting an event](#79-deleting-an-event)
+   8. [Deleting an event](#78-deleting-an-event)
+   9. [Editing an event](#79-editing-an-event)
    10. [Clearing a person's schedule](#710-clearing-a-persons-schedule)
    11. [Importing a person's schedule from a JSON file](#711-importing-a-persons-schedule-from-a-json-file)
    12. [Exporting a person's schedule to a JSON file](#712-exporting-a-persons-schedule-to-a-json-file)
    13. [Displaying a person's schedule](#713-displaying-a-persons-schedule)
-   14. [Getting contacts who are free at specified time and date](#714-getting-contacts-who-are-free-at-specified-time-and-date)
-   15. [Finding common timing that everyone who shares the specified tag available at a particular date](#715-finding-common-timing-that-everyone-who-shares-the-specified-tag-available-at-a-particular-date)
+   14. [Getting persons who are free at specified time and date](#714-getting-persons-who-are-free-at-specified-time-and-date)
+   15. [Getting common timing that everyone who shares the specified tag available at a particular date](#715-getting-common-timing-that-everyone-who-shares-the-specified-tag-available-at-a-particular-date)
    16. [Saving data](#716-saving-data)
 
 --------------------------------------------------------------------------------------------------------------------
@@ -133,6 +133,10 @@ The `UI` component,
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+
+The `Graphical UI` that will be displayed to the users when using `UniGenda` is as follows:
+
+![UI Explanation](images/UiWithExplanation.png)
 
 ## 3.3 Logic component
 
@@ -233,7 +237,7 @@ The start date of recurring events are updated upon the start-up of the applicat
     * Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
 ## 4.2 WhoIsFree feature
-This section details how the `whoIsFree` command is implemented. This command allows the user to find contacts who are free at the specified time and date. Contacts who are free will be listed in the contact list.
+This section details how the `whoIsFree` command is implemented. This command allows the user to find persons who are free at the specified time and date. Persons who are free will be listed in the person list.
 
 ### Implementation
 `WhoIsFreeCommandParser` and `WhoIsFreeCommand` classes are involved in the execution of the `whoIsFree` command.
@@ -243,7 +247,7 @@ The `parse` method of `WhoIsFreeCommandParser` receives the user input and extra
 A successful execution of the `whoIsFree` command is described as follows:
 
 1. `WhoIsFreeCommand` uses the predicate prepared during parsing to filter the list of persons in `Model`.
-2. A `CommandResult` with the number of contacts free is returned. A list of contacts who are free will also be displayed to the user.
+2. A `CommandResult` with the number of persons free is returned. A list of persons who are free will also be displayed to the user.
 
 ![WhoIsFreeSequenceDiagram](images/WhoIsFreeSequenceDiagram.png)
 
@@ -260,19 +264,19 @@ A successful execution of the `whoIsFree` command is described as follows:
   * Cons:
     * Does not make sense to check dates have already passed.
 
-**Aspect: What to do with contacts who do not have a schedule?**
-* **Alternative 1 (current implementation)**: Contacts without schedule are always free.
+**Aspect: What to do with persons who do not have a schedule?**
+* **Alternative 1 (current implementation)**: Persons without schedule are always free.
   * Pros:
     * Easy implementation.
   * Cons:
-    * Contacts without schedule may not be free at the specified date and time.
-    * We will have to check all contacts for their schedule and display all contacts.
-* **Alternative 2**: Contacts without schedule are always busy.
+    * Persons without schedule may not be free at the specified date and time.
+    * We will have to check all persons for their schedule and display all persons.
+* **Alternative 2**: Persons without schedule are always busy.
   * Pros:
-    * Higher certainty that contacts shown will be free.
-    * Less information to process as we ignore contacts without schedule.
+    * Higher certainty that persons shown will be free.
+    * Less information to process as we ignore persons without schedule.
   * Cons:
-    * Contacts without schedule may be free at the specified date and time.
+    * Persons without schedule may be free at the specified date and time.
 
 ## 4.3 ViewSchedule Feature
 
@@ -316,7 +320,7 @@ A successful execution of the `viewSchedule` command is described as follows:
   * Cons:
     * Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
 
-**Aspect: What attributes should be displayed in the right panel upon calling viewSchedule?**
+**Aspect: What attributes should be displayed in the schedule panel upon calling viewSchedule?**
 * **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List.
   * Pros:
     * Cleaner look of Person List, can display more detailed version of Events.
@@ -329,7 +333,7 @@ A successful execution of the `viewSchedule` command is described as follows:
     * Person List display only fits a few Persons at a time.
     
 ## 4.4 ViewGroup Feature
-View Group feature allows the user to be able to view a list of contacts who share the same tag.
+View Group feature allows the user to be able to view a list of persons who share the same tag.
 
 ### Implementation
 `ViewGroupParser`, `ViewGroupCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `ViewGroup` command.
@@ -339,12 +343,12 @@ The parsing of viewGroup command is handled by the following classes:
     * Checks that the user input contains the ViewGroupCommand.COMMAND_WORD  and calls `ViewGroupParser#parse()`
 * `ViewGroupParser`
     * Parses the user input to extract the required arguments.
-    * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
+    * Creates a new `IsTagInPersonPredicate` object that will help check if persons in `UniGenda` have the tag that the user has inputted.
     * Returns a `ViewGroupCommand` to be executed by the `LogicManager`.
 
 Given below is an example usage scenario and explanation on how the `viewGroup` command behaves at each step.
 
-1. The user enters `viewGroup t/friends` to find the contacts who share the same tag.
+1. The user enters `viewGroup t/friends` to find the persons who share the same tag.
 The argument `t/friends` is passed to the `viewGroupParser` through its `parse` method call.
 
 2. The user input `t/friends` will be checked to ensure that empty input is not given.
@@ -353,27 +357,27 @@ The argument `t/friends` is passed to the `viewGroupParser` through its `parse` 
 
 4. The `ViewGroupCommand` object is returned to the `LogicManager`.
 
-5. During the execution of the command, the `ViewGroupCommand` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of contacts that share the same tag. 
+5. During the execution of the command, the `ViewGroupCommand` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of persons that share the same tag. 
 
-6. A `CommandResult` with the number of contacts free is returned. A list of contacts who share the same tag will also be displayed to the user.
+6. A `CommandResult` with the number of persons free is returned. A list of persons who share the same tag will also be displayed to the user.
 
 ### Design Considerations
 
 **Aspect: What is an attribute of a person that a user would want to filter contacts by?**
 * **Alternative 1 (current choice):** Filter by tag
   * Pros: 
-    * People who share the same tag are likely to be from the same group of friends, hence a user would be able to view the details or schedule of those contacts more easily using such a command.
+    * People who share the same tag are likely to be from the same group of friends, hence a user would be able to view the details or schedule of those persons more easily using such a command.
   * Cons:
     * Not able to filter by another attribute of a person such as whether person has schedule or not.
 * **Alternative 2:** Filter by whether person has schedule or not.
   * Pros: 
-    * It allows the user to view the contacts whom they have added their schedule to. These contacts can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
+    * It allows the user to view the contacts whom they have added their schedule to. These persons can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
   * Cons: 
     * Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
 
 ## 4.5 FindCommonTiming Feature
-Find Common Timing feature allows the user to get the common free timings of contacts who share the same tag at a specified date.
-The timings that the contacts are free at the specified date will be displayed.
+Find Common Timing feature allows the user to get the common free timings of persons who share the same tag at a specified date.
+The timings that the persons are free at the specified date will be displayed.
 
 ### Implementation
 `FindCommonTimingParser`, `FindCommonTimingCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `findCommonTiming` command.
@@ -383,12 +387,12 @@ The parsing of findCommonTiming command is handled by the following classes:
     * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`.
 * `FindCommonTimingParser`
     * Parses the user input to extract the required arguments.
-    * Creates a new `IsTagInPersonPredicate` object that will help check if contacts in the address book have the tag that the user has inputted.
+    * Creates a new `IsTagInPersonPredicate` object that will help check if persons in the address book have the tag that the user has inputted.
     * Returns a `FindCommonTimingCommand` to be executed by the `LogicManager`.
 
 Given below is an example usage scenario and explanation on how the 'findCommonTiming' command behaves at each step.
 
-1. The user enters 'findCommonTiming t/friends da/2022-03-04' to find the common timings that the contacts who share the same tag are free. 
+1. The user enters 'findCommonTiming t/friends da/2022-03-04' to find the common timings that the persons who share the same tag are free. 
 The arguments 't/friends da/2022-03-04' are passed to the 'findCommonTimingParser' through its 'parse' method call.
 
 2. The user input 't/friends da/2022-03-04' will be checked to ensure that empty input is not given.
@@ -398,15 +402,15 @@ object.
 
 4. The 'FindCommonTiming' object is returned to the 'LogicManager'.
 
-5. During the execution of the command, the 'FindCommonTiming' object calls 'Model#updateFilteredPersonList' method with the 'IsTagInPersonPredicate' to get the list of contacts that share the same tag. 
-The schedules of all the contacts will be consolidated and events will be checked if they occur on the date inputted by the user.
+5. During the execution of the command, the 'FindCommonTiming' object calls 'Model#updateFilteredPersonList' method with the 'IsTagInPersonPredicate' to get the list of persons that share the same tag. 
+The schedules of all the persons will be consolidated and events will be checked if they occur on the date inputted by the user.
 A default timeslot will be created such that it will be assumed that the whole day is free, after which 30-minute timeslots will be blocked out according to events that are determined to occur on that particular date.
 
-6. A 'CommandResult' with the timeslots that the contacts are free will be returned(timeslots are in intervals of 30 minutes). 
+6. A 'CommandResult' with the timeslots that the persons are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
 ### Design Considerations
-**Aspect: Should we show timings that a group of contacts with the same tag are free by the minute, or in 30-minute blocks?**
+**Aspect: Should we show timings that a group of persons with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
   * Pros:
     * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
@@ -420,7 +424,7 @@ These timeslots will then be displayed to the user.
     * Efficiency of implementation would be compromised to cater to a smaller target group.
 
 ## 4.6 ImportSchedule and ExportSchedule Features
-This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of contacts in UniGenda.
+This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of persons in UniGenda.
 
 ### Implementation
 `ImportScheduleCommandParser` and `ImportScheduleCommand` classes are involved in the execution of the `importSchedule` command. While `ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command. The `JsonUtil` and `JsonAdaptedSchedule` classes were also used to read and save the files during import and export.
@@ -782,6 +786,7 @@ Extensions
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Event**: Something that happens
 * **Schedule**: A list of Events
+* **Person(s)**: The contact(s) of `UniGenda`. Contact and Person could be used interchangeably, but they refer to the same thing.
 * **Main Success Scenario (MSS)**: Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong
 * **Command Line Interface (CLI)**: Text-based user interface
 * **Graphical User Interface (GUI)**: Graphic-based user interface
@@ -822,7 +827,22 @@ testers are expected to do more *exploratory* testing.
 
     5. Other incorrect add commands to try: `add`, `add 1`.
 
-## 7.3 Editing a person
+## 7.3 Deleting a person
+
+1. Deleting a person while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    2. Test case: `delete 1`<br>
+       Expected: First person is deleted from the list. Detail of the deleted person is shown in the status message.
+
+    3. Test case: `delete 0`<br>
+       Expected: No person is deleted. Error detail is shown in the status message.
+
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+## 7.4 Editing a person
 
 1. Editing an existing person in `UniGenda` while all persons are being shown
 
@@ -839,21 +859,6 @@ testers are expected to do more *exploratory* testing.
     
     5. Other incorrect edit commands to try: `edit`, `edit 0` <br>
        Expected: Similar to previous.
-
-## 7.4 Deleting a person
-
-1. Deleting a person while all persons are being shown
-
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-
-   2. Test case: `delete 1`<br>
-      Expected: First person is deleted from the list. Detail of the deleted person is shown in the status message.
-
-   3. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error detail is shown in the status message.
-
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
 
 ## 7.5 Setting a person as the user
 
@@ -894,7 +899,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule.
 
     2. Test case: `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
-       Expected: The first person's schedule (with the inputted event included) will be displayed in the right panel. The newly added event detail is shown in the status message. 
+       Expected: The first person's schedule (with the inputted event included) will be displayed in the schedule panel. The newly added event detail is shown in the status message. 
 
     3. Test case: `addEvent 0 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
        Expected: No change in the GUI. Error detail is shown in the status message.
@@ -902,11 +907,26 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect addEvent commands to try: `addEvent`, `addEvent 0` <br>
        Expected: Similar to previous.
 
-## 7.8 Editing an event
+## 7.8 Deleting an event
+
+1. Deleting a person's event while all persons are being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person in the list should have a non-empty. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
+
+    2. Test case: `deleteEvent 1 1` <br>
+       Expected: The first person's schedule will be displayed in the schedule panel. The first event in the person's schedule will be deleted. The name of the person whose event deleted and the index of the event are shown in the status message.
+
+    3. Test case: `deleteEvent 1 0` <br>
+       Expected: No change in the GUI. Error detail is shown in the status message.
+
+    4. Other incorrect deleteEvent commands to try: `deleteEvent`, `deleteEvent 1` <br>
+       Expected: Similar to previous.
+
+## 7.9 Editing an event
 
 1. Editing an existing person's event while all persons are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule initially. Type in this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`. The first person's schedule will be displayed on the right panel.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule initially. Type in this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`. The first person's schedule will be displayed on the schedule panel.
 
     2. Test case: `editEvent 1 1 ti/11:00` <br>
        Expected: The event in the person's schedule will be edited so that it starts at 11:00 instead of 10:00. The edited event detail is shown in the status message.
@@ -923,21 +943,6 @@ testers are expected to do more *exploratory* testing.
     6. Other incorrect editEvent commands to try: `editEvent`, `editEvent 1 1` <br>
        Expected: Similar to previous.
 
-## 7.9 Deleting an event
-
-1. Deleting a person's event while all persons are being shown
-
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person in the list should have a non-empty. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
-
-    2. Test case: `deleteEvent 1 1` <br>
-       Expected: The first person's schedule will be displayed in the right panel. The first event in the person's schedule will be deleted. The name of the person whose event deleted and the index of the event are shown in the status message.
-
-    3. Test case: `deleteEvent 1 0` <br>
-       Expected: No change in the GUI. Error detail is shown in the status message.
-
-    4. Other incorrect deleteEvent commands to try: `deleteEvent`, `deleteEvent 1` <br>
-       Expected: Similar to previous.
-
 ## 7.10 Clearing a person's schedule
 
 1. Clearing a person's schedule and deleting every event recorded to that person
@@ -945,7 +950,7 @@ testers are expected to do more *exploratory* testing.
     1. Some person in the list. The first person in the list should have a non-empty schedule. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
 
     2. Test case: `clearSchedule 1` <br>
-       Expected: The first person's schedule will be displayed (now empty) in the right panel. The name of the person whose schedule cleared is shown in the status message.
+       Expected: The first person's schedule will be displayed (now empty) in the schedule panel. The name of the person whose schedule cleared is shown in the status message.
 
     3. Test case: `clearSchedule 0` <br>
        Expected: No change in the GUI. Error detail is shown in the status message.
@@ -957,7 +962,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Importing a schedule from an accessible, readable json file
 
-   1. Prerequisites: There should be at least 1 person currently listed in the contact list.
+   1. Prerequisites: There should be at least 1 person currently listed in the person list.
    
    2. Test case: `importSchedule 1 pa/<filepath>`<br>
       Expected: The first person shown in the contact list will have his/her schedule replaced with the schedule data specified in the file in <filepath>.
@@ -979,7 +984,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     2. Test case: `viewSchedule 1`<br>
-       Expected: First person's schedule is shown in the right panel. The name of the first person is shown in the status message.
+       Expected: First person's schedule is shown in the schedule panel. The name of the first person is shown in the status message.
 
     3. Test case: `viewSchedule 0`<br>
        Expected: No change in the GUI. Error detail is shown in the status message.
@@ -987,28 +992,28 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect viewSchedule commands to try: `viewSchedule`, `viewSchedule x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
 
-## 7.14 Getting contacts who are free at specified time and date
-1. Assuming that all contacts do not have a schedule
+## 7.14 Getting persons who are free at specified time and date
+1. Assuming that all persons do not have a schedule
    1. Test case: `whoIsFree ti/10:00 da/2022-05-01`<br>
       Expected: Displays all persons.
    
    2. Test case: `whoIsFree ti/10:00`
       Expected: Same result as previous.
 
-2. Assuming that some contacts have a schedule <br>
+2. Assuming that some persons have a schedule <br>
    Situation 1: All contacts are free today at 10am.
    1. Test case: `whoIsFree ti/10:00`<br>
       Expected: Displays all persons.
    
-   Situation 2: All contacts are not free today at 10am.
+   Situation 2: All persons are not free today at 10am.
    1. Test case: `whoIsFree ti/10:00`<br>
       Expected: No contacts displayed.
    
-   Situation 3: Some contacts are free today at specified time.
+   Situation 3: Some persons are free today at specified time.
    1. Test case: `whoIsFree ti/10:00`<br>
-      Expected: Contacts who are free today at 10am will be displayed.
+      Expected: Persons who are free today at 10am will be displayed.
    2. Test case: `whoIsFree ti/08:00 ti/10:00`<br>
-      Expected: Contacts who are free today at 10am will be displayed.
+      Expected: Persons who are free today at 10am will be displayed.
    3. Test case: `whoIsFree ti/200:00 ti/10:00`<br>
       Expected: Same result as previous.
    
@@ -1018,7 +1023,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `whoIsFree ti/10:00 da/01 Dec 2022` <br>
       Expected: Same result as previous.
 
-## 7.15 Finding common timing that everyone who shares the specified tag available at a particular date
+## 7.15 Getting common timing that everyone who shares the specified tag available at a particular date
 
 1. Listing out times that contacts that share the same tag are free for a particular day
     
