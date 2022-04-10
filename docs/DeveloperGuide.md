@@ -134,6 +134,10 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
 
+The `Graphical UI` that will be displayed to the users when using `UniGenda` is as follows:
+
+![UI Explanation](images/UiWithExplanation.png)
+
 ## 3.3 Logic component
 
 **API** : [`Logic.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
@@ -316,7 +320,7 @@ A successful execution of the `viewSchedule` command is described as follows:
   * Cons:
     * Can only view one Person at any time, need to change the implementation when developer wants to display more than one Person.
 
-**Aspect: What attributes should be displayed in the right panel upon calling viewSchedule?**
+**Aspect: What attributes should be displayed in the schedule panel upon calling viewSchedule?**
 * **Alternative 1 (current choice):** Displays Name, Tags, and Schedule; No Schedule on Person List.
   * Pros:
     * Cleaner look of Person List, can display more detailed version of Events.
@@ -894,7 +898,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule.
 
     2. Test case: `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
-       Expected: The first person's schedule (with the inputted event included) will be displayed in the right panel. The newly added event detail is shown in the status message. 
+       Expected: The first person's schedule (with the inputted event included) will be displayed in the schedule panel. The newly added event detail is shown in the status message. 
 
     3. Test case: `addEvent 0 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W` <br>
        Expected: No change in the GUI. Error detail is shown in the status message.
@@ -906,7 +910,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Editing an existing person's event while all persons are being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule initially. Type in this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`. The first person's schedule will be displayed on the right panel.
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. All contacts do not have any schedule initially. Type in this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`. The first person's schedule will be displayed on the schedule panel.
 
     2. Test case: `editEvent 1 1 ti/11:00` <br>
        Expected: The event in the person's schedule will be edited so that it starts at 11:00 instead of 10:00. The edited event detail is shown in the status message.
@@ -930,7 +934,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. The first person in the list should have a non-empty. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
 
     2. Test case: `deleteEvent 1 1` <br>
-       Expected: The first person's schedule will be displayed in the right panel. The first event in the person's schedule will be deleted. The name of the person whose event deleted and the index of the event are shown in the status message.
+       Expected: The first person's schedule will be displayed in the schedule panel. The first event in the person's schedule will be deleted. The name of the person whose event deleted and the index of the event are shown in the status message.
 
     3. Test case: `deleteEvent 1 0` <br>
        Expected: No change in the GUI. Error detail is shown in the status message.
@@ -945,7 +949,7 @@ testers are expected to do more *exploratory* testing.
     1. Some person in the list. The first person in the list should have a non-empty schedule. (To add an event to the first person's schedule if empty, use this command `addEvent 1 ed/CS2103T Tutorial da/2022-12-28 ti/10:00 du/3H30M r/W`)
 
     2. Test case: `clearSchedule 1` <br>
-       Expected: The first person's schedule will be displayed (now empty) in the right panel. The name of the person whose schedule cleared is shown in the status message.
+       Expected: The first person's schedule will be displayed (now empty) in the schedule panel. The name of the person whose schedule cleared is shown in the status message.
 
     3. Test case: `clearSchedule 0` <br>
        Expected: No change in the GUI. Error detail is shown in the status message.
@@ -979,7 +983,7 @@ testers are expected to do more *exploratory* testing.
     1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
     2. Test case: `viewSchedule 1`<br>
-       Expected: First person's schedule is shown in the right panel. The name of the first person is shown in the status message.
+       Expected: First person's schedule is shown in the schedule panel. The name of the first person is shown in the status message.
 
     3. Test case: `viewSchedule 0`<br>
        Expected: No change in the GUI. Error detail is shown in the status message.

@@ -44,8 +44,8 @@ With features such as the ability to import your friends' schedules, find friend
 
 3. Copy the file to the folder you want to use as the _home folder_ for your UniGenda.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data. Also note the name for each section of the UI, as it will be referenced throughout the User Guide.<br>
+   ![Ui](images/UiWithExplanation.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -90,7 +90,7 @@ Refer below for details of each command.
 
 * All commands are case-insensitive. For example `addevent` or `AdDEvenT` works for `addEvent` commands.
 
-* The indexes are integer based. Hence, the maximum value of an index is 2147483647.
+* The indices, i.e., INDEX and EVENT_NUMBER are integer based. Hence, the maximum value of an index is 2147483647.
 
 </div>
 
@@ -366,7 +366,7 @@ Format: `viewSchedule INDEX`
 
 * Views the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The person's schedule for the next 7 days (from system's date, including the current date) will be shown, along with the person's full list of events.
-* The schedule will be displayed in the right panel of UniGenda.
+* The schedule will be displayed in the schedule panel of UniGenda.
 * If you change your system's date, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
 * If your system's date changes (for example after it passes midnight), it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 * The events displayed will be in the following format: <br>
