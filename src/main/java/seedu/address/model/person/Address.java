@@ -12,7 +12,7 @@ public class Address {
     public static final Address EMPTY_ADDRESS = new Address("");
 
     public static final String MESSAGE_CONSTRAINTS = "Addresses should not exceed 80 characters and only takes"
-            + " alphanumeric characters and the following punctuations: !\"#$&'()*+,-.:;<=>?@";
+            + " alphanumeric characters and spaces, and the following punctuations: !\"#$&'()*+,-.:;<=>?@";
 
     /*
      * The first character of the address must not be a whitespace,
