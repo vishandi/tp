@@ -842,6 +842,21 @@ testers are expected to do more *exploratory* testing.
 
 ## 7.6 Viewing persons that share the same tag
 
+1.  Viewing all contacts that share the same tag
+
+    1. Prerequisities: List all persons using the 'list' command. More than one person in the list. 
+        Ensure that at least one of the contacts have the tag "friends" attached to them. 
+        Ensure that none of the persons have the tag "t/mates" attached to them.
+    
+    2. Test case: 'viewGroup t/friends'
+       Expected: All persons who have the tag "friends" will be listed in the addressbook.
+       
+    3. Test case: 'viewGroup t/'
+       Expected: Error message shown that tag cannot be empty, along with other restrictions on tag name.
+    
+    4. Test case: 'viewGroup t/mates'(i.e. a tag that is not attached to any contact)
+       Expected: Error message shown that tag is not assigned to any contact.
+
 ## 7.7 Adding an event
 
 1. Adding an event to a person while all persons are being shown
@@ -959,6 +974,26 @@ testers are expected to do more *exploratory* testing.
       Expected: Same result as previous.
 
 ## 7.15 Finding common timing that everyone who shares the specified tag available at a particular date
+
+1. Listing out times that contacts that share the same tag are free for a particular day
+    
+    1. Prerequisites: List all persons using the 'list' command. Multiple persons in the list. 
+        Ensure that there are at least two contacts that share a similar tag called "friends". 
+        Ensure that at least two contacts sharing the tag "friends" have an event occuring on 2022-12-28. 
+        Ensure that no event is scheduled to occur on 2022-12-29 for the contacts sharing the tag "friends".
+        Ensure there is no contact with the tag "mates".
+    
+    2. Test case: findCommonTiming t/friends da/2022-12-28
+       Expected: Timings that these contacts are free will be shown in 30-minute blocks(i.e the timings that the contacts do not have any event scheduled)
+       
+    3. Test case: findCommonTiming t/ da/2022-12-28
+       Expected: Error message is shown informing user that tag cannot be empty, along with other restrictions on tag name
+    
+    4. Test case: findCommonTiming t/friends da/2022-12-29
+       Expected: A message that the whole day is free for contacts who share that particular tag is displayed to the user.
+       
+    5. Test case: findCommonTiming t/mates da/2022-12-28
+       Expected: An error message  asking the user to ensure that at least one contact with the tag is present is displayed to the user.
 
 ## 7.16 Saving data
 
