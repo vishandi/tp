@@ -374,7 +374,7 @@ The `parse` method of `FindCommonTimingCommandParser` receives the user input an
 A successful execuction of the `findCommonTiming` command is described as follows:
 
 1. `FindCommonTimingCommand` uses the predicate prepared during parsing to filter the list of persons in `Model`.
-2. Events occuring on a certain day are then retrieved using the `getEventsatDate` function.
+2. Events occuring on a certain day are then retrieved using the `getEventsAtDate` function.
 3. The day will be represented as an array of 48 time slots, with each element of the array representing a 30-minute timeslot.
 4. TheThe `blockTimeSlots` function is used to ensure that respective timeslots are set as busy according to when events occur.
 5. Free time slots will be appended to a string that is due to be returned in the `CommandResult`.
