@@ -39,7 +39,7 @@ Given below are my contributions to the project.
 * **Project management**:
   * Set up the team's organisation and repository.
   * Wrote the full `v1.3 Demo` documentation.
-  * Evaluated the feasibility of incorporating NUSMods API into our app, and decided against it.
+  * Evaluated the feasibility of incorporating NUSMods API into our app given our time constraints, and decided against it.
 
 * **Enhancements to existing features**:
   * Fixed the GUI size and removed the resizable icon on mouse hover bug. [#121](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/121)

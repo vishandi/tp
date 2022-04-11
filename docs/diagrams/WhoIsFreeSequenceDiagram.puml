@@ -13,7 +13,7 @@ box Model MODEL_COLOR_T1
 participant "model:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("freeSchedule ti/10:00 da/2022-03-24")
+[-> LogicManager : execute("whoIsFree ti/10:00 da/2022-03-24")
 activate LogicManager
 
 LogicManager -> AddressBookParser : parseCommand("whoIsFree ti/10:00 da/2022-03-24")

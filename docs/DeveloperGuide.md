@@ -812,7 +812,7 @@ Extensions
 * **Mainstream OS**: Windows, Linux, Unix, OS-X
 * **Event**: Something that happens
 * **Schedule**: A list of Events
-* **Person(s)**: The contact(s) of `UniGenda`. Contact and Person could be used interchangeably, but they refer to the same thing.
+* **Person(s)**: The contact(s) of `UniGenda`. Contact and Person could be used interchangeably, but they refer to the same thing
 * **Main Success Scenario (MSS)**: Describes the most straightforward interaction for a given use case, which assumes that nothing goes wrong
 * **Command Line Interface (CLI)**: Text-based user interface
 * **Graphical User Interface (GUI)**: Graphic-based user interface
