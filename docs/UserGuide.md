@@ -174,8 +174,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
 * `NAME` should only contain alphanumeric characters and spaces. It should not be blank and be at most 30 characters long.
 * `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
-* `TELEGRAM`, if specified, should only contain alphanumeric characters and underscore (_), and should be 5-40 characters long. It also should not have multiple consecutive underscores or begin or end with an underscore, or be blank.
-* `GITHUB`, if specified, should only contain alphanumeric characters and hyphen (-), and be at most 39 characters long. It also should not have multiple consecutive hyphens or begin or end with a hyphen, or be blank.
+* `TELEGRAM`, if specified, should only contain alphanumeric characters and underscore (_), and should be 5-40 characters long. It also should not have multiple consecutive underscores or begin or end with an underscore.
+* `GITHUB`, if specified, should only contain alphanumeric characters and hyphen (-), and be at most 39 characters long. It also should not have multiple consecutive hyphens or begin or end with a hyphen.
 * `ADDRESS` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters.
 * `EMAIL` should be a **valid** email with length not exceeding 60 characters.
 * **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
