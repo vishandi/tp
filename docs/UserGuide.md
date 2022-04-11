@@ -135,7 +135,7 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 * `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
 * `TELEGRAM`, if specified, should only contain alphanumeric characters and underscore (_), and should be 5-40 characters long. It should not be blank and should not have multiple consecutive underscores or begin or end with an underscore.
 * `GITHUB`, if specified, should only contain alphanumeric characters and hyphen (-), and be at most 39 characters long. It should not be blank and should not have multiple consecutive hyphens or begin or end with a hyphen.
-* `ADDRESS` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 80 characters.
+* `ADDRESS` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 80 characters long.
 * `EMAIL` should be a **valid** email with length not exceeding 60 characters.
 * **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
   * The local-part should only contain alphanumeric characters and the following special characters: **+_.-**. It cannot start or end with any special characters and cannot have consecutive special characters.
