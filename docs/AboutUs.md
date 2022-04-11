@@ -16,8 +16,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/tyanhan)]
 [[portfolio](team/tyanhan.md)]
 
-* Role: Undecided
-* Responsibilities: Undecided
+* Role: Developer, Team Lead
+* Responsibilities: Code, Testing, Documentation
 
 ### Ong Han Qin
 
@@ -26,8 +26,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/hanqinilnix)]
 [[portfolio](team/hanqinilnix.md)]
 
-* Role: Undecided
-* Responsibilities: Undecided
+* Role: Developer
+* Responsibilities: Code, Testing, Documentation
 
 ### Vishandi Rudy Keneta
 
@@ -35,8 +35,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](http://github.com/vishandi)] [[portfolio](team/vishandi.md)]
 
-* Role: Undecided
-* Responsibilities: Undecided
+* Role: Developer
+* Responsibilities: Code, Testing, Documentation
 
 ### Mark Biju George
 
@@ -45,6 +45,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/markbiju)]
 [[portfolio](team/markbiju.md)]
 
-* Role: Undecided
-* Responsibilities: Undecided
+* Role: Developer
+* Responsibilities: Code, Testing, Documentation
 
