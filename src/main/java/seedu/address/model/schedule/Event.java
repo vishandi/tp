@@ -264,8 +264,8 @@ public class Event implements Comparable<Event> {
                 LocalDateTime endDateTime = LocalDateTime.of(closestEndDate, event.getEndTime());
                 LocalDateTime toCheckDateTime = LocalDateTime.of(date, time);
 
-                willCollideEvent = willCollideEvent ||
-                        ((startDateTime.isEqual(toCheckDateTime)
+                willCollideEvent = willCollideEvent
+                        || ((startDateTime.isEqual(toCheckDateTime)
                         || startDateTime.isBefore(toCheckDateTime)
                         && endDateTime.isAfter(toCheckDateTime)));
             }
