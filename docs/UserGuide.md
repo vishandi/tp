@@ -197,7 +197,7 @@ Shifts the person to the top of the list.
 
 Format: `setUser INDEX`
 
-* Sets the person at the specified `INDEX` as the user. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Sets the person at the specified `INDEX` as the user and shifts his/her contact to the top of the contact list. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
@@ -283,7 +283,7 @@ Format: `deleteEvent INDEX EVENT_NUMBER`
 
 * `INDEX` refers to the index number shown in the displayed person list, whereas `EVENT_NUMBER` refers to the event's index shown in the person's full schedule. Both indices **must be positive integers** 1, 2, 3, …​
 
-Example:
+Examples:
 * `deleteEvent 3 3`
 
 ### 4.3 Editing an event in a person’s schedule: `editEvent`
@@ -320,7 +320,7 @@ Format: `editEvent INDEX EVENT_NUMBER [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME]
 | `W`, `WEEKLY`    | Weekly    |
 | `BW`, `BIWEEKLY` | Biweekly  |
 
-Example:
+Examples:
 * `editEvent 3 3 da/2022-12-21`
 * `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`
 * `editEvent 3 1 ed/CS2103T lecture`
@@ -403,13 +403,14 @@ Examples:
 ![result for whoIsFree ti/12:00 t/friends](images/whoIsFreeResult2.png)
 
 ### 4.9 Getting common free timing of persons by tag: `findCommonTiming`
-Gets the common timings of persons who are free with the same tag on a certain day.
+Lists all timings on the given date in which all contacts with the given tag are free.
 
 Format: `findCommonTiming t/TAG da/DATE`
 
 * Ensure that the tag is present for at least one person in the person list!
+* Timings are filtered in 30-minute blocks, except 23:30-23:59 which is a 29-minute block.
 
-Example:
+Examples:
 * `findCommonTiming t/groupmates da/2022-03-04`
 
 --------------------------------------------------------------------------------------------------------------------
