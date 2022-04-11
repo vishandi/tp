@@ -338,11 +338,11 @@ This section details how the `viewGroup` command is implemented. This command al
 ### Implementation
 `ViewGroupParser` and `ViewGroupCommand` classes are involved in the execution of the `ViewGroup` command.
 
-The 'parse' method of 'ViewGroupCommandParser' received the user input and extracts the required arguments. It then creates a predicate object that will help check if the contact has the user-inputted tag attached to the contact.
+The `parse` method of `ViewGroupCommandParser` received the user input and extracts the required arguments. It then creates a predicate object that will help check if the contact has the user-inputted tag attached to the contact.
 
-A successful execution of the 'viewGroup' command is described as follows:
+A successful execution of the `viewGroup` command is described as follows:
 
-1. `ViewGroupCommand` uses the predicate prepared during parsing to filter the list of persons in 'Model
+1. `ViewGroupCommand` uses the predicate prepared during parsing to filter the list of persons in `Model`
 
 2. A `CommandResult` with the number of persons who share the same tag is returned. A list of persons who share the same tag will also be displayed to the user.
 
