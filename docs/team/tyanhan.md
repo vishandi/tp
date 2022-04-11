@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Tay Yan Hans's Project Portfolio Page
+title: Tay Yan Han's Project Portfolio Page
 ---
 
 ### Project: UniGenda
