@@ -229,7 +229,7 @@ Format: `viewGroup t/TAG`
 
 * Ensure that the tag is present for at least one person in the person list!
 
-Examples:
+Example:
 * `viewGroup t/groupmates`
 
 ## 4. Schedule Management Commands
@@ -283,7 +283,7 @@ Format: `deleteEvent INDEX EVENT_NUMBER`
 
 * `INDEX` refers to the index number shown in the displayed person list, whereas `EVENT_NUMBER` refers to the event's index shown in the person's full schedule. Both indices **must be positive integers** 1, 2, 3, …​
 
-Examples:
+Example:
 * `deleteEvent 3 3`
 
 ### 4.3 Editing an event in a person’s schedule: `editEvent`
@@ -346,7 +346,7 @@ Format: `importSchedule INDEX pa/FILE_PATH`
   :exclamation: **Caution:** The person's schedule will be **overwritten** with the imported schedule.
 </div>
 
-Examples:
+Example:
 Assuming that you started the application from the directory containing `UniGenda.jar`, and the json file was saved here:
 ![importSchedule directory of saved file](images/importScheduleDirectory.png)
 Result of `importSchedule 2 pa/Han Qin.json`:
@@ -360,7 +360,7 @@ Format: `exportSchedule INDEX`
 * The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
 * The exported data will be saved in the `data/export/` folder **relative to the folder where the application was opened**.
 
-Examples:
+Example:
 * `exportSchedule 1`
 ![result for exportSchedule 1](images/exportScheduleResult.png)
 
@@ -410,7 +410,7 @@ Format: `findCommonTiming t/TAG da/DATE`
 * Ensure that the tag is present for at least one person in the person list!
 * Timings are filtered in 30-minute blocks, except 23:30-23:59 which is a 29-minute block.
 
-Examples:
+Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
 
 --------------------------------------------------------------------------------------------------------------------
