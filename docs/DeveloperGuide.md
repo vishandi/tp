@@ -333,33 +333,18 @@ A successful execution of the `viewSchedule` command is described as follows:
     * Person List display only fits a few Persons at a time.
     
 ## 4.4 ViewGroup Feature
-View Group feature allows the user to be able to view a list of persons who share the same tag.
+This section details how the 'viewGroup' command is implemented. This command allows the user to be able to view a list of persons who share the same tag.
 
 ### Implementation
-`ViewGroupParser`, `ViewGroupCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `ViewGroup` command.
+`ViewGroupParser` and `ViewGroupCommand` classes are involved in the execution of the `ViewGroup` command.
 
-The parsing of viewGroup command is handled by the following classes:
-* `AddressBookParser`
-    * Checks that the user input contains the ViewGroupCommand.COMMAND_WORD  and calls `ViewGroupParser#parse()`
-* `ViewGroupParser`
-    * Parses the user input to extract the required arguments.
-    * Creates a new `IsTagInPersonPredicate` object that will help check if persons in `UniGenda` have the tag that the user has inputted.
-    * Returns a `ViewGroupCommand` to be executed by the `LogicManager`.
+The 'parse' method of 'ViewGroupCommandParser' received the user input and extracts the required arguments. It then creates a predicate object that will help check if the contact has the user-inputted tag attached to the contact.
 
-Given below is an example usage scenario and explanation on how the `viewGroup` command behaves at each step.
+A successful execution of the 'viewGroup' command is described as follows:
 
-1. The user enters `viewGroup t/friends` to find the persons who share the same tag.
-The argument `t/friends` is passed to the `viewGroupParser` through its `parse` method call.
+1. 'ViewGroupCommand' uses the predicate prepared during parsing to filter the list of persons in 'Model
 
-2. The user input `t/friends` will be checked to ensure that empty input is not given.
-
-3. A new `IsTagInPersonPredicate` object is created and encapsulated by a new `ViewGroupCommand` object.
-
-4. The `ViewGroupCommand` object is returned to the `LogicManager`.
-
-5. During the execution of the command, the `ViewGroupCommand` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of persons that share the same tag. 
-
-6. A `CommandResult` with the number of persons who share the same tag is returned. A list of persons who share the same tag will also be displayed to the user.
+2. A `CommandResult` with the number of persons who share the same tag is returned. A list of persons who share the same tag will also be displayed to the user.
 
 <img src="images/ViewGroupSequenceDiagram.png" />
 
@@ -384,29 +369,15 @@ The timings that the persons are free at the specified date will be displayed.
 ### Implementation
 `FindCommonTimingParser`, `FindCommonTimingCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `findCommonTiming` command.
 
-The parsing of findCommonTiming command is handled by the following classes:
-* `AddressBookParser`
-    * Checks that the user input contains the FindCommonTimingCommand.COMMAND_WORD and calls `FindCommonTimingParser#parse()`.
-* `FindCommonTimingParser`
-    * Parses the user input to extract the required arguments.
-    * Creates a new `IsTagInPersonPredicate` object that will help check if persons in the address book have the tag that the user has inputted.
-    * Returns a `FindCommonTimingCommand` to be executed by the `LogicManager`.
+The 'parse' method of 'FindCommonTimingCommandParser' receives the user input and extracts the required arguments. It then creates a predicate object that will help check if the contact has the user-inputted tag attached to the contact. The user-inputted date will be used to retrieve events occuring on the same day such that the free timings can be determined. 
 
-Given below is an example usage scenario and explanation on how the `findCommonTiming` command behaves at each step.
+A successful execuction of the 'findCommonTiming' command is described as follows:
 
-1. The user enters `findCommonTiming t/friends da/2022-03-04` to find the common timings that the persons who share the same tag are free. 
-The arguments `t/friends da/2022-03-04` are passed to the `findCommonTimingParser` through its `parse` method call.
-
-2. The user input `t/friends da/2022-03-04` will be checked to ensure that empty input is not given.
-
-3. A new `IsTagInPersonPredicate` object is created and encapsulated by a new `FindCommonTiming` object.
-
-4. The `FindCommonTiming` object is returned to the `LogicManager`.
-
-5. During the execution of the command, the `FindCommonTiming` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of persons that share the same tag. 
-The schedules of all the persons will be consolidated and events will be checked if they occur on the date inputted by the user.
-A default timeslot will be created such that it will be assumed that the whole day is free, after which 30-minute timeslots will be blocked out according to events that are determined to occur on that particular date.
-
+1. 'FindCommonTimingCommand' uses the predicate prepared during parsing to filter the list of persons in 'Model'.
+2. Events occuring on a certain day are then retrieved using the 'getEventsatDate' function.
+3. The day will be represented as an array of 48 time slots, with each element of the array representing a 30-minute timeslot.
+4. TheThe 'blockTimeSlots' function is used to ensure that respective timeslots are set as busy according to when events occur.
+5. Free time slots will be appended to a string that is due to be returned in the 'CommandResult'.
 6. A `CommandResult` with the timeslots that the persons are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
@@ -425,6 +396,29 @@ These timeslots will then be displayed to the user.
     * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
   * Cons:
     * Efficiency of implementation would be compromised to cater to a smaller target group.
+
+** Aspect: Which is the best implementation of this command to use?
+* **Alternative 1(current implementation)**: Have a boolean array of 48 elements which represent whether a timeslot on a particular day is free or not. 
+A helper function would be used to block the indexes of the array according to which time slots were busy in the array. 
+The free timings would then be printed out based on the starting indexes of the block of free time or busy time, with a toggle being used to determine whether a new block of free time or a new block of busy time was encountered as the array was traversed.
+  * Pros:
+    * The method is easier to grasp and has less edge cases that need to be handled.
+  * Cons:
+    * To print out free timings, a lot of effort is required to ensure timings to be printed out are bug-free.
+
+* **Alternative 2**: Have an array of objects belonging to a new class. This class would consist of the (StartTime, Duration) of an event. It would start with (00.00, 24) and we retrieve all the events that occur for the contacts that share the same tag on the date input. For each event, a new object of the class would be created such that the (00.00, 24) object would be split into two, the free time available from the start of the day to the start of the event, and the free time available from the end of the event to the end of the day. After all the events are processed, we would have the start time and duration for all blocks of free time between the contacts that share the same tag on a particular day.
+    * Pros: 
+      * It is a robust solution, which if carried out correctly, would result in there being minimal effort in printing out the blocks of free time available.
+    * Cons:
+      * There are a number of edge cases to handle of high complexity. Some listed below:
+        1) Partial Pre-overlap. Example: first person is not free from 1330hrs to 1350hrs, and the second person is not free from 1300hrs to 1340hrs. There is an overlap, and the second non-free timing starts before the first non-free timing but doesn't completely overlap with the first.
+
+        2) Partial Post-overlap. Example: first person is not free from 1330hrs to 1350hrs, and the second person is not free from 1340hrs to 1430hrs. There is an overlap, and the second non-free timing starts during the first non-free timing but doesn't completely overlap with the first.
+
+        3) Full Overlap. Example: first person is not free from 1330hrs to 1350hrs, and the second person is not free from 1300hrs to 1400hrs. There is an overlap, and the second non-free timing starts before the first non-free timing, and it also completely overlaps with the first.
+
+
+
 
 ## 4.6 ImportSchedule and ExportSchedule Features
 This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of persons in UniGenda.
