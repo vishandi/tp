@@ -15,7 +15,7 @@ Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to view free common timings that people are free based on a date and tag input by the user
     * What it does: Shows the user which timings those who share a particular tag are free on a particular day, based on a tag and date input by the user
-    * Justification: A user would want to know when their contacts from the saame group of friends(hence taking those with the same tag) would be free on a particular day to organise a meetup.
+    * Justification: A user would want to know when their contacts from the same group of friends(hence taking those with the same tag) would be free on a particular day to organise a meetup.
     * How hard it was to implement: It was significantly difficult to ensure that this command was bug-free. The implementation of this command was revised several times to ensure that it worked as intended. This was due to many edge cases that needed to be handled in the implementation of this command.
     
 
