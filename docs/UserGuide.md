@@ -133,9 +133,9 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 
 * `NAME` should only contain alphanumeric characters and spaces. It should not be blank and be at most 30 characters long.
 * `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
-* `TELEGRAM`, if specified, should only contain alphanumeric characters and underscore (_), and should be 5-40 characters long. It also should not have multiple consecutive underscores or begin or end with an underscore, or be blank.
-* `GITHUB`, if specified, should only contain alphanumeric characters and hyphen (-), and be at most 39 characters long. It also should not have multiple consecutive hyphens or begin or end with a hyphen, or be blank.
-* `ADDRESS` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters, or be blank.
+* `TELEGRAM`, if specified, should only contain alphanumeric characters and underscore (_), and should be 5-40 characters long. It should not be blank and should not have multiple consecutive underscores or begin or end with an underscore.
+* `GITHUB`, if specified, should only contain alphanumeric characters and hyphen (-), and be at most 39 characters long. It should not be blank and should not have multiple consecutive hyphens or begin or end with a hyphen.
+* `ADDRESS` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 80 characters long.
 * `EMAIL` should be a **valid** email with length not exceeding 60 characters.
 * **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
   * The local-part should only contain alphanumeric characters and the following special characters: **+_.-**. It cannot start or end with any special characters and cannot have consecutive special characters.
@@ -249,7 +249,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * If `TIME` is not specified, the added event will have a duration of 24 hours and start from 00:00.
 * If `TIME` is specified but not `DURATION`, the duration will be defaulted to 2 hours.
 * If `DURATION` is specified, `TIME` also needs to be specified.
-* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 60 characters, or be blank.
+* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 60 characters long.
 * `DATE` should be a valid date in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
 * `TIME` should be a valid time in "HH:MM" format.
 * `DURATION`, if provided, should be in one of the following formats (case-insensitive):
@@ -299,7 +299,7 @@ Format: `editEvent INDEX EVENT_NUMBER [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME]
   :information_source: **NOTE:** CS2103T Tutorial 2022-01-01 10:00-11:00 (Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00 (Weekly) because they eventually recur on the same dates.
 </div>
 
-* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 60 characters, or be blank.
+* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 60 characters long.
 * `DATE` should be a valid date in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
 * `TIME` should be a valid time in "HH:MM" format.
 * `DURATION`, if provided, should be in one of the following formats (case-insensitive):
