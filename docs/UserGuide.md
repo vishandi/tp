@@ -111,11 +111,11 @@ Clears all entries from UniGenda.
 
 Format: `clear`
 
-### 2.3 Listing all persons : 'list'
+### 2.3 Listing all persons : `list`
 
 Lists all persons in UniGenda.
 
-Format: 'list'
+Format: `list`
 
 ### 2.4 Exiting the program : `exit`
 
