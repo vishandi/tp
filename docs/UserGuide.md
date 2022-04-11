@@ -249,7 +249,7 @@ Format: `addEvent INDEX ed/EVENT_DESCRIPTION da/DATE [ti/TIME] [du/DURATION] [r/
 * If `TIME` is not specified, the added event will have a duration of 24 hours and start from 00:00.
 * If `TIME` is specified but not `DURATION`, the duration will be defaulted to 2 hours.
 * If `DURATION` is specified, `TIME` also needs to be specified.
-* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 60 characters.
+* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 60 characters long.
 * `DATE` should be a valid date in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
 * `TIME` should be a valid time in "HH:MM" format.
 * `DURATION`, if provided, should be in one of the following formats (case-insensitive):
