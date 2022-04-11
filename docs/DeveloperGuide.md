@@ -386,23 +386,18 @@ These timeslots will then be displayed to the user.
 ### Design Considerations
 
 **Aspect: How FindCommonTiming executes**
-* **Alternative 1(current implementation)**: Retrieve all events' starting and ending times. Use an integer array to represent 24 hours in a day, and change the value of array elements at specific indices of the array according to event start time and duration of event. After all events are processed, print common free timings according to which elements of the array indicate a certain time slot to be free.
+* **Alternative 1(current implementation)**: Partition the day into time blocks in an array. For every event that belongs to a person with the specified tag, get the start and end times of the event and block the relevant time blocks between the 2 timings to indicate that at least 1 person is unavailable during the time blocks. At the end, return the time blocks that have not been blocked.
   * Pros:
     * The method is easier to grasp and has less edge cases that need to be handled.
   * Cons:
     * To print out free timings, a lot of effort is required to ensure timings to be printed out are bug-free.
 
-* **Alternative 2**: Retrieve all events' starting and ending times. Have an array of objects belonging to a new class which has the attributes startTime and duration. The array would only have one element at first (00.00, 24). Split the elements in the array according to events' start Time and duration(for example if there is an event from 08.00-10.00, the array would contain (00.00, 8) and (10.00, 14). After all the events are processed, the array would contain the start time and duration of each block of free time available.
+* **Alternative 2**: Create a new TimeSlot class that has a start time and a duration attribute. Create an array containing 1 TimeSlot object with a start time of 00:00 and duration of 24 hours to represent the day. For every event that belongs to a person with the specified tag, get the start and end times of the event and split the TimeSlot object to "remove" the timeslots in which a person with the specified tag is not free. For instance, if the event is from 12:00-14:00, the TimeSlot object can be split into a TimeSlot with a start time of 00:00 and duration of 12 hours, and a TimeSlot with a start time of 14:00 and a duration of 10 hours. After every event is processed, return the array of TimeSlot objects.
     * Pros: 
       * It is a robust solution, which if carried out correctly, would result in there being minimal effort in printing out the blocks of free time available.
     * Cons:
-      * There are a number of edge cases to handle of high complexity. Some listed below:
-        1) Partial Pre-overlap. Example: first person is not free from 1330hrs to 1350hrs, and the second person is not free from 1300hrs to 1340hrs. There is an overlap, and the second non-free timing starts before the first non-free timing but doesn't completely overlap with the first.
-
-        2) Partial Post-overlap. Example: first person is not free from 1330hrs to 1350hrs, and the second person is not free from 1340hrs to 1430hrs. There is an overlap, and the second non-free timing starts during the first non-free timing but doesn't completely overlap with the first.
-
-        3) Full Overlap. Example: first person is not free from 1330hrs to 1350hrs, and the second person is not free from 1300hrs to 1400hrs. There is an overlap, and the second non-free timing starts before the first non-free timing, and it also completely overlaps with the first.
-
+      * There are a number of edge cases to handle of high complexity due to overlapping timings between different contacts with various edge cases that are too complex to handle.
+      
 **Aspect: Should we show timings that a group of persons with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
   * Pros:
