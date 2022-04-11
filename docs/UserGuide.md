@@ -357,6 +357,7 @@ Format: `exportSchedule INDEX`
 
 Examples:
 * `exportSchedule 1`
+![result for exportSchedule 1](images/exportScheduleResult.png)
 
 ### 4.7 Viewing a person's schedule : `viewSchedule`
 
@@ -384,16 +385,17 @@ Examples:
 
 Shows a list of persons who are free at specified time and date. You may also choose to additionally filter the list using tags.
 
-Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
+Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]...`
 
 * `TIME` should be a valid time in "HH:MM" format.
 * `DATE` should be a valid date in "YYYY-MM-DD" format.
 * If the date is not given, today's date will be the default date used for checking.
 
 Examples:
-* `whoIsFree ti/12:00`
-* `whoIsFree ti/14:00 da/2022-02-14`
-* `whoIsFree ti/12:00 t/friends`
+* `whoIsFree ti/23:00` will filter all persons who are not free today.
+![result for whoIsFree ti/23:00](images/whoIsFreeResult1.png) <br>
+* `whoIsFree ti/12:00 t/friends` will filter all persons who are not free today, and then get those with `friend` tags.
+![result for whoIsFree ti/12:00 t/friends](images/whoIsFreeResult2.png)
 
 ### 4.9 Getting common free timing of persons by tag: `findCommonTiming`
 Gets the common timings of persons who are free with the same tag on a certain day.
