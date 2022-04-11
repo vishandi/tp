@@ -181,6 +181,8 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
+<div style="page-break-after: always;"></div>
+
 ## 3.5 Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2122S2-CS2103T-W09-1/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
@@ -240,6 +242,8 @@ The start date of recurring events are updated upon the start-up of the applicat
   * Cons:
     * Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
+<div style="page-break-after: always;"></div>
+
 ## 4.2 WhoIsFree feature
 This subsection details how the `whoIsFree` command is implemented. This command allows the user to find persons who are free at the specified time and date. Persons who are free will be listed in the person list.
 
@@ -281,6 +285,8 @@ A successful execution of the `whoIsFree` command is described as follows:
     * Less information to process as we ignore persons without schedule.
   * Cons:
     * Persons without schedule may be free at the specified date and time.
+
+<div style="page-break-after: always;"></div>
 
 ## 4.3 ViewSchedule Feature
 
@@ -335,7 +341,9 @@ A successful execution of the `viewSchedule` command is described as follows:
     * More detailed version of a Person, so the user doesn't need to look in both panels to get all the information of a Person.
   * Cons:
     * Person List display only fits a few Persons at a time.
-    
+
+<div style="page-break-after: always;"></div>
+
 ## 4.4 ViewGroup Feature
 This subsection details how the `viewGroup` command is implemented. This command allows the user to be able to view a list of persons who share the same tag.
 
@@ -365,6 +373,8 @@ A successful execution of the `viewGroup` command is described as follows:
     * It allows the user to view the contacts whom they have added their schedule to. These persons can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
   * Cons: 
     * Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
+
+<div style="page-break-after: always;"></div>
 
 ## 4.5 FindCommonTiming Feature
 This subsection details how the findCommonTiming feature is implemented. This command allows user to find common timings for a group of persons in their address book.
@@ -413,6 +423,8 @@ These timeslots will then be displayed to the user.
     * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
   * Cons:
     * Efficiency of implementation would be compromised to cater to a smaller target group.
+
+<div style="page-break-after: always;"></div>
 
 ## 4.6 ImportSchedule and ExportSchedule Features
 This subsection details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of persons in UniGenda.
@@ -846,6 +858,8 @@ testers are expected to do more *exploratory* testing.
     5. Other incorrect add commands to try: `add`, `add 1` <br>
        Expected: Similar to previous.
 
+<div style="page-break-after: always;"></div>
+
 ## 7.3 Deleting a person
 
 1. Deleting a person while all persons are being shown
@@ -893,6 +907,8 @@ testers are expected to do more *exploratory* testing.
 
     4. Other incorrect setUser commands to try: `setUser`, `setUser x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
+
+<div style="page-break-after: always;"></div>
 
 ## 7.6 Viewing persons that share the same tag
 
@@ -976,6 +992,8 @@ testers are expected to do more *exploratory* testing.
 
     4. Other incorrect clearSchedule commands to try: `clearSchedule`, `clearSchedule x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
+
+<div style="page-break-after: always;"></div>
 
 ## 7.11 Importing a person's schedule from a JSON file
 
