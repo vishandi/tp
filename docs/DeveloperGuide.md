@@ -801,10 +801,9 @@ Extensions
 2. Should be able to hold up to 100 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should be able to hold up to 1000 events across all persons without noticeable lag.
-5. All commands should be able to execute without noticeable lag.
-6. Data should be stored locally and not use any database management system.
-7. The application should work with a single JAR file, and should work without requiring an installer.
-8. The application size should not exceed `100MB`.
+5. Data should be stored locally and not use any database management system.
+6. The application should work with a single JAR file, and should work without requiring an installer.
+7. The application size should not exceed `100MB`.
 
 ## 6.5 Glossary
 
