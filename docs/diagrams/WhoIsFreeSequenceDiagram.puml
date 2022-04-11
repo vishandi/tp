@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":FreeScheduleCommandParser" as FreeScheduleCommandParser LOGIC_COLOR
-participant ":FreeScheduleCommand" as FreeScheduleCommand LOGIC_COLOR
+participant ":WhoIsFreeCommandParser" as WhoIsFreeCommandParser LOGIC_COLOR
+participant ":WhoIsFreeCommand" as WhoIsFreeCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -16,53 +16,53 @@ end box
 [-> LogicManager : execute("freeSchedule ti/10:00 da/2022-03-24")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("freeSchedule ti/10:00 da/2022-03-24")
+LogicManager -> AddressBookParser : parseCommand("whoIsFree ti/10:00 da/2022-03-24")
 activate AddressBookParser
 
-create FreeScheduleCommandParser
-AddressBookParser -> FreeScheduleCommandParser
-activate FreeScheduleCommandParser
+create WhoIsFreeCommandParser
+AddressBookParser -> WhoIsFreeCommandParser
+activate WhoIsFreeCommandParser
 
-FreeScheduleCommandParser --> AddressBookParser
-deactivate FreeScheduleCommandParser
+WhoIsFreeCommandParser --> AddressBookParser
+deactivate WhoIsFreeCommandParser
 
-AddressBookParser -> FreeScheduleCommandParser : parse("ti/10:00 da/2022-03-24")
-activate FreeScheduleCommandParser
+AddressBookParser -> WhoIsFreeCommandParser : parse("ti/10:00 da/2022-03-24")
+activate WhoIsFreeCommandParser
 
-create FreeScheduleCommand
-FreeScheduleCommandParser -> FreeScheduleCommand :predicate
-activate FreeScheduleCommand
+create WhoIsFreeCommand
+WhoIsFreeCommandParser -> WhoIsFreeCommand :predicate
+activate WhoIsFreeCommand
 
-FreeScheduleCommand --> FreeScheduleCommandParser
-deactivate FreeScheduleCommand
+WhoIsFreeCommand --> WhoIsFreeCommandParser
+deactivate WhoIsFreeCommand
 
-FreeScheduleCommandParser --> AddressBookParser
-deactivate FreeScheduleCommandParser
+WhoIsFreeCommandParser --> AddressBookParser
+deactivate WhoIsFreeCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-FreeScheduleCommandParser -[hidden]-> AddressBookParser
-destroy FreeScheduleCommandParser
+WhoIsFreeCommandParser -[hidden]-> AddressBookParser
+destroy WhoIsFreeCommandParser
 
 AddressBookParser --> LogicManager
 deactivate AddressBookParser
 
-LogicManager -> FreeScheduleCommand : execute()
-activate FreeScheduleCommand
+LogicManager -> WhoIsFreeCommand : execute()
+activate WhoIsFreeCommand
 
-FreeScheduleCommand -> Model : updateFilteredPersonList(predicate)
+WhoIsFreeCommand -> Model : updateFilteredPersonList(predicate)
 activate Model
 
-Model --> FreeScheduleCommand
+Model --> WhoIsFreeCommand
 deactivate Model
 
 create CommandResult
-FreeScheduleCommand -> CommandResult
+WhoIsFreeCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> FreeScheduleCommand
+CommandResult --> WhoIsFreeCommand
 deactivate CommandResult
 
-FreeScheduleCommand --> LogicManager : result
-deactivate FreeScheduleCommand
+WhoIsFreeCommand --> LogicManager : result
+deactivate WhoIsFreeCommand
 
 [<--LogicManager
 deactivate LogicManager

@@ -3,7 +3,7 @@ layout: page
 title: User Guide
 ---
 
-UniGenda is a **desktop app for managing contacts and schedules**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a university student having a hard time organising your timetable, or commonly find difficulty scheduling a suitable time to meet up with your project group mates or friends, UniGenda is the app just for you!
+UniGenda is a **desktop app for managing contacts and schedules**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a university student having a hard time organising your timetable, or find difficulty scheduling a suitable time to meet up with your project group mates or friends, UniGenda is the app just for you!
 
 With features such as the ability to import your friends' schedules, find friends who are free at a certain date and time, and find common timings to meet with your project teammates, UniGenda makes your university life easier by helping you **keep track of not only your own, but also your friends' schedules!**
 
@@ -18,7 +18,7 @@ With features such as the ability to import your friends' schedules, find friend
    1. [Adding a person](#31-adding-a-person-add)
    2. [Deleting a person](#32-deleting-a-person--delete)
    3. [Editing a person](#33-editing-a-person--edit)
-   4. [Setting a contact as the user](#34-setting-a-contact-as-the-user--setuser)
+   4. [Setting a person as the user](#34-setting-a-person-as-the-user--setuser)
    5. [Locating persons by name](#35-locating-persons-by-name-find)
    6. [Viewing persons by tags](#36-viewing-persons-by-tags-viewgroup)
 4. [Schedule Management Commands](#4-schedule-management-commands)
@@ -44,19 +44,19 @@ With features such as the ability to import your friends' schedules, find friend
 
 3. Copy the file to the folder you want to use as the _home folder_ for your UniGenda.
 
-4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Also note the name for each section of the UI, as it will be referenced throughout the User Guide.<br>
+   ![Ui](images/UiWithExplanation.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`list`** : Lists all contacts.
+   * **`list`** : Lists all persons in `UniGenda`.
 
-   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to UniGenda.
+   * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a person named `John Doe` to UniGenda.
 
-   * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+   * **`delete`**`3` : Deletes the 3rd person shown in the current person list.
 
-   * **`addEvent`**`1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` : Adds a CS2103T Tutorial event to the first contact.
+   * **`addEvent`**`1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` : Adds a CS2103T Tutorial event to the first person.
 
    * **`exit`** : Exits the app.
    
@@ -90,7 +90,7 @@ Refer below for details of each command.
 
 * All commands are case-insensitive. For example `addevent` or `AdDEvenT` works for `addEvent` commands.
 
-* The indexes are integer based. Hence, the maximum value of an index is 2147483647.
+* The indices, i.e., INDEX and EVENT_NUMBER are integer based. Hence, the maximum value of an index is 2147483647.
 
 </div>
 
@@ -191,9 +191,9 @@ Examples:
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit 1 p/91234567 e/` Removes the 1st person's email address, if it exists previously.
 
-### 3.4 Setting a contact as the user : `setUser`
+### 3.4 Setting a person as the user : `setUser`
 
-Shifts the contact to the top of the list.
+Shifts the person to the top of the list.
 
 Format: `setUser INDEX`
 
@@ -227,7 +227,7 @@ Shows a list of all persons with the specified tag.
 
 Format: `viewGroup t/TAG`
 
-* Ensure that the tag is present for at least one person in the list of contacts!
+* Ensure that the tag is present for at least one person in the person list!
 
 Examples:
 * `viewGroup t/groupmates`
@@ -357,6 +357,7 @@ Format: `exportSchedule INDEX`
 
 Examples:
 * `exportSchedule 1`
+![result for exportSchedule 1](images/exportScheduleResult.png)
 
 ### 4.7 Viewing a person's schedule : `viewSchedule`
 
@@ -366,7 +367,7 @@ Format: `viewSchedule INDEX`
 
 * Views the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The person's schedule for the next 7 days (from system's date, including the current date) will be shown, along with the person's full list of events.
-* The schedule will be displayed in the right panel of UniGenda.
+* The schedule will be displayed in the schedule panel of UniGenda.
 * If you change your system's date, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
 * If your system's date changes (for example after it passes midnight), it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 * The events displayed will be in the following format: <br>
@@ -384,23 +385,24 @@ Examples:
 
 Shows a list of persons who are free at specified time and date. You may also choose to additionally filter the list using tags.
 
-Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]`
+Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]...`
 
 * `TIME` should be a valid time in "HH:MM" format.
 * `DATE` should be a valid date in "YYYY-MM-DD" format.
 * If the date is not given, today's date will be the default date used for checking.
 
 Examples:
-* `whoIsFree ti/12:00`
-* `whoIsFree ti/14:00 da/2022-02-14`
-* `whoIsFree ti/12:00 t/friends`
+* `whoIsFree ti/23:00` display all persons who are free today at 23:00.
+![result for whoIsFree ti/23:00](images/whoIsFreeResult1.png) <br>
+* `whoIsFree ti/12:00 t/friends` displays all persons with `friend` tag who are free today at 12:00.
+![result for whoIsFree ti/12:00 t/friends](images/whoIsFreeResult2.png)
 
 ### 4.9 Getting common free timing of persons by tag: `findCommonTiming`
 Gets the common timings of persons who are free with the same tag on a certain day.
 
 Format: `findCommonTiming t/TAG da/DATE`
 
-* Ensure that the tag is present for at least one person in the list of contacts!
+* Ensure that the tag is present for at least one person in the person list!
 
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
@@ -427,7 +429,7 @@ will discard all data and start with an empty data file at the next run.
 **A**: Yes, however, the results might not be what you expect. This is because the events' dates are might change when you restart the application.
 
 **Q**: Why I can check if my contacts were free last week?<br>
-**A**: There can exist non-recurring events in a contact's schedule. Therefore, we allow the ability to search the availabilities of your contacts' past events if you wish to.
+**A**: There can exist non-recurring events in a person's schedule. Therefore, we allow the ability to search the availabilities of your contacts' past events if you wish to.
 
 **Q**: Why does `UniGenda` have sample data when it is first launched?<br>
 **A**: Sample data is preloaded onto the application to allow for users to be able to familiarise themselves with the features of `UniGenda` by being able to experiment easily without having to manually add events and persons one by one. To start afresh, you may use the `clear` command to clear existing data.

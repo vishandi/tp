@@ -4,16 +4,21 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_PI_DAY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_MORNING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,6 +66,10 @@ class WhoIsFreeCommandParserTest {
         // valid time but invalid date
         assertParseFailure(parser, " " + TIME_DESC_MORNING + INVALID_EVENT_DATE_DESC,
                 Event.DATE_MESSAGE_CONSTRAINTS);
+
+        // valid time and date but empty tag
+        assertParseFailure(parser, " " + TIME_DESC_MORNING + DATE_DESC_PI_DAY + " " + PREFIX_TAG,
+                Tag.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -79,5 +88,22 @@ class WhoIsFreeCommandParserTest {
         assertParseSuccess(parser, " " + TIME_DESC_MORNING, expectedCommand);
     }
 
-    // TODO: include test case to check for tags
+    @Test
+    public void parse_tagsSpecified_success() {
+        Tag friendTag = new Tag(VALID_TAG_FRIEND);
+        Tag husbandTag = new Tag(VALID_TAG_HUSBAND);
+        Set<Tag> tags = new HashSet<>(Arrays.asList(friendTag));
+
+        // one tag
+        WhoIsFreeCommand expectedCommand = new WhoIsFreeCommand(
+                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now(), tags));
+        assertParseSuccess(parser, " " + TIME_DESC_MORNING + TAG_DESC_FRIEND, expectedCommand);
+
+        // multiple tags
+        tags = new HashSet<>(Arrays.asList(friendTag, husbandTag));
+        expectedCommand = new WhoIsFreeCommand(
+                new IsPersonFreePredicate(LocalTime.parse(VALID_EVENT_TIME), LocalDate.now(), tags));
+        assertParseSuccess(parser, " " + TIME_DESC_MORNING + TAG_DESC_FRIEND, expectedCommand);
+
+    }
 }
