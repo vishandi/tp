@@ -363,8 +363,7 @@ A successful execution of the `viewGroup` command is described as follows:
     * Ultimately, a tag is still the best way for users to distinguish between groups of friends and had this implementation been enforced, users would not have been allowed to filter contacts by tag.
 
 ## 4.5 FindCommonTiming Feature
-Find Common Timing feature allows the user to get the common free timings of persons who share the same tag at a specified date.
-The timings that the persons are free at the specified date will be displayed.
+This subsection details how the findCommonTiming feature is implemented. This command allows user to find common timings for a group of persons in their address book.
 
 ### Implementation
 `FindCommonTimingParser`, `FindCommonTimingCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `findCommonTiming` command.
