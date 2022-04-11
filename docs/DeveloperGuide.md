@@ -69,6 +69,8 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 # 3. **Design**
 
 <div markdown="span" class="alert alert-primary">
@@ -195,6 +197,8 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 # 4. **Implementation Highlights**
 
@@ -464,7 +468,7 @@ A success execution of the `exportSchedule` command is described as follows:
   * Cons:
     * Users will not be able to save the files where they like.
 
-
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -804,6 +808,8 @@ Extensions
 * **Graphical User Interface (GUI)**: Graphic-based user interface
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 # 7. **Appendix B: Instructions for Manual Testing**
 
