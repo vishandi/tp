@@ -757,13 +757,13 @@ Extensions
 
     Use case ends.
     
-**Use case: Find a common timing that contacts who share a similar day are free on a particular day**
+**Use case: Display timings contacts that share a tag are free on a particular day**
 
 **MSS**
 
 1. User requests to list persons.
 2. User chooses to view the free timings of a group of contacts who share a similar tag, on a particular day.
-3. UniGenda shows the timings the contacts with that particular tag is available on the particular day.
+3. UniGenda shows the timings the contacts are free.
 
 **Extensions**
 * 1a. The given tag is not attached to any contact in UniGenda.
