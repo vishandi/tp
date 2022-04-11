@@ -225,14 +225,15 @@ The start date of recurring events are updated upon the start-up of the applicat
 * **Alternative 1 (current choice):** Every `Event` has a `RecurFrequency` attribute. `RecurFrequency` has a `None` value to represent non-recurring tasks.
   * Pros:
     * Easier to implement, no need to deal with Jackson library deciphering whether data should be recurring or non-recurring type.
+
+<div style="page-break-after: always;"></div>
+
 * **Alternative 2:** Have a `RecurringEvent` class inherit from `Event` and only `RecurringEvent`s should have the `RecurFrequency` attribute.
   * Pros: 
     * Slightly more OOP.
   * Cons:
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
-
-<div style="page-break-after: always;"></div>
 
 **Aspect: How should we implement event's date, time and duration attributes?**
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes.
@@ -403,15 +404,14 @@ These timeslots will then be displayed to the user.
 
 <img src="images/FindCommonTimingSequenceDiagram.png" />
 
+<div style="page-break-after: always;"></div>
+
 ### Design Considerations
 
 **Aspect: How FindCommonTiming executes**
 * **Alternative 1(current implementation)**: Partition the day into time blocks in an array. For every event that belongs to a person with the specified tag, get the start and end times of the event and block the relevant time blocks between the 2 timings to indicate that at least 1 person is unavailable during the time blocks. At the end, return the time blocks that have not been blocked.
   * Pros:
     * The method is easier to grasp and has less edge cases that need to be handled.
-
-<div style="page-break-after: always;"></div>
-
   * Cons:
     * To print out free timings, a lot of effort is required to ensure timings that are printed out are bug-free.
 
