@@ -341,13 +341,16 @@ Format: `importSchedule INDEX pa/FILE_PATH`
 * Imports a schedule to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The file's data **must be in json format**, but the file itself may have any extension (e.g. .json, .txt etc.).
 * The imported `Schedule` **cannot be empty**.
-* `FILE_PATH` may be absolute or relative to the folder where the application was opened. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path).
+* `FILE_PATH` may be **absolute or relative to the folder where the application was opened**. More information of absolute and relative file paths can be found [here](https://www.educative.io/edpresso/absolute-vs-relative-path).
 <div markdown="span" class="alert alert-warning">
   :exclamation: **Caution:** The person's schedule will be **overwritten** with the imported schedule.
 </div>
 
 Examples:
-`importSchedule 1 pa/typicalSchedule.json`
+Assuming that you started the application from the directory containing `UniGenda.jar`, and the json file was saved here:
+![importSchedule directory of saved file](images/importScheduleDirectory.png)
+Result of `importSchedule 2 pa/Han Qin.json`:
+![result for importSchedule](images/importScheduleResult.png)
 
 ### 4.6 Exporting a person's schedule: `exportSchedule`
 
@@ -355,7 +358,7 @@ Format: `exportSchedule INDEX`
 
 * Allows user to export schedule of person at specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
-* The exported data will be saved in the `data/export/` folder relative to the folder where the application was opened.
+* The exported data will be saved in the `data/export/` folder **relative to the folder where the application was opened**.
 
 Examples:
 * `exportSchedule 1`
