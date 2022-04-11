@@ -336,7 +336,7 @@ A successful execution of the `viewSchedule` command is described as follows:
 This section details how the `viewGroup` command is implemented. This command allows the user to be able to view a list of persons who share the same tag.
 
 ### Implementation
-`ViewGroupParser` and `ViewGroupCommand` classes are involved in the execution of the `ViewGroup` command.
+`ViewGroupCommandParser` and `ViewGroupCommand` classes are involved in the execution of the `ViewGroup` command.
 
 The `parse` method of `ViewGroupCommandParser` received the user input and extracts the required arguments. It then creates a predicate object that will help check if the contact has the user-inputted tag attached to the contact.
 
