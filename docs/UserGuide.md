@@ -299,7 +299,7 @@ Format: `editEvent INDEX EVENT_NUMBER [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME]
   :information_source: **NOTE:** CS2103T Tutorial 2022-01-01 10:00-11:00 (Weekly) is considered the same event as CS2103T Tutorial 2022-01-08 10:00-11:00 (Weekly) because they eventually recur on the same dates.
 </div>
 
-* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 60 characters.
+* `EVENT_DESCRIPTION` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 60 characters long.
 * `DATE` should be a valid date in "YYYY-MM-DD" format, and **YYYY must be between 2000-2100**.
 * `TIME` should be a valid time in "HH:MM" format.
 * `DURATION`, if provided, should be in one of the following formats (case-insensitive):
