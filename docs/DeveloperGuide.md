@@ -403,10 +403,6 @@ These timeslots will then be displayed to the user.
 
         3) Full Overlap. Example: first person is not free from 1330hrs to 1350hrs, and the second person is not free from 1300hrs to 1400hrs. There is an overlap, and the second non-free timing starts before the first non-free timing, and it also completely overlaps with the first.
 
-
-
-
-
 **Aspect: Should we show timings that a group of persons with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
   * Pros:
