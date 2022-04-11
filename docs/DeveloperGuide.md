@@ -378,14 +378,14 @@ A successful execuction of the `findCommonTiming` command is described as follow
 3. The day will be represented as an array of 48 time slots, with each element of the array representing a 30-minute timeslot.
 4. TheThe `blockTimeSlots` function is used to ensure that respective timeslots are set as busy according to when events occur.
 5. Free time slots will be appended to a string that is due to be returned in the `CommandResult`.
-6. A `CommandResult` with the timeslots that the persons are free will be returned(timeslots are in intervals of 30 minutes). 
+6. A `CommandResult` with the timeslots that the persons are free will be returned (timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
 <img src="images/FindCommonTimingSequenceDiagram.png" />
 
 ### Design Considerations
 
-** Aspect: How FindCommonTiming executes**
+**Aspect: How FindCommonTiming executes**
 * **Alternative 1(current implementation)**: Retrieve all events' starting and ending times. Use an integer array to represent 24 hours in a day, and change the value of array elements at specific indices of the array according to event start time and duration of event. After all events are processed, print common free timings according to which elements of the array indicate a certain time slot to be free.
   * Pros:
     * The method is easier to grasp and has less edge cases that need to be handled.
