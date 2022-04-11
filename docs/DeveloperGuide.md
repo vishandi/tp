@@ -237,7 +237,7 @@ The start date of recurring events are updated upon the start-up of the applicat
     * Higher possibility of bugs if we do not properly account for leap years, number of days in a month, formatting etc. Will also take too much time to implement.
 
 ## 4.2 WhoIsFree feature
-This section details how the `whoIsFree` command is implemented. This command allows the user to find persons who are free at the specified time and date. Persons who are free will be listed in the person list.
+This subsection details how the `whoIsFree` command is implemented. This command allows the user to find persons who are free at the specified time and date. Persons who are free will be listed in the person list.
 
 ### Implementation
 `WhoIsFreeCommandParser` and `WhoIsFreeCommand` classes are involved in the execution of the `whoIsFree` command.
@@ -280,7 +280,7 @@ A successful execution of the `whoIsFree` command is described as follows:
 
 ## 4.3 ViewSchedule Feature
 
-Displays the specified person's schedule.
+This subsection details how the `viewSchedule` feature is implemented. This command allows user to view a specified person's schedule.
 
 ### Implementation
 
@@ -333,7 +333,7 @@ A successful execution of the `viewSchedule` command is described as follows:
     * Person List display only fits a few Persons at a time.
     
 ## 4.4 ViewGroup Feature
-This section details how the `viewGroup` command is implemented. This command allows the user to be able to view a list of persons who share the same tag.
+This subsection details how the `viewGroup` command is implemented. This command allows the user to be able to view a list of persons who share the same tag.
 
 ### Implementation
 `ViewGroupCommandParser` and `ViewGroupCommand` classes are involved in the execution of the `ViewGroup` command.
@@ -411,7 +411,7 @@ These timeslots will then be displayed to the user.
     * Efficiency of implementation would be compromised to cater to a smaller target group.
 
 ## 4.6 ImportSchedule and ExportSchedule Features
-This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of persons in UniGenda.
+This subsection details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of persons in UniGenda.
 
 ### Implementation
 `ImportScheduleCommandParser` and `ImportScheduleCommand` classes are involved in the execution of the `importSchedule` command. While `ExportScheduleCommandParser` and `ExportScheduleCommand` classes are involved in the execution of the `exportSchedule` command. The `JsonUtil` and `JsonAdaptedSchedule` classes were also used to read and save the files during import and export.
