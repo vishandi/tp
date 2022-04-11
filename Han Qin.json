@@ -1,0 +1,53 @@
+{
+  "events": [
+    {
+      "eventDescription": "CS2106 Tutorial",
+      "date": "2022-03-14",
+      "time": "10:00",
+      "duration": "PT1H",
+      "recurFrequency": "WEEKLY"
+    },
+    {
+      "eventDescription": "CS2103T Tutorial",
+      "date": "2022-03-16",
+      "time": "09:00",
+      "duration": "1H",
+      "recurFrequency": "WEEKLY"
+    },
+    {
+      "eventDescription": "CS2106 Lecture",
+      "date": "2022-03-16",
+      "time": "10:00",
+      "duration": "2H",
+      "recurFrequency": "WEEKLY"
+    },
+    {
+      "eventDescription": "CS2106 Lab",
+      "date": "2022-03-17",
+      "time": "13:00",
+      "duration": "1H",
+      "recurFrequency": "WEEKLY"
+    },
+    {
+      "eventDescription": "CS2103T Lecture",
+      "date": "2022-03-18",
+      "time": "14:00",
+      "duration": "2H",
+      "recurFrequency": "WEEKLY"
+    },
+    {
+      "eventDescription": "CS2105 Lecture",
+      "date": "2022-03-17",
+      "time": "16:00",
+      "duration": "2H",
+      "recurFrequency": "WEEKLY"
+    },
+    {
+      "eventDescription": "CS2105 Tutorial",
+      "date": "2022-03-14",
+      "time": "11:00",
+      "duration": "1H",
+      "recurFrequency": "WEEKLY"
+    }
+  ]
+}
