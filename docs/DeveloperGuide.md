@@ -893,6 +893,8 @@ testers are expected to do more *exploratory* testing.
     5. Other incorrect edit commands to try: `edit`, `edit 0` <br>
        Expected: Similar to previous.
 
+<div style="page-break-after: always;"></div>
+
 ## 7.5 Setting a person as the user
 
 1. Setting a person on `UniGenda` as the user while all persons are being shown
@@ -907,8 +909,6 @@ testers are expected to do more *exploratory* testing.
 
     4. Other incorrect setUser commands to try: `setUser`, `setUser x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
-
-<div style="page-break-after: always;"></div>
 
 ## 7.6 Viewing persons that share the same tag
 
@@ -993,8 +993,6 @@ testers are expected to do more *exploratory* testing.
     4. Other incorrect clearSchedule commands to try: `clearSchedule`, `clearSchedule x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
 
-<div style="page-break-after: always;"></div>
-
 ## 7.11 Importing a person's schedule from a JSON file
 
 1. Importing a schedule from an accessible, readable json file
@@ -1011,6 +1009,8 @@ testers are expected to do more *exploratory* testing.
 3. Importing a schedule with invalid data and/or headers
    1. Test case: `importSchedule 1 pa/<filepath_invalid_data>`
       Expected:  First person's schedule is unchanged. An error message detailing the issue will be displayed to the tester.
+
+<div style="page-break-after: always;"></div>
 
 ## 7.12 Exporting a person's schedule to a JSON file
 
@@ -1050,6 +1050,8 @@ testers are expected to do more *exploratory* testing.
 
     4. Other incorrect viewSchedule commands to try: `viewSchedule`, `viewSchedule x` (where x is larger than the list size) <br>
        Expected: Similar to previous.
+
+<div style="page-break-after: always;"></div>
 
 ## 7.14 Getting persons who are free at specified time and date
 
@@ -1093,6 +1095,8 @@ testers are expected to do more *exploratory* testing.
    
    3. Test case: `whoIsFree ti/10:00 da/2022-12-01 t/`<br>
       Expected: Nothing happens. Error regarding empty tag is displayed.
+
+<div style="page-break-after: always;"></div>
 
 ## 7.15 Getting common timing that everyone who shares the specified tag available at a particular date
 
