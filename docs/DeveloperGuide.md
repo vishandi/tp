@@ -384,29 +384,15 @@ These timeslots will then be displayed to the user.
 <img src="images/FindCommonTimingSequenceDiagram.png" />
 
 ### Design Considerations
-**Aspect: Should we show timings that a group of persons with the same tag are free by the minute, or in 30-minute blocks?**
-* **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
-  * Pros:
-    * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
-    * More easily understood by users who are likely to plan meetings in 30-minute intervals
-  * Cons:
-    * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
-* **Alternative 2**: Show common free timings accurate to the minute
-  * Pros:
-    * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
-  * Cons:
-    * Efficiency of implementation would be compromised to cater to a smaller target group.
 
-** Aspect: What is the most effective way this command can be implemented?**
-* **Alternative 1(current implementation)**: Have a boolean array of 48 elements which represent whether a timeslot on a particular day is free or not. 
-A helper function would be used to block the indexes of the array according to which time slots were busy in the array. 
-The free timings would then be printed out based on the starting indexes of the block of free time or busy time, with a toggle being used to determine whether a new block of free time or a new block of busy time was encountered as the array was traversed.
+** Aspect: How FindCommonTiming executes**
+* **Alternative 1(current implementation)**: Retrieve all events' starting and ending times. Use an integer array to represent 24 hours in a day, and change the value of array elements at specific indices of the array according to event start time and duration of event. After all events are processed, print common free timings according to which elements of the array indicate a certain time slot to be free.
   * Pros:
     * The method is easier to grasp and has less edge cases that need to be handled.
   * Cons:
     * To print out free timings, a lot of effort is required to ensure timings to be printed out are bug-free.
 
-* **Alternative 2**: Have an array of objects belonging to a new class. This class would consist of the (StartTime, Duration) of an event. It would start with (00.00, 24) and we retrieve all the events that occur for the contacts that share the same tag on the date input. For each event, a new object of the class would be created such that the (00.00, 24) object would be split into two, the free time available from the start of the day to the start of the event, and the free time available from the end of the event to the end of the day. After all the events are processed, we would have the start time and duration for all blocks of free time between the contacts that share the same tag on a particular day.
+* **Alternative 2**: Retrieve all events' starting and ending times. Have an array of objects belonging to a new class which has the attributes startTime and duration. The array would only have one element at first (00.00, 24). Split the elements in the array according to events' start Time and duration(for example if there is an event from 08.00-10.00, the array would contain (00.00, 8) and (10.00, 14). After all the events are processed, the array would contain the start time and duration of each block of free time available.
     * Pros: 
       * It is a robust solution, which if carried out correctly, would result in there being minimal effort in printing out the blocks of free time available.
     * Cons:
@@ -419,6 +405,20 @@ The free timings would then be printed out based on the starting indexes of the 
 
 
 
+
+
+**Aspect: Should we show timings that a group of persons with the same tag are free by the minute, or in 30-minute blocks?**
+* **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
+  * Pros:
+    * More efficient implementation as 30-minute intervals would be ruled out as compared to 1-minute intervals
+    * More easily understood by users who are likely to plan meetings in 30-minute intervals
+  * Cons:
+    * More meticulous planners will lament a lack of an ability to include intervals of less than 30 minutes.
+* **Alternative 2**: Show common free timings accurate to the minute
+  * Pros:
+    * Feature would work for even the most meticulous of planners and could perhaps increase the benefit of the feature marginally
+  * Cons:
+    * Efficiency of implementation would be compromised to cater to a smaller target group.
 
 ## 4.6 ImportSchedule and ExportSchedule Features
 This section details how the `importSchedule` and `exportSchedule` commands are implemented. This command allows the user to import and export the schedule of persons in UniGenda.
