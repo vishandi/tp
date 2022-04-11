@@ -52,4 +52,4 @@ Given below are my contributions to the project.
       
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [\#35](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/35/), [\#59](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/59/), [\#77](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/77/), [\#104](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/104/), [\#108](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/108/), [\#125](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/125/), [\#184](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/184/)
-    * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/hanqinilnix/ped/issues/1) [4](https://github.com/hanqinilnix/ped/issues/4), [6](https://github.com/hanqinilnix/ped/issues/6), [7](https://github.com/hanqinilnix/ped/issues/7))
+    * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/hanqinilnix/ped/issues/1), [4](https://github.com/hanqinilnix/ped/issues/4), [6](https://github.com/hanqinilnix/ped/issues/6), [7](https://github.com/hanqinilnix/ped/issues/7))
