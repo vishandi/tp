@@ -359,7 +359,9 @@ The argument `t/friends` is passed to the `viewGroupParser` through its `parse` 
 
 5. During the execution of the command, the `ViewGroupCommand` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of persons that share the same tag. 
 
-6. A `CommandResult` with the number of persons free is returned. A list of persons who share the same tag will also be displayed to the user.
+6. A `CommandResult` with the number of persons who share the same tag is returned. A list of persons who share the same tag will also be displayed to the user.
+
+<img src="images/ViewGroupSequenceDiagram.png" />
 
 ### Design Considerations
 
@@ -407,6 +409,8 @@ A default timeslot will be created such that it will be assumed that the whole d
 
 6. A `CommandResult` with the timeslots that the persons are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
+
+<img src="images/FindCommonTimingSequenceDiagram.png" />
 
 ### Design Considerations
 **Aspect: Should we show timings that a group of persons with the same tag are free by the minute, or in 30-minute blocks?**
