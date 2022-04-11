@@ -135,12 +135,12 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 * `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
 * `TELEGRAM`, if specified, should only contain alphanumeric characters and underscore (_), and should be 5-40 characters long. It should not be blank and should not have multiple consecutive underscores or begin or end with an underscore.
 * `GITHUB`, if specified, should only contain alphanumeric characters and hyphen (-), and be at most 39 characters long. It should not be blank and should not have multiple consecutive hyphens or begin or end with a hyphen.
-* `ADDRESS` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 80 characters long.
-* `EMAIL` should be a **valid** email with length not exceeding 60 characters.
+* `ADDRESS`, if specified, should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. It should not be blank and be at most 80 characters long.
+* `EMAIL`, if specified, should be a **valid** email with length not exceeding 60 characters.
 * **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
   * The local-part should only contain alphanumeric characters and the following special characters: **+_.-**. It cannot start or end with any special characters and cannot have consecutive special characters.
   * The domain part is made up of domain labels separated by periods (e.g. domain-label1.domain-label2.com). It must end with a domain label at least 2 characters long, each domain label starts and end with alphanumeric characters, and each domain label consists of only alphanumeric characters, separated only by hyphens, if any.
-* `TAG` should only contain alphanumeric characters and be at most 30 characters long. It should not contain whitespaces and cannot be blank.
+* `TAG`, if specified, should only contain alphanumeric characters and be at most 30 characters long. It should not contain whitespaces and cannot be blank.
 * `TAG` is case-insensitive (`BestFriend` and `bestFriend` will be considered the same tag) and will be converted to the lowercase for display. Duplicate tags will be ignored.
 * You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
 
@@ -172,16 +172,16 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL
 * When editing tags, the existing tags of the person will be removed, i.e., adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
-* `NAME` should only contain alphanumeric characters and spaces. It should not be blank and be at most 30 characters long.
-* `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
+* `NAME`, if specified, should only contain alphanumeric characters and spaces. It should not be blank and be at most 30 characters long.
+* `PHONE_NUMBER`, if specified, should only contain numeric characters, and should be 3-15 digits long.
 * `TELEGRAM`, if specified, should only contain alphanumeric characters and underscore (_), and should be 5-40 characters long. It also should not have multiple consecutive underscores or begin or end with an underscore.
 * `GITHUB`, if specified, should only contain alphanumeric characters and hyphen (-), and be at most 39 characters long. It also should not have multiple consecutive hyphens or begin or end with a hyphen.
-* `ADDRESS` should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters.
-* `EMAIL` should be a **valid** email with length not exceeding 60 characters.
+* `ADDRESS`, if specified, should only contain alphanumeric characters, spaces, and the following punctuations: **!"#$&'()\*+,-.:;<=>?@**. Its length should not exceed 80 characters.
+* `EMAIL`, if specified, should be a **valid** email with length not exceeding 60 characters.
 * **Valid** `EMAIL` are emails that are of the format *local-part@domain* and adhere to the following constraints:
     * The local-part should only contain alphanumeric characters and the following special characters: **+_.-**. It cannot start or end with any special characters and cannot have consecutive special characters.
     * The domain part is made up of domain labels separated by periods (e.g. domain-label1.domain-label2.com). It must end with a domain label at least 2 characters long, each domain label starts and end with alphanumeric characters, and each domain label consists of only alphanumeric characters, separated only by hyphens, if any.
-* `TAG` should only contain alphanumeric characters and be at most 30 characters long. It should not contain whitespaces and cannot be blank.
+* `TAG`, if specified, should only contain alphanumeric characters and be at most 30 characters long. It should not contain whitespaces and cannot be blank.
 * `TAG` is case-insensitive (`BestFriend` and `bestFriend` will be considered the same tag) and will be converted to the lowercase for display. Duplicate tags will be ignored and only one will be taken.
 * Editing `TAG` will replace the Person's current `TAG`s with the newly inputted `TAG`s.
 * You cannot edit a person's name and/or phone number such that there will be duplicate persons in UniGenda. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
