@@ -350,7 +350,6 @@ Assuming that you started the application from the directory containing `UniGend
 Result of `importSchedule 2 pa/Han Qin.json`:
 ![result for importSchedule](images/importScheduleResult.png)
 
-
 ### 4.6 Exporting a person's schedule: `exportSchedule`
 
 Format: `exportSchedule INDEX`
