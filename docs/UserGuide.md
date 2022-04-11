@@ -392,9 +392,9 @@ Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]...`
 * If the date is not given, today's date will be the default date used for checking.
 
 Examples:
-* `whoIsFree ti/23:00` will filter all persons who are not free today.
+* `whoIsFree ti/23:00` display all persons who are free today at 23:00.
 ![result for whoIsFree ti/23:00](images/whoIsFreeResult1.png) <br>
-* `whoIsFree ti/12:00 t/friends` will filter all persons who are not free today, and then get those with `friend` tags.
+* `whoIsFree ti/12:00 t/friends` displays all persons with `friend` tag who are free today at 12:00.
 ![result for whoIsFree ti/12:00 t/friends](images/whoIsFreeResult2.png)
 
 ### 4.9 Getting common free timing of persons by tag: `findCommonTiming`
