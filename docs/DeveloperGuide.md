@@ -232,6 +232,8 @@ The start date of recurring events are updated upon the start-up of the applicat
     * Difficult to implement, increases likelihood of bugs and may take more time to implement should we misunderstand how Jackson library deciphers data.
     * More awkward type checking and casting when checking for recurrence.
 
+<div style="page-break-after: always;"></div>
+
 **Aspect: How should we implement event's date, time and duration attributes?**
 * **Alternative 1 (current choice):** Use Java's in built LocalDate, LocalTime and Duration classes.
   * Pros:
@@ -271,6 +273,8 @@ A successful execution of the `whoIsFree` command is described as follows:
     * Easy implementation as there is nothing special to take note.
   * Cons:
     * Does not make sense to check dates have already passed.
+
+<div style="page-break-after: always;"></div>
 
 **Aspect: What to do with persons who do not have a schedule?**
 * **Alternative 1 (current implementation)**: Persons without schedule are always free.
@@ -368,6 +372,9 @@ A successful execution of the `viewGroup` command is described as follows:
     * People who share the same tag are likely to be from the same group of friends, hence a user would be able to view the details or schedule of those persons more easily using such a command.
   * Cons:
     * Not able to filter by another attribute of a person such as whether person has schedule or not.
+
+<div style="page-break-after: always;"></div>
+
 * **Alternative 2:** Filter by whether person has schedule or not.
   * Pros: 
     * It allows the user to view the contacts whom they have added their schedule to. These persons can be assumed to be closer to the user as the user has added a schedule to them, hence a user is more likely to plan a meetup with such contacts.
@@ -402,6 +409,9 @@ These timeslots will then be displayed to the user.
 * **Alternative 1(current implementation)**: Partition the day into time blocks in an array. For every event that belongs to a person with the specified tag, get the start and end times of the event and block the relevant time blocks between the 2 timings to indicate that at least 1 person is unavailable during the time blocks. At the end, return the time blocks that have not been blocked.
   * Pros:
     * The method is easier to grasp and has less edge cases that need to be handled.
+
+<div style="page-break-after: always;"></div>
+
   * Cons:
     * To print out free timings, a lot of effort is required to ensure timings that are printed out are bug-free.
 
@@ -539,6 +549,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                                        | clear a contact's schedule easily                                     |
 | `* *`    | user                                        | clear my application data easily                                      |
 | `*`      | user                                        | find a person by name                                                 | locate details of persons without having to go through the entire list |
+
+<div style="page-break-after: always;"></div>
 
 ## 6.3 Use cases
 
@@ -977,6 +989,8 @@ testers are expected to do more *exploratory* testing.
 
     6. Other incorrect editEvent commands to try: `editEvent`, `editEvent 1 1` <br>
        Expected: Similar to previous.
+
+<div style="page-break-after: always;"></div>
 
 ## 7.10 Clearing a person's schedule
 
