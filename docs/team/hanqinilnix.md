@@ -5,21 +5,19 @@ title: Ong Han Qin's Project Portfolio Page
 
 ### Project: UniGenda
 
-UniGenda is a **desktop app for managing contacts and schedules**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a university student having a hard time organising your timetable, or commonly find difficulty scheduling a suitable time to meet up with your project group mates or friends, UniGenda is the app just for you!
-
-With features such as the ability to import your friends' schedules, find friends who are free at a certain date and time, and find common timings to meet with your project teammates, UniGenda makes your university life easier by helping you keep track of not only your own, but also your friends' schedules!
+UniGenda is a **desktop app for managing contacts and schedules**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a university student having a hard time organising your timetable, or find difficulty scheduling a suitable time to meet up with your project group mates or friends, UniGenda is the app just for you!
 
 Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to edit events
   * What it does: Allows user to be able to edit any attribute of an event without deleting and adding.
   * Justification: An `Event` has many attributes to it, e.g. `EventDescription`, `Date`, `Time`, e.t.c. If a user made a mistake while adding event, even though the target user can type fast, it is still inconvenient for the user to type duplicate events if the user only made a minor mistake for one of the attributes. Therefore, allowing the user to edit an event without having to type a lot will make the user experience much better than without this feature.
-  * Highlights: This feature was relatively easy to implement since most of the code can be referenced from `EditCommand` in the existing code base, however, it was also rather time-consuming. It was one of the first features to be implemented and the project idea constantly changed, thus, I had to make changes to the implementation as new features were added. For instance, events were arranged in the order that they were added at the beginning of the project. However, we decided that we want to display the schedule with events sorted by the starting date and time, which caused an issue with retrieving the correct edited events for the results display.
+  * Highlights: This feature was relatively easy to implement since most of the code can be referenced from `EditCommand` in the existing code base, however, it was also rather time-consuming. It was one of the first features to be implemented and the project idea constantly changed, thus, I had to make changes to the implementation as new features were added.
 
 * **New Feature**: Added the feature to find who is free with given date and time
   * What it does: Allows user to find who, in user's address book, is free given the user's date and time input.
   * Justification: This is a main feature of our application. This feature provides convenience and better planning for the user.
-  * Highlights: We did not realise during planning that dealing with dates and times were a great hassle. For instance, the initial implementation of date and time collisions were separated to checking dates and checking times. However, as the development of the project continued, I realised that the collision cannot be separated and must be considered together at all times. This is because an event can span across multiple days, and it would be hard to implement a solution if I were to consider dates and times separately. Also, this feature's command name was `freeSchedule` instead of `whoIsFree` which is the current name. It was changed later during the project as we thought the latter made more sense for users.
+  * Highlights: Dealing with dates and times were a great hassle. For instance, the initial implementation of date and time collisions were separated to checking dates and checking times. However, as the development of the project continued, I realised that the collision cannot be separated and must be considered together at all times. This is because an event can span across multiple days, and it would be hard to implement a solution if I were to consider dates and times separately. Also, this feature's command name was `freeSchedule` instead of `whoIsFree` which is the current name. It was changed later during the project as we thought the latter made more sense for users.
 
 * **New Feature**: Added the ability to export schedule
   * What it does: Allows user to share schedules.
