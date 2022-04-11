@@ -375,8 +375,7 @@ Format: `viewSchedule INDEX`
 * Views the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * The person's schedule for the next 7 days (from system's date, including the current date) will be shown, along with the person's full list of events.
 * The schedule will be displayed in the schedule panel of UniGenda.
-* If you change your system's date, the Upcoming Schedule will **not** update automatically. You need to enter the command once again to view the updated Upcoming Schedule.
-* If your system's date changes (for example after it passes midnight), it will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
+* If your system's date changes (for example after it passes midnight), the upcoming schedule will **not** update automatically as well. You need to enter the command once again to view the updated Upcoming Schedule.
 * The events displayed will be in the following format: <br>
   `STARTING_DATE STARTING_TIME-ENDING_TIME [(+x)] [(Frequency)] EVENT_DESCRIPTION` <br>
   `(+x)` means the event ends at `ENDING_TIME`, x days after the `STARTING_DATE`. <br>
