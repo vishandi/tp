@@ -197,7 +197,7 @@ Shifts the person to the top of the list.
 
 Format: `setUser INDEX`
 
-* Sets the person at the specified `INDEX` as the user. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Sets the person at the specified `INDEX` as the user and shifts his/her contact to the top of the contact list. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
@@ -229,7 +229,7 @@ Format: `viewGroup t/TAG`
 
 * Ensure that the tag is present for at least one person in the person list!
 
-Examples:
+Example:
 * `viewGroup t/groupmates`
 
 ## 4. Schedule Management Commands
@@ -322,7 +322,7 @@ Format: `editEvent INDEX EVENT_NUMBER [ed/EVENT_DESCRIPTION] [da/DATE] [ti/TIME]
 | `W`, `WEEKLY`    | Weekly    |
 | `BW`, `BIWEEKLY` | Biweekly  |
 
-Example:
+Examples:
 * `editEvent 3 3 da/2022-12-21`
 * `editEvent 3 1 ed/CS2103T tutorial da/2022-12-18 ti/14:00 du/2`
 * `editEvent 3 1 ed/CS2103T lecture`
@@ -348,7 +348,7 @@ Format: `importSchedule INDEX pa/FILE_PATH`
   :exclamation: **Caution:** The person's schedule will be **overwritten** with the imported schedule.
 </div>
 
-Examples:
+Example:
 Assuming that you started the application from the directory containing `UniGenda.jar`, and the json file was saved here:
 ![importSchedule directory of saved file](images/importScheduleDirectory.png)
 Result of `importSchedule 2 pa/Han Qin.json`:
@@ -362,7 +362,7 @@ Format: `exportSchedule INDEX`
 * The exported data will be named `[NAME].json`, where `[NAME]` is the name of the person on index `INDEX`.
 * The exported data will be saved in the `data/export/` folder **relative to the folder where the application was opened**.
 
-Examples:
+Example:
 * `exportSchedule 1`
 ![result for exportSchedule 1](images/exportScheduleResult.png)
 
@@ -405,11 +405,12 @@ Examples:
 ![result for whoIsFree ti/12:00 t/friends](images/whoIsFreeResult2.png)
 
 ### 4.9 Getting common free timing of persons by tag: `findCommonTiming`
-Gets the common timings of persons who are free with the same tag on a certain day.
+Lists all timings on the given date in which all contacts with the given tag are free.
 
 Format: `findCommonTiming t/TAG da/DATE`
 
 * Ensure that the tag is present for at least one person in the person list!
+* Timings are filtered in 30-minute blocks, except 23:30-23:59 which is a 29-minute block.
 
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
