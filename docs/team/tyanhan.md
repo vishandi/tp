@@ -17,13 +17,11 @@ Given below are my contributions to the project.
 
 * **New Feature**: Add recurring event functionality.
   * What it does: Allows the user to add daily, weekly or biweekly events to their contacts' schedule instead of just 1 time events.
-  * Justification: This feature is necessary for users to add events like classes that occur weekly/biweekly to their contacts' schedules.
   * Highlights: Ensuring that the events recurred correctly was the challenging part. I also had to read up on how to make use of `LocalDate`, `LocalTime`, `ChronoUnit` etc. to get the correct recurring dates. Thankfully, my teammates Vishandi and Han Qin were ready to help me test for bugs in my code. Also, since dates and times were prone to bugs, I spent some time ensuring that intentional misuse of our application (by supplying nonsensical dates) would not break the app, but rather show logical feedback to the user.
     * Credits: Han Qin (GitHub username: hanqinilnix) and Vishandi (GitHub username: vishandi)
 
 * **New Feature**: Added the ability to import schedules.
-  * What it does: Allows users to import a schedule from a JSON file.
-  * Justification: This feature would allow users to add their contacts' schedules more efficiently since they wouldn't need to add events 1 by 1, and can instead run a simple importSchedule command to add all the necessary events. It is essential to make the product more user-friendly.
+  * What it does: Allows users to import a schedule from a JSON file, instead of having to add events 1 by 1.
   * Highlights: I had to re-look at how the `Storage` worked in order to ensure that we could read/write to json files in the format that we wanted. I realised here that adding `JsonAdaptedEvent` and `JsonAdaptedSchedule` would be necessary, as Jackson's default save structure differed from how it expects the json file to be read. Besides having to deal with the Storage, I had to consider the possible errors that a user could encounter when reading the json file.
 
 * **New Feature**: Added the ability to clear a person's schedule.
