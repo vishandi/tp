@@ -253,19 +253,24 @@ public class Event implements Comparable<Event> {
      * @return true if date and time clashes with {@code Event}
      */
     public boolean willDateTimeCollideEvent(LocalDate date, LocalTime time) {
-        LocalDate closestStartDate = getClosestStartDate(date);
-        LocalDate closestEndDate = getClosestEndDate(date);
+        List<Event> events = getEventsAtDate(date);
+        boolean willCollideEvent = false;
+        for (Event event : events) {
+            LocalDate closestStartDate = event.getClosestStartDate(date);
+            LocalDate closestEndDate = event.getClosestEndDate(date);
 
-        if (ChronoUnit.DAYS.between(date, closestEndDate) >= 0) {
-            LocalDateTime startDateTime = LocalDateTime.of(closestStartDate, this.time);
-            LocalDateTime endDateTime = LocalDateTime.of(closestEndDate, getEndTime());
-            LocalDateTime toCheckDateTime = LocalDateTime.of(date, time);
+            if (ChronoUnit.DAYS.between(date, closestEndDate) >= 0) {
+                LocalDateTime startDateTime = LocalDateTime.of(closestStartDate, event.getTime());
+                LocalDateTime endDateTime = LocalDateTime.of(closestEndDate, event.getEndTime());
+                LocalDateTime toCheckDateTime = LocalDateTime.of(date, time);
 
-            return (startDateTime.isEqual(toCheckDateTime)
-                    || startDateTime.isBefore(toCheckDateTime)
-                    && endDateTime.isAfter(toCheckDateTime));
+                willCollideEvent = willCollideEvent ||
+                        ((startDateTime.isEqual(toCheckDateTime)
+                        || startDateTime.isBefore(toCheckDateTime)
+                        && endDateTime.isAfter(toCheckDateTime)));
+            }
         }
-        return false;
+        return willCollideEvent;
     }
 
     /**
