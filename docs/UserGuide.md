@@ -155,6 +155,8 @@ Examples:
 * add n/John Doe p/98765432
 * add n/Betsy Crow t/friend p/1234567 a/Newgate Prison t/Criminal
 
+<div style="page-break-after: always;"></div>
+
 ### 3.2 Deleting a person : `delete`
 
 Deletes the specified person from UniGenda.
@@ -166,8 +168,6 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command
-
-<div style="page-break-after: always;"></div>
 
 ### 3.3 Editing a person : `edit`
 
