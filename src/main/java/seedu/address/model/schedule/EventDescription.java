@@ -4,8 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class EventDescription {
-    public static final String MESSAGE_CONSTRAINTS = "Event description should not exceed 60 characters and only takes"
-            + " alphanumeric characters, spaces, and the following punctuations: !\"#$&'()*+,-.:;<=>?@";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Event description should not be blank, should not exceed 60 characters,"
+            + " and only takes alphanumeric characters, spaces, and the following punctuations: !\"#$&'()*+,-.:;<=>?@";
     public static final String VALIDATION_REGEX =
             "[a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@][a-zA-Z0-9!\"#$&'()*+,-.:;<=>?@ ]{0,59}$";
     public final String value;
