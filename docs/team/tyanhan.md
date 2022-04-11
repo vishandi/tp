@@ -13,7 +13,7 @@ Given below are my contributions to the project.
 
 * **New Feature**: Added the ability to add events to a contact's schedule.
   * Justification: This feature is one of the core commands in our application, since it affords a `Person` to have a schedule so that a user can check to see his/her contacts' availability.
-  * Highlights: I first had to implement the `Schedule` and `Event` classes to start off the project, before adding the AddEvent command. I had to make decisions regarding how the `Schedule` object should be added and stored. The most challenging part was definitely getting the Storage to successfully save/load the changes to a Person's Schedule, because the Jackson library used by AB3 seemed to have problems loading a nested Json object. I spent a few days googling how I could get the Jackson library to work, and also considered alternative Json structures and libraries(such as GSON) to save/load the Schedule, before finding out that Jackson requires an empty constructor to initialise objects using a nested Json structure. Later on in the project however, I realised that a better solution would have been to create `JsonAdaptedEvent` and `JsonAdaptedSchedule` classes for Jackson to load and store.
+  * Highlights: I first had to implement the `Schedule` and `Event` classes to start off the project, before adding the AddEvent command. The most challenging part was definitely getting the Storage to successfully save/load the new nested json structure. I spent some time learning about the Jackson library, and also considered alternative Json structures and libraries(such as GSON) to save/load the Schedule, before finding out that Jackson requires an empty constructor to initialise objects using a nested Json structure. Later on in the project however, I realised that a better solution would have been to create `JsonAdaptedEvent` and `JsonAdaptedSchedule` classes for Jackson to load and store.
 
 * **New Feature**: Add recurring event functionality.
   * What it does: Allows the user to add daily, weekly or biweekly events to their contacts' schedule instead of just 1 time events.
@@ -41,7 +41,7 @@ Given below are my contributions to the project.
 * **Project management**:
   * Set up the team's organisation and repository.
   * Wrote the full `v1.3 Demo` documentation.
-  * Evaluated the feasibility of incorporating NUSMods into our app, and decided against it.
+  * Evaluated the feasibility of incorporating NUSMods API into our app, and decided against it.
 
 * **Enhancements to existing features**:
   * Fixed the GUI size and removed the resizable icon on mouse hover bug. [#121](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/121)
@@ -58,8 +58,4 @@ Given below are my contributions to the project.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments):
-    * [#25](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/25)
-    * [#102](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/102)
-    * [#108](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/108)
-    * [#109](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/109)
-    * [#124](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/124)
+    * [#25](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/25), [#102](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/102), [#108](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/108), [#109](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/109), [#124](https://github.com/AY2122S2-CS2103T-W09-1/tp/pull/124)
