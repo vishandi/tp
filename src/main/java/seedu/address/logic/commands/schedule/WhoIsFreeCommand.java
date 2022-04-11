@@ -30,7 +30,7 @@ public class WhoIsFreeCommand extends Command {
             + "Parameters: "
             + PREFIX_TIME + "TIME "
             + "[" + PREFIX_DATE + "DATE] "
-            + "[" + PREFIX_TAG + "TAG]\n"
+            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TIME + "12:00 "
             + PREFIX_DATE + "2022-02-14";
