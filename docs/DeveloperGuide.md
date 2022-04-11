@@ -390,13 +390,13 @@ These timeslots will then be displayed to the user.
   * Pros:
     * The method is easier to grasp and has less edge cases that need to be handled.
   * Cons:
-    * To print out free timings, a lot of effort is required to ensure timings to be printed out are bug-free.
+    * To print out free timings, a lot of effort is required to ensure timings that are printed out are bug-free.
 
 * **Alternative 2**: Create a new TimeSlot class that has a start time and a duration attribute. Create an array containing 1 TimeSlot object with a start time of 00:00 and duration of 24 hours to represent the day. For every event that belongs to a person with the specified tag, get the start and end times of the event and split the TimeSlot object to "remove" the timeslots in which a person with the specified tag is not free. For instance, if the event is from 12:00-14:00, the TimeSlot object can be split into a TimeSlot with a start time of 00:00 and duration of 12 hours, and a TimeSlot with a start time of 14:00 and a duration of 10 hours. After every event is processed, return the array of TimeSlot objects.
     * Pros: 
       * It is a robust solution, which if carried out correctly, would result in there being minimal effort in printing out the blocks of free time available.
     * Cons:
-      * There are a number of edge cases to handle of high complexity due to overlapping timings between different contacts with various edge cases that are too complex to handle.
+      * There are a number of edge cases to handle of high complexity due to overlapping timings between different contacts.
       
 **Aspect: Should we show timings that a group of persons with the same tag are free by the minute, or in 30-minute blocks?**
 * **Alternative 1 (current implementation)**: Show common free timings in 30-minute blocks.
