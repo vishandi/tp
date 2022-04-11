@@ -339,7 +339,7 @@ View Group feature allows the user to be able to view a list of persons who shar
 `ViewGroupParser`, `ViewGroupCommand` and `IsTagInPersonPredicate` classes are involved in the execution of the `ViewGroup` command.
 
 The parsing of viewGroup command is handled by the following classes:
-* 'AddressBookParser'
+* `AddressBookParser`
     * Checks that the user input contains the ViewGroupCommand.COMMAND_WORD  and calls `ViewGroupParser#parse()`
 * `ViewGroupParser`
     * Parses the user input to extract the required arguments.
@@ -390,23 +390,22 @@ The parsing of findCommonTiming command is handled by the following classes:
     * Creates a new `IsTagInPersonPredicate` object that will help check if persons in the address book have the tag that the user has inputted.
     * Returns a `FindCommonTimingCommand` to be executed by the `LogicManager`.
 
-Given below is an example usage scenario and explanation on how the 'findCommonTiming' command behaves at each step.
+Given below is an example usage scenario and explanation on how the `findCommonTiming` command behaves at each step.
 
-1. The user enters 'findCommonTiming t/friends da/2022-03-04' to find the common timings that the persons who share the same tag are free. 
-The arguments 't/friends da/2022-03-04' are passed to the 'findCommonTimingParser' through its 'parse' method call.
+1. The user enters `findCommonTiming t/friends da/2022-03-04` to find the common timings that the persons who share the same tag are free. 
+The arguments `t/friends da/2022-03-04` are passed to the `findCommonTimingParser` through its `parse` method call.
 
-2. The user input 't/friends da/2022-03-04' will be checked to ensure that empty input is not given.
+2. The user input `t/friends da/2022-03-04` will be checked to ensure that empty input is not given.
 
-3. A new 'IsTagInPersonPredicate' object is created and encapsulated by a new 'FindCommonTiming'
-object.
+3. A new `IsTagInPersonPredicate` object is created and encapsulated by a new `FindCommonTiming` object.
 
-4. The 'FindCommonTiming' object is returned to the 'LogicManager'.
+4. The `FindCommonTiming` object is returned to the `LogicManager`.
 
-5. During the execution of the command, the 'FindCommonTiming' object calls 'Model#updateFilteredPersonList' method with the 'IsTagInPersonPredicate' to get the list of persons that share the same tag. 
+5. During the execution of the command, the `FindCommonTiming` object calls `Model#updateFilteredPersonList` method with the `IsTagInPersonPredicate` to get the list of persons that share the same tag. 
 The schedules of all the persons will be consolidated and events will be checked if they occur on the date inputted by the user.
 A default timeslot will be created such that it will be assumed that the whole day is free, after which 30-minute timeslots will be blocked out according to events that are determined to occur on that particular date.
 
-6. A 'CommandResult' with the timeslots that the persons are free will be returned(timeslots are in intervals of 30 minutes). 
+6. A `CommandResult` with the timeslots that the persons are free will be returned(timeslots are in intervals of 30 minutes). 
 These timeslots will then be displayed to the user.
 
 ### Design Considerations
@@ -833,7 +832,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy into an empty folder.
 
    2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts.
 
@@ -852,7 +851,8 @@ testers are expected to do more *exploratory* testing.
     4. Test case: `add n/John` <br>
        Expected: No person is added. Error detail is shown in the status message.
 
-    5. Other incorrect add commands to try: `add`, `add 1`.
+    5. Other incorrect add commands to try: `add`, `add 1` <br>
+       Expected: Similar to previous.
 
 ## 7.3 Deleting a person
 
@@ -906,17 +906,17 @@ testers are expected to do more *exploratory* testing.
 
 1.  Viewing all contacts that share the same tag
 
-    1. Prerequisities: List all persons using the 'list' command. More than one person in the list. 
+    1. Prerequisities: List all persons using the `list` command. More than one person in the list. 
         Ensure that at least one of the contacts have the tag "friends" attached to them. 
-        Ensure that none of the persons have the tag "t/mates" attached to them.
+        Ensure that none of the persons have the tag "mates" attached to them.
     
-    2. Test case: 'viewGroup t/friends'
+    2. Test case: `viewGroup t/friends`
        Expected: All persons who have the tag "friends" will be listed in the addressbook.
        
-    3. Test case: 'viewGroup t/'
+    3. Test case: `viewGroup t/`
        Expected: Error message shown that tag cannot be empty, along with other restrictions on tag name.
     
-    4. Test case: 'viewGroup t/mates'(i.e. a tag that is not attached to any contact)
+    4. Test case: `viewGroup t/mates` (i.e. a tag that is not attached to any contact)
        Expected: Error message shown that tag is not assigned to any contact.
 
 ## 7.7 Adding an event
@@ -1088,7 +1088,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Listing out times that contacts that share the same tag are free for a particular day
     
-    1. Prerequisites: List all persons using the 'list' command. Multiple persons in the list. 
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list. 
         Ensure that there are at least two contacts that share a similar tag called "friends". 
         Ensure that at least two contacts sharing the tag "friends" have an event occurring on 2022-12-28. 
         Ensure that no event is scheduled to occur on 2022-12-29 for the contacts sharing the tag "friends".
