@@ -34,8 +34,10 @@ With features such as the ability to import your friends' schedules, find friend
 5. [FAQ](#5-faq)
 6. [Command Summary](#6-command-summary)
 
---------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## 1. Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -59,7 +61,9 @@ With features such as the ability to import your friends' schedules, find friend
    * **`addEvent`**`1 ed/CS2103T Tutorial da/2022-03-16 ti/10:00 du/1` : Adds a CS2103T Tutorial event to the first person.
 
    * **`exit`** : Exits the app.
-<div style="page-break-after: always;"></div> 
+
+<div style="page-break-after: always;"></div>
+   
 Refer below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -95,6 +99,7 @@ Refer below for details of each command.
 </div>
 
 <div style="page-break-after: always;"></div>
+
 ## 2. General Commands
 
 ### 2.1 Viewing help : `help`
@@ -122,7 +127,9 @@ Format: `list`
 Exits UniGenda.
 
 Format: `exit`
+
 <div style="page-break-after: always;"></div>
+
 ## 3. Contact Management Commands
 
 ### 3.1 Adding a person: `add`
@@ -159,7 +166,9 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in UniGenda
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command
+
 <div style="page-break-after: always;"></div>
+
 ### 3.3 Editing a person : `edit`
 
 Edits an existing person in the UniGenda.
@@ -190,7 +199,7 @@ Examples:
 * `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 * `edit 1 p/91234567 e/` Removes the 1st person's email address, if it exists previously.
-<div style="page-break-after: always;"></div>
+
 ### 3.4 Setting a person as the user : `setUser`
 
 Shifts the person to the top of the list.
@@ -202,7 +211,7 @@ Format: `setUser INDEX`
 Examples:
 * `list` followed by `setUser 2` sets the 2nd person in UniGenda as the user
 * `find Betsy` followed by `setUser 1` sets the 1st person in the results of the `find` command as the user
-<div style="page-break-after: always;"></div>
+
 ### 3.5 Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords.
@@ -220,7 +229,7 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
-<div style="page-break-after: always;"></div>
+
 ### 3.6 Viewing persons by tags: `viewGroup`
 
 Shows a list of all persons with the specified tag.
@@ -231,6 +240,7 @@ Format: `viewGroup t/TAG`
 
 Example:
 * `viewGroup t/groupmates`
+
 <div style="page-break-after: always;"></div>
 
 ## 4. Schedule Management Commands
@@ -276,7 +286,6 @@ Examples:
 * `addEvent 3 ed/Open House da/2022-12-20`
 * `addEvent 2 ed/CCA Meeting da/2023-11-23 ti/12:00 du/1H30M r/W`
 * `addEvent 1 ed/CS2103T Coding da/2023-10-23 ti/12:00 du/1H30M r/Daily`
-<div style="page-break-after: always;"></div>
 
 ### 4.2 Deleting an event from a person's schedule: `deleteEvent`
 
@@ -336,6 +345,7 @@ Format: `clearSchedule INDEX`
 * Clears the schedule of the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 
 <div style="page-break-after: always;"></div>
+
 ### 4.5 Importing a person's schedule: `importSchedule`
 
 Imports a schedule from a file to the specified person. The specified person's schedule will be overwritten.
@@ -355,6 +365,7 @@ Assuming that you started the application from the directory containing `UniGend
 ![importSchedule directory of saved file](images/importScheduleDirectory.png)
 Result of `importSchedule 2 pa/Han Qin.json`:
 ![result for importSchedule](images/importScheduleResult.png)
+
 <div style="page-break-after: always;"></div>
 
 ### 4.6 Exporting a person's schedule: `exportSchedule`
@@ -368,6 +379,7 @@ Format: `exportSchedule INDEX`
 Example:
 * `exportSchedule 1`
 ![result for exportSchedule 1](images/exportScheduleResult.png)
+
 <div style="page-break-after: always;"></div>
 
 ### 4.7 Viewing a person's schedule : `viewSchedule`
@@ -390,6 +402,8 @@ Examples:
 * `list` followed by `viewSchedule 4` views the 4th person in UniGenda
   ![result for 'view 4'](images/viewScheduleResult.png)
 * `find Betsy` followed by `viewSchedule 1` views the 1st person in the results of the `find` command
+
+<div style="page-break-after: always;"></div>
 
 ### 4.8 Getting persons who are free: `whoIsFree`
 
@@ -417,6 +431,8 @@ Format: `findCommonTiming t/TAG da/DATE`
 
 Example:
 * `findCommonTiming t/groupmates da/2022-03-04`
+
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -457,8 +473,9 @@ will discard all data and start with an empty data file at the next run.
 
 **Case 2**: If the application is opened with terminal or command prompt, **ensure** that you are in the correct directory that the `UniGenda` application is in before entering the command: `java -jar UniGenda.jar`. A folder named `data` should appear in the same folder as your UniGenda application. The exported file would be in `data/export/`.
 
---------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## 6. Command Summary
 
@@ -481,6 +498,7 @@ will discard all data and start with an empty data file at the next run.
 | **SetUser**   | `setUser INDEX`<br> e.g., `setUser 3`                                                                                                                                                                                     |
 | **Find**      | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                                                |
 | **ViewGroup** | `viewGroup t/tag`<br>e.g., `viewGroup t/groupmates`                                                                                                                                                                       |
+
 <div style="page-break-after: always;"></div>
 
 ### Schedule Management Commands <a name="commandsummary-schedulemanagementcommands"></a>
