@@ -31,7 +31,6 @@ class EventDescriptionTest {
         assertTrue(EventDescription.isValidEventDescription("hougang 1st Ave")); // alphanumeric characters
         assertTrue(EventDescription.isValidEventDescription("Hougang 1st Ave")); // with capital letters
         assertTrue(EventDescription.isValidEventDescription("Blk 64 Lorong 5 Toa Payoh")); //long names
-        assertTrue(EventDescription.isValidEventDescription("^")); // non-alphanumeric characters
         assertTrue(EventDescription.isValidEventDescription("Jurong*")); // contains non-alphanumeric characters
         assertTrue(EventDescription.isValidEventDescription("O".repeat(60))); // maximum length
     }
