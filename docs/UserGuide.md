@@ -138,11 +138,6 @@ Adds a person to UniGenda.
 
 Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
-* `NAME` should only contain alphanumeric characters and spaces. It should not be blank and be at most 30 characters long.
-* `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
-* `EMAIL`, if specified, should be a **valid** email.
-* Similarly, `TELEGRAM` and `GITHUB`, if specified, should be **valid** usernames as well.
-* `TAG`, if specified, should only contain alphanumeric characters and be at most 30 characters long. It should not contain whitespaces and cannot be blank.
 * `TAG` is case-insensitive (`BestFriend` and `bestFriend` will be considered the same tag) and will be converted to the lowercase for display. Duplicate tags will be ignored.
 * You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
 
@@ -176,14 +171,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL
 * When editing tags, the existing tags of the person will be removed, i.e., adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * You can also remove telegram, github, email, or address by typing its corresponding prefix without specifying anything after it.
-* `NAME` should only contain alphanumeric characters and spaces. It should not be blank and be at most 30 characters long.
-* `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
-* `EMAIL`, if specified, should be a **valid** email.
-* Similarly, `TELEGRAM` and `GITHUB`, if specified, should be **valid** usernames as well.
-* `TAG`, if specified, should only contain alphanumeric characters and be at most 30 characters long. It should not contain whitespaces and cannot be blank.
 * `TAG` is case-insensitive (`BestFriend` and `bestFriend` will be considered the same tag) and will be converted to the lowercase for display. Duplicate tags will be ignored.
-* Editing `TAG` will replace the Person's current `TAG`s with the newly inputted `TAG`s.
-* You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
 * You cannot edit a person's name and/or phone number such that there will be duplicate persons in UniGenda. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
 
 Examples:
