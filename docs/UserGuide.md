@@ -141,7 +141,7 @@ Format: `add n/NAME p/PHONE_NUMBER [tg/TELEGRAM] [gh/GITHUB] [e/EMAIL] [a/ADDRES
 * `NAME` should only contain alphanumeric characters and spaces. It should not be blank and be at most 30 characters long.
 * `PHONE_NUMBER` should only contain numeric characters, and should be 3-15 digits long.
 * `EMAIL`, if specified, should be a **valid** email.
-* Similarly, `TELEGRAM` and `GITHUB`, if specified, should be a **valid** usernames as well.
+* Similarly, `TELEGRAM` and `GITHUB`, if specified, should be **valid** usernames as well.
 * `TAG`, if specified, should only contain alphanumeric characters and be at most 30 characters long. It should not contain whitespaces and cannot be blank.
 * `TAG` is case-insensitive (`BestFriend` and `bestFriend` will be considered the same tag) and will be converted to the lowercase for display. Duplicate tags will be ignored.
 * You cannot add duplicate persons. Persons are considered to be duplicates if they share the same name (case-insensitive) and phone number.
