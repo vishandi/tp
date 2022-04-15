@@ -397,9 +397,9 @@ Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]...`
 * If the date is not given, today's date will be the default date used for checking.
 
 Examples:
-* `whoIsFree ti/23:00` display all persons who are free today at 23:00.
+* `whoIsFree ti/23:00` display all persons who are free today at 23:00. <br>
 <img src="images/whoIsFreeResult1.png" alt="drawing" width="500"/>
-* `whoIsFree ti/12:00 t/friends` displays all persons with `friend` tag who are free today at 12:00.
+* `whoIsFree ti/12:00 t/friends` displays all persons with `friend` tag who are free today at 12:00. <br>
 <img src="images/whoIsFreeResult2.png" alt="drawing" width="500"/>
 
 <div style="page-break-after: always;"></div>
