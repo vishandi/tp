@@ -209,7 +209,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+ <img src="images/findAlexDavidResult.png" alt="drawing" width="600"/>
 
 ### 3.6 Viewing persons by tags: `viewGroup`
 
@@ -398,9 +398,11 @@ Format: `whoIsFree ti/TIME [da/ DATE] [t/TAG]...`
 
 Examples:
 * `whoIsFree ti/23:00` display all persons who are free today at 23:00.
-![result for whoIsFree ti/23:00](images/whoIsFreeResult1.png) <br>
+<img src="images/whoIsFreeResult1.png" alt="drawing" width="500"/>
 * `whoIsFree ti/12:00 t/friends` displays all persons with `friend` tag who are free today at 12:00.
-![result for whoIsFree ti/12:00 t/friends](images/whoIsFreeResult2.png)
+<img src="images/whoIsFreeResult2.png" alt="drawing" width="500"/>
+
+<div style="page-break-after: always;"></div>
 
 ### 4.9 Getting common free timing of persons by tag: `findCommonTiming`
 Lists all timings on the given date in which all contacts with the given tag are free.
